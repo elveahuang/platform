@@ -1,0 +1,82 @@
+.default-layout {
+    min-height: 100%;
+}
+
+.default-layout > .header {
+    width: 100%;
+    height: 64px;
+    background: #2f54eb;
+    margin: auto;
+    position: relative;
+    z-index: 999;
+    overflow: hidden;
+    box-shadow: 0 0 0 transparent;
+}
+
+.default-layout.home-layout > .home-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.default-layout > .header > .header-row {
+    max-width: 100%;
+    background: black;
+    margin: auto;
+    padding: 0 24px;
+    transition: max-width 2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.default-layout.home-layout > .header > .header-row {
+    max-width: 1280px;
+}
+
+.default-layout > .header .header-logo {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    text-decoration: none;
+    line-height: 64px;
+    height: 64px;
+    color: #fff;
+}
+
+.default-layout > .header .header-logo > img {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+}
+
+.default-layout > .header .header-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.default-layout .header .ant-menu.ant-menu-horizontal {
+    background: transparent;
+    border-bottom: none;
+}
+
+.default-layout .header .ant-menu.ant-menu-horizontal > .ant-menu-item a {
+    color: #fff;
+}
+
+.default-layout .header .header-menu .ant-menu-horizontal > .ant-menu-item:hover,
+.default-layout .header .header-menu .ant-menu-horizontal > .ant-menu-item.ant-menu-item-selected {
+    color: #fff;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid transparent;
+}
+
+.default-layout .header .ant-menu-horizontal > .ant-menu-item,
+.default-layout .header .ant-menu-horizontal > .ant-menu-submenu {
+    min-width: 40px;
+    height: 64px;
+    margin-right: 12px;
+    margin-left: 12px;
+    line-height: 60px;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+}

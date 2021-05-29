@@ -1,0 +1,7 @@
+{
+    "name": "www-react-mobile",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react"
+}

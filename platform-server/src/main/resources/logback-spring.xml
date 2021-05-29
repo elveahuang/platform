@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/app.log}"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+
+    <!-- 开发模式 -->
+    <springProfile name="development | shardingsphere">
+
+        <root level="debug">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </root>
+
+        <logger name="org.redisson.connection.DNSMonitor" level="warn"/>
+        <logger name="org.springframework" level="debug"/>
+        <logger name="org.hibernate" level="debug"/>
+
+        <logger name="cn.elvea" level="debug" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </logger>
+
+    </springProfile>
+
+    <!-- 生产模式 -->
+    <springProfile name="production">
+
+        <root level="warn">
+            <appender-ref ref="FILE"/>
+        </root>
+
+        <logger name="cn.elvea" level="debug" additivity="false">
+            <appender-ref ref="FILE"/>
+        </logger>
+
+    </springProfile>
+
+</configuration>

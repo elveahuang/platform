@@ -1,0 +1,11 @@
+dependencies {
+    // spring
+    api("org.springframework.security:spring-security-config")
+    api("org.springframework.security:spring-security-web")
+    // modules
+    api project(':platform-commons:platform-commons')
+    api project(':platform-commons:platform-persistence')
+    api project(':platform-modules:platform-core-api')
+    // test
+    compileOnly("jakarta.servlet:jakarta.servlet-api")
+}

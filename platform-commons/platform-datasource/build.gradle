@@ -1,0 +1,10 @@
+dependencies {
+    // spring
+    api("org.springframework:spring-aop")
+    // 3rd party
+    api("org.aspectj:aspectjweaver")
+    api("mysql:mysql-connector-java")
+    api("org.apache.shardingsphere:shardingsphere-jdbc-core:${shardingSphereVersion}")
+    // modules
+    api project(':platform-commons:platform-base')
+}

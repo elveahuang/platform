@@ -1,0 +1,12 @@
+dependencies {
+    // spring
+    api("org.springframework.boot:spring-boot-starter-jdbc")
+    api("org.springframework.boot:spring-boot-starter-data-jdbc")
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    // spring extensions
+    api("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootVersion}")
+    // modules
+    api project(':platform-commons:platform-commons-starter')
+    api project(':platform-commons:platform-persistence')
+}

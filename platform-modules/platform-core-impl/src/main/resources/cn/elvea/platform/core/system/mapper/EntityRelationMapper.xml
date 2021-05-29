@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.elvea.platform.core.system.mapper.EntityRelationMapper">
+
+    <select id="searchByPageable" resultType="cn.elvea.platform.core.system.domain.entity.EntityRelationEntity">
+        select * from sys_entity_relation
+    </select>
+
+    <select id="searchByPage" resultType="cn.elvea.platform.core.system.domain.entity.EntityRelationEntity">
+        select * from sys_entity_relation
+    </select>
+
+</mapper>

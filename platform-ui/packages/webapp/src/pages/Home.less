@@ -1,0 +1,44 @@
+.home-banner {
+    position: relative;
+    height: 448px;
+    overflow: hidden;
+    background: red;
+    /*background: url(../assets/images/home-banner.svg);*/
+    /*background-size: cover;*/
+    text-align: center;
+    display: block;
+}
+
+.home-banner-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.home-banner-holder {
+    position: relative;
+    z-index: 1;
+    margin-top: 160px;
+}
+
+.home-banner-content {
+    margin: 0 auto;
+    padding: 0 16px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.home-content {
+    width: 100px;
+    height: 100px;
+    background: red;
+    margin: 100px;
+    transition: width 2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.home-content:hover {
+    width: 300px;
+    height: 300px;
+}

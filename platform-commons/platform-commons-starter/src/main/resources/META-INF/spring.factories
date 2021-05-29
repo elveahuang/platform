@@ -1,0 +1,9 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.elvea.platform.commons.autoconfigure.CommonsAutoConfiguration,\
+cn.elvea.platform.commons.autoconfigure.id.IdAutoConfiguration,\
+cn.elvea.platform.commons.autoconfigure.redis.CustomRedisAutoConfiguration,\
+cn.elvea.platform.commons.autoconfigure.storage.StorageAutoConfiguration,\
+cn.elvea.platform.commons.autoconfigure.translater.TranslatorAutoConfiguration,\
+cn.elvea.platform.commons.autoconfigure.time.DateTimeAutoConfiguration,\
+cn.elvea.platform.commons.autoconfigure.logging.LoggingAutoConfiguration,\
+cn.elvea.platform.commons.autoconfigure.jwt.JwtAutoConfiguration

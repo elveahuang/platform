@@ -1,0 +1,6 @@
+dependencies {
+    // swagger
+    api("org.springdoc:springdoc-openapi-ui:${springDocVersion}")
+    // modules
+    api project(':platform-commons:platform-swagger-starter')
+}

@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+.gradle
+*.iml
+yarn.lock
+out
+logs
+build
+temp
+application-test.properties

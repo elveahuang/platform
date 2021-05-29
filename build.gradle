@@ -1,0 +1,117 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://maven.aliyun.com/repository/public"
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:${spotbugsGradlePluginVersion}")
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+}
+
+subprojects {
+    repositories {
+        maven {
+            url "https://maven.aliyun.com/repository/public"
+        }
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'checkstyle'
+    apply plugin: "com.github.spotbugs"
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+            mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}")
+            mavenBom("de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}")
+        }
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    jar {
+        enabled = true
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    dependencies {
+        // test
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("org.springframework.security:spring-security-test")
+        testImplementation("org.junit.jupiter:junit-jupiter-api")
+        testImplementation("org.junit.jupiter:junit-jupiter-engine")
+        // lombok
+        compileOnly("org.projectlombok:lombok")
+        annotationProcessor("org.projectlombok:lombok")
+        testCompileOnly("org.projectlombok:lombok")
+        testAnnotationProcessor("org.projectlombok:lombok")
+        // mapstruct
+        implementation("org.mapstruct:mapstruct:${mapStructVersion}")
+        annotationProcessor("org.mapstruct:mapstruct-processor:${mapStructVersion}")
+        testImplementation("org.mapstruct:mapstruct:${mapStructVersion}")
+        testAnnotationProcessor("org.mapstruct:mapstruct-processor:${mapStructVersion}")
+    }
+
+    configurations.all {
+        // 强制排除未使用的库
+        exclude module: 'commons-logging'
+        exclude module: 'commons-dbcp'
+        exclude module: 'junit-vintage-engine'
+        exclude module: 'log4j'
+        exclude module: 'ehcache'
+        exclude module: 'poi-ooxml-schemas'
+        exclude module: 'javax.activation-api'
+
+        // 强制使用指定版本以解决版本冲突
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.name == 'asm') {
+                details.useVersion "${asmVersion}"
+            } else if (details.requested.name == 'guava') {
+                details.useVersion "${guavaVersion}"
+            } else if (details.requested.name == 'commons-io') {
+                details.useVersion "${commonsIoVersion}"
+            } else if (details.requested.name == 'commons-compress') {
+                details.useVersion "${commonsCompressVersion}"
+            } else if (details.requested.name == 'commons-collections4') {
+                details.useVersion "${commonsCollectionsVersion}"
+            } else if (details.requested.name == 'commons-lang3') {
+                details.useVersion "${commonsLangVersion}"
+            } else if (details.requested.name == 'joda-time') {
+                details.useVersion "${jodaTimeVersion}"
+            } else if (details.requested.name == 'annotations') {
+                details.useVersion "${jetbrainsAnnotationsVersion}"
+            } else if (details.requested.name == 'okio') {
+                details.useVersion "${okIoVersion}"
+            } else if (details.requested.name == 'javassist') {
+                details.useVersion "${javassistVersion}"
+            }
+        }
+    }
+
+    tasks.withType(Checkstyle) {
+        reports {
+            xml.enabled false
+            html.enabled true
+        }
+    }
+
+    defaultTasks = ['clean', 'build']
+}

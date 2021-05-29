@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "strictNullChecks": false,
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "@commons/*": ["../commons/src/*"],
+            "@/*": ["./src/*"]
+        }
+    }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<suppressions>
+    <suppress files="[/\\]build[/\\]" checks="[a-zA-Z0-9]*"/>
+</suppressions>

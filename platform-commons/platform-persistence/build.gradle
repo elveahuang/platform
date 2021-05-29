@@ -1,0 +1,10 @@
+dependencies {
+    // spring
+    api("org.springframework.boot:spring-boot-starter-data-jdbc")
+    // mybatis
+    api("org.mybatis:mybatis:${mybatisVersion}")
+    api("org.mybatis:mybatis-spring:${mybatisSpringVersion}")
+    api("com.github.jsqlparser:jsqlparser:${jSqlParserVersion}")
+    // modules
+    api project(':platform-commons:platform-commons')
+}

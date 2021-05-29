@@ -1,0 +1,16 @@
+dependencies {
+    // spring
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    // modules
+    implementation project(':platform-commons:platform-commons-starter')
+    implementation project(':platform-commons:platform-persistence-starter')
+    implementation project(':platform-commons:platform-swagger-webmvc-starter')
+    implementation project(':platform-modules:platform-core-web')
+    implementation project(':platform-modules:platform-lxp-web')
+    // test
+    testImplementation("jakarta.servlet:jakarta.servlet-api")
+}

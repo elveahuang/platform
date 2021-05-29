@@ -1,0 +1,12 @@
+dependencies {
+    // spring
+    api("org.springframework.boot:spring-boot-starter-jdbc")
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    //
+    compileOnly("jakarta.servlet:jakarta.servlet-api")
+    // modules
+    api project(':platform-commons:platform-commons-starter')
+    api project(':platform-commons:platform-commons')
+    api project(':platform-commons:platform-datasource')
+}

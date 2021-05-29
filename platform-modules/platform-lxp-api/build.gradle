@@ -1,0 +1,4 @@
+dependencies {
+    // modules
+    api project(':platform-commons:platform-base')
+}

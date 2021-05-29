@@ -1,0 +1,22 @@
+rootProject.name = 'platform'
+
+// 公共服务
+include 'platform-commons:platform-base'
+include 'platform-commons:platform-commons'
+include 'platform-commons:platform-commons-starter'
+include 'platform-commons:platform-datasource'
+include 'platform-commons:platform-datasource-starter'
+include 'platform-commons:platform-persistence'
+include 'platform-commons:platform-persistence-starter'
+include 'platform-commons:platform-swagger-starter'
+include 'platform-commons:platform-swagger-webmvc-starter'
+include 'platform-commons:platform-swagger-webflux-starter'
+// 基础模块
+include 'platform-modules:platform-core-api'
+include 'platform-modules:platform-core-impl'
+include 'platform-modules:platform-core-web'
+include 'platform-modules:platform-lxp-api'
+include 'platform-modules:platform-lxp-impl'
+include 'platform-modules:platform-lxp-web'
+// 业务模块
+include 'platform-server'

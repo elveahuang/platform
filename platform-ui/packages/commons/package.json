@@ -1,0 +1,11 @@
+{
+    "name": "commons",
+    "version": "0.0.1",
+    "private": true,
+    "eslintConfig": {
+        "extends": [
+            "../../.eslintrc.js"
+        ]
+    },
+    "prettier": "../../.prettierrc.js"
+}

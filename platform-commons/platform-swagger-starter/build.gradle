@@ -1,0 +1,8 @@
+dependencies {
+    // spring
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    // swagger
+    api("io.swagger.core.v3:swagger-annotations:${swaggerVersion}")
+    api("io.swagger.core.v3:swagger-models:${swaggerVersion}")
+}
