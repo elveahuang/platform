@@ -1,0 +1,10 @@
+module.exports = {
+    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+    darkMode: false,
+    important: true,
+    theme: {},
+    variants: {
+        extend: {},
+    },
+    plugins: [],
+};

@@ -5,6 +5,7 @@ const CracoBabelLoader = require('craco-babel-loader');
 const CracoLessPlugin = require('craco-less');
 const CracoAntDesignPlugin = require('craco-antd');
 const CracoAlias = require('craco-alias');
+const config = require('./config');
 //
 const appDirectory = fs.realpathSync(process.cwd());
 const resolvePackage = (relativePath) => path.resolve(appDirectory, relativePath);
@@ -18,7 +19,7 @@ module.exports = {
             plugin: CracoLessPlugin,
             options: {
                 lessLoaderOptions: {
-                    modifyVars: { '@primary-color': '#1da57a' },
+                    modifyVars: { '@primary-color': config.primaryColor },
                     javascriptEnabled: true,
                 },
             },

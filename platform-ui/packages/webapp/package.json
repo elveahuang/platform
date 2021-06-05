@@ -11,23 +11,26 @@
         "prettier": "prettier --write ."
     },
     "dependencies": {
-        "antd": "^4.16.0",
-        "antd-mobile": "^2.3.4",
-        "@ant-design/charts": "^1.1.4",
-        "@ant-design/pro-form": "^1.25.0",
-        "@ant-design/pro-layout": "^6.19.0",
-        "@ant-design/pro-table": "^2.38.0",
-        "@ant-design/pro-list": "^1.7.7",
-        "@ant-design/pro-descriptions": "^1.7.12",
-        "@ant-design/pro-card": "^1.12.2"
+        "@ant-design/charts": "^1.1.9",
+        "@ant-design/pro-card": "^1.13.2",
+        "@ant-design/pro-descriptions": "^1.7.15",
+        "@ant-design/pro-form": "^1.27.1",
+        "@ant-design/pro-layout": "^6.19.3",
+        "@ant-design/pro-list": "^1.8.2",
+        "@ant-design/pro-skeleton": "^1.0.1",
+        "@ant-design/pro-table": "^2.39.2",
+        "antd": "^4.16.1",
+        "antd-mobile": "^2.3.4"
     },
     "devDependencies": {
         "@craco/craco": "^6.1.2",
         "@dvhb/craco-extend-scope": "^1.0.1",
         "craco-alias": "^3.0.1",
         "craco-antd": "^1.19.0",
+        "craco-babel-loader": "^0.1.4",
         "craco-less": "^1.17.1",
-        "craco-babel-loader": "^0.1.4"
+        "cross-env": "^7.0.3",
+        "react-scripts": "^4.0.3"
     },
     "eslintConfig": {
         "extends": [
