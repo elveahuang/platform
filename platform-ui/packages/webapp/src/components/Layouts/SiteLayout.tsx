@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Col, Layout, Menu, Row } from 'antd';
 import classNames from 'classnames';
 //
-import { Image_Logo } from '@/core/utils/images';
+import { Image_Logo } from '@/utils/images';
 //
 import './SiteLayout.less';
 

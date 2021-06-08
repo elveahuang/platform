@@ -4,14 +4,9 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
 //
-import Home from './pages/Home';
-import Discover from './pages/Discover';
-import Me from './pages/Me';
-import { applicationVersion } from '@commons/constants';
-//
-import './App.scss';
-
-console.log(applicationVersion);
+import Home from '@/pages/Home';
+import Discover from '@/pages/Discover';
+import Me from '@/pages/Me';
 
 /**
  * App

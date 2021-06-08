@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "types": ["node"],
+        "jsx": "react-jsx",
+        "lib": ["esnext", "dom"],
+        "moduleResolution": "Node",
+        "noEmit": true,
+        "strict": true,
+        "allowJs": false,
+        "sourceMap": true,
+        "skipLibCheck": false,
+        "importHelpers": true,
+        "isolatedModules": true,
+        "esModuleInterop": false,
+        "strictNullChecks": false,
+        "resolveJsonModule": true,
+        "noFallthroughCasesInSwitch": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

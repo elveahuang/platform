@@ -30,7 +30,7 @@ export interface ApplicationState {
     preference: Preference;
 }
 
-export const defaultApplicationState: ApplicationState = {
+export const initialApplicationState: ApplicationState = {
     authenticated: false,
     accessToken: '',
     refreshToken: '',
@@ -82,28 +82,22 @@ export const reducer = (state: ApplicationState, action: ApplicationContextActio
             state.refreshToken = null;
             state.principal = null;
             state.preference = defaultPreference;
-            //
             storageService.removeAccessToken();
             storageService.removeRefreshToken();
-            //
             return { ...state };
         case ApplicationContextActionType.PRINCIPAL: // 设置用户信息
             state.principal = action.principal;
-            //
             return { ...state };
         case ApplicationContextActionType.TOGGLE_THEME: // 切换主题
-            //
             return { ...state };
         case ApplicationContextActionType.TOGGLE_SIDER: // 切换侧边栏
             state.preference.sidebarCollapsed = !state.preference.sidebarCollapsed;
-            //
             return { ...state };
         case ApplicationContextActionType.CHANGE_LOCALE: // 切换语言
             state.preference.locale = action.locale;
-            //
             return { ...state };
         default:
-            throw new Error('Not among actions.');
+            return { ...state };
     }
 };
 
@@ -115,7 +109,7 @@ export interface ApplicationStore {
     dispatch?: React.Dispatch<ApplicationContextAction>;
 }
 
-export const ApplicationContext = createContext<ApplicationStore>({ state: defaultApplicationState });
+export const ApplicationContext = createContext<ApplicationStore>({ state: initialApplicationState });
 
 ApplicationContext.displayName = 'Application Global Context';
 
@@ -136,7 +130,7 @@ export const initialize = async (): Promise<ApplicationState> => {
     const accessToken = storageService.getAccessToken();
     const refreshToken = storageService.getRefreshToken();
     if (isEmpty(accessToken) || isEmpty(refreshToken)) {
-        const applicationState = defaultApplicationState;
+        const applicationState = initialApplicationState;
         applicationState.preference.locale = getBrowserLocale();
         return applicationState;
     } else {

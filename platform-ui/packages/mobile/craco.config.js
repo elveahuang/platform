@@ -8,6 +8,11 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolvePackage = (relativePath) => path.resolve(appDirectory, relativePath);
 
 module.exports = {
+    style: {
+        postcss: {
+            plugins: [require('tailwindcss'), require('autoprefixer')],
+        },
+    },
     plugins: [
         {
             plugin: CracoAlias,

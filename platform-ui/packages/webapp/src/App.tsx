@@ -5,7 +5,7 @@ import { IntlProvider, useIntl } from 'react-intl';
 import { ConfigProvider, Spin } from 'antd';
 //
 import { applicationLocaleMessages } from '@commons/constants';
-import { applicationLocalProdiver } from '@/core/app-constants';
+import { applicationLocalProdiver } from '@/utils/app-constants';
 import {
     ApplicationProvider,
     ApplicationState,

@@ -1,11 +1,20 @@
 {
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "strictNullChecks": false,
-        "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
-            "@commons/*": ["../commons/src/*"],
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@commons/*": ["../commons/src/*"]
         }
-    }
+    },
+    "include": [
+        "./src/**/*.js",
+        "./src/**/*.jsx",
+        "./src/**/*.ts",
+        "./src/**/*.tsx",
+        "../commons/**/*.js",
+        "../commons/**/*.jsx",
+        "../commons/**/*.ts",
+        "../commons/**/*.tsx"
+    ]
 }
