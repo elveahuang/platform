@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import createImportPlugin from 'vite-plugin-import';
 import config from './config';
 
 export default defineConfig({
@@ -20,14 +19,5 @@ export default defineConfig({
             },
         },
     },
-    plugins: [
-        reactRefresh(),
-        tsconfigPaths(),
-        createImportPlugin([
-            {
-                libraryName: 'antd',
-                style: true,
-            },
-        ]),
-    ],
+    plugins: [reactRefresh(), tsconfigPaths()],
 });

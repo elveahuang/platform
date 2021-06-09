@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import { isEmpty } from 'lodash';
-import { Principal } from '@commons/types/principal';
-import { defaultPreference, Preference } from '@commons/types/preference';
+import Principal from '@commons/types/principal';
+import Preference, { initialPreference } from '@commons/types/preference';
 import storageService from '@commons/services/StorageService';
-import { availableApplicationLocales, getBrowserLocale } from '@commons/constants';
+import { getBrowserLocale } from '@commons/utils';
 import UserService from '@commons/services/UserService';
 import { AxiosResponse } from 'axios';
+import { LangType } from '@commons/utils/i18n';
 
 export interface ApplicationState {
     /**
@@ -35,10 +36,11 @@ export const initialApplicationState: ApplicationState = {
     accessToken: '',
     refreshToken: '',
     principal: null,
-    preference: defaultPreference,
+    preference: initialPreference,
 };
 
 export enum ApplicationContextActionType {
+    INITIALIZE,
     LOGIN,
     LOGOUT,
     PRINCIPAL,
@@ -47,23 +49,46 @@ export enum ApplicationContextActionType {
     CHANGE_LOCALE,
 }
 
+export type ApplicationContextInitializeAction = {
+    type: ApplicationContextActionType.INITIALIZE;
+};
+
+export type ApplicationContextLoginAction = {
+    type: ApplicationContextActionType.LOGIN;
+    access_token: string;
+    refresh_token: string;
+};
+
+export type ApplicationContextLogoutAction = {
+    type: ApplicationContextActionType.LOGOUT;
+};
+
+export type ApplicationContextSetPrincipalAction = {
+    type: ApplicationContextActionType.PRINCIPAL;
+    principal: Principal;
+};
+
+export type ApplicationContextToggleThemeAction = {
+    type: ApplicationContextActionType.TOGGLE_THEME;
+};
+
+export type ApplicationContextToggleSiderAction = {
+    type: ApplicationContextActionType.TOGGLE_SIDER;
+};
+
+export type ApplicationContextChangeLocaleAction = {
+    type: ApplicationContextActionType.CHANGE_LOCALE;
+    locale: LangType;
+};
+
 export type ApplicationContextAction =
-    | {
-          type: ApplicationContextActionType.LOGIN;
-          access_token: string;
-          refresh_token: string;
-      }
-    | { type: ApplicationContextActionType.LOGOUT }
-    | {
-          type: ApplicationContextActionType.PRINCIPAL;
-          principal: Principal;
-      }
-    | { type: ApplicationContextActionType.TOGGLE_THEME }
-    | { type: ApplicationContextActionType.TOGGLE_SIDER }
-    | {
-          type: ApplicationContextActionType.CHANGE_LOCALE;
-          locale: availableApplicationLocales;
-      };
+    | ApplicationContextInitializeAction
+    | ApplicationContextLoginAction
+    | ApplicationContextLogoutAction
+    | ApplicationContextSetPrincipalAction
+    | ApplicationContextToggleThemeAction
+    | ApplicationContextToggleSiderAction
+    | ApplicationContextChangeLocaleAction;
 
 export const reducer = (state: ApplicationState, action: ApplicationContextAction): ApplicationState => {
     switch (action.type) {
@@ -81,7 +106,7 @@ export const reducer = (state: ApplicationState, action: ApplicationContextActio
             state.accessToken = null;
             state.refreshToken = null;
             state.principal = null;
-            state.preference = defaultPreference;
+            state.preference = initialPreference;
             storageService.removeAccessToken();
             storageService.removeRefreshToken();
             return { ...state };
@@ -141,7 +166,7 @@ export const initialize = async (): Promise<ApplicationState> => {
                 accessToken: accessToken,
                 refreshToken: refreshToken,
                 principal: resp.data,
-                preference: defaultPreference,
+                preference: initialPreference,
             };
         });
     }

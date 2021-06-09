@@ -1,23 +1,24 @@
 import React from 'react';
-import DefaultLayout from '../components/Layouts/DefaultLayout';
-//
-import './Login.less';
 import { Button, Card, Col, Form, Input, Row } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Store, ValidateErrorEntity } from 'rc-field-form/lib/interface';
+import { useHistory } from 'react-router';
+import { AxiosResponse } from 'axios';
+//
+import './Login.less';
 import { applicationVersion } from '@commons/constants';
 import { UserService } from '@commons/services';
-import { ApplicationContextActionType, useApplicationContext } from '@/context/Application';
-import { useHistory } from 'react-router';
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
 import { OAuthTokenResult } from '@commons/types/oauth/oauth-token-result';
-import { AxiosResponse } from 'axios';
-import { Principal } from '@commons/types/principal';
+import Principal from '@commons/types/principal';
+import { useAppDispatch } from '@/hooks';
+import { setAccessToken, setRefreshToken, setUser } from '@commons/store/user';
 
 const Login = (): React.ReactElement => {
     const intl = useIntl();
     const history = useHistory();
-    const { dispatch } = useApplicationContext();
+    const dispatch = useAppDispatch();
 
     const onFinish = (values: Store) => {
         UserService.auth({
@@ -28,16 +29,10 @@ const Login = (): React.ReactElement => {
             password: values.password,
             clientVersion: applicationVersion,
         }).then(async (resp: AxiosResponse<OAuthTokenResult>) => {
-            dispatch({
-                type: ApplicationContextActionType.LOGIN,
-                access_token: resp.data.access_token,
-                refresh_token: resp.data.refresh_token,
-            });
+            dispatch(setAccessToken(resp.data.access_token));
+            dispatch(setRefreshToken(resp.data.refresh_token));
             UserService.user().then(async (resp: AxiosResponse<Principal>) => {
-                dispatch({
-                    type: ApplicationContextActionType.PRINCIPAL,
-                    principal: resp.data,
-                });
+                dispatch(setUser(resp.data));
                 history.push('/admin');
             });
         });

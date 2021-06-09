@@ -1,6 +1,9 @@
 {
     "name": "commons",
     "version": "0.0.1",
+    "dependencies": {
+        "antd": "^4.16.2"
+    },
     "eslintConfig": {
         "extends": [
             "../../.eslintrc.js"

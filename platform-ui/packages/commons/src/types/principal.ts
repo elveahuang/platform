@@ -1,7 +1,7 @@
 /**
  * 用户凭证
  */
-export interface Principal {
+export default interface Principal {
     /**
      * 唯一标识
      */

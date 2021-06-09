@@ -1,13 +1,13 @@
-import { availableApplicationLocales, defaultApplicationLocale } from '../constants';
+import { LangType } from '@commons/utils/i18n';
 
 /**
  * 用户喜好
  */
-export interface Preference {
+export default interface Preference {
     /**
      * 当前所在地区
      */
-    locale: availableApplicationLocales;
+    locale: LangType;
     /**
      * 当前主题
      */
@@ -21,11 +21,11 @@ export interface Preference {
 /**
  * 默认用户喜好
  */
-export const defaultPreference: Preference = {
+export const initialPreference = {
     /**
      * 当前所在地区
      */
-    locale: defaultApplicationLocale,
+    locale: LangType.ZH_CN,
     /**
      * 当前主题
      */
@@ -34,4 +34,4 @@ export const defaultPreference: Preference = {
      * 侧边栏是否收起
      */
     sidebarCollapsed: false,
-};
+} as Preference;

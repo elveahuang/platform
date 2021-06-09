@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Principal from '@commons/types/principal';
-import storageService from '@commons/services/storage.service';
+import StorageService from '@commons/services/StorageService';
 
 interface UserState {
+    authenticated: boolean;
     accessToken: string;
     refreshToken: string;
     principal: Principal;
 }
 
 const initialUserState: UserState = {
-    accessToken: storageService.getAccessToken() || null,
-    refreshToken: storageService.getRefreshToken() || null,
+    authenticated: false,
+    accessToken: StorageService.getAccessToken() || null,
+    refreshToken: StorageService.getRefreshToken() || null,
     principal: null,
 };
 
@@ -19,20 +21,22 @@ export const userSlice = createSlice({
     initialState: initialUserState,
     reducers: {
         setAccessToken: (state: UserState, action: PayloadAction<string>) => {
-            storageService.setAccessToken(action.payload);
+            StorageService.setAccessToken(action.payload);
             return { ...state, accessToken: action.payload };
         },
         setRefreshToken: (state: UserState, action: PayloadAction<string>) => {
-            storageService.setRefreshToken(action.payload);
+            StorageService.setRefreshToken(action.payload);
             return { ...state, refreshToken: action.payload };
         },
         setUser: (state: UserState, action: PayloadAction<Principal>) => {
-            return { ...state, principal: action.payload };
+            state.authenticated = true;
+            state.principal = action.payload;
+            return state;
         },
         clear: (state: UserState) => {
-            storageService.removeAccessToken();
-            storageService.removeRefreshToken();
-            return { ...state, principal: null, refreshToken: null, accessToken: null };
+            StorageService.removeAccessToken();
+            StorageService.removeRefreshToken();
+            return { ...state, authenticated: false, principal: null, refreshToken: null, accessToken: null };
         },
     },
 });

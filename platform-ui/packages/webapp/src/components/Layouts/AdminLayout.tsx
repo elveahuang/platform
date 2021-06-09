@@ -10,10 +10,12 @@ import {
 } from '@ant-design/icons';
 //
 import './AdminLayout.less';
-import { ApplicationContextActionType, useApplicationContext } from '@/context/Application';
 import { MenuInfo } from 'rc-menu/lib/interface';
-import { availableApplicationLocales } from '@commons/constants';
 import { useHistory } from 'react-router';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { clear } from '@commons/store/user';
+import { changeLang, toggleSidebar } from '@commons/store/app';
+import { defaultLang, LangType } from '@commons/utils/i18n';
 
 type AdminLayoutProps = {
     layoutClassName?: string;
@@ -22,14 +24,13 @@ type AdminLayoutProps = {
 
 const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
     const history = useHistory();
-    const { state, dispatch } = useApplicationContext();
+    const dispatch = useAppDispatch();
+    const state = useAppSelector((state) => state);
 
     const handleAccountMenuChange = (info: MenuInfo) => {
         switch (info.key) {
             case 'logout':
-                dispatch({
-                    type: ApplicationContextActionType.LOGOUT,
-                });
+                dispatch(clear());
                 history.push('/');
                 break;
             default:
@@ -43,26 +44,23 @@ const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
         let selectedLocale;
         switch (info.key) {
             case 'lang_en_us':
-                selectedLocale = availableApplicationLocales.EN_US;
+                selectedLocale = LangType.EN_US;
                 break;
             case 'label_zh_cn':
-                selectedLocale = availableApplicationLocales.ZH_CN;
+                selectedLocale = LangType.ZH_CN;
                 break;
             case 'label_zh_tw':
-                selectedLocale = availableApplicationLocales.ZH_TW;
+                selectedLocale = LangType.ZH_TW;
                 break;
             default:
-                selectedLocale = availableApplicationLocales.EN_US;
+                selectedLocale = defaultLang;
                 break;
         }
-        dispatch({
-            type: ApplicationContextActionType.CHANGE_LOCALE,
-            locale: selectedLocale,
-        });
+        dispatch(changeLang(selectedLocale));
     };
     return (
         <Layout className="admin-layout">
-            <Layout.Sider className="admin-layout-sider" collapsed={state.preference.sidebarCollapsed}>
+            <Layout.Sider className="admin-layout-sider" collapsed={state.app.sidebarCollapsed}>
                 <div className="admin-layout-logo" />
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
                     <Menu.Item key="1" icon={<UserOutlined />}>
@@ -84,17 +82,12 @@ const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
                 <Layout.Header className="admin-content-layout-header">
                     <Row justify="end">
                         <Col flex="64px">
-                            {React.createElement(
-                                state.preference.sidebarCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                                {
-                                    className: 'trigger',
-                                    onClick: () => {
-                                        dispatch({
-                                            type: ApplicationContextActionType.TOGGLE_SIDER,
-                                        });
-                                    },
+                            {React.createElement(state.app.sidebarCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                                className: 'trigger',
+                                onClick: () => {
+                                    dispatch(toggleSidebar());
                                 },
-                            )}
+                            })}
                         </Col>
                         <Col flex="auto">
                             <div className="admin-content-layout-header-nav">
@@ -132,7 +125,7 @@ const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
                                 >
                                     <span className="action account">
                                         <UserOutlined className="avatar" />
-                                        <span className="name">{state.principal.nickname}</span>
+                                        <span className="name">{state.user.principal.nickname}</span>
                                     </span>
                                 </Dropdown>
                                 <Dropdown
