@@ -1,34 +1,33 @@
-.site-layout > .header {
+.main-layout > .header {
     width: 100%;
     height: 64px;
-    background: #2f54eb;
     margin: auto;
     position: relative;
     z-index: 999;
     overflow: hidden;
     box-shadow: 0 0 0 transparent;
+    @apply bg-color-primary;
 }
 
-.site-layout.home-layout > .home-header {
+.main-layout.home-layout > .home-header {
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
 }
 
-.site-layout > .header > .header-row {
+.main-layout > .header > .header-row {
     max-width: 100%;
-    background: black;
     margin: auto;
     padding: 0 24px;
-    transition: max-width 2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition: max-width 1s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.site-layout.home-layout > .header > .header-row {
+.main-layout.home-layout > .header > .header-row {
     max-width: 1280px;
 }
 
-.site-layout > .header .header-logo {
+.main-layout > .header .header-logo {
     display: flex;
     align-items: center;
     font-size: 16px;
@@ -38,36 +37,36 @@
     color: #fff;
 }
 
-.site-layout > .header .header-logo > img {
+.main-layout > .header .header-logo > img {
     width: 28px;
     height: 28px;
     margin-right: 8px;
 }
 
-.site-layout > .header .header-menu {
+.main-layout > .header .header-menu {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.site-layout .header .ant-menu.ant-menu-horizontal {
+.main-layout .header .ant-menu.ant-menu-horizontal {
     background: transparent;
     border-bottom: none;
 }
 
-.site-layout .header .ant-menu.ant-menu-horizontal > .ant-menu-item a {
+.main-layout .header .ant-menu.ant-menu-horizontal > .ant-menu-item a {
     color: #fff;
 }
 
-.site-layout .header .header-menu .ant-menu-horizontal > .ant-menu-item:hover,
-.site-layout .header .header-menu .ant-menu-horizontal > .ant-menu-item.ant-menu-item-selected {
+.main-layout .header .header-menu .ant-menu-horizontal > .ant-menu-item:hover,
+.main-layout .header .header-menu .ant-menu-horizontal > .ant-menu-item.ant-menu-item-selected {
     color: #fff;
     border-top: 2px solid #fff;
     border-bottom: 2px solid transparent;
 }
 
-.site-layout .header .ant-menu-horizontal > .ant-menu-item,
-.site-layout .header .ant-menu-horizontal > .ant-menu-submenu {
+.main-layout .header .ant-menu-horizontal > .ant-menu-item,
+.main-layout .header .ant-menu-horizontal > .ant-menu-submenu {
     min-width: 40px;
     height: 64px;
     margin-right: 12px;

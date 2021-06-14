@@ -8,6 +8,7 @@ export interface AppState {
     lang: LangType;
     timeZone: string;
     sidebarCollapsed: boolean;
+    direction: 'rtl' | 'ltr';
 }
 
 export const initialAppState: AppState = {
@@ -15,6 +16,7 @@ export const initialAppState: AppState = {
     lang: defaultLang,
     timeZone: '',
     sidebarCollapsed: false,
+    direction: 'ltr',
 };
 
 export const appSlice = createSlice({

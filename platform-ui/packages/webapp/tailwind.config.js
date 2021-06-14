@@ -1,5 +1,3 @@
-const config = require('./config');
-
 module.exports = {
     purge: ['./src/**/*.{js,jsx,ts,tsx}', './index.html'],
     darkMode: false,
@@ -7,7 +5,8 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: config.primaryColor,
+                'color-primary': 'var(--color-primary)',
+                'color-secondary': 'var(--color-secondary)',
             },
         },
         screens: {

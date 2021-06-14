@@ -14,7 +14,7 @@ export enum LangType {
 /**
  * react-intl
  */
-export const applicationLocaleMessages = {
+export const localeMessages = {
     [LangType.ZH_CN]: zhCnIntl,
     [LangType.ZH_TW]: zhTwIntl,
     [LangType.EN_US]: enUsIntl,

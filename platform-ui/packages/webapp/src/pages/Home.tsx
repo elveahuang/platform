@@ -1,25 +1,29 @@
-import React from 'react';
-import { SiteLayout } from '../components/Layouts';
+import React, { FC } from 'react';
 //
-import './Home.less';
-import { Button } from 'antd';
+import './Home.scss';
 
-const Home = (): React.ReactElement => {
+const Home: FC = () => {
     return (
-        <SiteLayout layoutClassName="home-layout">
-            <div className="home-container">
-                <div className="home-banner">
-                    <div className="home-banner-background" />
-                    <div className="home-banner-holder">
-                        <div className="home-banner-content">Banner</div>
-                    </div>
-                </div>
-                <div className="text-center">
-                    <Button type="primary">Primary Button</Button>
-                    <div className="home-content">Content</div>
+        <div className="home-container">
+            <div className="home-banner">
+                <div className="home-banner-background" />
+                <div className="home-banner-holder">
+                    <div className="home-banner-content">Banner</div>
                 </div>
             </div>
-        </SiteLayout>
+            <div className="text-center" style={{ height: 300 }}>
+                Home 1
+            </div>
+            <div className="text-center" style={{ height: 300 }}>
+                Home 2
+            </div>
+            <div className="text-center" style={{ height: 300 }}>
+                Home 3
+            </div>
+            <div className="text-center" style={{ height: 300 }}>
+                Home 3
+            </div>
+        </div>
     );
 };
 

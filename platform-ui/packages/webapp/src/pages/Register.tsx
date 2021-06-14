@@ -1,9 +1,9 @@
-import React from 'react';
-import DefaultLayout from '../components/Layouts/DefaultLayout';
+import React, { FC } from 'react';
+import { DefaultLayout } from '@/layouts';
 //
-import './Register.less';
+import './Register.scss';
 
-const Register = (): React.ReactElement => {
+const Register: FC = () => {
     return (
         <DefaultLayout>
             <div>About Us</div>

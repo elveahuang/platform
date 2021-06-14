@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import config from './config';
 
 export default defineConfig({
     resolve: {
@@ -13,9 +12,6 @@ export default defineConfig({
         preprocessorOptions: {
             less: {
                 javascriptEnabled: true,
-                modifyVars: {
-                    '@primary-color': config.primaryColor,
-                },
             },
         },
     },

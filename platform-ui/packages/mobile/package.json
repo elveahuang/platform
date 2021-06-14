@@ -11,14 +11,14 @@
         "prettier": "prettier --write ."
     },
     "dependencies": {
-        "@capacitor/core": "^3.0.0",
+        "@capacitor/core": "^3.0.1",
         "@ionic/core": "^5.6.9",
         "@ionic/react": "^5.6.9",
         "@ionic/react-router": "^5.6.9",
         "ionicons": "^5.5.1"
     },
     "devDependencies": {
-        "@capacitor/cli": "^3.0.0",
+        "@capacitor/cli": "^3.0.1",
         "@craco/craco": "^6.1.2",
         "@dvhb/craco-extend-scope": "^1.0.1",
         "autoprefixer": "^9.*",

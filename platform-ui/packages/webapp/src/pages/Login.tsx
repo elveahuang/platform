@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button, Card, Col, Form, Input, Row } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -6,16 +6,16 @@ import { Store, ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import { useHistory } from 'react-router';
 import { AxiosResponse } from 'axios';
 //
-import './Login.less';
+import './Login.scss';
 import { applicationVersion } from '@commons/constants';
 import { UserService } from '@commons/services';
-import DefaultLayout from '@/components/Layouts/DefaultLayout';
+import DefaultLayout from '@/layouts/DefaultLayout';
 import { OAuthTokenResult } from '@commons/types/oauth/oauth-token-result';
 import Principal from '@commons/types/principal';
 import { useAppDispatch } from '@/hooks';
 import { setAccessToken, setRefreshToken, setUser } from '@commons/store/user';
 
-const Login = (): React.ReactElement => {
+const Login: FC = () => {
     const intl = useIntl();
     const history = useHistory();
     const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Col, Dropdown, Layout, Menu, Row } from 'antd';
+import { Col, Dropdown, Layout, Menu, Row, Spin } from 'antd';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -9,13 +9,16 @@ import {
     VideoCameraOutlined,
 } from '@ant-design/icons';
 //
-import './AdminLayout.less';
+import './AdminLayout.scss';
 import { MenuInfo } from 'rc-menu/lib/interface';
 import { useHistory } from 'react-router';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { clear } from '@commons/store/user';
 import { changeLang, toggleSidebar } from '@commons/store/app';
 import { defaultLang, LangType } from '@commons/utils/i18n';
+import { Route, Switch } from 'react-router-dom';
+import Dashboard from '@/pages/Admin/Dashboard';
+import Loading from '../../../commons/src/webapp/components/Loading';
 
 type AdminLayoutProps = {
     layoutClassName?: string;
@@ -163,7 +166,14 @@ const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
                         </Col>
                     </Row>
                 </Layout.Header>
-                <Layout.Content className="admin-content-layout-main">{props.children}</Layout.Content>
+                <Layout.Content className="admin-content-layout-main">
+                    <Suspense fallback={<Loading />}>
+                        <Switch>
+                            <Route exact path="/" component={Dashboard} />
+                            <Route exact path="/dashboard" component={Dashboard} />
+                        </Switch>
+                    </Suspense>
+                </Layout.Content>
             </Layout>
         </Layout>
     );

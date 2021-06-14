@@ -1,13 +1,14 @@
-import React from 'react';
-import { SiteLayout } from '../components/Layouts';
+import React, { FC } from 'react';
 //
-import './AboutUs.less';
+import './AboutUs.scss';
+import { SketchPicker } from 'react-color';
 
-const AboutUs = (): React.ReactElement => {
+const AboutUs: FC = () => {
     return (
-        <SiteLayout>
-            <div>About Us</div>
-        </SiteLayout>
+        <div className="text-center">
+            <SketchPicker />
+            <div className="text-center">About Us</div>;
+        </div>
     );
 };
 

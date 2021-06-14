@@ -3,8 +3,7 @@ import { useIntl } from 'react-intl';
 import { Layout } from 'antd';
 import classNames from 'classnames';
 //
-//
-import './DefaultLayout.less';
+import './DefaultLayout.scss';
 
 type DefaultLayoutProps = {
     layoutClassName?: string;
