@@ -12,7 +12,7 @@ import { UserService } from '@commons/services';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { OAuthTokenResult } from '@commons/types/oauth/oauth-token-result';
 import Principal from '@commons/types/principal';
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch } from '@/../../../commons/src/hooks';
 import { setAccessToken, setRefreshToken, setUser } from '@commons/store/user';
 
 const Login: FC = () => {

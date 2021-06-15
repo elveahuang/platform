@@ -14,15 +14,6 @@ const Home: FC = () => {
             <div className="text-center" style={{ height: 300 }}>
                 Home 1
             </div>
-            <div className="text-center" style={{ height: 300 }}>
-                Home 2
-            </div>
-            <div className="text-center" style={{ height: 300 }}>
-                Home 3
-            </div>
-            <div className="text-center" style={{ height: 300 }}>
-                Home 3
-            </div>
         </div>
     );
 };

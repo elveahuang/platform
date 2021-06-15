@@ -27,7 +27,7 @@
         "cross-env": "^7.0.3",
         "postcss": "^7.*",
         "react-scripts": "^4.0.3",
-        "sass": "^1.34.1",
+        "sass": "^1.35.0",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.4"
     },
     "eslintConfig": {

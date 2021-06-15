@@ -3,7 +3,7 @@ import { Pagination } from 'antd';
 import { FormattedMessage } from 'react-intl';
 //
 import './Dashboard.scss';
-import { useAppSelector } from '@/hooks';
+import { useAppSelector } from '@commons/hooks';
 
 const Dashboard: FC = () => {
     const state = useAppSelector((state) => state);

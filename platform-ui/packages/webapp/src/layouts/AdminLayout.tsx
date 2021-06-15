@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Col, Dropdown, Layout, Menu, Row, Spin } from 'antd';
+import { Col, Dropdown, Layout, Menu, Row } from 'antd';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -12,13 +12,13 @@ import {
 import './AdminLayout.scss';
 import { MenuInfo } from 'rc-menu/lib/interface';
 import { useHistory } from 'react-router';
-import { useAppDispatch, useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@commons/hooks';
 import { clear } from '@commons/store/user';
 import { changeLang, toggleSidebar } from '@commons/store/app';
 import { defaultLang, LangType } from '@commons/utils/i18n';
 import { Route, Switch } from 'react-router-dom';
 import Dashboard from '@/pages/Admin/Dashboard';
-import Loading from '../../../commons/src/webapp/components/Loading';
+import { Loading } from '@commons/webapp/components';
 
 type AdminLayoutProps = {
     layoutClassName?: string;

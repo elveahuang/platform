@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { defaultLang, LangType } from '@commons/utils/i18n';
 import { isDev } from '@commons/utils';
 import { applicationVersion } from '@commons/constants';
+import { DirectionType, setTheme, ThemeType } from '@commons/utils/theme';
 
 export interface AppState {
     isLoading: boolean;
     lang: LangType;
     timeZone: string;
     sidebarCollapsed: boolean;
-    direction: 'rtl' | 'ltr';
+    theme: ThemeType;
+    direction: DirectionType;
 }
 
 export const initialAppState: AppState = {
@@ -16,7 +18,8 @@ export const initialAppState: AppState = {
     lang: defaultLang,
     timeZone: '',
     sidebarCollapsed: false,
-    direction: 'ltr',
+    theme: ThemeType.DEFAULT,
+    direction: DirectionType.LTR,
 };
 
 export const appSlice = createSlice({
@@ -32,10 +35,23 @@ export const appSlice = createSlice({
             }
         },
         /**
-         * 初始化应用
+         * 切换语言
          */
         changeLang: (state: AppState, action: PayloadAction<LangType>) => {
             return { ...state, lang: action.payload };
+        },
+        /**
+         * 切换主题
+         */
+        changeTheme: (state: AppState, action: PayloadAction<ThemeType>) => {
+            setTheme(action.payload);
+            return { ...state, theme: action.payload };
+        },
+        /**
+         * 切换对其方式
+         */
+        changeDirection: (state: AppState, action: PayloadAction<DirectionType>) => {
+            return { ...state, direction: action.payload };
         },
         /**
          * 初始化应用
@@ -46,6 +62,6 @@ export const appSlice = createSlice({
     },
 });
 
-export const { initialize, changeLang, toggleSidebar } = appSlice.actions;
+export const { initialize, changeLang, changeTheme, changeDirection, toggleSidebar } = appSlice.actions;
 
 export default appSlice.reducer;

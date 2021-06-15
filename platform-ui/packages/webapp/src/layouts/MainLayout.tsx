@@ -1,5 +1,5 @@
 import React, { FC, lazy, Suspense } from 'react';
-import { Col, Layout, Menu, Row } from 'antd';
+import { Col, Layout, Menu, Row, Space } from 'antd';
 import { Link, Route, Switch } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import classNames from 'classnames';
@@ -7,7 +7,8 @@ import { useIntl } from 'react-intl';
 //
 import images from '@commons/utils/images';
 import './MainLayout.scss';
-import { Loading } from '@commons/webapp/components';
+import { Loading, ThemeSwitch } from '@commons/webapp/components';
+import DirectionSwitch from '@commons/webapp/components/Theme/DirectionSwitch';
 //
 const Home = lazy(() => import('@/pages/Home'));
 const AboutUs = lazy(() => import('@/pages/AboutUs'));
@@ -61,6 +62,9 @@ const MainLayout: FC = () => {
                         curDate: new Date(),
                     },
                 )}
+                <Space />
+                <ThemeSwitch />
+                <DirectionSwitch />
             </Layout.Footer>
         </Layout>
     );

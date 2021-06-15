@@ -10,28 +10,42 @@ export type Theme = {
  * 主题枚举
  */
 export enum ThemeType {
+    DEFAULT,
     GREEN,
     BLUE,
 }
 
 /**
+ * 对齐方式枚举
+ */
+export enum DirectionType {
+    LTR = 'ltr',
+    RTL = 'rtl',
+}
+
+/**
  * 默认主题
  */
-export const defaultTheme = ThemeType.BLUE;
+export const defaultTheme = ThemeType.DEFAULT;
 
 /**
  * 内置主题
  */
 export const themes = [
     {
+        key: ThemeType.DEFAULT,
+        primaryColor: 'green',
+        primarySecondary: 'green',
+    },
+    {
         key: ThemeType.GREEN,
         primaryColor: 'red',
-        primarySecondary: 'green',
+        primarySecondary: 'red',
     },
     {
         key: ThemeType.BLUE,
         primaryColor: 'blue',
-        primarySecondary: 'yellow',
+        primarySecondary: 'blue',
     },
 ];
 

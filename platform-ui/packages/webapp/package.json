@@ -11,15 +11,15 @@
         "prettier": "prettier --write ."
     },
     "dependencies": {
-        "@ant-design/charts": "^1.1.13",
+        "@ant-design/charts": "^1.1.15",
         "@ant-design/icons": "^4.6.2",
-        "@ant-design/pro-card": "^1.14.0",
-        "@ant-design/pro-descriptions": "^1.8.1",
-        "@ant-design/pro-form": "^1.28.1",
-        "@ant-design/pro-layout": "^6.19.4",
-        "@ant-design/pro-list": "^1.9.1",
+        "@ant-design/pro-card": "^1.14.1",
+        "@ant-design/pro-descriptions": "^1.8.2",
+        "@ant-design/pro-form": "^1.29.0",
+        "@ant-design/pro-layout": "^6.19.5",
+        "@ant-design/pro-list": "^1.9.2",
         "@ant-design/pro-skeleton": "^1.0.1",
-        "@ant-design/pro-table": "^2.40.1",
+        "@ant-design/pro-table": "^2.41.0",
         "antd": "^4.16.2"
     },
     "devDependencies": {
@@ -27,8 +27,8 @@
         "autoprefixer": "^10.2.6",
         "less": "^4.1.1",
         "path": "^0.12.7",
-        "postcss": "^8.3.2",
-        "sass": "^1.34.1",
+        "postcss": "^8.3.4",
+        "sass": "^1.35.0",
         "tailwindcss": "^2.1.4",
         "typescript": "^4.3.2",
         "vite": "^2.3.7",

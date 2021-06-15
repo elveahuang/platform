@@ -6,7 +6,7 @@ import { ConfigProvider, Spin } from 'antd';
 import { Provider } from 'react-redux';
 //
 import store from '@/store';
-import { useAppSelector } from '@/hooks';
+import { useAppSelector } from '@/../../commons/src/hooks';
 import { localeMessages } from '@commons/utils/i18n';
 import { antdLocalProvider } from '@commons/webapp/utils/antd';
 import { AdminLayout, MainLayout } from '@/layouts';
