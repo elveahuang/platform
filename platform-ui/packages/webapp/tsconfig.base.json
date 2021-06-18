@@ -1,0 +1,23 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"],
+            "@commons/*": ["../commons/src/*"],
+            "@admin/*": ["../admin/src/*"],
+            "@mobile/*": ["../mobile/src/*"],
+            "@webapp/*": ["../webapp/src/*"]
+        }
+    },
+    "include": [
+        "./src/**/*.js",
+        "./src/**/*.jsx",
+        "./src/**/*.ts",
+        "./src/**/*.tsx",
+        "../commons/**/*.js",
+        "../commons/**/*.jsx",
+        "../commons/**/*.ts",
+        "../commons/**/*.tsx"
+    ]
+}

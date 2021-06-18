@@ -1,3 +1,3 @@
 module.exports = {
-    reject: ['autoprefixer', 'postcss', 'tailwindcss'],
+    reject: ['autoprefixer', 'postcss'],
 };

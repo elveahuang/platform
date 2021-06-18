@@ -1,5 +1,5 @@
 module.exports = {
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './index.html'],
+    purge: ['./src/**/*.{js,jsx,ts,tsx,tsx}', './public/index.html'],
     darkMode: false,
     important: true,
     theme: {
@@ -18,8 +18,4 @@ module.exports = {
             xxl: { min: '1600px' },
         },
     },
-    variants: {
-        extend: {},
-    },
-    plugins: [],
 };

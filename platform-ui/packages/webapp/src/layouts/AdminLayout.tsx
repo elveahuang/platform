@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { FC, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Col, Dropdown, Layout, Menu, Row } from 'antd';
 import {
@@ -20,12 +20,7 @@ import { Route, Switch } from 'react-router-dom';
 import Dashboard from '@/pages/Admin/Dashboard';
 import { Loading } from '@commons/webapp/components';
 
-type AdminLayoutProps = {
-    layoutClassName?: string;
-    children?: React.ReactNode;
-};
-
-const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
+const AdminLayout: FC = () => {
     const history = useHistory();
     const dispatch = useAppDispatch();
     const state = useAppSelector((state) => state);
@@ -96,29 +91,29 @@ const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
                             <div className="admin-content-layout-header-nav">
                                 <Dropdown
                                     overlay={
-                                        <Menu className="drowdown-menu" onClick={handleAccountMenuChange}>
-                                            <Menu.Item className="drowdown-menu-item" key="account">
+                                        <Menu className="dropdown-menu" onClick={handleAccountMenuChange}>
+                                            <Menu.Item className="dropdown-menu-item" key="account">
                                                 <UserOutlined />
-                                                <span className="drowdown-menu-label">
+                                                <span className="dropdown-menu-label">
                                                     <FormattedMessage id={'user_label_account'} />
                                                 </span>
                                             </Menu.Item>
-                                            <Menu.Item className="drowdown-menu-item" key="change-password">
+                                            <Menu.Item className="dropdown-menu-item" key="change-password">
                                                 <UserOutlined />
-                                                <span className="drowdown-menu-label">
+                                                <span className="dropdown-menu-label">
                                                     <FormattedMessage id={'user_label_change_password'} />
                                                 </span>
                                             </Menu.Item>
-                                            <Menu.Item className="drowdown-menu-item" key="preferences">
+                                            <Menu.Item className="dropdown-menu-item" key="preferences">
                                                 <UserOutlined />
-                                                <span className="drowdown-menu-label">
+                                                <span className="dropdown-menu-label">
                                                     <FormattedMessage id={'user_label_preferences'} />
                                                 </span>
                                             </Menu.Item>
                                             <Menu.Divider />
-                                            <Menu.Item className="drowdown-menu-item" key="logout">
+                                            <Menu.Item className="dropdown-menu-item" key="logout">
                                                 <UserOutlined />
-                                                <span className="drowdown-menu-label">
+                                                <span className="dropdown-menu-label">
                                                     <FormattedMessage id={'label_logout'} />
                                                 </span>
                                             </Menu.Item>
@@ -133,22 +128,22 @@ const AdminLayout = (props: AdminLayoutProps): React.ReactElement => {
                                 </Dropdown>
                                 <Dropdown
                                     overlay={
-                                        <Menu className="drowdown-menu" onClick={handleChangeLocale}>
-                                            <Menu.Item className="drowdown-menu-item" key="lang_en_us">
+                                        <Menu className="dropdown-menu" onClick={handleChangeLocale}>
+                                            <Menu.Item className="dropdown-menu-item" key="lang_en_us">
                                                 <UserOutlined />
-                                                <span className="drowdown-menu-label">
+                                                <span className="dropdown-menu-label">
                                                     <FormattedMessage id={'label_en_us'} />
                                                 </span>
                                             </Menu.Item>
-                                            <Menu.Item className="drowdown-menu-item" key="label_zh_cn">
+                                            <Menu.Item className="dropdown-menu-item" key="label_zh_cn">
                                                 <UserOutlined />
-                                                <span className="drowdown-menu-label">
+                                                <span className="dropdown-menu-label">
                                                     <FormattedMessage id={'label_zh_cn'} />
                                                 </span>
                                             </Menu.Item>
-                                            <Menu.Item className="drowdown-menu-item" key="label_zh_tw">
+                                            <Menu.Item className="dropdown-menu-item" key="label_zh_tw">
                                                 <UserOutlined />
-                                                <span className="drowdown-menu-label">
+                                                <span className="dropdown-menu-label">
                                                     <FormattedMessage id={'label_zh_tw'} />
                                                 </span>
                                             </Menu.Item>

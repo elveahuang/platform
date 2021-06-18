@@ -1,18 +1,16 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { IntlProvider, useIntl } from 'react-intl';
+import { RawIntlProvider, useIntl } from 'react-intl';
 import { ConfigProvider, Spin } from 'antd';
 import { Provider } from 'react-redux';
 //
-import store from '@/store';
-import { useAppSelector } from '@/../../commons/src/hooks';
-import { localeMessages } from '@commons/utils/i18n';
+import './App.scss';
+import store from '@commons/store';
+import { useAppSelector } from '@commons/hooks';
+import { createReactIntl } from '@commons/utils/i18n';
 import { antdLocalProvider } from '@commons/webapp/utils/antd';
 import { AdminLayout, MainLayout } from '@/layouts';
-//
-import './App.scss';
-import { Loading } from '@commons/webapp/components';
 //
 const Login = React.lazy(() => import('@/pages/Login'));
 
@@ -44,25 +42,23 @@ const App = (): React.ReactElement => {
 };
 
 const AppContainer = (): React.ReactElement => {
-    const state = useAppSelector((state) => state);
+    const { lang, direction } = useAppSelector((state) => state.app);
 
     return (
-        <IntlProvider messages={localeMessages[state.app.lang]} locale={state.app.lang}>
-            <ConfigProvider direction={state.app.direction} locale={antdLocalProvider[state.app.lang]}>
+        <RawIntlProvider value={createReactIntl(lang)}>
+            <ConfigProvider direction={direction} locale={antdLocalProvider[lang]}>
                 <Router>
                     <React.Fragment>
                         <AppTitle />
-                        <Suspense fallback={<Loading />}>
-                            <Switch>
-                                <Route exact path="/login" component={Login} />
-                                <Route path="/admin" component={AdminLayout} />
-                                <Route path="/" component={MainLayout} />
-                            </Switch>
-                        </Suspense>
+                        <Switch>
+                            <Route exact path="/login" component={Login} />
+                            <Route path="/admin" component={AdminLayout} />
+                            <Route path="/" component={MainLayout} />
+                        </Switch>
                     </React.Fragment>
                 </Router>
             </ConfigProvider>
-        </IntlProvider>
+        </RawIntlProvider>
     );
 };
 export default App;

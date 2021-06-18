@@ -5,10 +5,9 @@ import { useHistory } from 'react-router';
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 //
-import images from '@commons/utils/images';
 import './MainLayout.scss';
-import { Loading, ThemeSwitch } from '@commons/webapp/components';
-import DirectionSwitch from '@commons/webapp/components/Theme/DirectionSwitch';
+import images from '@commons/utils/images';
+import { Loading, ThemeSwitch, DirectionSwitch } from '@commons/webapp/components';
 //
 const Home = lazy(() => import('@/pages/Home'));
 const AboutUs = lazy(() => import('@/pages/AboutUs'));

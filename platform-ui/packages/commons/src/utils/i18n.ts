@@ -1,10 +1,8 @@
 import zhCnIntl from '../locales/zh_CN';
 import zhTwIntl from '../locales/zh_TW';
 import enUsIntl from '../locales/en_US';
+import { createIntl, createIntlCache, IntlShape } from 'react-intl';
 
-/**
- *
- */
 export enum LangType {
     ZH_CN = 'zh-CN',
     ZH_TW = 'zh-TW',
@@ -24,3 +22,23 @@ export const localeMessages = {
  * 默认语言
  */
 export const defaultLang = LangType.ZH_CN;
+
+/**
+ *
+ */
+const cache = createIntlCache();
+
+let intl: IntlShape;
+
+export const createReactIntl = (lang: LangType = defaultLang) => {
+    intl = createIntl(
+        {
+            locale: lang,
+            messages: localeMessages[lang],
+        },
+        cache,
+    );
+    return intl;
+};
+
+export { intl };

@@ -1,187 +1,228 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import qs from 'qs';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, Canceler } from 'axios';
 import { isArray, isEmpty, merge } from 'lodash';
 //
-import StorageService from '../services/StorageService';
-import environment from '../environments/environment';
+import StorageService from '@commons/services/StorageService';
+import environment from '@commons/utils/env';
+
+/**
+ * 取消请求
+ */
+const CancelToken = axios.CancelToken;
+const cancels: Canceler[] = [];
+const cancelAllRequest = (message?: string) => {
+    cancels.forEach((cancel) => cancel(message));
+};
+
+/**
+ * 超时判断
+ */
+const isTimeoutError = (error: AxiosError) => error.code === 'ECONNABORTED' && error.message.includes('timeout');
 
 /**
  * 设置全局参数
  */
 axios.defaults.timeout = 300000;
 axios.defaults.baseURL = environment.server;
-axios.defaults.withCredentials = false;
-axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.withCredentials = true;
+
 /**
- * XDebug
+ * 创建实例
  */
-if (environment.xdebug.enabled) {
-    console.log(`xdebug enabled - ${environment.xdebug.enabled}`);
-    axios.defaults.params = {
-        XDEBUG_SESSION_START: 'XDebug',
-    };
+const http = axios.create();
+
+const cancelRequestConfig: AxiosRequestConfig = {
+    cancelToken: new CancelToken((cancel) => {
+        cancels.push(cancel);
+    }),
+};
+
+/**
+ * Get
+ */
+const getRequestConfig: AxiosRequestConfig = {
+    ...cancelRequestConfig,
+};
+
+function get<T = any, R = AxiosResponse<T>>(
+    url: string,
+    params: any = {},
+    config: AxiosRequestConfig = getRequestConfig,
+): Promise<R> {
+    config.params = params;
+    return http.get(url, config);
 }
-/**
- * 封装实例
- */
-const http = axios.create({
-    withCredentials: false,
-});
-/**
- * XDebug
- */
-http.interceptors.request.use(async (config: AxiosRequestConfig) => {
-    if (environment.xdebug.enabled) {
-        if (config.params) {
-            if (isArray(config.params)) {
-                config.params = merge(config.params, {
-                    XDEBUG_SESSION_START: 'XDebug',
-                });
-            }
-        } else {
-            config.params = {
-                XDEBUG_SESSION_START: 'XDebug',
-            };
-        }
-        console.log(`xdebug enabled - ${environment.xdebug.enabled}`);
-        console.log(config);
-    }
-    return config;
-});
 
 /**
- * Authorization
+ * Post
  */
-http.interceptors.request.use(async (config: AxiosRequestConfig) => {
-    const token = await StorageService.getAccessToken();
-    if (isEmpty(token)) {
-        config.headers.common.Authorization = null;
-    } else {
-        config.headers.common.Authorization = `Bearer ${token}`;
-    }
-    console.log(`Authorization ${config.headers.common.Authorization}`);
-    return config;
-});
-
-http.interceptors.response.use(
-    async (response: AxiosResponse) => {
-        console.log('1...........');
-        console.log(response);
-        return response;
-    },
-    async (error: AxiosError) => {
-        console.log('2...........');
-        const originalRequest = error.config;
-        console.log(originalRequest);
-        console.log(error);
-        // const refreshToken : any = await StorageService.getRefreshToken();
-        // // CommonService.refreshAccessToken(refreshToken).then((resp : AxiosResponse) => {
-        // //     if (resp.status === 200 && resp.data.status === 1) {
-        // //     }
-        // // });
-        return Promise.reject(error);
-    },
-);
-
-/**
- * 文件上传的表单头信息
- */
-const postMultipartHeaders: AxiosRequestConfig = {
+const postRequestConfig: AxiosRequestConfig = {
     headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/x-www-form-urlencoded',
     },
-    transformRequest: (data: any) => {
-        return data;
-    },
+    ...cancelRequestConfig,
 };
 
-/**
- * 文件上传的表单头信息
- */
-const postFormHeaders: AxiosRequestConfig = {
-    headers: {
-        'Content-Type': 'multipart/form-data',
-    },
-    transformRequest: (data: any) => {
-        return data;
-    },
-};
+function post<T = any, R = AxiosResponse<T>>(
+    url: string,
+    data: any = {},
+    config: AxiosRequestConfig = postRequestConfig,
+): Promise<R> {
+    return http.post(url, data, config);
+}
 
 /**
- * Json数据的表单头信息
+ * Post Json
  */
-const postJsonHeaders: AxiosRequestConfig = {
+const postJsonRequestConfig: AxiosRequestConfig = {
     headers: {
         'Content-Type': 'application/json',
     },
     transformRequest: (data: any) => {
         return JSON.stringify(data);
     },
+    ...cancelRequestConfig,
 };
 
-/**
- * 表单头信息
- */
-const postHeaders: AxiosRequestConfig = {
-    transformRequest: (data: any, headers: any) => {
-        console.log('transformRequest...');
-        console.log(headers);
-        console.log(qs.stringify(data));
-        return qs.stringify(data);
-    },
-    paramsSerializer: (data: any = {}) => {
-        console.log('paramsSerializer...');
-        console.log(data);
-        return qs.stringify(data);
-    },
-};
-
-// Get
-function get<T = any, R = AxiosResponse<T>>(
-    url: string,
-    params: any = {},
-    config: AxiosRequestConfig = {},
-): Promise<R> {
-    config.params = params;
-    return http.get(url, config);
-}
-
-// Post
-function post<T = any, R = AxiosResponse<T>>(
-    url: string,
-    data: any = {},
-    config: AxiosRequestConfig = postHeaders,
-): Promise<R> {
-    return http.post(url, data, config);
-}
-
-// Post Json
 function postJson<T = any, R = AxiosResponse<T>>(
     url: string,
     data: any = {},
-    config: AxiosRequestConfig = postJsonHeaders,
+    config: AxiosRequestConfig = postJsonRequestConfig,
 ): Promise<R> {
     return http.post(url, data, config);
 }
 
-// Post FormBody
+/**
+ * Post FormBody
+ */
+const postFormRequestConfig: AxiosRequestConfig = {
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    ...cancelRequestConfig,
+};
+
 function postForm<T = any, R = AxiosResponse<T>>(
     url: string,
     data: FormData = new FormData(),
-    config: AxiosRequestConfig = postFormHeaders,
+    config: AxiosRequestConfig = postFormRequestConfig,
 ): Promise<R> {
     return http.post(url, data, config);
 }
 
-// Post Multiple
-function postMultiple<T = any, R = AxiosResponse<T>>(
+/**
+ * Post Multipart
+ */
+const postMultipartRequestConfig: AxiosRequestConfig = {
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    },
+    ...cancelRequestConfig,
+};
+
+function postMultipart<T = any, R = AxiosResponse<T>>(
     url: string,
     data: any = {},
-    config: AxiosRequestConfig = postMultipartHeaders,
+    config: AxiosRequestConfig = postMultipartRequestConfig,
 ): Promise<R> {
     return http.post(url, data, config);
 }
 
+/**
+ * XDebug Interceptor
+ */
+const setupDebugInterceptor = () => {
+    http.interceptors.request.use(async (config: AxiosRequestConfig) => {
+        if (environment.xdebug.enabled) {
+            if (config.params) {
+                if (isArray(config.params)) {
+                    config.params = merge(config.params, {
+                        XDEBUG_SESSION_START: environment.xdebug.key,
+                    });
+                }
+            } else {
+                config.params = {
+                    XDEBUG_SESSION_START: environment.xdebug.key,
+                };
+            }
+            console.log(`xdebug enabled - ${environment.xdebug.enabled}`);
+        }
+        return config;
+    });
+};
+
+/**
+ * Authorization
+ */
+const setupAuthorizationInterceptor = () => {
+    http.interceptors.request.use(async (config: AxiosRequestConfig) => {
+        const token = await StorageService.getAccessToken();
+        if (isEmpty(token)) {
+            config.headers.common.Authorization = null;
+        } else {
+            config.headers.common.Authorization = `Bearer ${token}`;
+        }
+        console.log(`Authorization ${config.headers.common.Authorization}`);
+        return config;
+    });
+};
+
+/**
+ * Response
+ */
+interface ResponseInterceptorManager<AxiosResponse> {
+    exceptionHandler?: (response: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>;
+    timeoutHandler?: (error: AxiosError) => AxiosError | Promise<AxiosError>;
+    errorHandler?: (error: AxiosError) => AxiosError | Promise<AxiosError>;
+}
+
+const setupResponseInterceptor = (manager: ResponseInterceptorManager<AxiosResponse> = {}) => {
+    http.interceptors.response.use(
+        (response: AxiosResponse) => {
+            return response;
+        },
+        (error: AxiosError) => {
+            if (error.response) {
+                const response = error.response as AxiosResponse;
+                if (manager && manager.exceptionHandler) {
+                    manager.exceptionHandler(response);
+                }
+            } else {
+                if (isTimeoutError(error)) {
+                    if (manager && manager.timeoutHandler) {
+                        manager.timeoutHandler(error);
+                    }
+                } else {
+                    if (manager && manager.errorHandler) {
+                        manager.errorHandler(error);
+                    }
+                }
+            }
+            return Promise.reject(error);
+        },
+    );
+};
+
+/**
+ * 默认设置
+ */
+const setupAxios = () => {
+    setupDebugInterceptor();
+    setupAuthorizationInterceptor();
+    setupResponseInterceptor();
+};
+
 export default http;
-export { axios, get, post, postForm, postJson, postMultiple };
-export { postHeaders, postFormHeaders, postJsonHeaders, postMultipartHeaders };
+
+export { axios, isTimeoutError, get, post, postForm, postJson, postMultipart };
+
+export {
+    getRequestConfig,
+    postRequestConfig,
+    postFormRequestConfig,
+    postJsonRequestConfig,
+    postMultipartRequestConfig,
+};
+
+export { setupAxios, setupDebugInterceptor, setupAuthorizationInterceptor, setupResponseInterceptor };
+
+export { cancelAllRequest, cancels, CancelToken };
