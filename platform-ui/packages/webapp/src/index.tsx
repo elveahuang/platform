@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //
-import App from '@/App';
-//
 import '@/index.scss';
-import { setTheme } from '@commons/utils/theme';
+import App from '@/App';
+import setup from '@/utils';
 
-setTheme();
+setup();
 
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -43,45 +43,43 @@ const Login: FC = () => {
     };
 
     return (
-        <DefaultLayout>
-            <div>
-                <Row justify="center" align="middle">
-                    <Col span={6}>
-                        <Card className={'login-card'} title={intl.formatMessage({ id: 'user_page_login_title' })}>
-                            <Form className={'login-form'} onFinish={onFinish} onFinishFailed={onFinishFailed}>
-                                <Form.Item
-                                    name="username"
-                                    initialValue="admin"
-                                    rules={[{ required: true, message: 'Please input your Username!' }]}
-                                >
-                                    <Input
-                                        prefix={<UserOutlined />}
-                                        type="text"
-                                        size="large"
-                                        placeholder={intl.formatMessage({ id: 'user_field_username' })}
-                                    />
-                                </Form.Item>
-                                <Form.Item
-                                    name="password"
-                                    initialValue="admin"
-                                    rules={[{ required: true, message: 'Please input your Password!' }]}
-                                >
-                                    <Input.Password
-                                        size="large"
-                                        prefix={<UserOutlined />}
-                                        placeholder={intl.formatMessage({ id: 'user_field_password' })}
-                                    />
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button block type="primary" htmlType="submit">
-                                        <FormattedMessage id={'button_submit'} />
-                                    </Button>
-                                </Form.Item>
-                            </Form>
-                        </Card>
-                    </Col>
-                </Row>
-            </div>
+        <DefaultLayout layoutClassName="login-page-layout">
+            <Row justify="center" align="middle" className={'login-container'}>
+                <Col span={6}>
+                    <Card className={'login-card'} title={intl.formatMessage({ id: 'user_page_login_title' })}>
+                        <Form className={'login-form'} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+                            <Form.Item
+                                name="username"
+                                initialValue="admin"
+                                rules={[{ required: true, message: 'Please input your Username!' }]}
+                            >
+                                <Input
+                                    prefix={<UserOutlined />}
+                                    type="text"
+                                    size="large"
+                                    placeholder={intl.formatMessage({ id: 'user_field_username' })}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="password"
+                                initialValue="admin"
+                                rules={[{ required: true, message: 'Please input your Password!' }]}
+                            >
+                                <Input.Password
+                                    size="large"
+                                    prefix={<UserOutlined />}
+                                    placeholder={intl.formatMessage({ id: 'user_field_password' })}
+                                />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button block type="primary" htmlType="submit">
+                                    <FormattedMessage id={'button_submit'} />
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Card>
+                </Col>
+            </Row>
         </DefaultLayout>
     );
 };

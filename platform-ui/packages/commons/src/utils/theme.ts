@@ -2,6 +2,7 @@
  * 主题类型
  */
 export type Theme = {
+    key: ThemeType;
     primaryColor: string;
     primarySecondary: string;
 };
@@ -31,7 +32,7 @@ export const defaultTheme = ThemeType.DEFAULT;
 /**
  * 内置主题
  */
-export const themes = [
+export const themes: Array<Theme> = [
     {
         key: ThemeType.DEFAULT,
         primaryColor: 'green',

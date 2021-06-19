@@ -6,7 +6,7 @@ import { StorageService, UserService } from '@commons/services';
 let isRefreshing = false;
 const requests: Array<(token: string) => void> = [];
 
-const setup = () => {
+const setupHttp = () => {
     http.interceptors.response.use(
         (response) => {
             if (response.status === 200 && response.data.code !== 1) {
@@ -63,4 +63,4 @@ const setup = () => {
     );
 };
 
-export { setup };
+export { setupHttp };

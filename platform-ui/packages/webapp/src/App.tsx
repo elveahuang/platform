@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useEffect, useState, Suspense } from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { RawIntlProvider, useIntl } from 'react-intl';
 import { ConfigProvider, Spin } from 'antd';
@@ -11,6 +11,7 @@ import { useAppSelector } from '@commons/hooks';
 import { createReactIntl } from '@commons/utils/i18n';
 import { antdLocalProvider } from '@commons/webapp/utils/antd';
 import { AdminLayout, MainLayout } from '@/layouts';
+import { Loading } from '@commons/webapp/components';
 //
 const Login = React.lazy(() => import('@/pages/Login'));
 
@@ -50,11 +51,13 @@ const AppContainer = (): React.ReactElement => {
                 <Router>
                     <React.Fragment>
                         <AppTitle />
-                        <Switch>
-                            <Route exact path="/login" component={Login} />
-                            <Route path="/admin" component={AdminLayout} />
-                            <Route path="/" component={MainLayout} />
-                        </Switch>
+                        <Suspense fallback={<Loading />}>
+                            <Switch>
+                                <Route exact path="/login" component={Login} />
+                                <Route path="/admin" component={AdminLayout} />
+                                <Route path="/" component={MainLayout} />
+                            </Switch>
+                        </Suspense>
                     </React.Fragment>
                 </Router>
             </ConfigProvider>

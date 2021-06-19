@@ -1,4 +1,14 @@
+@tailwind base;
+
+.login-page-layout {
+    background-image: linear-gradient(135deg, #7028e4 0%, #e5b2ca 100%);
+
+    .ant-layout-footer {
+        @apply bg-transparent;
+        @apply text-center;
+    }
+}
+
 .login-container {
-    display: flex;
-    min-height: 100%;
+    @apply h-full;
 }
