@@ -4,10 +4,7 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"],
-            "@commons/*": ["../commons/src/*"],
-            "@admin/*": ["../admin/src/*"],
-            "@mobile/*": ["../mobile/src/*"],
-            "@webapp/*": ["../webapp/src/*"]
+            "@commons/*": ["../commons/src/*"]
         }
     },
     "include": [

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 
-const Discover: React.FC = () => {
+const Discover: FC = () => {
     return (
         <IonPage>
             <IonHeader>
@@ -9,12 +9,8 @@ const Discover: React.FC = () => {
                     <IonTitle>Discover</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Discover</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+            <IonContent>
+                <IonTitle>Discover</IonTitle>
             </IonContent>
         </IonPage>
     );
