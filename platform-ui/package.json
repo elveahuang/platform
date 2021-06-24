@@ -5,7 +5,7 @@
     "scripts": {
         "lint": "eslint ./packages/**/*.{ts,tsx,js,jsx}",
         "lint:fix": "eslint ./packages/**/*.{ts,tsx,js,jsx} --fix",
-        "prettier": "prettier --write ./packages/**/*.{ts,tsx,js,json,scss}"
+        "prettier": "prettier --write ./**/*.{ts,tsx,js,jsx,json,scss,css,html}"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.6.0",
@@ -28,24 +28,25 @@
         "react-dom": "^17.0.2",
         "react-helmet": "^6.1.0",
         "react-hook-form": "^7.9.0",
-        "react-intl": "^5.20.2",
+        "react-intl": "^5.20.3",
         "react-markdown": "^6.0.2",
         "react-redux": "^7.2.4",
         "react-router-dom": "^5.2.0",
         "save": "^2.4.0",
         "swr": "^0.5.6",
         "validator": "^13.6.0",
-        "vconsole": "^3.7.0",
+        "vconsole": "^3.8.0",
         "video.js": "^7.12.3",
         "weixin-js-sdk": "^1.6.0"
     },
     "devDependencies": {
         "@babel/core": "^7.14.6",
-        "@babel/eslint-parser": "^7.14.5",
-        "@babel/preset-env": "^7.14.5",
+        "@babel/eslint-parser": "^7.14.7",
+        "@babel/preset-env": "^7.14.7",
         "@babel/preset-react": "^7.14.5",
         "@babel/preset-typescript": "^7.14.5",
         "@types/color": "^3.0.1",
+        "@types/crypto-js": "^4.0.1",
         "@types/draft-js": "^0.11.3",
         "@types/jsonwebtoken": "^8.5.2",
         "@types/jweixin": "^1.0.7",
@@ -60,8 +61,8 @@
         "@types/react-router-dom": "^5.1.7",
         "@types/validator": "^13.1.4",
         "@types/video.js": "^7.3.21",
-        "@typescript-eslint/eslint-plugin": "^4.27.0",
-        "@typescript-eslint/parser": "^4.27.0",
+        "@typescript-eslint/eslint-plugin": "^4.28.0",
+        "@typescript-eslint/parser": "^4.28.0",
         "babel-eslint": "^10.1.0",
         "eslint": "^7.29.0",
         "eslint-config-prettier": "^8.3.0",
@@ -86,6 +87,6 @@
     },
     "lint-staged": {
         "./packages/**/*.{ts,tsx}": "eslint --fix",
-        "*.{ts,tsx,css,scss,js,json,md}": "prettier --write"
+        "*.{ts,tsx,css,scss,js,jsx,json,md}": "prettier --write"
     }
 }

@@ -1,9 +1,7 @@
 import { setupHttp } from '@commons/webapp/utils/http';
 import { setTheme } from '@commons/utils/theme';
 
-const setup = () => {
+export const setup = () => {
     setTheme();
     setupHttp();
 };
-
-export default setup;

@@ -2,10 +2,10 @@
     "name": "commons",
     "version": "0.0.1",
     "dependencies": {
-        "antd": "^4.16.3"
+        "antd": "^4.16.5"
     },
     "devDependencies": {
-        "react-scripts": "^4.0.3"
+        "vite": "^2.3.8"
     },
     "eslintConfig": {
         "extends": [

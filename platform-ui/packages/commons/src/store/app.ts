@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { defaultLang, LangType } from '@commons/utils/i18n';
-import { isDev } from '@commons/utils';
 import { applicationVersion } from '@commons/constants';
 import { DirectionType, setTheme, ThemeType } from '@commons/utils/theme';
+import env from '@commons/utils/env';
 
 export interface AppState {
     isLoading: boolean;
@@ -30,9 +30,10 @@ export const appSlice = createSlice({
          * 初始化应用
          */
         initialize: (state: AppState) => {
-            if (isDev) {
+            if (!env.production) {
                 console.log(`Current Version = ${applicationVersion}`);
             }
+            return state;
         },
         /**
          * 切换语言

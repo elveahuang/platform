@@ -12,7 +12,7 @@ const Home: FC = () => {
                 </div>
             </div>
             <div className="text-center" style={{ height: 300 }}>
-                Home 1
+                Home
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { isEqual, isUndefined } from 'lodash';
+import { isEqual } from 'lodash';
 
 export interface Environment {
     /**
@@ -9,6 +9,10 @@ export interface Environment {
      * 是否是生产模式
      */
     production: boolean;
+    /**
+     * 应用名称
+     */
+    title: string;
     /**
      * 服务器地址
      */
@@ -28,25 +32,20 @@ export interface Environment {
     };
 }
 
-console.log(process.env);
-console.log(process.env.REACT_APP_SERVER);
-console.log(process.env.REACT_APP_CONSOLE_ENABLED);
-console.log(process.env.REACT_APP_XDEBUG_ENABLED);
-console.log(process.env.REACT_APP_XDEBUG_KEY);
-
 /**
  * 环境配置
  */
 const env: Environment = {
-    mode: process.env.NODE_ENV ?? 'development',
-    production: isEqual(process.env.NODE_HOME, 'production'),
-    server: isUndefined(process.env.REACT_APP_SERVER) ? '' : process.env.REACT_APP_SERVER,
+    mode: import.meta.env.MODE ?? 'development',
+    production: isEqual(import.meta.env.NODE_HOME, 'production'),
+    title: import.meta.env.VITE_APP_TITLE ?? 'Application',
+    server: import.meta.env.VITE_APP_SERVER ?? '',
     xdebug: {
-        enabled: !!process.env.REACT_APP_XDEBUG_ENABLED,
-        key: isUndefined(process.env.REACT_APP_XDEBUG_KEY) ? 'XDebug' : process.env.REACT_APP_XDEBUG_KEY,
+        enabled: !!import.meta.env.VITE_APP_XDEBUG_ENABLED,
+        key: import.meta.env.VITE_APP_XDEBUG_KEY ?? 'XDebug',
     },
     console: {
-        enabled: !!process.env.REACT_APP_CONSOLE_ENABLED,
+        enabled: !!import.meta.env.VITE_APP_CONSOLE_ENABLED,
     },
 };
 

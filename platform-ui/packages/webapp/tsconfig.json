@@ -1,4 +1,20 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {}
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"],
+            "@commons/*": ["../commons/src/*"]
+        }
+    },
+    "include": [
+        "./src/**/*.js",
+        "./src/**/*.jsx",
+        "./src/**/*.ts",
+        "./src/**/*.tsx",
+        "../commons/**/*.js",
+        "../commons/**/*.jsx",
+        "../commons/**/*.ts",
+        "../commons/**/*.tsx"
+    ]
 }
