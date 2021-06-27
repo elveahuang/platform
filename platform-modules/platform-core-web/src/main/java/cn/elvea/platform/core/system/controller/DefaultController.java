@@ -24,6 +24,22 @@ import java.util.Map;
 public class DefaultController {
 
     /**
+     * 应用初始化
+     *
+     * @return 应用版本号
+     */
+    @Operation(summary = "应用初始化")
+    @ApiResponse(description = "应用初始化")
+    @GetMapping("/api/initialize")
+    @OptLog("应用初始化")
+    public Response<?> initialize() {
+        Map<String, Object> data = Maps.newLinkedHashMap();
+        data.put("version", GlobalConstants.VERSION);
+        data.put("now", LocalDateTime.now());
+        return Response.success(data);
+    }
+
+    /**
      * 获取当前应用版本
      *
      * @return 应用版本号

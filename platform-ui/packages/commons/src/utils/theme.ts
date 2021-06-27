@@ -51,7 +51,7 @@ export const themes: Array<Theme> = [
 ];
 
 /**
- * 用于实时设置浏览器主题
+ * 设置主题
  */
 export const setTheme = (theme: ThemeType = defaultTheme) => {
     const t = themes.find((element) => element.key === theme);

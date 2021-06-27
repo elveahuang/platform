@@ -1,0 +1,3 @@
+dependencies {
+    api project(':platform-modules:platform-xapi-impl')
+}

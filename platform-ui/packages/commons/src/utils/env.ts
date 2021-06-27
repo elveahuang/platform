@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import { isEqual, isBoolean } from 'lodash';
 
 export interface Environment {
     /**
@@ -17,6 +17,12 @@ export interface Environment {
      * 服务器地址
      */
     server: string;
+    /**
+     * Mock
+     */
+    mock: {
+        enabled: boolean;
+    };
     /**
      * XDebug
      */
@@ -40,12 +46,15 @@ const env: Environment = {
     production: isEqual(import.meta.env.NODE_HOME, 'production'),
     title: import.meta.env.VITE_APP_TITLE ?? 'Application',
     server: import.meta.env.VITE_APP_SERVER ?? '',
+    mock: {
+        enabled: isEqual(import.meta.env.VITE_APP_MOCK_ENABLED, 'true'),
+    },
     xdebug: {
-        enabled: !!import.meta.env.VITE_APP_XDEBUG_ENABLED,
+        enabled: isEqual(import.meta.env.VITE_APP_XDEBUG_ENABLED, 'true'),
         key: import.meta.env.VITE_APP_XDEBUG_KEY ?? 'XDebug',
     },
     console: {
-        enabled: !!import.meta.env.VITE_APP_CONSOLE_ENABLED,
+        enabled: isEqual(import.meta.env.VITE_APP_CONSOLE_ENABLED, 'true'),
     },
 };
 

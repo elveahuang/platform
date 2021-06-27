@@ -1,0 +1,6 @@
+dependencies {
+    // spring
+    api("org.springframework.data:spring-data-mongodb")
+    // modules
+    api project(':platform-commons:platform-base')
+}

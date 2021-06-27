@@ -5,9 +5,10 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.driver.api.ShardingSphereDataSourceFactory;
 import org.apache.shardingsphere.driver.jdbc.core.datasource.ShardingSphereDataSource;
+import org.apache.shardingsphere.infra.config.RuleConfiguration;
 import org.apache.shardingsphere.infra.config.algorithm.ShardingSphereAlgorithmConfiguration;
-import org.apache.shardingsphere.replicaquery.api.config.ReplicaQueryRuleConfiguration;
-import org.apache.shardingsphere.replicaquery.api.config.rule.ReplicaQueryDataSourceRuleConfiguration;
+import org.apache.shardingsphere.readwritesplitting.api.ReadwriteSplittingRuleConfiguration;
+import org.apache.shardingsphere.readwritesplitting.api.rule.ReadwriteSplittingDataSourceRuleConfiguration;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -92,19 +93,21 @@ public class CustomDataSourceAutoConfiguration {
             dataSourceMap.put(MASTER_DATASOURCE, masterDataSource);
             dataSourceMap.put(SLAVE_DATASOURCE, slaveDataSource);
 
-            List<ReplicaQueryDataSourceRuleConfiguration> configurations = new ArrayList<>();
-            configurations.add(new ReplicaQueryDataSourceRuleConfiguration(MASTER_SLAVE_DATASOURCE, MASTER_DATASOURCE, List.of(SLAVE_DATASOURCE), LOAD_BALANCER));
+            List<ReadwriteSplittingDataSourceRuleConfiguration> dataSources = new ArrayList<>();
+
+            dataSources.add(new ReadwriteSplittingDataSourceRuleConfiguration(MASTER_SLAVE_DATASOURCE, MASTER_DATASOURCE, MASTER_DATASOURCE, List.of(SLAVE_DATASOURCE), LOAD_BALANCER));
 
             Map<String, ShardingSphereAlgorithmConfiguration> loadBalancers = new HashMap<>();
             loadBalancers.put(LOAD_BALANCER, new ShardingSphereAlgorithmConfiguration("ROUND_ROBIN", new Properties()));
 
-            ReplicaQueryRuleConfiguration ruleConfiguration = new ReplicaQueryRuleConfiguration(configurations, loadBalancers);
+            List<RuleConfiguration> configurations = new ArrayList<>();
+            configurations.add(new ReadwriteSplittingRuleConfiguration(dataSources, loadBalancers));
 
             Properties properties = new Properties();
             properties.setProperty("sql-show", "true");
             properties.setProperty("sql-simple", "true");
 
-            return ShardingSphereDataSourceFactory.createDataSource(dataSourceMap, List.of(ruleConfiguration), properties);
+            return ShardingSphereDataSourceFactory.createDataSource(dataSourceMap, configurations, properties);
         }
     }
 

@@ -1,6 +1,5 @@
 package cn.elvea.platform.ds.aspect;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.infra.hint.HintManager;
 import org.aspectj.lang.annotation.After;
@@ -34,7 +33,7 @@ public class MasterDataSourceAspect {
 
     private void changeMasterSlaveStrategy() {
         HintManager hintManager = HintManager.getInstance();
-        hintManager.setPrimaryRouteOnly();
+        hintManager.setWriteRouteOnly();
     }
 
 }

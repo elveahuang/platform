@@ -1,0 +1,6 @@
+dependencies {
+    api project(':platform-commons:platform-commons')
+    api project(':platform-commons:platform-mongo')
+    api project(':platform-modules:platform-core-api')
+    api project(':platform-modules:platform-xapi-api')
+}

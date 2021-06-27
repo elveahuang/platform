@@ -1,20 +1,21 @@
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { RawIntlProvider, useIntl } from 'react-intl';
-import { ConfigProvider, Spin } from 'antd';
+import { ConfigProvider } from 'antd';
 import { Provider } from 'react-redux';
-import { useMount } from 'ahooks';
+import { SWRConfig } from 'swr';
 //
 import './App.scss';
 import store from '@commons/store';
+import { CommonService } from '@commons/services';
 import { useAppSelector } from '@commons/hooks';
 import { createReactIntl } from '@commons/utils/i18n';
 import { antdLocalProvider } from '@commons/webapp/utils/antd';
 import { AdminLayout, MainLayout } from '@/layouts';
 import { Loading } from '@commons/webapp/components';
 import { setup } from '@/utils';
-import { aesDecrypt, aesEncrypt, decrypt, encrypt } from '@commons/utils/encrypt';
+import { swrConfig } from '@commons/utils/swr';
 //
 const Login = React.lazy(() => import('@/pages/Login'));
 
@@ -33,26 +34,18 @@ const App = (): React.ReactElement => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(false);
+        CommonService.initialize()
+            .then(() => {
+                setup();
+                setLoading(false);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
-    /**
-     * 顶层组件实现初始化
-     */
-    useMount(() => {
-        const encrypted = encrypt('root');
-        console.log(`encrypted - ${encrypted}`);
-        const decrypted = decrypt(encrypted);
-        console.log(`decrypted - ${decrypted}`);
-        const aesEncrypted = aesEncrypt('root');
-        console.log(`aesEncrypted - ${aesEncrypted}`);
-        const aesDecrypted = aesDecrypt(aesEncrypted);
-        console.log(`aesDecrypted - ${aesDecrypted}`);
-        setup();
-    });
-
     return loading ? (
-        <Spin />
+        <Loading />
     ) : (
         <Provider store={store}>
             <AppContainer />
@@ -66,18 +59,20 @@ const AppContainer = (): React.ReactElement => {
     return (
         <RawIntlProvider value={createReactIntl(lang)}>
             <ConfigProvider direction={direction} locale={antdLocalProvider[lang]}>
-                <Router>
-                    <React.Fragment>
-                        <AppTitle />
-                        <Suspense fallback={<Loading />}>
-                            <Switch>
-                                <Route exact path="/login" component={Login} />
-                                <Route path="/admin" component={AdminLayout} />
-                                <Route path="/" component={MainLayout} />
-                            </Switch>
-                        </Suspense>
-                    </React.Fragment>
-                </Router>
+                <SWRConfig value={swrConfig}>
+                    <Router>
+                        <React.Fragment>
+                            <AppTitle />
+                            <Suspense fallback={<Loading />}>
+                                <Switch>
+                                    <Route exact path="/login" component={Login} />
+                                    <Route path="/admin" component={AdminLayout} />
+                                    <Route path="/" component={MainLayout} />
+                                </Switch>
+                            </Suspense>
+                        </React.Fragment>
+                    </Router>
+                </SWRConfig>
             </ConfigProvider>
         </RawIntlProvider>
     );

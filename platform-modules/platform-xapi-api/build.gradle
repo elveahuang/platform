@@ -1,0 +1,7 @@
+dependencies {
+    // modules
+    api project(':platform-commons:platform-base')
+    api project(':platform-commons:platform-commons')
+    //
+    api("com.fasterxml.jackson.core:jackson-databind")
+}

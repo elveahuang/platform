@@ -23,7 +23,7 @@ const isTimeoutError = (error: AxiosError) => error.code === 'ECONNABORTED' && e
  */
 axios.defaults.timeout = 300000;
 axios.defaults.baseURL = environment.server;
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 /**
  * 创建实例

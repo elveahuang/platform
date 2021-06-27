@@ -7,6 +7,12 @@ class CommonService {
     /**
      * 首页
      */
+    initialize = () => {
+        return get('/api/initialize');
+    };
+    /**
+     * 首页
+     */
     home = () => {
         return get('/api/home');
     };
