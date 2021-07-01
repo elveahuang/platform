@@ -1,15 +1,15 @@
 package cn.elvea.platform.core.security.jwt;
 
+import cn.elvea.platform.commons.utils.ServletUtils;
+import cn.elvea.platform.core.security.enums.SecurityGrantTypeEnum;
+import cn.elvea.platform.core.security.exception.InvalidGrantTypeException;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationConverter;
-import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * JwtAuthenticationConverter
@@ -19,22 +19,24 @@ import java.util.Objects;
  */
 public class JwtAuthenticationConverter implements AuthenticationConverter {
 
-    private final List<AuthenticationConverter> converters;
+    private static final Map<String, AuthenticationConverter> converters = new ConcurrentHashMap<>();
 
-    public JwtAuthenticationConverter(List<AuthenticationConverter> converters) {
-        Assert.notEmpty(converters, "converters cannot be empty");
-        this.converters = Collections.unmodifiableList(new LinkedList<>(converters));
+    public void addConverter(String key, AuthenticationConverter converter) {
+        converters.put(key, converter);
     }
 
     @Nullable
     @Override
     public Authentication convert(HttpServletRequest request) {
-        Assert.notNull(request, "request cannot be null");
-        return this.converters.stream()
-                .map(converter -> converter.convert(request))
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
+        String grantType = ServletUtils.obtainRequestParameter(request, "grant_type");
+        if (!SecurityGrantTypeEnum.isValidGrantType(grantType)) {
+            throw new InvalidGrantTypeException();
+        }
+        AuthenticationConverter converter = converters.get(SecurityGrantTypeEnum.getGrantType(grantType).getValue());
+        if (converter == null) {
+            throw new InvalidGrantTypeException();
+        }
+        return converter.convert(request);
     }
 
 }

@@ -3,8 +3,10 @@ dependencies {
     api("org.springframework.boot:spring-boot-autoconfigure")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     // redisson
-    api("org.redisson:redisson-spring-boot-starter:${redissonVersion}")
-    api("org.redisson:redisson-spring-data-24:${redissonVersion}")
+    api("org.redisson:redisson-spring-boot-starter:${redissonVersion}") {
+        exclude group: 'org.redisson', module: 'redisson-spring-data-24'
+    }
+    api("org.redisson:redisson-spring-data-25:${redissonVersion}")
     api("io.netty:netty-all")
     //
     compileOnly("jakarta.servlet:jakarta.servlet-api")

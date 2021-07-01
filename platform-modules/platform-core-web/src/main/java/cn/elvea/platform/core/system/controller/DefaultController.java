@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +31,7 @@ public class DefaultController {
      */
     @Operation(summary = "应用初始化")
     @ApiResponse(description = "应用初始化")
-    @GetMapping("/api/initialize")
+    @GetMapping("/api/open/initialize")
     @OptLog("应用初始化")
     public Response<?> initialize() {
         Map<String, Object> data = Maps.newLinkedHashMap();
@@ -48,6 +49,7 @@ public class DefaultController {
     @ApiResponse(description = "当前应用版本号")
     @GetMapping("/api/version")
     @OptLog("获取当前应用版本")
+    @PreAuthorize("hasAuthority('USER')")
     public Response<?> version() {
         Map<String, Object> data = Maps.newLinkedHashMap();
         data.put("version", GlobalConstants.VERSION);

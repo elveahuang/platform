@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static cn.elvea.platform.core.security.jwt.JwtSecurityConstants.AUTH_TOKEN_PATH;
+import static cn.elvea.platform.core.security.SecurityConstants.API_AUTH_TOKEN_PATH;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,7 +21,7 @@ public class AuthTests extends BaseWebTests {
 
     @Test
     public void passwordAuthTest() throws Exception {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(AUTH_TOKEN_PATH)
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(API_AUTH_TOKEN_PATH)
                 .param("grant_type", "password")
                 .param("username", "admin")
                 .param("password", "admin"))
@@ -33,7 +33,7 @@ public class AuthTests extends BaseWebTests {
 
     @Test
     public void captchaAuthTest() throws Exception {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(AUTH_TOKEN_PATH)
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(API_AUTH_TOKEN_PATH)
                 .param("grant_type", "captcha")
                 .param("username", "admin")
                 .param("captcha_key", "admin")

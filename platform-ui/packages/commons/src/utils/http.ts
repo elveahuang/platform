@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, Canceler } from 'axios';
 import { isArray, isEmpty, merge } from 'lodash';
+import { stringify } from 'qs';
 //
 import StorageService from '@commons/services/StorageService';
 import environment from '@commons/utils/env';
@@ -58,6 +59,12 @@ function get<T = any, R = AxiosResponse<T>>(
 const postRequestConfig: AxiosRequestConfig = {
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    transformRequest: (data: any, headers: any) => {
+        console.log('transformRequest...');
+        console.log(headers);
+        console.log(stringify(data));
+        return stringify(data);
     },
     ...cancelRequestConfig,
 };

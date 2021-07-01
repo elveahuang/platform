@@ -4,6 +4,7 @@ import cn.elvea.platform.commons.exception.ServiceException;
 import cn.elvea.platform.commons.exception.SystemException;
 import cn.elvea.platform.commons.web.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ServiceException.class)
     public Response<?> serviceExceptionHandler(HttpServletResponse response, ServiceException e) {
+        return Response.error();
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public Response<?> accessDeniedExceptionHandler(HttpServletResponse response, ServiceException e) {
+        return Response.error();
+    }
+
+    @ExceptionHandler(Exception.class)
+    public Response<?> baseExceptionHandler(HttpServletResponse response, ServiceException e) {
         return Response.error();
     }
 

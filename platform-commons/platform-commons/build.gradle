@@ -6,6 +6,7 @@ dependencies {
     api("org.springframework:spring-context-support")
     api("org.springframework.data:spring-data-commons")
     api("org.springframework.data:spring-data-redis")
+    api("org.springframework.security:spring-security-core")
     // commons
     api("org.apache.commons:commons-text:${commonsTextVersion}")
     api("org.apache.commons:commons-lang3:${commonsLangVersion}")

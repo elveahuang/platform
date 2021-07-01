@@ -1,4 +1,6 @@
 dependencies {
+    // jakarta
+    compileOnly("jakarta.servlet:jakarta.servlet-api")
     // modules
     api project(':platform-commons:platform-base')
 }

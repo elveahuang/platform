@@ -41,6 +41,8 @@ public abstract class JwtUtils {
 
     public static final String JWT_KEY_UID = "uid";
 
+    public static final String JWT_KEY_SESSION_ID = "session_id";
+
     public static final String JWT_KEY_ACCOUNT = "account";
 
     public static final String JWT_KEY_TOKEN_TYPE = "type";
@@ -179,15 +181,13 @@ public abstract class JwtUtils {
         return RandomStringUtils.randomAlphabetic(length);
     }
 
-    public static String getAccessToken(HttpServletRequest request) {
-        String authorization = request.getHeader(AUTHORIZATION);
-        if (StringUtils.hasText(authorization) && authorization.startsWith(BEARER_PREFIX)) {
-            return authorization.replace(BEARER_PREFIX, "");
-        }
-        return null;
-    }
-
-    public static String getRefreshToken(HttpServletRequest request) {
+    /**
+     * Obtain Access Token
+     *
+     * @param request {@link HttpServletRequest}
+     * @return Access Token
+     */
+    public static String obtainAccessToken(HttpServletRequest request) {
         String authorization = request.getHeader(AUTHORIZATION);
         if (StringUtils.hasText(authorization) && authorization.startsWith(BEARER_PREFIX)) {
             return authorization.replace(BEARER_PREFIX, "");
