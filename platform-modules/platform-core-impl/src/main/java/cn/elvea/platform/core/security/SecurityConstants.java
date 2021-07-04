@@ -19,6 +19,7 @@ public abstract class SecurityConstants {
     public static final String API_AUTH_LOGOUT_PATH = "/api/auth/logout";
     public static final String API_REQUEST_PATH = "/api/**";
     public static final String API_OPEN_REQUEST_PATH = "/api/open/**";
+    public static final String WEB_SOCKET_REQUEST_PATH = "/web-socket/**";
 
     /**
      * =================================================================================================================
@@ -30,7 +31,8 @@ public abstract class SecurityConstants {
             API_AUTH_TOKEN_PATH,
             API_AUTH_LOGOUT_PATH,
             API_REQUEST_PATH,
-            API_OPEN_REQUEST_PATH
+            API_OPEN_REQUEST_PATH,
+            WEB_SOCKET_REQUEST_PATH,
     };
 
 }

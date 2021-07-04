@@ -2,6 +2,7 @@ package cn.elvea.platform.server.config;
 
 import cn.elvea.platform.core.security.CustomAccessDeniedHandler;
 import cn.elvea.platform.core.security.CustomAuthenticationEntryPoint;
+import cn.elvea.platform.core.security.CustomAuthenticationFailureHandler;
 import cn.elvea.platform.core.security.CustomUserDetailsService;
 import cn.elvea.platform.core.security.authentication.*;
 import cn.elvea.platform.core.security.enums.SecurityGrantTypeEnum;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 /**
  * 认证和权限基础配置
@@ -165,16 +167,22 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(
             AuthenticationManager authenticationManager,
-            JwtAuthenticationConverter jwtAuthenticationConverter,
-            JwtSecurityService jwtSecurityService) {
-        return new JwtAuthenticationFilter(authenticationManager, jwtAuthenticationConverter, jwtSecurityService);
+            AuthenticationFailureHandler authenticationFailureHandler,
+            JwtAuthenticationConverter jwtAuthenticationConverter
+    ) {
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManager, jwtAuthenticationConverter);
+        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
+        return filter;
     }
 
     @Bean
     public JwtAuthorizationFiler jwtAuthorizationFiler(
             AuthenticationManager authenticationManager,
+            AuthenticationFailureHandler authenticationFailureHandler,
             JwtAccessTokenAuthenticationConverter jwtAccessTokenAuthenticationConverter) {
-        return new JwtAuthorizationFiler(authenticationManager, jwtAccessTokenAuthenticationConverter);
+        JwtAuthorizationFiler filter = new JwtAuthorizationFiler(authenticationManager, jwtAccessTokenAuthenticationConverter);
+        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
+        return filter;
     }
 
     @Bean
@@ -185,6 +193,11 @@ public class SecurityConfig {
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new CustomAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
 }

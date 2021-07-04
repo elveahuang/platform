@@ -1,6 +1,7 @@
 package cn.elvea.platform.core.security.jwt;
 
 import cn.elvea.platform.BaseTests;
+import cn.elvea.platform.commons.utils.UuidUtils;
 import cn.elvea.platform.core.security.SecurityUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class JwtSecurityServiceTests extends BaseTests {
     public void tokenTest() throws Exception {
         List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("USER"));
         SecurityUser user = new SecurityUser(1L, "root", "root", authorities);
-        String token = jwtSecurityService.createAccessToken(user);
+        String token = jwtSecurityService.createAccessToken(UuidUtils.uuid(), user);
         jwtSecurityService.parseAccessToken(token);
     }
 

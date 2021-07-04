@@ -1,5 +1,7 @@
 dependencies {
     // spring
+    api("org.springframework:spring-websocket")
+    api("org.springframework:spring-messaging")
     api("org.springframework.security:spring-security-config")
     api("org.springframework.security:spring-security-web")
     // modules

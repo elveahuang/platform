@@ -5,7 +5,6 @@ import cn.elvea.platform.commons.web.Response;
 import cn.elvea.platform.core.security.exception.InvalidRequestException;
 import cn.elvea.platform.core.security.jwt.JwtAuthenticationConverter;
 import cn.elvea.platform.core.security.jwt.JwtAuthenticationToken;
-import cn.elvea.platform.core.security.jwt.JwtSecurityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -33,17 +32,13 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     private final static AntPathRequestMatcher REQUEST_MATCHER = new AntPathRequestMatcher(API_AUTH_TOKEN_PATH, "POST");
 
-    private final JwtSecurityService jwtSecurityService;
-
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
 
     public JwtAuthenticationFilter(
             AuthenticationManager authenticationManager,
-            JwtAuthenticationConverter jwtAuthenticationConverter,
-            JwtSecurityService jwtSecurityService
+            JwtAuthenticationConverter jwtAuthenticationConverter
     ) {
         super(REQUEST_MATCHER, authenticationManager);
-        this.jwtSecurityService = jwtSecurityService;
         this.jwtAuthenticationConverter = jwtAuthenticationConverter;
     }
 

@@ -14,7 +14,7 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 @Configuration
 @ComponentScan(basePackages = {
         "cn.elvea.platform.core",
-        "cn.elvea.platform.lxp"
+        "cn.elvea.platform.lxp",
 })
 @EnableJdbcRepositories(basePackages = {
         "cn.elvea.platform.core.**.repository"

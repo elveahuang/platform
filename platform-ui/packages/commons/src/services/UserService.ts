@@ -9,7 +9,7 @@ class UserService {
      * 用户登录
      */
     auth = (credentials: Credentials) => {
-        return post('/auth/token', credentials);
+        return post('/api/auth/token', credentials);
     };
     /**
      * 用户退出登录

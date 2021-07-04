@@ -14,13 +14,13 @@
     "dependencies": {
         "@ant-design/charts": "^1.1.20",
         "@ant-design/icons": "^4.6.2",
-        "@ant-design/pro-card": "^1.14.3",
-        "@ant-design/pro-descriptions": "^1.8.5",
-        "@ant-design/pro-form": "^1.31.0",
-        "@ant-design/pro-layout": "^6.20.0",
-        "@ant-design/pro-list": "^1.10.3",
+        "@ant-design/pro-card": "^1.14.4",
+        "@ant-design/pro-descriptions": "^1.8.6",
+        "@ant-design/pro-form": "^1.31.1",
+        "@ant-design/pro-layout": "^6.21.0",
+        "@ant-design/pro-list": "^1.10.5",
         "@ant-design/pro-skeleton": "^1.0.1",
-        "@ant-design/pro-table": "^2.43.1",
+        "@ant-design/pro-table": "^2.43.3",
         "antd": "^4.16.6"
     },
     "devDependencies": {

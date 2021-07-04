@@ -8,7 +8,7 @@ class CommonService {
      * 首页
      */
     initialize = () => {
-        return get('/api/initialize');
+        return get('/api/open/initialize');
     };
     /**
      * 首页

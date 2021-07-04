@@ -1,5 +1,6 @@
 package cn.elvea.platform.core.security;
 
+import cn.elvea.platform.commons.utils.ServletUtils;
 import cn.elvea.platform.commons.utils.StringUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +29,14 @@ public abstract class SecurityUtils {
             throw new AuthenticationServiceException("Invalid authorization header size.");
         }
         return authorization.substring(AUTHORIZATION_PREFIX.length());
+    }
+
+    public static String getAccessTokenCode(HttpServletRequest request) {
+        String authorization = ServletUtils.obtainRequestParameter(request, "code", "");
+        if (StringUtils.isBlank(authorization)) {
+            throw new AuthenticationServiceException("Authorization cannot be blank.");
+        }
+        return authorization;
     }
 
     /**

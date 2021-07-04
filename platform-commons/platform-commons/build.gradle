@@ -4,6 +4,7 @@ dependencies {
     api("org.springframework:spring-web")
     api("org.springframework:spring-context")
     api("org.springframework:spring-context-support")
+    api("org.springframework:spring-websocket")
     api("org.springframework.data:spring-data-commons")
     api("org.springframework.data:spring-data-redis")
     api("org.springframework.security:spring-security-core")
@@ -57,6 +58,7 @@ dependencies {
     // jakarta
     api("jakarta.annotation:jakarta.annotation-api")
     api("jakarta.transaction:jakarta.transaction-api")
+    api("jakarta.websocket:jakarta.websocket-api")
     compileOnly("jakarta.servlet:jakarta.servlet-api")
     // modules
     api project(':platform-commons:platform-base')

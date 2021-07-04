@@ -4,6 +4,7 @@ interface ImportMetaEnv {
     VITE_APP_DIST: string;
     VITE_APP_TITLE: string;
     VITE_APP_SERVER: string;
+    VITE_APP_WEB_SOCKET_SERVER: string;
     VITE_APP_MOCK_ENABLED: boolean;
     VITE_APP_XDEBUG_ENABLED: boolean;
     VITE_APP_XDEBUG_KEY: string;

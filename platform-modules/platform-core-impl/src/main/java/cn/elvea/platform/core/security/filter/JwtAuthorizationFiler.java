@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static cn.elvea.platform.core.security.SecurityConstants.API_OPEN_REQUEST_PATH;
-import static cn.elvea.platform.core.security.SecurityConstants.API_REQUEST_PATH;
+import static cn.elvea.platform.core.security.SecurityConstants.*;
 
 /**
  * 授权过滤器
@@ -52,6 +51,8 @@ public class JwtAuthorizationFiler extends AbstractAuthenticationProcessingFilte
     @Override
     protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
         return super.requiresAuthentication(request, response) &&
+                !SecurityUtils.isUrlMatches(request, API_AUTH_TOKEN_PATH) &&
+                !SecurityUtils.isUrlMatches(request, API_AUTH_LOGOUT_PATH) &&
                 !SecurityUtils.isUrlMatches(request, API_OPEN_REQUEST_PATH);
     }
 

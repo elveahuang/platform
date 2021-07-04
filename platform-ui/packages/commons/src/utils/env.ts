@@ -18,6 +18,10 @@ export interface Environment {
      */
     server: string;
     /**
+     * 服务器地址
+     */
+    webSocketServer: string;
+    /**
      * Mock
      */
     mock: {
@@ -46,6 +50,7 @@ const env: Environment = {
     production: isEqual(import.meta.env.NODE_HOME, 'production'),
     title: import.meta.env.VITE_APP_TITLE ?? 'Application',
     server: import.meta.env.VITE_APP_SERVER ?? '',
+    webSocketServer: import.meta.env.VITE_APP_WEB_SOCKET_SERVER ?? '',
     mock: {
         enabled: isEqual(import.meta.env.VITE_APP_MOCK_ENABLED, 'true'),
     },
