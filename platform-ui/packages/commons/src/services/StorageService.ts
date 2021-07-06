@@ -8,65 +8,65 @@ const StorageService = {
     /**
      *
      */
-    getItem(key: string): string {
+    getItem: (key: string): string => {
         return localStorage.getItem(key) ?? '';
     },
     /**
      *
      */
-    removeItem(key: string): void {
+    removeItem: (key: string): void => {
         localStorage.removeItem(key);
     },
     /**
      *
      */
-    setItem(key: string, val: string): void {
+    setItem: (key: string, val: string): void => {
         if (!isEmpty(val)) {
             localStorage.setItem(key, val);
         } else {
-            this.removeItem(key);
+            StorageService.removeItem(key);
         }
     },
     /**
      *
      */
-    getAccessToken(): string {
-        return this.getItem(ACCESS_TOKEN_KEY) ?? '';
+    getAccessToken: (): string => {
+        return StorageService.getItem(ACCESS_TOKEN_KEY) ?? '';
     },
     /**
      *
      */
-    setAccessToken(val: string): void {
-        this.setItem(ACCESS_TOKEN_KEY, val);
+    setAccessToken: (val: string): void => {
+        StorageService.setItem(ACCESS_TOKEN_KEY, val);
     },
     /**
      *
      */
-    removeAccessToken(): void {
-        this.removeItem(ACCESS_TOKEN_KEY);
+    removeAccessToken: (): void => {
+        StorageService.removeItem(ACCESS_TOKEN_KEY);
     },
     /**
      *
      */
-    getRefreshToken(): string {
-        return this.getItem(REFRESH_TOKEN_KEY) ?? '';
+    getRefreshToken: (): string => {
+        return StorageService.getItem(REFRESH_TOKEN_KEY) ?? '';
     },
     /**
      *
      */
-    setRefreshToken(val: string): void {
-        this.setItem(REFRESH_TOKEN_KEY, val);
+    setRefreshToken: (val: string): void => {
+        StorageService.setItem(REFRESH_TOKEN_KEY, val);
     },
     /**
      *
      */
-    removeRefreshToken(): void {
-        this.removeItem(REFRESH_TOKEN_KEY);
+    removeRefreshToken: (): void => {
+        StorageService.removeItem(REFRESH_TOKEN_KEY);
     },
     /**
      *
      */
-    clear() {
+    clear: () => {
         localStorage.clear();
     },
 };

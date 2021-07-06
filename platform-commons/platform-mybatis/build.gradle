@@ -1,0 +1,11 @@
+dependencies {
+    // mybatis
+    api("org.mybatis:mybatis:${mybatisVersion}")
+    api("org.mybatis:mybatis-spring:${mybatisSpringVersion}")
+    api("com.baomidou:mybatis-plus-annotation:${mybatisPlusVersion}")
+    api("com.baomidou:mybatis-plus-core:${mybatisPlusVersion}")
+    api("com.baomidou:mybatis-plus-extension:${mybatisPlusVersion}")
+    api("com.github.jsqlparser:jsqlparser:${jSqlParserVersion}")
+    // modules
+    api project(':platform-commons:platform-commons')
+}

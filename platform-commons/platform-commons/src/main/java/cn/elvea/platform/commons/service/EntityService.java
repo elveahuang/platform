@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author elvea
  * @since 0.0.1
  */
-public interface EntityService<T extends IdEntity, K extends Serializable> {
+public interface EntityService<T extends IdEntity, K extends Serializable> extends Service {
 
     /**
      * 根据ID查询唯一记录

@@ -1,5 +1,7 @@
 package cn.elvea.platform.commons.service.support;
 
+import cn.elvea.platform.commons.service.ProxySelfService;
+
 /**
  * TestProxyService
  *

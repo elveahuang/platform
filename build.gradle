@@ -58,16 +58,18 @@ subprojects {
         testImplementation("org.springframework.security:spring-security-test")
         testImplementation("org.junit.jupiter:junit-jupiter-api")
         testImplementation("org.junit.jupiter:junit-jupiter-engine")
-        // lombok
+        // mapstruct & lombok
+        compileOnly("org.mapstruct:mapstruct:${mapStructVersion}")
         compileOnly("org.projectlombok:lombok")
-        annotationProcessor("org.projectlombok:lombok")
-        testCompileOnly("org.projectlombok:lombok")
-        testAnnotationProcessor("org.projectlombok:lombok")
-        // mapstruct
-        implementation("org.mapstruct:mapstruct:${mapStructVersion}")
+        //
+        annotationProcessor("org.projectlombok:lombok-mapstruct-binding:${mapStructLombokBindingVersion}")
         annotationProcessor("org.mapstruct:mapstruct-processor:${mapStructVersion}")
+        annotationProcessor("org.projectlombok:lombok")
+        //
         testImplementation("org.mapstruct:mapstruct:${mapStructVersion}")
+        testImplementation("org.projectlombok:lombok")
         testAnnotationProcessor("org.mapstruct:mapstruct-processor:${mapStructVersion}")
+        testAnnotationProcessor("org.projectlombok:lombok")
     }
 
     configurations.all {

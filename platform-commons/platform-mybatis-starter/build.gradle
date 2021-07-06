@@ -1,0 +1,11 @@
+dependencies {
+    // spring
+    api("org.springframework.boot:spring-boot-starter-data-mongodb")
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    // mybatis
+    api("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
+    // modules
+    api project(':platform-commons:platform-commons-starter')
+    api project(':platform-commons:platform-mybatis')
+}

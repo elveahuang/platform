@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.utils;
 
-import cn.elvea.platform.commons.service.support.ProxySelfService;
+import cn.elvea.platform.commons.service.ProxySelfService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

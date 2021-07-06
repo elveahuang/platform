@@ -1,6 +1,6 @@
 package cn.elvea.platform.core.security;
 
-import cn.elvea.platform.BaseWebTests;
+import cn.elvea.platform.BaseTests;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,15 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * SecurityUtilsTest
  *
  * @author elvea
+ * @since 0.0.1
  */
-public class SecurityUtilsTests extends BaseWebTests {
-
-    private final PasswordEncoder passwordEncoder;
+public class SecurityUtilsTests extends BaseTests {
 
     @Autowired
-    public SecurityUtilsTests(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void encryptPasswordTest() {

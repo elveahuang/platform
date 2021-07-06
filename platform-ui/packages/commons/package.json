@@ -5,7 +5,7 @@
         "antd": "^4.16.6"
     },
     "devDependencies": {
-        "vite": "^2.3.8",
+        "vite": "^2.4.0",
         "autoprefixer": "^10.2.6",
         "postcss": "^8.3.5",
         "sass": "^1.35.1",

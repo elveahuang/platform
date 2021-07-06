@@ -1,6 +1,5 @@
 package cn.elvea.platform.core.security;
 
-import cn.elvea.platform.core.security.SecurityUser;
 import cn.elvea.platform.core.system.domain.dto.UserDto;
 import cn.elvea.platform.core.system.service.UserService;
 import lombok.extern.slf4j.Slf4j;

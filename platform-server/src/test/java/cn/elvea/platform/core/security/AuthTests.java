@@ -26,8 +26,8 @@ public class AuthTests extends BaseWebTests {
                 .param("username", "admin")
                 .param("password", "admin"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.access_token").isNotEmpty())
-                .andExpect(jsonPath("$.refresh_token").isNotEmpty())
+                .andExpect(jsonPath("$.data.access_token").isNotEmpty())
+                .andExpect(jsonPath("$.data.refresh_token").isNotEmpty())
                 .andReturn();
     }
 

@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.service.support;
+package cn.elvea.platform.commons.service;
 
 import cn.elvea.platform.commons.utils.GenericsUtils;
 import cn.elvea.platform.commons.utils.SpringUtils;

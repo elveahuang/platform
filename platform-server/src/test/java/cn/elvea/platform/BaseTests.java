@@ -1,5 +1,6 @@
 package cn.elvea.platform;
 
+import cn.elvea.platform.server.Application;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @Configuration
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+        classes = {Application.class},
+        webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 public abstract class BaseTests {
 }

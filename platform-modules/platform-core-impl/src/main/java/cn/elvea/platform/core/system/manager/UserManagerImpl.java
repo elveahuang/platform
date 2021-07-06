@@ -1,11 +1,10 @@
 package cn.elvea.platform.core.system.manager;
 
-import cn.elvea.platform.persistence.domain.BaseEntity;
-import cn.elvea.platform.persistence.service.AbstractEntityService;
+import cn.elvea.platform.base.domain.IdEntity;
 import cn.elvea.platform.core.system.SystemConstants;
 import cn.elvea.platform.core.system.domain.entity.UserEntity;
-import cn.elvea.platform.core.system.manager.UserManager;
 import cn.elvea.platform.core.system.repository.UserRepository;
+import cn.elvea.platform.persistence.service.AbstractEntityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
@@ -61,7 +60,7 @@ public class UserManagerImpl extends AbstractEntityService<UserEntity, Long, Use
     }
 
     /**
-     * @see UserManager#save(BaseEntity)
+     * @see UserManager#save(IdEntity)
      */
     @Override
     @Caching(put = {
