@@ -1,4 +1,6 @@
 dependencies {
+    // spring
+    api("org.springframework.data:spring-data-commons")
     // mybatis
     api("org.mybatis:mybatis:${mybatisVersion}")
     api("org.mybatis:mybatis-spring:${mybatisSpringVersion}")

@@ -17,11 +17,11 @@ public class JwtWeChatAuthenticationConverter implements AuthenticationConverter
 
     @Override
     public JwtWeChatAuthenticationToken convert(HttpServletRequest request) {
-        String grantType = ServletUtils.obtainRequestParameter(request, "grant_type");
+        String grantType = ServletUtils.getParameter(request, "grant_type");
         if (!SecurityGrantTypeEnum.isValidGrantType(grantType, SecurityGrantTypeEnum.WECHAT)) {
             throw new InvalidGrantTypeException();
         }
-        String code = ServletUtils.obtainRequestParameter(request, "code");
+        String code = ServletUtils.getParameter(request, "code");
         return new JwtWeChatAuthenticationToken(code);
     }
 

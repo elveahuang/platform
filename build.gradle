@@ -1,9 +1,9 @@
 buildscript {
     repositories {
+        mavenCentral()
         maven {
             url "https://maven.aliyun.com/repository/public"
         }
-        mavenCentral()
         gradlePluginPortal()
     }
 
@@ -19,10 +19,10 @@ allprojects {
 
 subprojects {
     repositories {
+        mavenCentral()
         maven {
             url "https://maven.aliyun.com/repository/public"
         }
-        mavenCentral()
     }
 
     apply plugin: 'java'

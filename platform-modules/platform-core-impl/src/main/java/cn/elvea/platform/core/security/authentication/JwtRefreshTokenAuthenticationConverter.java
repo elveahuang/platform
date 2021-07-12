@@ -28,11 +28,11 @@ public class JwtRefreshTokenAuthenticationConverter implements AuthenticationCon
     @Override
     public JwtRefreshTokenAuthenticationToken convert(HttpServletRequest request) {
         try {
-            String grantType = ServletUtils.obtainRequestParameter(request, "grant_type");
+            String grantType = ServletUtils.getParameter(request, "grant_type");
             if (!SecurityGrantTypeEnum.isValidGrantType(grantType, SecurityGrantTypeEnum.REFRESH_TOKEN)) {
                 throw new InvalidGrantTypeException();
             }
-            String refreshToken = ServletUtils.obtainRequestParameter(request, "refresh_token");
+            String refreshToken = ServletUtils.getParameter(request, "refresh_token");
             JWTClaimsSet claimsSet = this.jwtSecurityService.parseRefreshToken(refreshToken);
             String username = claimsSet.getStringClaim(JwtUtils.JWT_KEY_ACCOUNT);
             String sessionId = claimsSet.getStringClaim(JwtUtils.JWT_KEY_SESSION_ID);

@@ -93,7 +93,7 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
     void count();
 
     /**
-     * 查询记录总数
+     * 是否存在指定ID的记录
      */
     boolean existsById(K id);
 

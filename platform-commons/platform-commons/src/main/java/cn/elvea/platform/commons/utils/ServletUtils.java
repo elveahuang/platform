@@ -8,9 +8,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * ServletUtils
@@ -23,27 +27,39 @@ public abstract class ServletUtils {
     private final static String UNKNOWN_IP = "unknown";
     private final static String LOCAL_IP = "127.0.0.1";
 
-    public static final String TEXT_TYPE = "text/plain";
-    public static final String JSON_TYPE = "application/json";
-    public static final String XML_TYPE = "text/xml";
-    public static final String HTML_TYPE = "text/html";
+    public static final String TEXT_CONTENT_TYPE = "text/plain";
+    public static final String JSON_CONTENT_TYPE = "application/json";
+    public static final String XML_CONTENT_TYPE = "text/xml";
+    public static final String HTML_CONTENT_CTYPE = "text/html";
     public static final String JS_TYPE = "text/javascript";
     public static final String EXCEL_TYPE = "application/vnd.ms-excel";
 
-    //-- 常用数值定义 --//
-    public static final long ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
+    /**
+     * 获取HttpServletRequest
+     */
+    public static HttpServletRequest getRequest() {
+        return getRequestAttributes().getRequest();
+    }
 
     /**
-     * 获取请求对象
-     *
-     * @return {@link HttpServletRequest}
+     * 获取HttpServletResponse
      */
-    public static HttpServletRequest getHttpServletRequest() {
-        ServletRequestAttributes servletRequestAttributes = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes());
-        if (servletRequestAttributes != null) {
-            return servletRequestAttributes.getRequest();
-        }
-        return null;
+    public static HttpServletResponse getResponse() {
+        return getRequestAttributes().getResponse();
+    }
+
+    /**
+     * 获取HttpSession
+     */
+    public static HttpSession getSession() {
+        return getRequestAttributes().getRequest().getSession();
+    }
+
+    /**
+     * 获取ServletRequestAttributes
+     */
+    public static ServletRequestAttributes getRequestAttributes() {
+        return (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
     }
 
     /**
@@ -52,10 +68,15 @@ public abstract class ServletUtils {
      * @return String
      */
     public static String getHost() {
-        HttpServletRequest request = getHttpServletRequest();
-        if (request == null) {
-            return null;
-        }
+        return getHost(getRequest());
+    }
+
+    /**
+     * 获取客户端IP
+     *
+     * @return String
+     */
+    public static String getHost(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
         if (!StringUtils.hasText(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -86,6 +107,19 @@ public abstract class ServletUtils {
         return ip;
     }
 
+    public static Map<String, String> getHeaders(HttpServletRequest request) {
+        Map<String, String> map = new LinkedHashMap<>();
+        Enumeration<String> enumeration = request.getHeaderNames();
+        if (enumeration != null) {
+            while (enumeration.hasMoreElements()) {
+                String key = enumeration.nextElement();
+                String value = request.getHeader(key);
+                map.put(key, value);
+            }
+        }
+        return map;
+    }
+
     /**
      * 获取参数值
      *
@@ -93,8 +127,8 @@ public abstract class ServletUtils {
      * @param parameterName 参数名
      * @return 参数值
      */
-    public static String obtainRequestParameter(HttpServletRequest request, String parameterName) {
-        return obtainRequestParameter(request, parameterName, "");
+    public static String getParameter(HttpServletRequest request, String parameterName) {
+        return getParameter(request, parameterName, "");
     }
 
     /**
@@ -105,7 +139,7 @@ public abstract class ServletUtils {
      * @param defaultParameterValue 默认参数值
      * @return 参数值
      */
-    public static String obtainRequestParameter(HttpServletRequest request, String parameterName, String defaultParameterValue) {
+    public static String getParameter(HttpServletRequest request, String parameterName, String defaultParameterValue) {
         String parameterValue = request.getParameter(parameterName);
         if (StringUtils.hasLength(parameterValue)) {
             parameterValue = parameterValue.trim();
@@ -142,6 +176,13 @@ public abstract class ServletUtils {
     }
 
     /**
+     * 设置Etag Header.
+     */
+    public static void setEtag(HttpServletResponse response, String etag) {
+        response.setHeader("ETag", etag);
+    }
+
+    /**
      * 设置最后修改时间
      *
      * @param response         {@link HttpServletResponse}
@@ -151,6 +192,21 @@ public abstract class ServletUtils {
         response.setDateHeader("Last-Modified", lastModifiedDate);
     }
 
+    private static HttpServletResponse initResponseHeader(HttpServletResponse response, final String contentType, final String... headers) {
+        response.setContentType(contentType);
+        response.setCharacterEncoding(GlobalConstants.ENCODING);
+        ServletUtils.setNoCacheHeader(response);
+        return response;
+    }
+
+    /**
+     * 把指定内容渲染到客户端
+     *
+     * @param response    {@link HttpServletResponse}
+     * @param contentType 内容类型
+     * @param content     内容
+     * @param headers     头
+     */
     public static void render(HttpServletResponse response, final String contentType, final String content, final String... headers) {
         initResponseHeader(response, contentType, headers);
         try {
@@ -165,47 +221,32 @@ public abstract class ServletUtils {
      * 直接输出文本
      */
     public static void renderText(HttpServletResponse response, final String text, final String... headers) {
-        render(response, ServletUtils.TEXT_TYPE, text);
+        render(response, TEXT_CONTENT_TYPE, text);
     }
 
     /**
      * 直接输出HTML
      */
     public static void renderHtml(HttpServletResponse response, final String html, final String... headers) {
-        render(response, ServletUtils.HTML_TYPE, html, headers);
+        render(response, HTML_CONTENT_CTYPE, html, headers);
     }
 
     /**
      * 直接输出XML
      */
     public static void renderXml(HttpServletResponse response, final String xml, final String... headers) {
-        render(response, ServletUtils.XML_TYPE, xml, headers);
-    }
-
-    /**
-     * 直接输出JSON
-     */
-    public static void renderJson(HttpServletResponse response, final String jsonString, final String... headers) {
-        render(response, ServletUtils.JSON_TYPE, jsonString, headers);
+        render(response, XML_CONTENT_TYPE, xml, headers);
     }
 
     /**
      * 直接输出JSON
      */
     public static void renderJson(HttpServletResponse response, final Object data, final String... headers) {
-        initResponseHeader(response, ServletUtils.JSON_TYPE);
         try {
-            JsonUtils.getObjectMapper().writeValue(response.getWriter(), data);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e);
+            render(response, JSON_CONTENT_TYPE, JsonUtils.toJson(data), headers);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
-    }
-
-    private static HttpServletResponse initResponseHeader(HttpServletResponse response, final String contentType, final String... headers) {
-        String fullContentType = contentType + "; charset=" + GlobalConstants.ENCODING;
-        response.setContentType(fullContentType);
-        ServletUtils.setNoCacheHeader(response);
-        return response;
     }
 
 }

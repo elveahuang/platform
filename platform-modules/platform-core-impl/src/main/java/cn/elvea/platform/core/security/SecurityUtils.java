@@ -32,7 +32,7 @@ public abstract class SecurityUtils {
     }
 
     public static String getAccessTokenCode(HttpServletRequest request) {
-        String authorization = ServletUtils.obtainRequestParameter(request, "code", "");
+        String authorization = ServletUtils.getParameter(request, "code", "");
         if (StringUtils.isBlank(authorization)) {
             throw new AuthenticationServiceException("Authorization cannot be blank.");
         }

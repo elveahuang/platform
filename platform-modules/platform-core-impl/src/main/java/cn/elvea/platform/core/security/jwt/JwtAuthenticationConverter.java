@@ -28,7 +28,7 @@ public class JwtAuthenticationConverter implements AuthenticationConverter {
     @Nullable
     @Override
     public Authentication convert(HttpServletRequest request) {
-        String grantType = ServletUtils.obtainRequestParameter(request, "grant_type");
+        String grantType = ServletUtils.getParameter(request, "grant_type");
         if (!SecurityGrantTypeEnum.isValidGrantType(grantType)) {
             throw new InvalidGrantTypeException();
         }

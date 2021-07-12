@@ -17,12 +17,12 @@ public class JwtPasswordAuthenticationConverter implements AuthenticationConvert
 
     @Override
     public JwtPasswordAuthenticationToken convert(HttpServletRequest request) {
-        String grantType = ServletUtils.obtainRequestParameter(request, "grant_type");
+        String grantType = ServletUtils.getParameter(request, "grant_type");
         if (!SecurityGrantTypeEnum.isValidGrantType(grantType, SecurityGrantTypeEnum.PASSWORD)) {
             throw new InvalidGrantTypeException();
         }
-        String username = ServletUtils.obtainRequestParameter(request, "username");
-        String password = ServletUtils.obtainRequestParameter(request, "password");
+        String username = ServletUtils.getParameter(request, "username");
+        String password = ServletUtils.getParameter(request, "password");
         return new JwtPasswordAuthenticationToken(username, password);
     }
 

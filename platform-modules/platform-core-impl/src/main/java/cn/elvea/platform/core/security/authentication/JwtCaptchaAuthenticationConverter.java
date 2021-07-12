@@ -17,13 +17,13 @@ public class JwtCaptchaAuthenticationConverter implements AuthenticationConverte
 
     @Override
     public JwtCaptchaAuthenticationToken convert(HttpServletRequest request) {
-        String grantType = ServletUtils.obtainRequestParameter(request, "grant_type");
+        String grantType = ServletUtils.getParameter(request, "grant_type");
         if (!SecurityGrantTypeEnum.isValidGrantType(grantType, SecurityGrantTypeEnum.CAPTCHA)) {
             throw new InvalidGrantTypeException();
         }
-        String username = ServletUtils.obtainRequestParameter(request, "username");
-        String captchaKey = ServletUtils.obtainRequestParameter(request, "captcha_key");
-        String captchaCode = ServletUtils.obtainRequestParameter(request, "captcha_code");
+        String username = ServletUtils.getParameter(request, "username");
+        String captchaKey = ServletUtils.getParameter(request, "captcha_key");
+        String captchaCode = ServletUtils.getParameter(request, "captcha_code");
         return new JwtCaptchaAuthenticationToken(username, captchaKey, captchaCode);
     }
 

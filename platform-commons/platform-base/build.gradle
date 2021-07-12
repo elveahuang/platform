@@ -1,5 +1,5 @@
 dependencies {
     api("org.jetbrains:annotations:${jetbrainsAnnotationsVersion}")
     api("io.swagger.core.v3:swagger-annotations:${swaggerVersion}")
-    api("org.springframework.data:spring-data-commons")
+    api("com.fasterxml.jackson.core:jackson-annotations")
 }

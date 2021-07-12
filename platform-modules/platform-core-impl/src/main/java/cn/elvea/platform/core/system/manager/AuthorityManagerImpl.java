@@ -1,10 +1,9 @@
 package cn.elvea.platform.core.system.manager;
 
-import cn.elvea.platform.persistence.service.AbstractEntityService;
 import cn.elvea.platform.core.system.SystemConstants;
 import cn.elvea.platform.core.system.domain.entity.AuthorityEntity;
-import cn.elvea.platform.core.system.manager.AuthorityManager;
 import cn.elvea.platform.core.system.repository.AuthorityRepository;
+import cn.elvea.platform.persistence.service.AbstractEntityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;

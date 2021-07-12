@@ -17,11 +17,11 @@ public class JwtWeComAuthenticationConverter implements AuthenticationConverter 
 
     @Override
     public JwtWeComAuthenticationToken convert(HttpServletRequest request) {
-        String grantType = ServletUtils.obtainRequestParameter(request, "grant_type");
+        String grantType = ServletUtils.getParameter(request, "grant_type");
         if (!SecurityGrantTypeEnum.isValidGrantType(grantType, SecurityGrantTypeEnum.WECOM)) {
             throw new InvalidGrantTypeException();
         }
-        String code = ServletUtils.obtainRequestParameter(request, "code");
+        String code = ServletUtils.getParameter(request, "code");
         return new JwtWeComAuthenticationToken(code);
     }
 

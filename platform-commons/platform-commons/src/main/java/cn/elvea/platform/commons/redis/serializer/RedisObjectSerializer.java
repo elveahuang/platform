@@ -1,5 +1,6 @@
 package cn.elvea.platform.commons.redis.serializer;
 
+import cn.elvea.platform.commons.utils.JsonUtils;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 public class RedisObjectSerializer extends GenericJackson2JsonRedisSerializer {
 
     public RedisObjectSerializer() {
+        super(JsonUtils.getCacheObjectMapper());
     }
 
 }

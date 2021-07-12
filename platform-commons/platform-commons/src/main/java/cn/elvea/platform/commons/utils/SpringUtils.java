@@ -1,6 +1,7 @@
 package cn.elvea.platform.commons.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -130,33 +131,18 @@ public class SpringUtils implements ApplicationContextAware {
         beanFactory.registerBeanDefinition(beanName, beanDefinition);
     }
 
-    /**
-     * 获取HttpServletRequest
-     */
-    public static HttpServletRequest getRequest() {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        return attributes.getRequest();
-    }
-
-    /**
-     * 获取HttpServletResponse
-     */
-    public static HttpServletResponse getResponse() {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        return attributes.getResponse();
-    }
-
-    /**
-     * 获取HttpSession
-     */
-    public static HttpSession getSession() {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        return attributes.getRequest().getSession();
-    }
 
     public static ApplicationContext publishEvent(Object event) {
         applicationContext.publishEvent(event);
         return applicationContext;
+    }
+
+    /**
+     * 获取a代理对象
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getAopProxy(T invoker) {
+        return (T) AopContext.currentProxy();
     }
 
 }

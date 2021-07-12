@@ -1,6 +1,6 @@
 package cn.elvea.platform.core.system.domain.entity;
 
-import cn.elvea.platform.persistence.domain.BaseEntity;
+import cn.elvea.platform.persistence.domain.BaseIdEntity;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Table("sys_tenant_authority_relation")
-public class TenantAuthorityRelationEntity extends BaseEntity {
+public class TenantAuthorityRelationEntity extends BaseIdEntity {
     /**
      * 租户ID
      */

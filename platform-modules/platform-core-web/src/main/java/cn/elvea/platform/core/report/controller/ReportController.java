@@ -2,7 +2,6 @@ package cn.elvea.platform.core.report.controller;
 
 import cn.elvea.platform.commons.web.Response;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -14,24 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/report")
 public class ReportController extends AbstractReportController {
-
-    /**
-     * 报表条件页面
-     */
-    @GetMapping("/{report}/view")
-    public String view(Model model, @PathVariable("report") String report) {
-        this.prepareView(model);
-        return getView();
-    }
-
-    /**
-     * 报表结果页面
-     */
-    @GetMapping("/{report}/result/view")
-    public String resultView(Model model, @PathVariable("report") String report) {
-        this.prepareResultView(model);
-        return getResultView();
-    }
 
     /**
      * 查看报表

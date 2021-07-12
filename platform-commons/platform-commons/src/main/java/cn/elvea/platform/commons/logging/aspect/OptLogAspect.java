@@ -50,14 +50,14 @@ public class OptLogAspect extends AbstractLogAspect {
     @Override
     protected void output(JoinPoint joinPoint, Long execTime, Throwable e) {
         try {
-            HttpServletRequest request = ServletUtils.getHttpServletRequest();
+            HttpServletRequest request = ServletUtils.getRequest();
             OptLogDto dto = OptLogDto.builder()
                     .className(getJoinPointClass(joinPoint))
                     .methodName(getJoinPointMethod(joinPoint))
                     .requestIp(ServletUtils.getHost())
-                    .requestUri(request == null ? null : request.getRequestURI())
-                    .requestParams(request == null ? null : getRequestParams(request))
-                    .httpMethod(request == null ? null : request.getMethod())
+                    .requestUri(request.getRequestURI())
+                    .requestParams(getRequestParams(request))
+                    .httpMethod(request.getMethod())
                     .startTime(LocalDateTime.now())
                     .execTime(execTime)
                     .exception(e != null ? ExceptionUtils.getStackTraceAsString(e) : "")

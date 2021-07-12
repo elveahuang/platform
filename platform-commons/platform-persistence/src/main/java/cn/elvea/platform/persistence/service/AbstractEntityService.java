@@ -18,9 +18,11 @@ import java.io.Serializable;
  * @author elvea
  * @since 0.0.1
  */
-public abstract class AbstractEntityService<T extends IdEntity, K extends Serializable, R extends JdbcRepository<T, K>> implements EntityService<T, K> {
+public abstract class AbstractEntityService<T extends IdEntity, K extends Serializable, R extends JdbcRepository<T, K>>
+        implements EntityService<T, K> {
 
     @Autowired
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     protected R repository;
 
     /**

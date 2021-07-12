@@ -1,8 +1,8 @@
 package cn.elvea.platform.core.socket.interceptor;
 
 import cn.elvea.platform.commons.utils.JwtUtils;
+import cn.elvea.platform.commons.utils.ServletUtils;
 import cn.elvea.platform.commons.utils.StringUtils;
-import cn.elvea.platform.commons.utils.WebUtils;
 import cn.elvea.platform.core.security.SecurityUtils;
 import cn.elvea.platform.core.security.jwt.JwtSecurityService;
 import cn.elvea.platform.core.socket.WebSocketUserSession;
@@ -43,7 +43,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
         HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
 
         String servletSessionId = servletRequest.getSession().getId();
-        String host = WebUtils.getHost(servletRequest);
+        String host = ServletUtils.getHost(servletRequest);
 
         log.debug("web socket before handshake servletSessionId - {}.", servletSessionId);
         try {

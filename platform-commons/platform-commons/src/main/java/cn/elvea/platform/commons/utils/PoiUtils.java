@@ -1,10 +1,11 @@
 package cn.elvea.platform.commons.utils;
 
 /**
- * QrCodeUtils
+ * PoiUtils
+ * https://poi.apache.org/
  *
  * @author elvea
  * @since 0.0.1
  */
-public abstract class QrCodeUtils {
+public abstract class PoiUtils {
 }

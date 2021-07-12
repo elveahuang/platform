@@ -27,5 +27,6 @@ include 'platform-modules:platform-lxp-web'
 include 'platform-modules:platform-xapi-api'
 include 'platform-modules:platform-xapi-impl'
 include 'platform-modules:platform-xapi-web'
+include 'platform-modules:platform-xapi-web'
 // 业务模块
 include 'platform-server'
