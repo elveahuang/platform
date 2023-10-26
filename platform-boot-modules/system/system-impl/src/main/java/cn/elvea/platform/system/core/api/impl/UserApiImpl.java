@@ -35,24 +35,36 @@ public class UserApiImpl implements UserApi {
 
     private final RoleService roleService;
 
+    /**
+     * @see UserApi#getUserInfo(String)
+     */
     @Override
     public UserInfoDto getUserInfo(String username) {
         UserEntity entity = userService.findByUsername(username);
         return getUserInfoDto(entity);
     }
 
+    /**
+     * @see UserApi#findByUsername(String)
+     */
     @Override
     public UserLoginDto findByUsername(String username) {
         UserEntity entity = userService.findByUsername(username);
         return getUserLoginDto(entity);
     }
 
+    /**
+     * @see UserApi#findByMobile(String, String)
+     */
     @Override
     public UserLoginDto findByMobile(String mobileCountryCode, String mobileNumber) {
         UserEntity entity = userService.findByMobile(mobileCountryCode, mobileNumber);
         return getUserLoginDto(entity);
     }
 
+    /**
+     * @see UserApi#findByEmail(String)
+     */
     @Override
     public UserLoginDto findByEmail(String email) {
         UserEntity entity = userService.findByEmail(email);
@@ -69,7 +81,6 @@ public class UserApiImpl implements UserApi {
         // 查询用户所有权限和角色信息
         List<AuthorityEntity> authorityEntityList = authorityService.findByUserId(user.getId());
         List<RoleEntity> roleEntityList = roleService.findRoleByUserId(user.getId());
-
         // 合并权限和角色统一为权限
         List<String> roles = Lists.newArrayList();
         List<String> authorities = Lists.newArrayList();
@@ -80,9 +91,9 @@ public class UserApiImpl implements UserApi {
             roles.addAll(roleEntityList.stream().map(RoleEntity::getCode).toList());
             authorities.addAll(roles);
         }
-
         user.setAuthorities(CollectionUtils.isNotEmpty(authorityEntityList) ? authorities : Collections.emptyList());
         user.setRoles(CollectionUtils.isNotEmpty(roleEntityList) ? roles : Collections.emptyList());
+
         return user;
     }
 

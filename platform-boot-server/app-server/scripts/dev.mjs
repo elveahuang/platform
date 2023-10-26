@@ -1,3 +1,3 @@
-import { dev } from './utils.mjs';
+import { dev } from './utils/gulp.mjs';
 
 await dev();

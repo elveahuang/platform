@@ -92,6 +92,16 @@ public abstract class SecurityUtils {
      */
     public static boolean isAnonymous() {
         return Objects.isNull(SecurityContextHolder.getContext().getAuthentication()) ||
+                !SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+    }
+
+    /**
+     * 当前是否已经登录
+     *
+     * @return boolean
+     */
+    public static boolean isAuthenticated() {
+        return !Objects.isNull(SecurityContextHolder.getContext().getAuthentication()) &&
                 SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
     }
 

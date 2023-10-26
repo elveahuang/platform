@@ -1,5 +1,5 @@
 import { resolve } from 'node:path';
-import { execTask, updateModule } from './utils.mjs';
+import { execTask, updateModule } from './utils/index.mjs';
 
 const root = resolve(process.cwd());
 

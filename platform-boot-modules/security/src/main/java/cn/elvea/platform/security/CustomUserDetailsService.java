@@ -2,6 +2,8 @@ package cn.elvea.platform.security;
 
 import cn.elvea.platform.commons.core.security.user.User;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.core.utils.ObjectUtils;
+import cn.elvea.platform.commons.core.utils.RegexUtils;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserLoginDto;
 import com.google.common.collect.Sets;
@@ -31,8 +33,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserLoginDto user = userApi.findByUsername(username);
-        if (null == user) {
+        UserLoginDto user;
+        if (RegexUtils.checkEmail(username)) {
+            user = userApi.findByEmail(username);
+        } else if (RegexUtils.checkMobile(username)) {
+            user = userApi.findByMobile("0086", username);
+        } else {
+            user = userApi.findByUsername(username);
+        }
+        if (ObjectUtils.isEmpty(user)) {
             throw new UsernameNotFoundException(username);
         }
         // 查询用户所有权限和所有角色，合并成统一的权限集合

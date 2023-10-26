@@ -9,12 +9,24 @@ import cn.elvea.platform.system.core.model.dto.UserLoginDto;
  */
 public interface UserApi {
 
+    /**
+     * 获取用户详情
+     */
     UserInfoDto getUserInfo(String username);
 
+    /**
+     * 获取用户登录详情
+     */
     UserLoginDto findByUsername(String username);
 
+    /**
+     * 获取用户登录详情
+     */
     UserLoginDto findByMobile(String mobileCountryCode, String mobileNumber);
 
+    /**
+     * 获取用户登录详情
+     */
     UserLoginDto findByEmail(String email);
 
 }
