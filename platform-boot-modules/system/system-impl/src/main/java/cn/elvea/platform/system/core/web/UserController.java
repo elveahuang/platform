@@ -39,6 +39,15 @@ public class UserController {
     }
 
     @PermitAll
+    @OperationLog("用户退出登录")
+    @Operation(summary = "用户退出登录")
+    @ApiResponse(description = "用户退出登录")
+    @PostMapping(SystemMappingConstants.API_V1__USER__LOGOUT)
+    public R<?> logout() {
+        return R.success();
+    }
+
+    @PermitAll
     @OperationLog("用户注册")
     @Operation(summary = "用户注册")
     @ApiResponse(description = "用户注册")

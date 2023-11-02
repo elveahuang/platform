@@ -26,6 +26,8 @@ public interface SystemMappingConstants {
 
     String API_V1__USER__REGISTER = MappingConstants.API_V1_URL_PREFIX + "/register";
 
+    String API_V1__USER__LOGOUT = MappingConstants.API_V1_URL_PREFIX + "/logout";
+
     String API_V1__USER__FORGOT_PASSWORD = MappingConstants.API_V1_URL_PREFIX + "/forgot-password";
 
     String API_V1__LINK__GENERATE = MappingConstants.API_V1_URL_PREFIX + "/link/generate";
