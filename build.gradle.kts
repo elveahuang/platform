@@ -1,3 +1,7 @@
+import org.jetbrains.kotlin.config.LanguageVersion
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("idea")
     id("java")
@@ -6,8 +10,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
     id("com.google.osdetector") version "1.7.3" apply false
     id("org.hibernate.orm") version "6.2.13.Final" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.9.10" apply false
     id("org.springframework.boot") version "3.1.5" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.9.20" apply false
     id("org.graalvm.buildtools.native") version "0.9.27" apply false
 }
 
@@ -16,6 +20,7 @@ allprojects {
     apply(plugin = "application")
     apply(plugin = "java")
     apply(plugin = "java-library")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "io.spring.dependency-management")
 
     repositories {
@@ -35,6 +40,17 @@ allprojects {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
+    configure<KotlinJvmProjectExtension> {
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_21.toString()
+        kotlinOptions.languageVersion = LanguageVersion.KOTLIN_1_9.versionString
+    }
+
     tasks.withType<Test> {
         useJUnitPlatform()
     }
@@ -51,7 +67,7 @@ allprojects {
             mavenBom("cn.hutool:hutool-bom:5.8.22")
             mavenBom("me.ahoo.cosid:cosid-bom:2.5.5")
             mavenBom("org.mockito:mockito-bom:5.3.1")
-            mavenBom("org.jetbrains.kotlin:kotlin-bom:1.9.10")
+            mavenBom("org.jetbrains.kotlin:kotlin-bom:1.9.20")
         }
 
         dependencies {
