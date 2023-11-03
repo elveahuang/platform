@@ -78,4 +78,14 @@ public interface SystemMappingConstants {
     // 获取公告资讯详情
     String API_V1__ANNOUNCEMENT__DETAILS = MappingConstants.API_V1_URL_PREFIX + "/announcement/details";
 
+    // -----------------------------------------------------------------------------------------------------------------
+    // 消息通知
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // 获取消息通知列表
+    String API_V1__NOTICE__LIST = MappingConstants.API_V1_URL_PREFIX + "/notice/list";
+
+    // 获取消息通知详情
+    String API_V1__NOTICE__DETAILS = MappingConstants.API_V1_URL_PREFIX + "/notice/details";
+
 }
