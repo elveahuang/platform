@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -63,6 +64,10 @@ public abstract class OAuth2Utils {
     }
 
     public static RegisteredClient toRegisteredClient(ClientDto client) {
+        return toRegisteredClient(client, TokenSettings.builder().build());
+    }
+
+    public static RegisteredClient toRegisteredClient(ClientDto client, TokenSettings tokenSettings) {
         Set<String> clientAuthenticationMethods = StringUtils.commaDelimitedListToSet(client.getClientAuthenticationMethods());
         Set<String> authorizationGrantTypes = StringUtils.commaDelimitedListToSet(client.getAuthorizationGrantTypes());
         Set<String> redirectUris = StringUtils.commaDelimitedListToSet(client.getRedirectUris());
@@ -87,6 +92,7 @@ public abstract class OAuth2Utils {
                         )
                 )
                 .redirectUris((uris) -> uris.addAll(redirectUris))
+                .tokenSettings(tokenSettings)
                 .scopes((scopes) -> scopes.addAll(clientScopes));
         if (client.getClientIdIssuedAt() != null) {
             builder.clientIdIssuedAt(client.getClientIdIssuedAt().toInstant(ZoneOffset.UTC));

@@ -3,7 +3,9 @@ package cn.elvea.platform.system.security.service.impl;
 import cn.elvea.platform.commons.core.cache.CacheKey;
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.security.cache.AuthorizationCacheKeyGenerator;
 import cn.elvea.platform.system.security.model.entity.AuthorizationEntity;
@@ -30,6 +32,42 @@ public class AuthorizationServiceImpl extends BaseCachingEntityService<Authoriza
     @Override
     public AuthorizationCacheKeyGenerator getCacheKeyGenerator() {
         return this.cacheKeyGenerator;
+    }
+
+    @Override
+    public void updateByUuid(AuthorizationEntity entity) {
+        Specification<AuthorizationEntity> spec = (root, query, builder) -> builder.equal(root.get(AuthorizationEntity_.uuid), entity.getUuid());
+        List<AuthorizationEntity> entityList = this.repository.findAll(spec);
+        if (CollectionUtils.isNotEmpty(entityList)) {
+            entityList = entityList.stream().peek((e) -> ObjectUtils.copyNotNullProperties(entity, e)).toList();
+            this.saveBatch(entityList);
+        } else {
+            this.save(entity);
+        }
+    }
+
+    @Override
+    public void deleteByUuid(String uuid) {
+        AuthorizationEntity entity = this.findByUuid(uuid);
+        if (entity != null) {
+            entity.setActive(Boolean.FALSE);
+            entity.setDeletedAt(getCurLocalDateTime());
+            entity.setDeletedBy(SecurityUtils.getUserId());
+        }
+        this.save(entity);
+        this.deleteCache(entity);
+    }
+
+    @Override
+    public AuthorizationEntity findByUuid(String uuid) {
+        return getCacheService().get(getCacheKeyGenerator().keyByUuid(uuid), k -> {
+            Specification<AuthorizationEntity> specification = (root, query, builder) -> {
+                List<Predicate> predicates = Lists.newArrayList();
+                predicates.add(builder.equal(root.get(AuthorizationEntity_.uuid), uuid));
+                return builder.and(predicates.toArray(new Predicate[0]));
+            };
+            return this.repository.findOne(specification).orElse(null);
+        });
     }
 
     @Override
@@ -106,6 +144,9 @@ public class AuthorizationServiceImpl extends BaseCachingEntityService<Authoriza
             if (!ObjectUtils.isEmpty(model.getId())) {
                 getCacheService().set(getCacheKeyGenerator().keyById(model.getId()), model);
             }
+            if (!StringUtils.isEmpty(model.getUuid())) {
+                getCacheService().set(getCacheKeyGenerator().keyByUuid(model.getUuid()), model);
+            }
             if (StringUtils.isNotEmpty(model.getState())) {
                 getCacheService().set(getCacheKeyGenerator().keyByState(model.getState()), model);
             }
@@ -132,6 +173,9 @@ public class AuthorizationServiceImpl extends BaseCachingEntityService<Authoriza
         if (!ObjectUtils.isEmpty(model)) {
             if (!ObjectUtils.isEmpty(model.getId())) {
                 getCacheService().delete(getCacheKeyGenerator().keyById(model.getId()));
+            }
+            if (!StringUtils.isEmpty(model.getUuid())) {
+                getCacheService().delete(getCacheKeyGenerator().keyByUuid(model.getUuid()));
             }
             if (StringUtils.isNotEmpty(model.getState())) {
                 getCacheService().delete(getCacheKeyGenerator().keyByState(model.getState()));

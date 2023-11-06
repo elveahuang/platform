@@ -2,9 +2,8 @@ package cn.elvea.platform.system.security.cache;
 
 import cn.elvea.platform.commons.core.cache.CacheKey;
 import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
+import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
 import org.jetbrains.annotations.NotNull;
-
-import static cn.elvea.platform.system.commons.constants.SystemCacheConstants.AUTHORIZATION;
 
 /**
  * @author elvea
@@ -14,11 +13,15 @@ public class AuthorizationCacheKeyGenerator implements CacheKeyGenerator {
 
     @Override
     public @NotNull String getPrefix() {
-        return AUTHORIZATION;
+        return SystemCacheConstants.AUTHORIZATION;
     }
 
     public CacheKey keyById(Long id) {
         return this.key(id);
+    }
+
+    public CacheKey keyByUuid(String uuid) {
+        return this.key("uuid", uuid);
     }
 
     public CacheKey keyByState(String state) {

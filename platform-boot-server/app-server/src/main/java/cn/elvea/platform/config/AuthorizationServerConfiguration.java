@@ -1,11 +1,13 @@
 package cn.elvea.platform.config;
 
+import cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties.JwtProperties;
 import cn.elvea.platform.security.authentication.*;
 import cn.elvea.platform.security.token.CustomTokenCustomizer;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -13,6 +15,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
@@ -20,12 +23,15 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationContext;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
@@ -120,6 +126,23 @@ public class AuthorizationServerConfiguration {
                 .oidcUserInfoEndpoint(OAUTH_OIDC_USER_INFO_ENDPOINT)
                 .oidcLogoutEndpoint(OAUTH_OIDC_LOGOUT_ENDPOINT)
                 .oidcClientRegistrationEndpoint(OAUTH_OIDC_CLIENT_REGISTRATION_ENDPOINT)
+                .build();
+    }
+
+    /**
+     * @return {@link TokenSettings}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public TokenSettings tokenSettings(JwtProperties properties) {
+        return TokenSettings.builder()
+                .authorizationCodeTimeToLive(Duration.ofMinutes(5))
+                .accessTokenTimeToLive(properties.getAccessTokenTimeToLive())
+                .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
+                .deviceCodeTimeToLive(Duration.ofMinutes(5))
+                .reuseRefreshTokens(true)
+                .refreshTokenTimeToLive(properties.getRefreshTokenTimeToLive())
+                .idTokenSignatureAlgorithm(SignatureAlgorithm.RS256)
                 .build();
     }
 

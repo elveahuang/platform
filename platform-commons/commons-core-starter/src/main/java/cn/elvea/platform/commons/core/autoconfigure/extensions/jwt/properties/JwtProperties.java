@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithms;
 
+import java.time.Duration;
+
 /**
  * @author elvea
  * @since 0.0.1
@@ -23,5 +25,15 @@ public class JwtProperties {
     private String publicKeyValue;
 
     private String privateKeyValue;
+
+    /**
+     * 访问凭证默认过期时间是五分钟
+     */
+    private Duration accessTokenTimeToLive = Duration.ofMinutes(5);
+
+    /**
+     * 刷新凭证默认过期时间是一天
+     */
+    private Duration refreshTokenTimeToLive = Duration.ofDays(1);
 
 }

@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -39,6 +40,8 @@ public class CustomOAuth2AuthorizationService implements OAuth2AuthorizationServ
 
     private final AuthorizationApi authorizationApi;
 
+    private final TokenSettings tokenSettings;
+
     @Override
     public void save(OAuth2Authorization authorization) {
         this.authorizationApi.save(toEntity(authorization));
@@ -51,7 +54,7 @@ public class CustomOAuth2AuthorizationService implements OAuth2AuthorizationServ
 
     @Override
     public OAuth2Authorization findById(String id) {
-        return toObject(this.authorizationApi.findById(Long.valueOf(id)));
+        return toObject(this.authorizationApi.findById(Long.valueOf(id)), tokenSettings);
     }
 
     @Override
@@ -68,16 +71,16 @@ public class CustomOAuth2AuthorizationService implements OAuth2AuthorizationServ
                 authorization = this.authorizationApi.findByRefreshTokenValue(token);
             }
         }
-        return toObject(authorization);
+        return toObject(authorization, tokenSettings);
     }
 
-    private OAuth2Authorization toObject(AuthorizationDto dto) {
+    private OAuth2Authorization toObject(AuthorizationDto dto, TokenSettings tokenSettings) {
         if (dto != null) {
             ClientDto clientDto = this.clientApi.findByClientId(dto.getClientId());
             if (clientDto == null) {
                 throw new DataRetrievalFailureException("Invalid Client with id '" + dto.getClientId() + "'.");
             }
-            RegisteredClient client = OAuth2Utils.toRegisteredClient(clientDto);
+            RegisteredClient client = OAuth2Utils.toRegisteredClient(clientDto, tokenSettings);
             OAuth2Authorization.Builder builder = OAuth2Authorization.withRegisteredClient(client)
                     .id(String.valueOf(dto.getUuid()))
                     .principalName(dto.getPrincipalName())

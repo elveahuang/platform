@@ -12,7 +12,11 @@ public interface AuthorizationApi {
 
     void deleteById(Long id);
 
-    AuthorizationDto findById(Long state);
+    void deleteByUuid(String uuid);
+
+    AuthorizationDto findById(Long id);
+
+    AuthorizationDto findByUuid(String uuid);
 
     AuthorizationDto findByState(String state);
 

@@ -42,7 +42,7 @@ public class JwtAutoConfiguration {
     }
 
     /**
-     * @return {@link JWKSource}
+     * @return {@link JWK}
      */
     @Bean
     @ConditionalOnMissingBean

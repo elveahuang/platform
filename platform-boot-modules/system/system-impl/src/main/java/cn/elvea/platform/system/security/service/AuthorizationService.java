@@ -12,6 +12,12 @@ import cn.elvea.platform.system.security.model.entity.AuthorizationEntity;
  */
 public interface AuthorizationService extends CachingEntityService<AuthorizationEntity, Long> {
 
+    void updateByUuid(AuthorizationEntity entity);
+
+    void deleteByUuid(String uuid);
+
+    AuthorizationEntity findByUuid(String uuid);
+
     AuthorizationEntity findByState(String state);
 
     AuthorizationEntity findByAuthorizationCodeValue(String code);
