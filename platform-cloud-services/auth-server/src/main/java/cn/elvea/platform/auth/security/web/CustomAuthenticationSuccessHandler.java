@@ -31,8 +31,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         log.info("onAuthenticationSuccess");
 
-        Long id = SecurityUtils.getUserId(authentication);
-        String username = SecurityUtils.getUserName(authentication);
+        Long id = SecurityUtils.getUid(authentication);
+        String username = SecurityUtils.getUsername(authentication);
 
         // 保持用户成功登录记录
         for (int i = 0; i < 1; i++) {

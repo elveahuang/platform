@@ -1,10 +1,9 @@
 package cn.elvea.platform.system.core.service.impl;
 
 import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
-import cn.elvea.platform.commons.core.cache.SimpleCacheKeyGenerator;
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
+import cn.elvea.platform.system.core.cache.RoleAuthorityCacheKeyGenerator;
 import cn.elvea.platform.system.core.model.entity.RoleAuthorityEntity;
 import cn.elvea.platform.system.core.repository.RoleAuthorityRepository;
 import cn.elvea.platform.system.core.service.RoleAuthorityService;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 public class RoleAuthorityServiceImpl extends BaseCachingEntityService<RoleAuthorityEntity, Long, RoleAuthorityRepository>
         implements RoleAuthorityService {
 
-    private final CacheKeyGenerator cacheKeyGenerator = SimpleCacheKeyGenerator.builder().prefix(SystemCacheConstants.ROLE_AUTHORITY).build();
+    private final CacheKeyGenerator cacheKeyGenerator = new RoleAuthorityCacheKeyGenerator();
 
     @Override
     public CacheKeyGenerator getCacheKeyGenerator() {

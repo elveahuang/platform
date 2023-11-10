@@ -19,6 +19,6 @@ public interface RoleService extends CachingEntityService<RoleEntity, Long> {
      * @param userId 用户ID
      * @return 用户所有角色
      */
-    List<RoleEntity> findRoleByUserId(Long userId);
+    List<RoleEntity> findByUserId(Long userId);
 
 }

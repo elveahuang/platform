@@ -6,7 +6,7 @@ import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @author elvea
+ * @author dev
  * @since 0.0.1
  */
 public class UserRoleCacheKeyGenerator implements CacheKeyGenerator {
@@ -16,8 +16,12 @@ public class UserRoleCacheKeyGenerator implements CacheKeyGenerator {
         return SystemCacheConstants.USER_ROLE;
     }
 
+    public CacheKey byUserId(Long userId) {
+        return this.key(userId);
+    }
+
     public static CacheKey keyByUserId(Long userId) {
-        return new UserAuthorityCacheKeyGenerator().key(userId);
+        return new UserRoleCacheKeyGenerator().byUserId(userId);
     }
 
 }

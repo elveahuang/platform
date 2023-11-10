@@ -80,7 +80,7 @@ public class UserApiImpl implements UserApi {
 
         // 查询用户所有权限和角色信息
         List<AuthorityEntity> authorityEntityList = authorityService.findByUserId(user.getId());
-        List<RoleEntity> roleEntityList = roleService.findRoleByUserId(user.getId());
+        List<RoleEntity> roleEntityList = roleService.findByUserId(user.getId());
         // 合并权限和角色统一为权限
         List<String> roles = Lists.newArrayList();
         List<String> authorities = Lists.newArrayList();
@@ -107,7 +107,7 @@ public class UserApiImpl implements UserApi {
         if (CollectionUtils.isNotEmpty(authorityEntityList)) {
             user.setAuthorities(AuthorityConverter.INSTANCE.entityListToDtoList(authorityEntityList));
         }
-        List<RoleEntity> roleEntityList = roleService.findRoleByUserId(user.getId());
+        List<RoleEntity> roleEntityList = roleService.findByUserId(user.getId());
         if (CollectionUtils.isNotEmpty(roleEntityList)) {
             user.setRoles(RoleConverter.INSTANCE.entityListToDtoList(roleEntityList));
         }

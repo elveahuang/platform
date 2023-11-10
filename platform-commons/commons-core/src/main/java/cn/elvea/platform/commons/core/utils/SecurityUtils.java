@@ -1,11 +1,13 @@
 package cn.elvea.platform.commons.core.utils;
 
+import cn.elvea.platform.commons.core.constants.SecurityConstants;
 import cn.elvea.platform.commons.core.security.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.Objects;
 
@@ -29,32 +31,15 @@ public abstract class SecurityUtils {
     }
 
     /**
-     * 获取当前用户
-     */
-    public static User getUser(Authentication authentication) {
-        if (!ObjectUtils.isEmpty(authentication)) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof User) {
-                return (User) principal;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 获取当前用户
-     */
-    public static User getUser() {
-        return getUser(getAuthentication());
-    }
-
-    /**
      * 获取用户ID
      */
-    public static Long getUserId(Authentication authentication) {
-        User user = getUser(authentication);
-        if (user != null) {
-            return user.getId();
+    public static Long getUid(Authentication authentication) {
+        if (!ObjectUtils.isEmpty(authentication)) {
+            if (authentication.getPrincipal() instanceof User user) {
+                return user.getId();
+            } else if (authentication.getPrincipal() instanceof Jwt jwt) {
+                return jwt.getClaim(SecurityConstants.JWT_KEY_UID);
+            }
         }
         return 0L;
     }
@@ -62,27 +47,31 @@ public abstract class SecurityUtils {
     /**
      * 获取用户ID
      */
-    public static Long getUserId() {
-        return getUserId(getAuthentication());
+    public static Long getUid() {
+        return getUid(getAuthentication());
     }
 
     /**
      * 获取用户名
      */
-    public static String getUserName(Authentication authentication) {
-        User user = getUser(authentication);
-        if (user != null) {
-            return user.getUsername();
-        } else {
-            return authentication.getName();
+    public static String getUsername(Authentication authentication) {
+        if (!ObjectUtils.isEmpty(authentication)) {
+            if (authentication.getPrincipal() instanceof User user) {
+                return user.getUsername();
+            } else if (authentication.getPrincipal() instanceof Jwt jwt) {
+                return jwt.getClaim(SecurityConstants.JWT_KEY_USERNAME);
+            } else {
+                return authentication.getName();
+            }
         }
+        return null;
     }
 
     /**
      * 获取用户名
      */
-    public static String getUserName() {
-        return getUserName(getAuthentication());
+    public static String getUsername() {
+        return getUsername(getAuthentication());
     }
 
     /**

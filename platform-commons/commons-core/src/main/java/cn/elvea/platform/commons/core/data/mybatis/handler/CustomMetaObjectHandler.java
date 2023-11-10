@@ -31,7 +31,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     }
 
     private Long getCurUserId() {
-        return SecurityUtils.getUserId();
+        return SecurityUtils.getUid();
     }
 
 }

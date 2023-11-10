@@ -61,6 +61,8 @@ values (1, 'zh_cn', 'zh', 'cn', 'label_lang_zh_cn', '简体中文', 1, 1),
 -- 权限
 --
 
+truncate sys_authority;
+
 insert into sys_authority (`id`, `parent_id`, `code`, `title`, `label`, `authority_type`, `sort_order`, `active`)
 values
     /* -------------------------------------------------------------------------------------------------------------- */
@@ -185,23 +187,35 @@ values
     /* 工作台 */
     /* -------------------------------------------------------------------------------------------------------------- */
     (2001, 0, 'workbench', '工作台', 'authority_workbench', 'CATALOG', 1, 1),
+    /* -------------------------------------------------------------------------------------------------------------- */
     /* 仪表盘 */
-    (2001001, 2001, 'workbench:workbench', '工作台', 'authority_workbench_workbench', 'MENU', 1, 1),
-    (2001002, 2001, 'workbench:dashboard', '仪表盘', 'authority_workbench_dashboard', 'MENU', 1, 1),
+    /* -------------------------------------------------------------------------------------------------------------- */
+    (2002, 0, 'dashboard', '仪表盘', 'authority_workbench', 'CATALOG', 1, 1),
+    /* 仪表盘 */
+    (2002001, 2002, 'dashboard:analysis', '数据分析', 'authority_workbench_dashboard', 'MENU', 1, 1),
+    (2002002, 2002, 'dashboard:monitor', '系统监控', 'authority_workbench_dashboard', 'MENU', 1, 1),
     /* -------------------------------------------------------------------------------------------------------------- */
     /* 站点管理 */
     /* -------------------------------------------------------------------------------------------------------------- */
-    (2002, 0, 'site', '站点', 'authority_site', 'CATALOG', 2, 1),
+    (2003, 0, 'site', '站点', 'authority_site', 'CATALOG', 2, 1),
     /* 产品管理 */
-    (2002001, 2002, 'site:product', '产品管理', 'authority_site_product', 'MENU', 1, 1),
-    (2002001001, 2002001, 'site:product:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (2002001002, 2002001, 'site:product:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (2002001003, 2002001, 'site:product:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (2002001004, 2002001, 'site:product:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1);
+    (2003001, 2003, 'site:announcement', '公告管理', 'authority_site_product', 'MENU', 1, 1),
+    (2003001001, 2003001, 'site:announcement:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
+    (2003001002, 2003001, 'site:announcement:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
+    (2003001003, 2003001, 'site:announcement:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
+    (2003001004, 2003001, 'site:announcement:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    /* 产品管理 */
+    (2004002, 2002, 'site:product', '产品管理', 'authority_site_product', 'MENU', 1, 1),
+    (2004002001, 2004002, 'site:product:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
+    (2004002002, 2004002, 'site:product:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
+    (2004002003, 2004002, 'site:product:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
+    (2004002004, 2004002, 'site:product:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1);
 
 --
 -- 角色权限关联
 --
+
+truncate sys_role_authority;
 
 insert into sys_role_authority (`id`, `role_id`, `authority_id`, `created_at`)
 select concat(rpad(sr.id, 3, 0), rpad(sa.id, 10, 0)), sr.id, sa.id, now()
@@ -212,6 +226,7 @@ where sr.id = 1;
 --
 -- 系统设置项
 --
+
 truncate sys_config;
 
 insert into sys_config (`id`, `config_key`, `config_value`, `label`, `description`, `active`)

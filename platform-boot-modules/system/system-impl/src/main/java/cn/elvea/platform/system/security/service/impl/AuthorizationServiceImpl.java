@@ -52,7 +52,7 @@ public class AuthorizationServiceImpl extends BaseCachingEntityService<Authoriza
         if (entity != null) {
             entity.setActive(Boolean.FALSE);
             entity.setDeletedAt(getCurLocalDateTime());
-            entity.setDeletedBy(SecurityUtils.getUserId());
+            entity.setDeletedBy(SecurityUtils.getUid());
         }
         this.save(entity);
         this.deleteCache(entity);

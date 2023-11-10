@@ -38,7 +38,7 @@ public class ConfigServiceImpl extends BaseCachingEntityService<ConfigEntity, Lo
      */
     @Override
     public ConfigEntity getConfigByKey(String key) {
-        return getCacheService().get(cacheKeyGenerator.byKey(key), k -> {
+        return getCacheService().get(cacheKeyGenerator.byCacheKey(key), k -> {
             Specification<ConfigEntity> specification = (root, query, builder) -> {
                 List<Predicate> predicates = Lists.newArrayList();
                 predicates.add(builder.equal(root.get(ConfigEntity_.configKey), key));
@@ -58,7 +58,7 @@ public class ConfigServiceImpl extends BaseCachingEntityService<ConfigEntity, Lo
                 getCacheService().set(this.cacheKeyGenerator.keyById(model.getId()), model);
             }
             if (StringUtils.isNotEmpty(model.getConfigKey())) {
-                getCacheService().set(this.cacheKeyGenerator.byKey(model.getConfigKey()), model);
+                getCacheService().set(this.cacheKeyGenerator.byCacheKey(model.getConfigKey()), model);
             }
         }
     }
@@ -73,7 +73,7 @@ public class ConfigServiceImpl extends BaseCachingEntityService<ConfigEntity, Lo
                 getCacheService().delete(this.cacheKeyGenerator.keyById(model.getId()));
             }
             if (StringUtils.isNotEmpty(model.getConfigKey())) {
-                getCacheService().delete(this.cacheKeyGenerator.byKey(model.getConfigKey()));
+                getCacheService().delete(this.cacheKeyGenerator.byCacheKey(model.getConfigKey()));
             }
         }
     }

@@ -25,7 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class ConfigEntity extends BaseEntity {
     /**
-     * 标题
+     * 标题1
      */
     private String title;
     /**

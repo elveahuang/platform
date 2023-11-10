@@ -69,7 +69,17 @@ public interface SystemMappingConstants {
     String API_V1_ADMIN__LABEL__GENERATE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/label/generate";
 
     // -----------------------------------------------------------------------------------------------------------------
-    // 公告资讯
+    // 公告资讯 - 后台
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // 获取公告资讯列表
+    String API_V1_ADMIN__ANNOUNCEMENT__LIST = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/announcement/list";
+
+    // 获取公告资讯详情
+    String API_V1_ADMIN__ANNOUNCEMENT__DETAILS = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/announcement/details";
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // 公告资讯 - 前台
     // -----------------------------------------------------------------------------------------------------------------
 
     // 获取公告资讯列表
@@ -79,11 +89,15 @@ public interface SystemMappingConstants {
     String API_V1__ANNOUNCEMENT__DETAILS = MappingConstants.API_V1_URL_PREFIX + "/announcement/details";
 
     // -----------------------------------------------------------------------------------------------------------------
-    // 消息通知
+    // 消息通知 - 后台
     // -----------------------------------------------------------------------------------------------------------------
 
-    // 获取消息通知列表
-    String API_V1__NOTICE__LIST = MappingConstants.API_V1_URL_PREFIX + "/notice/list";
+    // -----------------------------------------------------------------------------------------------------------------
+    // 消息通知 - 前台
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // 获取系统消息列表
+    String API_V1__NOTICE__MESSAGE = MappingConstants.API_V1_URL_PREFIX + "/notice/list";
 
     // 获取消息通知详情
     String API_V1__NOTICE__DETAILS = MappingConstants.API_V1_URL_PREFIX + "/notice/details";

@@ -6,7 +6,7 @@ import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @author elvea
+ * @author dev
  * @since 0.0.1
  */
 public class ConfigCacheKeyGenerator implements CacheKeyGenerator {
@@ -16,7 +16,7 @@ public class ConfigCacheKeyGenerator implements CacheKeyGenerator {
         return SystemCacheConstants.CONFIG;
     }
 
-    public CacheKey byKey(String key) {
+    public CacheKey byCacheKey(String key) {
         return this.key("key", key);
     }
 

@@ -33,7 +33,7 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
      */
     @Override
     public UserEntity findByUsername(String username) {
-        return this.findByCacheKey(cacheKeyGenerator.keyByUsername(username), key -> {
+        return this.findByCacheKey(cacheKeyGenerator.byUsername(username), key -> {
             UserEntity condition = UserEntity.builder().username(username).build();
             Example<UserEntity> example = Example.of(condition);
             UserEntity entity = this.repository.findOne(example).orElse(null);
@@ -47,7 +47,7 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
      */
     @Override
     public UserEntity findByEmail(String email) {
-        return this.findByCacheKey(cacheKeyGenerator.keyByEmail(email), key -> {
+        return this.findByCacheKey(cacheKeyGenerator.byEmail(email), key -> {
             UserEntity condition = UserEntity.builder().email(email).build();
             Example<UserEntity> example = Example.of(condition);
             UserEntity entity = this.repository.findOne(example).orElse(null);
@@ -61,7 +61,7 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
      */
     @Override
     public UserEntity findByMobile(String mobileCountryCode, String mobile) {
-        return this.findByCacheKey(cacheKeyGenerator.keyByMobile(mobileCountryCode, mobile), key -> {
+        return this.findByCacheKey(cacheKeyGenerator.byMobile(mobileCountryCode, mobile), key -> {
             UserEntity condition = UserEntity.builder().mobileCountryCode(mobileCountryCode).mobileNumber(mobile).build();
             Example<UserEntity> example = Example.of(condition);
             UserEntity entity = this.repository.findOne(example).orElse(null);
@@ -88,13 +88,13 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
                 getCacheService().set(this.cacheKeyGenerator.keyById(model.getId()), model);
             }
             if (StringUtils.isNotEmpty(model.getUsername())) {
-                getCacheService().set(this.cacheKeyGenerator.keyByUsername(model.getUsername()), model);
+                getCacheService().set(this.cacheKeyGenerator.byUsername(model.getUsername()), model);
             }
             if (StringUtils.isNotEmpty(model.getEmail())) {
-                getCacheService().set(this.cacheKeyGenerator.keyByEmail(model.getEmail()), model);
+                getCacheService().set(this.cacheKeyGenerator.byEmail(model.getEmail()), model);
             }
             if (StringUtils.isNotEmpty(model.getMobileCountryCode()) && StringUtils.isNotEmpty(model.getMobileNumber())) {
-                getCacheService().set(this.cacheKeyGenerator.keyByMobile(model.getMobileCountryCode(), model.getMobileNumber()), model);
+                getCacheService().set(this.cacheKeyGenerator.byMobile(model.getMobileCountryCode(), model.getMobileNumber()), model);
             }
         }
     }
@@ -109,13 +109,13 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
                 getCacheService().delete(this.cacheKeyGenerator.keyById(model.getId()));
             }
             if (StringUtils.isNotEmpty(model.getUsername())) {
-                getCacheService().delete(this.cacheKeyGenerator.keyByUsername(model.getUsername()));
+                getCacheService().delete(this.cacheKeyGenerator.byUsername(model.getUsername()));
             }
             if (StringUtils.isNotEmpty(model.getEmail())) {
-                getCacheService().delete(this.cacheKeyGenerator.keyByEmail(model.getEmail()));
+                getCacheService().delete(this.cacheKeyGenerator.byEmail(model.getEmail()));
             }
             if (StringUtils.isNotEmpty(model.getMobileCountryCode()) && StringUtils.isNotEmpty(model.getMobileNumber())) {
-                getCacheService().delete(this.cacheKeyGenerator.keyByMobile(model.getMobileCountryCode(), model.getMobileNumber()));
+                getCacheService().delete(this.cacheKeyGenerator.byMobile(model.getMobileCountryCode(), model.getMobileNumber()));
             }
         }
     }

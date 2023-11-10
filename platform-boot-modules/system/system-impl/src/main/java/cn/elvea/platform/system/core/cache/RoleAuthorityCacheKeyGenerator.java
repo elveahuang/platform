@@ -9,20 +9,20 @@ import org.jetbrains.annotations.NotNull;
  * @author dev
  * @since 0.0.1
  */
-public class UserAuthorityCacheKeyGenerator implements CacheKeyGenerator {
+public class RoleAuthorityCacheKeyGenerator implements CacheKeyGenerator {
 
     @Override
     @NotNull
     public String getPrefix() {
-        return SystemCacheConstants.USER_AUTHORITY;
+        return SystemCacheConstants.ROLE_AUTHORITY;
     }
 
-    public CacheKey byUserId(Long userId) {
-        return new UserAuthorityCacheKeyGenerator().key(userId);
+    public CacheKey byRoleId(Long roleId) {
+        return this.key(roleId);
     }
 
-    public static CacheKey keyByUserId(Long userId) {
-        return new UserAuthorityCacheKeyGenerator().byUserId(userId);
+    public static CacheKey keyByRoleId(Long roleId) {
+        return new RoleAuthorityCacheKeyGenerator().byRoleId(roleId);
     }
 
 }

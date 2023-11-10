@@ -38,10 +38,10 @@ public class RoleServiceImpl extends BaseCachingEntityService<RoleEntity, Long, 
     }
 
     /**
-     * @see RoleService#findRoleByUserId(Long)
+     * @see RoleService#findByUserId(Long)
      */
     @Override
-    public List<RoleEntity> findRoleByUserId(Long userId) {
+    public List<RoleEntity> findByUserId(Long userId) {
         //
         List<RoleEntity> roleEntityList = Lists.newArrayList();
         List<Long> roleIdList = getCacheService().get(UserRoleCacheKeyGenerator.keyByUserId(userId), k -> {
