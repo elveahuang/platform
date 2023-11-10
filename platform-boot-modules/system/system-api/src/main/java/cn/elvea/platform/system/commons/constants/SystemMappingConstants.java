@@ -97,7 +97,7 @@ public interface SystemMappingConstants {
     // -----------------------------------------------------------------------------------------------------------------
 
     // 获取系统消息列表
-    String API_V1__NOTICE__MESSAGE = MappingConstants.API_V1_URL_PREFIX + "/notice/list";
+    String API_V1__NOTICE__LIST = MappingConstants.API_V1_URL_PREFIX + "/notice/list";
 
     // 获取消息通知详情
     String API_V1__NOTICE__DETAILS = MappingConstants.API_V1_URL_PREFIX + "/notice/details";
