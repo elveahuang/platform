@@ -5,10 +5,9 @@ import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.system.core.cache.RoleAuthorityCacheKeyGenerator;
 import cn.elvea.platform.system.core.model.entity.RoleAuthorityEntity;
+import cn.elvea.platform.system.core.model.entity.RoleAuthorityEntity_;
 import cn.elvea.platform.system.core.repository.RoleAuthorityRepository;
 import cn.elvea.platform.system.core.service.RoleAuthorityService;
-import jakarta.persistence.criteria.Predicate;
-import org.apache.commons.compress.utils.Lists;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -38,15 +37,13 @@ public class RoleAuthorityServiceImpl extends BaseCachingEntityService<RoleAutho
      */
     @Override
     public List<RoleAuthorityEntity> findByRoleId(List<Long> roleIdList) {
-        List<RoleAuthorityEntity> entities = null;
+        List<RoleAuthorityEntity> entityList = null;
         if (CollectionUtils.isNotEmpty(roleIdList)) {
-            entities = this.repository.findAll((Specification<RoleAuthorityEntity>) (root, query, criteriaBuilder) -> {
-                List<Predicate> predicates = Lists.newArrayList();
-                predicates.add(root.get("roleId").in(roleIdList));
-                return criteriaBuilder.and(predicates.toArray(new Predicate[]{}));
-            });
+            Specification<RoleAuthorityEntity> specification = (root, query, builder) ->
+                    builder.and(root.get(RoleAuthorityEntity_.roleId).in(roleIdList));
+            entityList = this.repository.findAll(specification);
         }
-        return CollectionUtils.isNotEmpty(entities) ? entities : Collections.emptyList();
+        return CollectionUtils.isNotEmpty(entityList) ? entityList : Collections.emptyList();
     }
 
     /**

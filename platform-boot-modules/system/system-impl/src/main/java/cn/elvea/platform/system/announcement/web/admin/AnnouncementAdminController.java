@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ public class AnnouncementAdminController extends AbstractController {
 
     private final AnnouncementService announcementService;
 
+    @PreAuthorize("hasAnyAuthority('site:announcement')")
     @Operation(summary = "获取公告资讯列表")
     @ApiResponse(description = "获取公告资讯列表")
     @PostMapping(API_V1_ADMIN__ANNOUNCEMENT__LIST)
@@ -36,6 +38,7 @@ public class AnnouncementAdminController extends AbstractController {
         return R.success(announcementService.findByPage(searchRequest.getPageable()));
     }
 
+    @PreAuthorize("hasAnyAuthority('site:announcement:view')")
     @Operation(summary = "获取公告资讯详情")
     @ApiResponse(description = "获取公告资讯详情")
     @PostMapping(API_V1_ADMIN__ANNOUNCEMENT__DETAILS)
