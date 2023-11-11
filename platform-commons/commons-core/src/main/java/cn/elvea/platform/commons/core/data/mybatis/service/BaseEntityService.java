@@ -50,13 +50,13 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @NoRepositoryBean
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, M extends BaseEntityMapper<T, K>>
-        extends AbstractService implements EntityService<T, K> {
+        extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, M> {
 
     protected Log logger = LogFactory.getLog(getClass());
 
     @Autowired
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     protected M mapper;
 
     @Autowired
@@ -76,10 +76,18 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
         return GenericsUtils.getSuperGenericType(getClass(), BaseEntityService.class, 2);
     }
 
+    /**
+     * @see EnhancedEntityService#getMapper()
+     */
+    @Override
     public M getMapper() {
         return mapper;
     }
 
+    /**
+     * @see EnhancedEntityService#getMapper()
+     */
+    @Override
     public Class<M> getMapperClass() {
         return mapperClass;
     }
@@ -216,7 +224,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
         Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
         String keyProperty = tableInfo.getKeyProperty();
         Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
-        SqlHelper.saveOrUpdateBatch(this.entityClass, this.mapperClass, this.logger, entityList, batchSize, (sqlSession, entity) -> {
+        SqlHelper.saveOrUpdateBatch(this.sqlSessionFactory, this.mapperClass, this.logger, entityList, batchSize, (sqlSession, entity) -> {
             Object idVal = tableInfo.getPropertyValue(entity, keyProperty);
             return StringUtils.checkValNull(idVal) || com.baomidou.mybatisplus.core.toolkit.CollectionUtils.isEmpty(sqlSession.selectList(getSqlStatement(SqlMethod.SELECT_BY_ID), entity));
         }, (sqlSession, entity) -> {
@@ -275,6 +283,30 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     public boolean existsById(K id) {
         return this.findById(id) != null;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // ExtendEntityService
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @see EntityService#existsById(Serializable)
+     */
+    @Override
+    public List<T> findAll(com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page) {
+        return this.mapper.selectList(page, Wrappers.emptyWrapper());
+    }
+
+    /**
+     * @see EntityService#existsById(Serializable)
+     */
+    @Override
+    public com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> findByPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page) {
+        return this.mapper.selectPage(page, Wrappers.emptyWrapper());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // 辅助方法
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * 获取实体执行方法

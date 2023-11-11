@@ -5,6 +5,7 @@ import cn.elvea.platform.commons.core.data.jpa.repository.BaseEntityRepository;
 import cn.elvea.platform.commons.core.service.AbstractService;
 import cn.elvea.platform.commons.core.service.EntityService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.core.utils.GenericsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,7 @@ import java.util.List;
 @Slf4j
 @NoRepositoryBean
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
-        extends AbstractService implements EntityService<T, K> {
+        extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, R> {
 
     @Autowired
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -39,17 +40,36 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
 
     protected Class<K> entityIdClass = currentEntityIdClass();
 
+    protected Class<R> repositoryClass = currentRepositoryClass();
+
     // -----------------------------------------------------------------------------------------------------------------
     // 辅助方法
     // -----------------------------------------------------------------------------------------------------------------
 
+    protected Class<R> currentRepositoryClass() {
+        return GenericsUtils.getSuperGenericType(getClass(), BaseEntityService.class, 2);
+    }
+
+    /**
+     * @see EnhancedEntityService#getRepositoryClass()
+     */
+    @Override
     public R getRepository() {
-        return repository;
+        return this.repository;
+    }
+
+    /**
+     * @see EnhancedEntityService#getRepositoryClass()
+     */
+    @Override
+    public Class<R> getRepositoryClass() {
+        return this.repositoryClass;
     }
 
     /**
      * @see EntityService#getEntityClass()
      */
+    @Override
     public Class<T> getEntityClass() {
         return entityClass;
     }
@@ -57,6 +77,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     /**
      * @see EntityService#getEntityIdClass()
      */
+    @Override
     public Class<K> getEntityIdClass() {
         return entityIdClass;
     }
@@ -212,5 +233,8 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
         return this.getRepository().existsById(id);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    // 辅助方法
+    // -----------------------------------------------------------------------------------------------------------------
 
 }
