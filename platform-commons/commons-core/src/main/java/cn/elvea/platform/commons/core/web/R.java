@@ -3,6 +3,8 @@ package cn.elvea.platform.commons.core.web;
 import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +16,9 @@ import java.util.Objects;
  * @since 0.0.1
  */
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Schema(description = "响应信息")
 public class R<E> implements Serializable {
 
@@ -22,7 +26,8 @@ public class R<E> implements Serializable {
     private String code;
 
     @Schema(description = "响应信息")
-    private String message = "success";
+    @Builder.Default
+    private String message = "Success";
 
     @Schema(description = "响应数据")
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -37,68 +42,110 @@ public class R<E> implements Serializable {
         this.message = message;
     }
 
+    /**
+     * 成功响应
+     */
     public static <T> R<T> success() {
-        return new R<>(ResponseCodeEnum.SUCCESS.getCode());
+        return R.<T>builder()
+                .code(ResponseCodeEnum.SUCCESS.getCode())
+                .message(ResponseCodeEnum.SUCCESS.getMessage())
+                .build();
     }
 
+    /**
+     * 成功响应
+     */
     public static <T> R<T> success(T data) {
-        R<T> result = new R<>(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getMessage());
-        result.setData(data);
-        return result;
+        return R.<T>builder()
+                .code(ResponseCodeEnum.SUCCESS.getCode())
+                .message(ResponseCodeEnum.SUCCESS.getMessage())
+                .data(data)
+                .build();
     }
 
     /**
      * 系统错误
      */
     public static <T> R<T> error() {
-        return new R<>(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getMessage());
+        return R.<T>builder()
+                .code(ResponseCodeEnum.ERROR.getCode())
+                .message(ResponseCodeEnum.ERROR.getMessage())
+                .build();
     }
 
     /**
      * 系统错误
      */
-    public static <T> R<T> error(String message) {
-        return new R<T>(ResponseCodeEnum.ERROR.getCode(), message);
+    public static <T> R<T> error(T data) {
+        return R.<T>builder()
+                .code(ResponseCodeEnum.ERROR.getCode())
+                .message(ResponseCodeEnum.ERROR.getMessage())
+                .data(data)
+                .build();
     }
 
     /**
      * 系统错误
      */
     public static <T> R<T> error(String message, T data) {
-        R<T> result = new R<>(ResponseCodeEnum.ERROR.getCode(), message);
-        result.setData(data);
-        return result;
+        return R.<T>builder()
+                .code(ResponseCodeEnum.ERROR.getCode())
+                .message(message)
+                .data(data)
+                .build();
     }
 
     /**
      * 业务处理失败
      */
     public static <T> R<T> fail(ResponseCodeEnum responseCodeEnum) {
-        return new R<>(responseCodeEnum.getCode(), responseCodeEnum.getMessage());
+        return R.<T>builder()
+                .code(responseCodeEnum.getCode())
+                .message(responseCodeEnum.getMessage())
+                .build();
     }
 
     /**
      * 业务处理失败
      */
-    public static <T> R<T> fail(ResponseCodeEnum responseCodeEnum, String message) {
-        return new R<>(responseCodeEnum.getCode(), message);
+    public static <T> R<T> fail(ResponseCodeEnum responseCodeEnum, T data) {
+        return R.<T>builder()
+                .code(responseCodeEnum.getCode())
+                .message(responseCodeEnum.getMessage())
+                .data(data)
+                .build();
     }
 
     /**
      * 业务处理失败
      */
     public static <T> R<T> fail(ResponseCodeEnum responseCodeEnum, String message, T data) {
-        R<T> response = new R<>(responseCodeEnum.getCode(), message);
-        response.setData(data);
-        return response;
+        return R.<T>builder()
+                .code(responseCodeEnum.getCode())
+                .message(message)
+                .data(data)
+                .build();
     }
 
     /**
-     * ¬
      * 业务处理失败
      */
-    public static <T> R<T> fail(String message) {
-        return new R<T>(ResponseCodeEnum.ERROR.getCode(), message);
+    public static <T> R<T> fail(String code, String message) {
+        return R.<T>builder()
+                .code(code)
+                .message(message)
+                .build();
+    }
+
+    /**
+     * 业务处理失败
+     */
+    public static <T> R<T> fail(String code, String message, T data) {
+        return R.<T>builder()
+                .code(code)
+                .message(message)
+                .data(data)
+                .build();
     }
 
     /**

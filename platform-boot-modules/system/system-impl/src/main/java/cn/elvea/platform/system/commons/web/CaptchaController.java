@@ -1,5 +1,6 @@
 package cn.elvea.platform.system.commons.web;
 
+import cn.elvea.platform.commons.core.annotations.Anonymous;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
 import cn.elvea.platform.commons.core.annotations.RateLimit;
 import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Duration;
-
 import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.*;
 
 /**
@@ -33,26 +32,29 @@ public class CaptchaController extends AbstractController {
 
     private final CaptchaApi captchaApi;
 
+    @Anonymous
     @OperationLog("获取验证码")
     @Operation(summary = "获取验证码")
     @ApiResponse(description = "获取验证码")
     @PostMapping(API_V1_CAPTCHA_CODE)
     public R<CaptchaCodeDto> captchaCode() throws Exception {
-        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.CODE).duration(Duration.ofMinutes(1)).build();
+        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.CODE).build();
         Captcha captcha = this.captchaApi.generate(request);
         return R.success(CaptchaCodeDto.builder().key(captcha.getKey()).image(captcha.getImage()).build());
     }
 
+    @Anonymous
     @OperationLog("获取邮件验证码")
     @Operation(summary = "获取邮件验证码")
     @ApiResponse(description = "获取邮件验证码")
     @PostMapping(API_V1_CAPTCHA_MAIL)
     public R<CaptchaDto> captchaEmail(@RequestParam String email) throws Exception {
-        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.MAIL).email(email).duration(Duration.ofMinutes(5)).build();
+        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.MAIL).email(email).build();
         Captcha captcha = this.captchaApi.generate(request);
         return R.success(CaptchaDto.builder().key(captcha.getKey()).build());
     }
 
+    @Anonymous
     @OperationLog("获取手机验证码")
     @Operation(summary = "获取手机验证码")
     @ApiResponse(description = "获取手机验证码")
@@ -60,7 +62,8 @@ public class CaptchaController extends AbstractController {
     @RateLimit
     public R<CaptchaDto> captchaMobile(@RequestParam String mobileCountryCode, @RequestParam String mobileNumber) throws Exception {
         CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.SMS)
-                .mobileCountryCode(mobileCountryCode).mobileNumber(mobileNumber).duration(Duration.ofMinutes(1)).build();
+                .mobileCountryCode(mobileCountryCode).mobileNumber(mobileNumber)
+                .build();
         Captcha captcha = this.captchaApi.generate(request);
         return R.success(CaptchaDto.builder().key(captcha.getKey()).build());
     }

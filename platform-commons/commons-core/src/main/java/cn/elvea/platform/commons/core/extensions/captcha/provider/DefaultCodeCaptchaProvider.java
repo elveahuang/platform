@@ -15,12 +15,10 @@ public class DefaultCodeCaptchaProvider implements CodeCaptchaProvider {
 
     @Override
     public Captcha generate(CaptchaRequest request) {
-        String uuid = StringUtils.uuid();
-        int length = (request.getSize() <= 0 || request.getSize() >= 8) ? 6 : request.getSize();
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100, length, 64);
-        lineCaptcha.getImageBase64();
+        int length = (request.getSize() <= 4) ? 4 : request.getSize();
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100, length, 32);
         return Captcha.builder().type(CaptchaTypeEnum.CODE)
-                .key(uuid)
+                .key(StringUtils.uuid())
                 .value(lineCaptcha.getCode())
                 .image(lineCaptcha.getImageBase64Data())
                 .build();

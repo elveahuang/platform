@@ -6,10 +6,15 @@ import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.core.cache.UserCacheKeyGenerator;
+import cn.elvea.platform.system.core.model.dto.UserCheckEmailDto;
+import cn.elvea.platform.system.core.model.dto.UserCheckMobileDto;
+import cn.elvea.platform.system.core.model.dto.UserCheckUsernameDto;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
+import cn.elvea.platform.system.core.model.entity.UserEntity_;
 import cn.elvea.platform.system.core.repository.UserRepository;
 import cn.elvea.platform.system.core.service.UserService;
 import org.springframework.data.domain.Example;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +31,36 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
     @Override
     public CacheKeyGenerator getCacheKeyGenerator() {
         return cacheKeyGenerator;
+    }
+
+    /**
+     * @see UserService#checkUsername(UserCheckUsernameDto)
+     */
+    @Override
+    public boolean checkUsername(UserCheckUsernameDto dto) {
+        Specification<UserEntity> specification = (root, query, builder) ->
+                builder.equal(root.get(UserEntity_.username), dto.getUsername());
+        return this.repository.count(specification) <= 0;
+    }
+
+    /**
+     * @see UserService#checkEmail(UserCheckEmailDto)
+     */
+    @Override
+    public boolean checkEmail(UserCheckEmailDto dto) {
+        Specification<UserEntity> specification = (root, query, builder) ->
+                builder.equal(root.get(UserEntity_.email), dto.getEmail());
+        return this.repository.count(specification) <= 0;
+    }
+
+    /**
+     * @see UserService#checkMobile(UserCheckMobileDto)
+     */
+    @Override
+    public boolean checkMobile(UserCheckMobileDto dto) {
+        Specification<UserEntity> specification = (root, query, builder) ->
+                builder.equal(root.get(UserEntity_.mobileNumber), dto.getMobileNumber());
+        return this.repository.count(specification) <= 0;
     }
 
     /**

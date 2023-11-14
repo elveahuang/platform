@@ -3,6 +3,7 @@ package cn.elvea.platform.config;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties.JwtProperties;
 import cn.elvea.platform.security.authentication.*;
 import cn.elvea.platform.security.token.CustomTokenCustomizer;
+import cn.elvea.platform.system.commons.api.CaptchaApi;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.AllArgsConstructor;
@@ -57,11 +58,12 @@ public class AuthorizationServerConfiguration {
             HttpSecurity http,
             AuthenticationManager authenticationManager,
             OAuth2AuthorizationService authorizationService,
-            OAuth2TokenGenerator<?> tokenGenerator
+            OAuth2TokenGenerator<?> tokenGenerator,
+            CaptchaApi captchaApi
     ) throws Exception {
         log.info("Creating authorizationServerSecurityFilterChain for App Server...");
 
-        PasswordAuthenticationProvider passwordAuthenticationProvider = new PasswordAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator);
+        PasswordAuthenticationProvider passwordAuthenticationProvider = new PasswordAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator, captchaApi);
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator);
         SocialAuthenticationProvider socialAuthenticationProvider = new SocialAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator);
 

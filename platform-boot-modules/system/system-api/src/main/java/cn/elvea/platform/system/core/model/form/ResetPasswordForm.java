@@ -1,6 +1,5 @@
 package cn.elvea.platform.system.core.model.form;
 
-
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +16,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRegisterForm implements Serializable {
-    @NotEmpty(message = "{system__validation__user__username_not_empty}")
+public class ResetPasswordForm implements Serializable {
+    @NotEmpty
     private String username;
     @NotEmpty
     private String password;

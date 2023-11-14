@@ -96,7 +96,7 @@ public abstract class GlobalExceptionHandler {
      */
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public <T> R<T> handleSystemException(ServiceException e) {
+    public R<?> handleSystemException(ServiceException e) {
         log.error("handleSystemException exception : {}", e.getMessage(), e);
         return R.error(e.getLocalizedMessage());
     }
@@ -106,7 +106,7 @@ public abstract class GlobalExceptionHandler {
      */
     @ExceptionHandler(SystemException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public <T> R<T> handleSystemException(SystemException e) {
+    public R<?> handleSystemException(SystemException e) {
         log.error("handleSystemException exception : {}", e.getMessage(), e);
         return R.error(e.getLocalizedMessage());
     }
@@ -116,7 +116,7 @@ public abstract class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public <T> R<T> handleException(Exception e) {
+    public R<?> handleException(Exception e) {
         log.error("handleException exception : {}", e.getMessage(), e);
         return R.error(e.getLocalizedMessage());
     }

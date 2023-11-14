@@ -12,4 +12,8 @@ public final class CustomParameterNames {
 
     public static final String SOURCE = "source";
 
+    public static final String CAPTCHA_KEY = "captchaKey";
+
+    public static final String CAPTCHA_VALUE = "captchaValue";
+
 }

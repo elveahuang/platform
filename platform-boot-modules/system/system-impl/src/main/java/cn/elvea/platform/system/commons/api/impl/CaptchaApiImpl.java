@@ -2,6 +2,7 @@ package cn.elvea.platform.system.commons.api.impl;
 
 import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
 import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
+import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
 import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaRequest;
 import cn.elvea.platform.commons.core.extensions.captcha.service.CaptchaService;
 import cn.elvea.platform.system.commons.api.CaptchaApi;
@@ -58,6 +59,11 @@ public class CaptchaApiImpl implements CaptchaApi {
             this.messageApi.createMessage(message);
         }
         return captcha;
+    }
+
+    @Override
+    public boolean check(CaptchaCheckRequest request) {
+        return this.captchaService.check(request);
     }
 
     @Autowired

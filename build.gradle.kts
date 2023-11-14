@@ -12,7 +12,7 @@ plugins {
     id("org.hibernate.orm") version "6.2.13.Final" apply false
     id("org.springframework.boot") version "3.1.5" apply false
     id("org.jetbrains.kotlin.jvm") version "1.9.20" apply false
-    id("org.graalvm.buildtools.native") version "0.9.27" apply false
+    id("org.graalvm.buildtools.native") version "0.9.28" apply false
 }
 
 allprojects {

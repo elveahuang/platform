@@ -8,7 +8,11 @@ import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.system.commons.constants.SystemMappingConstants;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
+import cn.elvea.platform.system.core.model.form.ChangePasswordForm;
+import cn.elvea.platform.system.core.model.form.ForgotPasswordForm;
+import cn.elvea.platform.system.core.model.form.ResetPasswordForm;
 import cn.elvea.platform.system.core.model.form.UserRegisterForm;
+import cn.elvea.platform.system.core.model.vo.UserForgetPasswordVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,16 +38,8 @@ public class UserController {
     @ApiResponse(description = "获取当前用户信息")
     @GetMapping(SystemMappingConstants.API_V1__USER__INFO)
     public R<UserInfoDto> user() {
-        return R.success(this.userApi.getUserInfo(SecurityUtils.getUsername()));
-    }
-
-    @Anonymous
-    @OperationLog("用户退出登录")
-    @Operation(summary = "用户退出登录")
-    @ApiResponse(description = "用户退出登录")
-    @PostMapping(SystemMappingConstants.API_V1__USER__LOGOUT)
-    public R<?> logout() {
-        return R.success();
+        String curUsername = SecurityUtils.getUsername();
+        return R.success(this.userApi.getUserInfo(curUsername));
     }
 
     @Anonymous
@@ -52,15 +48,40 @@ public class UserController {
     @ApiResponse(description = "用户注册")
     @PostMapping(SystemMappingConstants.API_V1__USER__REGISTER)
     public R<?> register(@Valid UserRegisterForm form) {
-        return R.success();
+        return userApi.register(form);
+    }
+
+    @Anonymous
+    @OperationLog("退出登录")
+    @Operation(summary = "退出登录")
+    @ApiResponse(description = "退出登录")
+    @PostMapping(SystemMappingConstants.API_V1__USER__LOGOUT)
+    public R<?> logout() {
+        return userApi.logout();
     }
 
     @Anonymous
     @Operation(summary = "忘记密码")
     @ApiResponse(description = "忘记密码")
-    @GetMapping(SystemMappingConstants.API_V1__USER__FORGOT_PASSWORD)
-    public R<?> password() {
-        return R.success();
+    @PostMapping(SystemMappingConstants.API_V1__USER__FORGOT_PASSWORD)
+    public R<UserForgetPasswordVo> forgotPassword(@Valid ForgotPasswordForm form) {
+        return userApi.forgotPassword(form);
+    }
+
+    @Anonymous
+    @Operation(summary = "重置密码")
+    @ApiResponse(description = "重置密码")
+    @PostMapping(SystemMappingConstants.API_V1__USER__RESET_PASSWORD)
+    public R<?> resetPassword(@Valid ResetPasswordForm form) {
+        return userApi.resetPassword(form);
+    }
+
+    @Authenticated
+    @Operation(summary = "修改密码")
+    @ApiResponse(description = "修改密码")
+    @PostMapping(SystemMappingConstants.API_V1__USER__CHANGE_PASSWORD)
+    public R<?> changePassword(@Valid ChangePasswordForm form) {
+        return userApi.changePassword(form);
     }
 
 }

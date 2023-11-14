@@ -17,12 +17,12 @@ public class DefaultMailCaptchaProvider implements MailCaptchaProvider {
 
     @Override
     public Captcha generate(CaptchaRequest request) throws Exception {
-        String uuid = StringUtils.uuid();
-        String number = StringUtils.randomNumeric((request.getSize() <= 0 || request.getSize() >= 8) ? 6 : request.getSize());
+        int length = (request.getSize() <= 6) ? 6 : request.getSize();
+        String number = StringUtils.randomNumeric(length);
         return Captcha.builder()
                 .type(CaptchaTypeEnum.MAIL)
                 .email(request.getEmail())
-                .key(uuid)
+                .key(StringUtils.uuid())
                 .value(number).build();
     }
 

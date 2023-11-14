@@ -1,6 +1,7 @@
 package cn.elvea.platform.system.commons.api;
 
 import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
+import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
 import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaRequest;
 
 /**
@@ -10,5 +11,7 @@ import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaRequest;
 public interface CaptchaApi {
 
     Captcha generate(CaptchaRequest request) throws Exception;
+
+    boolean check(CaptchaCheckRequest request);
 
 }

@@ -17,13 +17,13 @@ public class DefaultSmsCaptchaProvider implements SmsCaptchaProvider {
 
     @Override
     public Captcha generate(CaptchaRequest request) throws Exception {
-        String uuid = StringUtils.uuid();
-        String number = StringUtils.randomNumeric((request.getSize() <= 0 || request.getSize() >= 8) ? 6 : request.getSize());
+        int length = (request.getSize() <= 6) ? 6 : request.getSize();
+        String number = StringUtils.randomNumeric(length);
         return Captcha.builder()
                 .type(CaptchaTypeEnum.SMS)
                 .mobileCountryCode(request.getMobileCountryCode())
                 .mobileNumber(request.getMobileNumber())
-                .key(uuid)
+                .key(StringUtils.uuid())
                 .value(number).build();
     }
 
