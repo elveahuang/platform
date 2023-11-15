@@ -10,4 +10,8 @@ public interface ConfigApi {
 
     ConfigDto get(String key);
 
+    boolean getBoolean(String key);
+
+    boolean getBoolean(String key, boolean defaultValue);
+
 }

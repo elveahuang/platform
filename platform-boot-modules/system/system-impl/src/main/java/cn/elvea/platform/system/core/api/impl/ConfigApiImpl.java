@@ -22,4 +22,18 @@ public class ConfigApiImpl implements ConfigApi {
         return ConfigConverter.INSTANCE.entityToDto(this.configService.getConfigByKey(key));
     }
 
+    @Override
+    public boolean getBoolean(String key) {
+        return this.getBoolean(key, false);
+    }
+
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+        ConfigDto config = this.get(key);
+        if (config != null) {
+            return "true".equalsIgnoreCase(config.getConfigValue()) || "1".equalsIgnoreCase(config.getConfigValue());
+        }
+        return defaultValue;
+    }
+
 }

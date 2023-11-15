@@ -2,6 +2,7 @@ package cn.elvea.platform.config;
 
 import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.utils.JacksonUtils;
+import cn.elvea.platform.security.annotations.EnableCustomSecurity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,7 @@ import static cn.elvea.platform.commons.core.storage.domain.FileParameter.withDe
  */
 @Slf4j
 @EnableWebSecurity
+@EnableCustomSecurity
 @AllArgsConstructor
 @EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
 @Configuration(proxyBeanMethods = false)

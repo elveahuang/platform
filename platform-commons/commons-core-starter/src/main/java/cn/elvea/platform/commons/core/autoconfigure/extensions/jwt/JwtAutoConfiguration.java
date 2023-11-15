@@ -42,6 +42,15 @@ public class JwtAutoConfiguration {
     }
 
     /**
+     * @return {@link JwtConfig}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public JwtConfig config() {
+        return this.properties;
+    }
+
+    /**
      * @return {@link JWK}
      */
     @Bean

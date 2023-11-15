@@ -5,7 +5,7 @@ import jakarta.annotation.security.PermitAll;
 import java.lang.annotation.*;
 
 /**
- * @author dev
+ * @author elvea
  * @since 0.0.1
  */
 @Documented

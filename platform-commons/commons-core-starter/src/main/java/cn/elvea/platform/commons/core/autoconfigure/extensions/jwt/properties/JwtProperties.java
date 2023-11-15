@@ -1,11 +1,10 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties;
 
+import cn.elvea.platform.commons.core.extensions.jwt.JwtConfig;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.security.oauth2.jose.jws.JwsAlgorithms;
-
-import java.time.Duration;
 
 /**
  * @author elvea
@@ -13,27 +12,12 @@ import java.time.Duration;
  */
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ConfigurationProperties(JwtProperties.PREFIX)
-public class JwtProperties {
+public class JwtProperties extends JwtConfig {
 
     public static final String PREFIX = "platform.jwt";
 
     private Boolean enabled = Boolean.FALSE;
-
-    private String algorithm = JwsAlgorithms.RS256;
-
-    private String publicKeyValue;
-
-    private String privateKeyValue;
-
-    /**
-     * 访问凭证默认过期时间是五分钟
-     */
-    private Duration accessTokenTimeToLive = Duration.ofMinutes(5);
-
-    /**
-     * 刷新凭证默认过期时间是一天
-     */
-    private Duration refreshTokenTimeToLive = Duration.ofDays(1);
 
 }

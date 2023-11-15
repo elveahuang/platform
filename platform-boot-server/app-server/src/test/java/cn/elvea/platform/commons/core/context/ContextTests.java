@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Locale;
 
 /**
- * @author dev
+ * @author elvea
  * @since 0.0.1
  */
 public class ContextTests extends BaseTests {

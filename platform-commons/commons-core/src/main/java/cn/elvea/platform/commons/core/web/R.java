@@ -33,15 +33,6 @@ public class R<E> implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private E data;
 
-    private R(String code) {
-        this.code = code;
-    }
-
-    private R(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
     /**
      * 成功响应
      */

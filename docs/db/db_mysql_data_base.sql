@@ -231,7 +231,8 @@ truncate sys_config;
 
 insert into sys_config (`id`, `config_key`, `config_value`, `label`, `description`, `active`)
 values (1, 'APP_TITLE', 'Application', 'label_config_site_title', '站点标题', 1),
-       (2, 'APP_COPYRIGHT', 'Copyright@2023', 'label_config_site_copyright', '站点版权信息', 1);
+       (2, 'APP_COPYRIGHT', 'Copyright@2023', 'label_config_site_copyright', '站点版权信息', 1),
+       (3, 'LOGIN_CAPTCHA_ENABLED', 'true', 'label_config_login_captcha_enabled', '是否启用登录验证码', 1);
 
 -- =====================================================================================================================
 -- 多语言

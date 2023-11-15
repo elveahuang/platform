@@ -10,4 +10,6 @@ public interface SystemConfigConstants {
 
     String APP_COPYRIGHT = "APP_COPYRIGHT";
 
+    String LOGIN_CAPTCHA_ENABLED = "LOGIN_CAPTCHA_ENABLED";
+
 }

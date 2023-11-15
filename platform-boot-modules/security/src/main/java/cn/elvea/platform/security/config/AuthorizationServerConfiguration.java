@@ -1,19 +1,20 @@
-package cn.elvea.platform.config;
+package cn.elvea.platform.security.config;
 
-import cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties.JwtProperties;
+import cn.elvea.platform.commons.core.extensions.jwt.JwtConfig;
 import cn.elvea.platform.security.authentication.*;
 import cn.elvea.platform.security.token.CustomTokenCustomizer;
+import cn.elvea.platform.security.web.authentication.CaptchaAuthenticationFilter;
 import cn.elvea.platform.system.commons.api.CaptchaApi;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
@@ -29,7 +30,10 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.time.Duration;
@@ -37,7 +41,6 @@ import java.util.List;
 import java.util.function.Function;
 
 import static cn.elvea.platform.commons.core.constants.SecurityConstants.*;
-import static cn.elvea.platform.commons.core.storage.domain.FileParameter.withDefault;
 
 /**
  * @author elvea
@@ -51,6 +54,12 @@ public class AuthorizationServerConfiguration {
     private final JwtDecoder jwtDecoder;
 
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
+
+    private final CaptchaAuthenticationFilter captchaAuthenticationFilter;
+
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+
+    private final AccessDeniedHandler accessDeniedHandler;
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -95,11 +104,16 @@ public class AuthorizationServerConfiguration {
         http.securityMatcher(endpointsMatcher)
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
                 .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
-                .cors(cors -> withDefault())
-                .oauth2ResourceServer((resourceServerConfigurer) -> resourceServerConfigurer.jwt(jwtConfigurer -> {
-                    jwtConfigurer.decoder(jwtDecoder);
-                    jwtConfigurer.jwtAuthenticationConverter(this.jwtAuthenticationConverter);
+                .cors(Customizer.withDefaults())
+                .oauth2ResourceServer((resourceServerConfigurer) -> resourceServerConfigurer.jwt(configurer -> {
+                    configurer.decoder(jwtDecoder);
+                    configurer.jwtAuthenticationConverter(this.jwtAuthenticationConverter);
                 }))
+                .addFilterAfter(this.captchaAuthenticationFilter, CsrfFilter.class)
+                .exceptionHandling(e -> {
+                    e.authenticationEntryPoint(authenticationEntryPoint);
+                    e.accessDeniedHandler(accessDeniedHandler);
+                })
                 .apply(authorizationServerConfigurer);
         return http.build();
     }
@@ -135,15 +149,14 @@ public class AuthorizationServerConfiguration {
      * @return {@link TokenSettings}
      */
     @Bean
-    @ConditionalOnMissingBean
-    public TokenSettings tokenSettings(JwtProperties properties) {
+    public TokenSettings tokenSettings(JwtConfig config) {
         return TokenSettings.builder()
                 .authorizationCodeTimeToLive(Duration.ofMinutes(5))
-                .accessTokenTimeToLive(properties.getAccessTokenTimeToLive())
+                .accessTokenTimeToLive(config.getAccessTokenTimeToLive())
                 .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
                 .deviceCodeTimeToLive(Duration.ofMinutes(5))
                 .reuseRefreshTokens(true)
-                .refreshTokenTimeToLive(properties.getRefreshTokenTimeToLive())
+                .refreshTokenTimeToLive(config.getRefreshTokenTimeToLive())
                 .idTokenSignatureAlgorithm(SignatureAlgorithm.RS256)
                 .build();
     }

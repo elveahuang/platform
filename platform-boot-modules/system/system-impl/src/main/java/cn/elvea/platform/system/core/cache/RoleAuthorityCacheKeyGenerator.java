@@ -6,7 +6,7 @@ import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @author dev
+ * @author elvea
  * @since 0.0.1
  */
 public class RoleAuthorityCacheKeyGenerator implements CacheKeyGenerator {

@@ -1,5 +1,7 @@
 package cn.elvea.platform.security.web;
 
+import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
+import cn.elvea.platform.commons.core.exception.InvalidCaptchaException;
 import cn.elvea.platform.commons.core.utils.ServletUtils;
 import cn.elvea.platform.commons.core.web.R;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,10 +24,13 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         log.error("onAuthenticationFailure", e);
 
-        // 清空Spring Security上下文
         SecurityContextHolder.clearContext();
 
-        ServletUtils.renderJson(response, R.error("Invalid Request."));
+        if (e instanceof InvalidCaptchaException) {
+            ServletUtils.renderJson(response, R.fail(ResponseCodeEnum.INVALID_CAPTCHA));
+        } else {
+            ServletUtils.renderJson(response, R.error(ResponseCodeEnum.ERROR));
+        }
     }
 
 }

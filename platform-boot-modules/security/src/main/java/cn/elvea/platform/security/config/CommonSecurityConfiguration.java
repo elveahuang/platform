@@ -1,11 +1,15 @@
-package cn.elvea.platform.config;
+package cn.elvea.platform.security.config;
 
+import cn.elvea.platform.security.CustomDaoAuthenticationProvider;
+import cn.elvea.platform.security.web.CustomAuthenticationFailureHandler;
+import cn.elvea.platform.security.web.authentication.CaptchaAuthenticationFilter;
+import cn.elvea.platform.system.commons.api.CaptchaApi;
+import cn.elvea.platform.system.core.api.ConfigApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +23,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class SecurityConfiguration {
+public class CommonSecurityConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,15 +43,19 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder);
-        return authenticationProvider;
+        return new CustomDaoAuthenticationProvider(userDetailsService, passwordEncoder);
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public CaptchaAuthenticationFilter captchaAuthenticationFilter(ConfigApi configApi,
+                                                                   CaptchaApi captchaApi,
+                                                                   CustomAuthenticationFailureHandler failureHandler) throws Exception {
+        return new CaptchaAuthenticationFilter(configApi, captchaApi, failureHandler);
     }
 
 }

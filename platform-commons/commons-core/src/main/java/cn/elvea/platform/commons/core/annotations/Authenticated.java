@@ -5,7 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import java.lang.annotation.*;
 
 /**
- * @author dev
+ * @author elvea
  * @since 0.0.1
  */
 @Documented

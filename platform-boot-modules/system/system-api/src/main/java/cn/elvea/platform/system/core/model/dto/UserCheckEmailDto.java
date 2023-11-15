@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * @author dev
+ * @author elvea
  * @since 0.0.1
  */
 @Data
