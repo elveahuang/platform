@@ -1,10 +1,6 @@
 package cn.elvea.platform.security.authentication;
 
-import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
-import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
 import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
-import cn.elvea.platform.commons.core.security.CustomParameterNames;
-import cn.elvea.platform.system.commons.api.CaptchaApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,19 +41,18 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
     private final AuthenticationManager authenticationManager;
     private final OAuth2AuthorizationService authorizationService;
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
-    private final CaptchaApi captchaApi;
 
-    public PasswordAuthenticationProvider(AuthenticationManager authenticationManager,
-                                          OAuth2AuthorizationService authorizationService,
-                                          OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator,
-                                          CaptchaApi captchaApi) {
+    public PasswordAuthenticationProvider(
+            AuthenticationManager authenticationManager,
+            OAuth2AuthorizationService authorizationService,
+            OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator
+    ) {
         Assert.notNull(authorizationService, "authorizationService cannot be null");
         Assert.notNull(tokenGenerator, "tokenGenerator cannot be null");
 
         this.authenticationManager = authenticationManager;
         this.authorizationService = authorizationService;
         this.tokenGenerator = tokenGenerator;
-        this.captchaApi = captchaApi;
     }
 
     @Override
@@ -79,18 +74,6 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
 
         // 附加参数
         Map<String, Object> additionalParameters = authenticationToken.getAdditionalParameters();
-
-        // 验证码
-        String captchaKey = (String) additionalParameters.get(CustomParameterNames.CAPTCHA_KEY);
-        String captchaValue = (String) additionalParameters.get(CustomParameterNames.CAPTCHA_VALUE);
-        CaptchaCheckRequest captchaCheckRequest = CaptchaCheckRequest.builder()
-                .type(CaptchaTypeEnum.CODE)
-                .key(captchaKey)
-                .value(captchaValue)
-                .build();
-        if (!this.captchaApi.check(captchaCheckRequest)) {
-            throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
-        }
 
         // 密码验证
         String username = (String) additionalParameters.get(OAuth2ParameterNames.USERNAME);
