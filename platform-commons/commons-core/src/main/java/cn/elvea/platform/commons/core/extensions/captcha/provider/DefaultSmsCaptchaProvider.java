@@ -17,7 +17,7 @@ public class DefaultSmsCaptchaProvider implements SmsCaptchaProvider {
 
     @Override
     public Captcha generate(CaptchaRequest request) throws Exception {
-        int length = (request.getSize() <= 6) ? 6 : request.getSize();
+        int length = (request.getSize() <= 0) ? 6 : request.getSize();
         String number = StringUtils.randomNumeric(length);
         return Captcha.builder()
                 .type(CaptchaTypeEnum.SMS)

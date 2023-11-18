@@ -96,27 +96,35 @@ public interface CachingEntityService<T extends IdEntity, K extends Serializable
         }
         List<CacheKey> cacheKeyList = ids.stream().map(getCacheKeyGenerator()::key).collect(Collectors.toList());
         List<List<CacheKey>> partitionKeyList = Lists.partition(cacheKeyList, getBatchSize());
+
+        // 获取已缓存实体
         List<T> valueList = partitionKeyList.stream().map(this::findByCacheKey).flatMap(Collection::stream).toList();
-
+        // 保存未缓存实体标识
+        Set<K> keySet = Sets.newLinkedHashSet();
+        // 保存未缓存实体标识
         List<K> keyList = Lists.newArrayList(ids);
-        Set<K> missedKeys = Sets.newLinkedHashSet();
-
+        // 待返回实体
         List<T> entityList = new ArrayList<>();
-        for (int i = 0; i < valueList.size(); i++) {
-            T v = valueList.get(i);
-            K k = keyList.get(i);
-            if (v == null) {
-                missedKeys.add(k);
-            } else {
-                entityList.add(v);
+        // 处理缓存标识，把未缓存实体标识排除出来，再从数据库里面获取
+        if (CollectionUtils.isEmpty(valueList)) {
+            keySet.addAll(keyList);
+        } else {
+            for (int i = 0; i < valueList.size(); i++) {
+                T v = valueList.get(i);
+                K k = keyList.get(i);
+                if (v == null) {
+                    keySet.add(k);
+                } else {
+                    entityList.add(v);
+                }
             }
         }
 
-        if (CollectionUtils.isNotEmpty(missedKeys)) {
+        if (CollectionUtils.isNotEmpty(keySet)) {
             if (loader == null) {
                 loader = this::findByIds;
             }
-            Collection<T> missList = loader.apply(missedKeys);
+            Collection<T> missList = loader.apply(keySet);
             missList.forEach(this::setCache);
             entityList.addAll(missList);
         }
