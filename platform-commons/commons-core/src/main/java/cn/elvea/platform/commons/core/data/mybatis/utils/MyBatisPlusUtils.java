@@ -44,7 +44,10 @@ public abstract class MyBatisPlusUtils {
      * 把Spring-Data的分页请求对象转换成为MyBatis-Plus的分页对象
      */
     public static <E> Page<E> getMyBatisPlusPage(Pageable pageable) {
-        return new Page<>(pageable.getPageNumber() + 1, pageable.getPageSize());
+        Page<E> page = new Page<>(pageable.getPageNumber() + 1, pageable.getPageSize());
+        List<OrderItem> orders = pageable.getSort().get().map((e) -> new OrderItem(e.getProperty(), Sort.Direction.ASC.equals(e.getDirection()))).toList();
+        page.setOrders(orders);
+        return page;
     }
 
 }

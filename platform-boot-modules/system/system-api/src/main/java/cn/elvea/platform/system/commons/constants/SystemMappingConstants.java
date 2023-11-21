@@ -76,11 +76,15 @@ public interface SystemMappingConstants {
     // 公告资讯 - 后台
     // -----------------------------------------------------------------------------------------------------------------
 
-    // 获取公告资讯列表
     String API_V1_ADMIN__ANNOUNCEMENT__LIST = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/announcement/list";
 
-    // 获取公告资讯详情
     String API_V1_ADMIN__ANNOUNCEMENT__DETAILS = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/announcement/details";
+
+    String API_V1_ADMIN__ANNOUNCEMENT__PREPARE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/announcement/prepare";
+
+    String API_V1_ADMIN__ANNOUNCEMENT__SAVE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/announcement/save";
+
+    String API_V1_ADMIN__ANNOUNCEMENT__DELETE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/announcement/delete";
 
     // -----------------------------------------------------------------------------------------------------------------
     // 公告资讯 - 前台

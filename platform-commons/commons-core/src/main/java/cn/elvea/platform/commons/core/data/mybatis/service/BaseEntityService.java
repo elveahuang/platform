@@ -251,6 +251,16 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
+     * @see EntityService#deleteBatchById(Collection)
+     */
+    @Override
+    public void deleteBatchById(Collection<K> entityIdList) {
+        if (CollectionUtils.isNotEmpty(entityIdList)) {
+            this.getMapper().deleteBatchIds(entityIdList);
+        }
+    }
+
+    /**
      * @see EntityService#deleteBatch(Collection, int)
      */
     @Override

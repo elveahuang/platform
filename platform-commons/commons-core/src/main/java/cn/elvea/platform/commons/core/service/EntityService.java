@@ -162,6 +162,11 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
     /**
      * 删除多个实体
      */
+    void deleteBatchById(Collection<K> entityIdList);
+
+    /**
+     * 删除多个实体
+     */
     default void deleteBatch(Collection<T> entityList) {
         this.deleteBatch(entityList, DEFAULT_BATCH_SIZE);
     }

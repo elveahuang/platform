@@ -4,19 +4,20 @@ import cn.elvea.platform.commons.core.annotations.OperationLog;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
 import cn.elvea.platform.system.announcement.model.entity.AnnouncementEntity;
+import cn.elvea.platform.system.announcement.model.form.AnnouncementForm;
 import cn.elvea.platform.system.announcement.model.request.AnnouncementSearchRequest;
 import cn.elvea.platform.system.announcement.service.AnnouncementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.API_V1_ADMIN__ANNOUNCEMENT__DETAILS;
-import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.API_V1_ADMIN__ANNOUNCEMENT__LIST;
+import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.*;
 
 /**
  * @author elvea
@@ -29,22 +30,46 @@ public class AnnouncementAdminController extends AbstractController {
 
     private final AnnouncementService announcementService;
 
-    @PreAuthorize("hasAnyAuthority('site:announcement')")
     @Operation(summary = "获取公告资讯列表")
     @ApiResponse(description = "获取公告资讯列表")
     @PostMapping(API_V1_ADMIN__ANNOUNCEMENT__LIST)
     @OperationLog("获取公告资讯列表")
-    public R<?> list(AnnouncementSearchRequest searchRequest) {
+    public R<Page<AnnouncementEntity>> list(AnnouncementSearchRequest searchRequest) {
         return R.success(announcementService.findByPage(searchRequest.getPageable()));
     }
 
-    @PreAuthorize("hasAnyAuthority('site:announcement:view')")
     @Operation(summary = "获取公告资讯详情")
     @ApiResponse(description = "获取公告资讯详情")
     @PostMapping(API_V1_ADMIN__ANNOUNCEMENT__DETAILS)
     @OperationLog("获取公告资讯详情")
     public R<AnnouncementEntity> details(@RequestParam Long id) {
         return R.success(announcementService.findById(id));
+    }
+
+    @Operation(summary = "准备公告资讯")
+    @ApiResponse(description = "准备公告资讯")
+    @PostMapping(API_V1_ADMIN__ANNOUNCEMENT__PREPARE)
+    @OperationLog("准备公告资讯")
+    public R<AnnouncementEntity> prepare(@RequestParam Long id) {
+        return R.success(announcementService.findById(id));
+    }
+
+    @Operation(summary = "保存公告资讯")
+    @ApiResponse(description = "保存公告资讯")
+    @PostMapping(API_V1_ADMIN__ANNOUNCEMENT__SAVE)
+    @OperationLog("保存公告资讯")
+    public R<?> save(@Valid AnnouncementForm form) {
+        this.announcementService.saveAnnouncement(form);
+        return R.success();
+    }
+
+    @Operation(summary = "删除公告资讯")
+    @ApiResponse(description = "删除公告资讯")
+    @PostMapping(API_V1_ADMIN__ANNOUNCEMENT__DELETE)
+    @OperationLog("删除公告资讯")
+    public R<?> delete(@RequestParam Long id) {
+        announcementService.deleteById(id);
+        return R.success();
     }
 
 }
