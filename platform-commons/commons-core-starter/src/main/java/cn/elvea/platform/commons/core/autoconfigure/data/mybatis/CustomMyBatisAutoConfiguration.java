@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -46,7 +47,7 @@ public class CustomMyBatisAutoConfiguration {
     }
 
     /**
-     * MyBatis Plus 拦截器
+     * 拦截器
      */
     @Bean
     @ConditionalOnMissingBean
@@ -60,9 +61,6 @@ public class CustomMyBatisAutoConfiguration {
         return interceptor;
     }
 
-    /**
-     * MyBatisPlus 自定义配置
-     */
     @Bean
     @ConditionalOnMissingBean
     public MybatisPlusPropertiesCustomizer mybatisPlusPropertiesCustomizer() {
@@ -73,9 +71,6 @@ public class CustomMyBatisAutoConfiguration {
                 .setLogicNotDeleteValue("1");
     }
 
-    /**
-     * @see CustomMetaObjectHandler
-     */
     @Bean
     @ConditionalOnMissingBean
     public CustomMetaObjectHandler customMetaObjectHandler() {
@@ -86,13 +81,11 @@ public class CustomMyBatisAutoConfiguration {
     // MyBatis
     // -----------------------------------------------------------------------------------------------------------------
 
-    /**
-     * MyBatis 自定义配置
-     */
     @Bean
     @ConditionalOnMissingBean
     public ConfigurationCustomizer configurationCustomizer() {
         return configuration -> {
+            configuration.setLogImpl(StdOutImpl.class);
             configuration.setMapUnderscoreToCamelCase(true);
         };
     }

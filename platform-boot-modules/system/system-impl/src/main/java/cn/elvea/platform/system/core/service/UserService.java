@@ -6,6 +6,7 @@ import cn.elvea.platform.system.core.model.dto.UserCheckEmailDto;
 import cn.elvea.platform.system.core.model.dto.UserCheckMobileDto;
 import cn.elvea.platform.system.core.model.dto.UserCheckUsernameDto;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
+import cn.elvea.platform.system.core.model.form.UserForm;
 
 /**
  * @author elvea
@@ -45,8 +46,13 @@ public interface UserService extends CachingEntityService<UserEntity, Long> {
     UserEntity findByMobile(String mobileCountryCode, String mobileNumber);
 
     /**
-     * 根据手机查找用户
+     * 获取系统管理员
      */
     UserEntity getSystemAdministrator();
+
+    /**
+     * 保存用户
+     */
+    void saveUser(UserForm form);
 
 }

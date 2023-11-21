@@ -1,12 +1,15 @@
 package cn.elvea.platform.commons.core.data.mybatis.service;
 
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
+import cn.elvea.platform.commons.core.data.mybatis.domain.BaseEntity;
+import cn.elvea.platform.commons.core.data.mybatis.domain.SimpleEntity;
 import cn.elvea.platform.commons.core.data.mybatis.mapper.BaseEntityMapper;
 import cn.elvea.platform.commons.core.data.mybatis.utils.MyBatisPlusUtils;
 import cn.elvea.platform.commons.core.service.AbstractService;
 import cn.elvea.platform.commons.core.service.EntityService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.GenericsUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
@@ -165,6 +168,19 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
+     * @see EntityService#findAll(Pageable)
+     */
+    @Override
+    public Page<T> findByPage(Pageable pageable, T example) {
+        if (example == null) {
+            return findByPage(pageable);
+        }
+        return MyBatisPlusUtils.toSpringDataPage(
+                this.getMapper().selectPage(MyBatisPlusUtils.getMyBatisPlusPage(pageable), new QueryWrapper<>(example))
+        );
+    }
+
+    /**
      * @see EntityService#insert(IdEntity)
      */
     @Override
@@ -235,14 +251,6 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EntityService#delete(IdEntity)
-     */
-    @Override
-    public void delete(T entity) {
-        this.getMapper().deleteById(entity);
-    }
-
-    /**
      * @see EntityService#deleteById(Serializable)
      */
     @Override
@@ -261,6 +269,14 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
+     * @see EntityService#delete(IdEntity)
+     */
+    @Override
+    public void delete(T entity) {
+        this.getMapper().deleteById(entity);
+    }
+
+    /**
      * @see EntityService#deleteBatch(Collection, int)
      */
     @Override
@@ -276,6 +292,43 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     @Override
     public void deleteAll() {
         this.getMapper().delete(Wrappers.emptyWrapper());
+    }
+
+    /**
+     * @see EntityService#deleteAll()
+     */
+    @Override
+    public void softDelete(T entity) {
+        if (entity instanceof BaseEntity baseEntity) {
+            baseEntity.setActive(Boolean.FALSE);
+            this.save(entity);
+        } else if (entity instanceof SimpleEntity simpleEntity) {
+            simpleEntity.setActive(Boolean.FALSE);
+            this.save(entity);
+        }
+    }
+
+    /**
+     * @see EntityService#deleteAll()
+     */
+    @Override
+    public void softDeleteBatch(Collection<T> entityList, int batchSize) {
+        entityList.forEach((entity) -> {
+            if (entity instanceof BaseEntity baseEntity) {
+                baseEntity.setActive(Boolean.FALSE);
+            } else if (entity instanceof SimpleEntity simpleEntity) {
+                simpleEntity.setActive(Boolean.FALSE);
+            }
+        });
+        this.saveBatch(entityList, batchSize);
+    }
+
+    /**
+     * @see EntityService#deleteAll()
+     */
+    @Override
+    public void softDeleteAll() {
+
     }
 
     /**

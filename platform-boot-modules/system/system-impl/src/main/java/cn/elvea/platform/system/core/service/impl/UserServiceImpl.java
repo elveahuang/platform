@@ -6,11 +6,13 @@ import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.core.cache.UserCacheKeyGenerator;
+import cn.elvea.platform.system.core.model.converter.UserConverter;
 import cn.elvea.platform.system.core.model.dto.UserCheckEmailDto;
 import cn.elvea.platform.system.core.model.dto.UserCheckMobileDto;
 import cn.elvea.platform.system.core.model.dto.UserCheckUsernameDto;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
 import cn.elvea.platform.system.core.model.entity.UserEntity_;
+import cn.elvea.platform.system.core.model.form.UserForm;
 import cn.elvea.platform.system.core.repository.UserRepository;
 import cn.elvea.platform.system.core.service.UserService;
 import org.springframework.data.domain.Example;
@@ -111,6 +113,22 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
     @Override
     public UserEntity getSystemAdministrator() {
         return this.findCacheById(1L);
+    }
+
+    /**
+     * @see UserService#saveUser(UserForm)
+     */
+    @Override
+    public void saveUser(UserForm form) {
+        UserEntity entity;
+        if (form.getId() != null && form.getId() > 0) {
+            entity = this.findById(form.getId());
+            ObjectUtils.copyNotNullProperties(form, entity);
+        } else {
+            entity = UserConverter.INSTANCE.formToEntity(form);
+        }
+        entity.setActive(Boolean.TRUE);
+        this.save(entity);
     }
 
     /**

@@ -58,8 +58,6 @@ public interface SystemMappingConstants {
     // 后台管理
     // -----------------------------------------------------------------------------------------------------------------
 
-    String API_V1_ADMIN__USER__LIST = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/user/list";
-
     String API_V1_ADMIN__USER_SESSION__LIST = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/user-session/list";
 
     String API_V1_ADMIN__CLIENT__LIST = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/client/list";
@@ -71,6 +69,20 @@ public interface SystemMappingConstants {
     String API_V1_ADMIN__LABEL__TRANSLATE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/label/translate";
 
     String API_V1_ADMIN__LABEL__GENERATE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/label/generate";
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // 用户 - 后台
+    // -----------------------------------------------------------------------------------------------------------------
+
+    String API_V1_ADMIN__USER__LIST = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/user/list";
+
+    String API_V1_ADMIN__USER__DETAILS = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/user/details";
+
+    String API_V1_ADMIN__USER__PREPARE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/user/prepare";
+
+    String API_V1_ADMIN__USER__SAVE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/user/save";
+
+    String API_V1_ADMIN__USER__DELETE = MappingConstants.API_V1_ADMIN_URL_PREFIX + "/user/delete";
 
     // -----------------------------------------------------------------------------------------------------------------
     // 公告资讯 - 后台

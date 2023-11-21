@@ -93,6 +93,13 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
     Page<T> findByPage(Pageable pageable);
 
     /**
+     * 查询所有记录，支持分页
+     *
+     * @return Iterable<T>
+     */
+    Page<T> findByPage(Pageable pageable, T example);
+
+    /**
      * 新增实体
      *
      * @return T
@@ -152,17 +159,17 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
     /**
      * 删除单个实体
      */
-    void delete(T entity);
-
-    /**
-     * 删除单个实体
-     */
     void deleteById(K id);
 
     /**
      * 删除多个实体
      */
     void deleteBatchById(Collection<K> entityIdList);
+
+    /**
+     * 删除单个实体
+     */
+    void delete(T entity);
 
     /**
      * 删除多个实体
@@ -180,6 +187,45 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
      * 删除全部实体
      */
     void deleteAll();
+
+    /**
+     * 删除单个实体
+     */
+    default void softDeleteById(K id) {
+        this.softDelete(this.findById(id));
+    }
+
+    /**
+     * 删除多个实体
+     */
+    default void softDeleteBatchById(Collection<K> entityIdList) {
+        this.softDeleteBatch(this.findByIds(entityIdList));
+    }
+
+    /**
+     * 删除单个实体
+     */
+    default void softDelete(T entity) {
+    }
+
+    /**
+     * 删除多个实体
+     */
+    default void softDeleteBatch(Collection<T> entityList) {
+        this.softDeleteBatch(entityList, DEFAULT_BATCH_SIZE);
+    }
+
+    /**
+     * 删除多个实体
+     */
+    default void softDeleteBatch(Collection<T> entityList, int batchSize) {
+    }
+
+    /**
+     * 删除全部实体
+     */
+    default void softDeleteAll() {
+    }
 
     /**
      * 查询记录总数

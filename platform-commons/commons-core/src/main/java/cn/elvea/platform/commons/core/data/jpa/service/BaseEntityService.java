@@ -1,6 +1,8 @@
 package cn.elvea.platform.commons.core.data.jpa.service;
 
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
+import cn.elvea.platform.commons.core.data.jpa.domain.BaseEntity;
+import cn.elvea.platform.commons.core.data.jpa.domain.SimpleEntity;
 import cn.elvea.platform.commons.core.data.jpa.repository.BaseEntityRepository;
 import cn.elvea.platform.commons.core.service.AbstractService;
 import cn.elvea.platform.commons.core.service.EntityService;
@@ -8,10 +10,12 @@ import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.GenericsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -29,6 +33,7 @@ import java.util.List;
  */
 @Slf4j
 @NoRepositoryBean
+@Transactional
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
         extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, R> {
 
@@ -136,6 +141,17 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
+     * @see EntityService#findAll(Pageable)
+     */
+    @Override
+    public Page<T> findByPage(Pageable pageable, T example) {
+        if (example == null) {
+            return findByPage(pageable);
+        }
+        return this.getRepository().findAll(Example.of(example), pageable);
+    }
+
+    /**
      * @see EntityService#insert(IdEntity)
      */
     @Override
@@ -184,14 +200,6 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EntityService#delete(IdEntity)
-     */
-    @Override
-    public void delete(T entity) {
-        this.getRepository().delete(entity);
-    }
-
-    /**
      * @see EntityService#deleteById(Serializable)
      */
     @Override
@@ -210,6 +218,14 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
+     * @see EntityService#delete(IdEntity)
+     */
+    @Override
+    public void delete(T entity) {
+        this.getRepository().delete(entity);
+    }
+
+    /**
      * @see EntityService#deleteBatch(Collection, int)
      */
     @Override
@@ -225,6 +241,42 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     @Override
     public void deleteAll() {
         this.getRepository().deleteAll();
+    }
+
+    /**
+     * @see EntityService#softDelete(IdEntity)
+     */
+    @Override
+    public void softDelete(T entity) {
+        if (entity instanceof BaseEntity baseEntity) {
+            baseEntity.setActive(Boolean.FALSE);
+            this.save(entity);
+        } else if (entity instanceof SimpleEntity simpleEntity) {
+            simpleEntity.setActive(Boolean.FALSE);
+            this.save(entity);
+        }
+    }
+
+    /**
+     * @see EntityService#softDeleteBatch(Collection, int)
+     */
+    @Override
+    public void softDeleteBatch(Collection<T> entityList, int batchSize) {
+        entityList.forEach((entity) -> {
+            if (entity instanceof BaseEntity baseEntity) {
+                baseEntity.setActive(Boolean.FALSE);
+            } else if (entity instanceof SimpleEntity simpleEntity) {
+                simpleEntity.setActive(Boolean.FALSE);
+            }
+        });
+        this.saveBatch(entityList, batchSize);
+    }
+
+    /**
+     * @see EntityService#softDeleteAll()
+     */
+    @Override
+    public void softDeleteAll() {
     }
 
     /**

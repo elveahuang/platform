@@ -3,15 +3,24 @@ package cn.elvea.platform.system.core.web.admin;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
-import cn.elvea.platform.system.commons.constants.SystemMappingConstants;
+import cn.elvea.platform.system.core.model.entity.UserEntity;
+import cn.elvea.platform.system.core.model.form.UserForm;
+import cn.elvea.platform.system.core.model.request.UserDeleteRequest;
+import cn.elvea.platform.system.core.model.request.UserSearchRequest;
 import cn.elvea.platform.system.core.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.security.PermitAll;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+
+import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.*;
 
 /**
  * @author elvea
@@ -24,13 +33,48 @@ public class UserAdminController extends AbstractController {
 
     private final UserService userService;
 
-    @PermitAll
-    @OperationLog("后台管理-获取用户信息")
-    @Operation(summary = "获取当前用户信息")
-    @ApiResponse(description = "获取当前用户信息")
-    @GetMapping(SystemMappingConstants.API_V1_ADMIN__USER__LIST)
-    public R<?> user() {
-        return R.success(this.userService.findAll());
+    @Operation(summary = "获取用户列表")
+    @ApiResponse(description = "获取用户列表")
+    @PostMapping(API_V1_ADMIN__USER__LIST)
+    @OperationLog("获取用户列表")
+    public R<Page<UserEntity>> list(UserSearchRequest searchRequest) {
+        return R.success(this.userService.findByPage(searchRequest.getPageable()));
+    }
+
+    @Operation(summary = "获取用户详情")
+    @ApiResponse(description = "获取用户详情")
+    @PostMapping(API_V1_ADMIN__USER__DETAILS)
+    @OperationLog("获取用户详情")
+    public R<UserEntity> details(@RequestParam Long id) {
+        return R.success(this.userService.findById(id));
+    }
+
+    @Operation(summary = "准备用户资讯")
+    @ApiResponse(description = "准备用户资讯")
+    @PostMapping(API_V1_ADMIN__USER__PREPARE)
+    @OperationLog("准备用户资讯")
+    public R<UserEntity> prepare(@RequestParam Long id) {
+        return R.success(this.userService.findById(id));
+    }
+
+    @Operation(summary = "保存用户资讯")
+    @ApiResponse(description = "保存用户资讯")
+    @PostMapping(API_V1_ADMIN__USER__SAVE)
+    @OperationLog("保存用户资讯")
+    public R<?> save(@Valid UserForm form) {
+        this.userService.saveUser(form);
+        return R.success();
+    }
+
+    @Operation(summary = "删除用户资讯")
+    @ApiResponse(description = "删除用户资讯")
+    @PostMapping(API_V1_ADMIN__USER__DELETE)
+    @OperationLog("删除用户资讯")
+    public R<?> delete(UserDeleteRequest request) {
+        if (request != null && request.getIds() != null && request.getIds().length > 0) {
+            this.userService.deleteBatchById(Arrays.asList(request.getIds()));
+        }
+        return R.success();
     }
 
 }
