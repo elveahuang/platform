@@ -1,5 +1,6 @@
 package cn.elvea.platform.commons.core.data.mybatis.service;
 
+import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
 import cn.elvea.platform.commons.core.data.mybatis.domain.BaseEntity;
 import cn.elvea.platform.commons.core.data.mybatis.domain.SimpleEntity;
@@ -9,6 +10,7 @@ import cn.elvea.platform.commons.core.service.AbstractService;
 import cn.elvea.platform.commons.core.service.EntityService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.GenericsUtils;
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
@@ -53,13 +55,13 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @NoRepositoryBean
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, M extends BaseEntityMapper<T, K>>
         extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, M> {
 
     protected Log logger = LogFactory.getLog(getClass());
 
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     protected M mapper;
 
     @Autowired
@@ -313,14 +315,15 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
      */
     @Override
     public void softDeleteBatch(Collection<T> entityList, int batchSize) {
-        entityList.forEach((entity) -> {
-            if (entity instanceof BaseEntity baseEntity) {
-                baseEntity.setActive(Boolean.FALSE);
-            } else if (entity instanceof SimpleEntity simpleEntity) {
-                simpleEntity.setActive(Boolean.FALSE);
+        this.updateBatchById(entityList.stream().peek(e -> {
+            if (e instanceof BaseEntity entity) {
+                entity.setActive(Boolean.FALSE);
+                entity.setDeletedAt(getCurLocalDateTime());
+                entity.setDeletedBy(SecurityUtils.getUid());
+            } else if (e instanceof SimpleEntity entity) {
+                entity.setActive(Boolean.FALSE);
             }
-        });
-        this.saveBatch(entityList, batchSize);
+        }).toList(), batchSize);
     }
 
     /**
@@ -328,7 +331,6 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
      */
     @Override
     public void softDeleteAll() {
-
     }
 
     /**
@@ -348,7 +350,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    // ExtendEntityService
+    // EnhancedEntityService
     // -----------------------------------------------------------------------------------------------------------------
 
     /**

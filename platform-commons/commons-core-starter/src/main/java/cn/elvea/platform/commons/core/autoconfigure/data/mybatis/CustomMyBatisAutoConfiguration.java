@@ -63,16 +63,6 @@ public class CustomMyBatisAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public MybatisPlusPropertiesCustomizer mybatisPlusPropertiesCustomizer() {
-        return configuration -> configuration.getGlobalConfig()
-                .getDbConfig()
-                .setLogicDeleteField("active")
-                .setLogicDeleteValue("0")
-                .setLogicNotDeleteValue("1");
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
     public CustomMetaObjectHandler customMetaObjectHandler() {
         return new CustomMetaObjectHandler();
     }
