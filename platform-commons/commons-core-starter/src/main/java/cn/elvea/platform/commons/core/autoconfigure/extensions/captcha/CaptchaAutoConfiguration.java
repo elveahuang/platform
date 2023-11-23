@@ -8,6 +8,7 @@ import cn.elvea.platform.commons.core.extensions.captcha.service.DefaultCaptchaS
 import cn.elvea.platform.commons.core.extensions.captcha.store.CaptchaStore;
 import cn.elvea.platform.commons.core.extensions.captcha.store.DefaultCaptchaStore;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -48,7 +49,7 @@ public class CaptchaAutoConfiguration {
 
     @Bean("captchaStore")
     @ConditionalOnMissingBean(CaptchaStore.class)
-    public CaptchaStore captchaStore(CacheService cacheService, CaptchaProperties properties) {
+    public CaptchaStore captchaStore(@Qualifier("cacheService") CacheService cacheService, CaptchaProperties properties) {
         return new DefaultCaptchaStore(cacheService, properties.getCacheKeyPrefix());
     }
 

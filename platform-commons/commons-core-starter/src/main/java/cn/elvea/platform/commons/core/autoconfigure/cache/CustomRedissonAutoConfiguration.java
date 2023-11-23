@@ -132,6 +132,7 @@ public class CustomRedissonAutoConfiguration {
      * @see CacheService
      */
     @Bean
+    @Primary
     @ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "type", havingValue = "redisson")
     public CacheService cacheService(RedissonCacheService redissonCacheService) {
         return redissonCacheService;

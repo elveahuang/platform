@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -33,12 +32,11 @@ import java.util.List;
  */
 @Slf4j
 @NoRepositoryBean
-@Transactional
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
         extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, R> {
 
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     protected R repository;
 
     protected Class<T> entityClass = currentEntityClass();

@@ -17,14 +17,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(name = "springdoc.api-docs.enabled", matchIfMissing = true, havingValue = "true")
+@ConditionalOnProperty(name = "springdoc.api-docs.enabled", havingValue = "true")
 @EnableConfigurationProperties(SwaggerProperties.class)
 public class SwaggerAutoConfiguration {
 
-    private final SwaggerProperties swaggerProperties;
+    private final SwaggerProperties properties;
 
-    public SwaggerAutoConfiguration(SwaggerProperties swaggerProperties) {
-        this.swaggerProperties = swaggerProperties;
+    public SwaggerAutoConfiguration(SwaggerProperties properties) {
+        this.properties = properties;
         log.info("SwaggerAutoConfiguration is enabled.");
     }
 
@@ -35,9 +35,9 @@ public class SwaggerAutoConfiguration {
                         new Components().addSecuritySchemes("basicScheme",
                                 new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
                 .info(new Info()
-                        .title(swaggerProperties.getTitle())
-                        .version(swaggerProperties.getVersion())
-                        .description(swaggerProperties.getDescription()));
+                        .title(properties.getTitle())
+                        .version(properties.getVersion())
+                        .description(properties.getDescription()));
     }
 
 }

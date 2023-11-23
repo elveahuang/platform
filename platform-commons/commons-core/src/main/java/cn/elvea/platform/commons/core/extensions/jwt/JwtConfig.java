@@ -19,6 +19,9 @@ import java.time.Duration;
 public class JwtConfig {
 
     @Builder.Default
+    private Boolean enabled = Boolean.FALSE;
+
+    @Builder.Default
     private String algorithm = JwsAlgorithms.RS256;
 
     private String publicKeyValue;

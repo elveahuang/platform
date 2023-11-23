@@ -89,6 +89,7 @@ public class CustomRedisAutoConfiguration {
      * @see CacheService
      */
     @Bean
+    @Primary
     @ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "type", havingValue = "redis")
     public CacheService cacheService(RedisCacheService redisCacheService) {
         return redisCacheService;

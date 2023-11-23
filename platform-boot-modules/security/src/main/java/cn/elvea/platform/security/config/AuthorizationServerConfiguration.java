@@ -111,8 +111,7 @@ public class AuthorizationServerConfiguration {
                 .exceptionHandling(e -> {
                     e.authenticationEntryPoint(authenticationEntryPoint);
                     e.accessDeniedHandler(accessDeniedHandler);
-                })
-                .apply(authorizationServerConfigurer);
+                }).apply(authorizationServerConfigurer);
         return http.build();
     }
 

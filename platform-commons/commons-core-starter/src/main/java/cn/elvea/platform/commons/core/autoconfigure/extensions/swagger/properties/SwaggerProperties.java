@@ -1,22 +1,24 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.swagger.properties;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * @author elvea
  * @since 0.0.1
  */
 @Data
-@Component
-@ConfigurationProperties("swagger")
+@NoArgsConstructor
+@ConfigurationProperties(SwaggerProperties.PREFIX)
 public class SwaggerProperties {
+
+    public static final String PREFIX = "platform.swagger";
 
     /**
      * 是否开启
      */
-    private boolean enabled = false;
+    private Boolean enabled = Boolean.TRUE;
 
     /**
      * 标题

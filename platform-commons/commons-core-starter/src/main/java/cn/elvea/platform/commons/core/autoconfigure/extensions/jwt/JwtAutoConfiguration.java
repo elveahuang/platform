@@ -47,7 +47,14 @@ public class JwtAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public JwtConfig config() {
-        return this.properties;
+        return JwtConfig.builder()
+                .enabled(this.properties.getEnabled())
+                .algorithm(this.properties.getAlgorithm())
+                .publicKeyValue(this.properties.getPublicKeyValue())
+                .privateKeyValue(this.properties.getPrivateKeyValue())
+                .accessTokenTimeToLive(this.properties.getAccessTokenTimeToLive())
+                .refreshTokenTimeToLive(this.properties.getRefreshTokenTimeToLive())
+                .build();
     }
 
     /**

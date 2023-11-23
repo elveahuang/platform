@@ -43,6 +43,7 @@ public class CustomCaffeineAutoConfiguration {
      * @see CacheService
      */
     @Bean
+    @Primary
     @ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "type", havingValue = "caffeine", matchIfMissing = true)
     public CacheService cacheService(CaffeineCacheService caffeineCacheService) {
         return caffeineCacheService;

@@ -8,6 +8,7 @@ import cn.elvea.platform.commons.core.service.EntityService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ import java.util.Collection;
  */
 @Slf4j
 @NoRepositoryBean
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseCachingEntityService<T extends IdEntity, K extends Serializable, M extends BaseEntityMapper<T, K>>
         extends BaseEntityService<T, K, M> implements CachingEntityService<T, K> {
 
@@ -77,7 +79,7 @@ public abstract class BaseCachingEntityService<T extends IdEntity, K extends Ser
     }
 
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Qualifier("cacheService")
     public void setCacheService(CacheService cacheService) {
         this.cacheService = cacheService;
     }

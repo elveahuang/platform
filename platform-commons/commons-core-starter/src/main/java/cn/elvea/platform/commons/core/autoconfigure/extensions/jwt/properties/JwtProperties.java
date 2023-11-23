@@ -1,10 +1,11 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties;
 
-import cn.elvea.platform.commons.core.extensions.jwt.JwtConfig;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.oauth2.jose.jws.JwsAlgorithms;
+
+import java.time.Duration;
 
 /**
  * @author elvea
@@ -12,12 +13,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @ConfigurationProperties(JwtProperties.PREFIX)
-public class JwtProperties extends JwtConfig {
+public class JwtProperties {
 
     public static final String PREFIX = "platform.jwt";
 
     private Boolean enabled = Boolean.FALSE;
+
+    private String algorithm = JwsAlgorithms.RS256;
+
+    private String publicKeyValue;
+
+    private String privateKeyValue;
+
+    private Duration accessTokenTimeToLive = Duration.ofMinutes(5);
+
+    private Duration refreshTokenTimeToLive = Duration.ofDays(1);
 
 }

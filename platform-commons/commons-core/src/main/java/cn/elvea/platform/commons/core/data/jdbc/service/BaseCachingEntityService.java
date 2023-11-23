@@ -15,18 +15,18 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * @author elvea
+ * @author dev
  * @see CachingEntityService
  * @see BaseEntityService
  * @since 0.0.1
  */
 @Slf4j
 @NoRepositoryBean
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseCachingEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
         extends BaseEntityService<T, K, R> implements CachingEntityService<T, K> {
 
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     protected R repository;
 
     @Override

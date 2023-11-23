@@ -1,6 +1,5 @@
 package cn.elvea.platform.commons.core.data.mybatis.service;
 
-import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
 import cn.elvea.platform.commons.core.data.mybatis.domain.BaseEntity;
 import cn.elvea.platform.commons.core.data.mybatis.domain.SimpleEntity;
