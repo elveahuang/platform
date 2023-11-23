@@ -9,8 +9,8 @@ plugins {
     id("java-library")
     id("io.spring.dependency-management") version "1.1.4"
     id("com.google.osdetector") version "1.7.3" apply false
-    id("org.hibernate.orm") version "6.2.13.Final" apply false
-    id("org.springframework.boot") version "3.1.6" apply false
+    id("org.hibernate.orm") version "6.3.1.Final" apply false
+    id("org.springframework.boot") version "3.2.0" apply false
     id("org.jetbrains.kotlin.jvm") version "1.9.20" apply false
     id("org.graalvm.buildtools.native") version "0.9.28" apply false
 }
@@ -58,7 +58,7 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom("org.springframework.modulith:spring-modulith-bom:1.0.2")
-            mavenBom("org.springframework.boot:spring-boot-dependencies:3.1.6")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.0")
             mavenBom("org.springframework.shell:spring-shell-dependencies:3.1.4")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2022.0.4")
             mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2022.0.0.0")
@@ -67,7 +67,7 @@ allprojects {
             mavenBom("io.grpc:grpc-bom:1.59.0")
             mavenBom("cn.hutool:hutool-bom:5.8.23")
             mavenBom("me.ahoo.cosid:cosid-bom:2.5.6")
-            mavenBom("org.mockito:mockito-bom:5.3.1")
+            mavenBom("org.mockito:mockito-bom:5.7.0")
             mavenBom("org.jetbrains.kotlin:kotlin-bom:1.9.20")
         }
 
