@@ -1,10 +1,8 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.translator;
 
 import cn.elvea.platform.commons.core.autoconfigure.extensions.translator.properties.TranslatorProperties;
+import cn.elvea.platform.commons.core.extensions.translator.TranslatorConfig;
 import cn.elvea.platform.commons.core.extensions.translator.TranslatorManager;
-import cn.elvea.platform.commons.core.extensions.translator.TranslatorType;
-import cn.elvea.platform.commons.core.extensions.translator.aliyun.AliyunTranslator;
-import cn.elvea.platform.commons.core.extensions.translator.baidu.BaiduTranslator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -33,14 +31,13 @@ public class TranslatorAutoConfiguration {
      */
     @Bean
     public TranslatorManager translatorManager() {
-        TranslatorManager translatorManager = new TranslatorManager(this.properties.getType());
-        if (this.properties.getBaidu().getEnabled()) {
-            translatorManager.addTranslator(TranslatorType.Baidu, new BaiduTranslator(properties.getBaidu()));
-        }
-        if (this.properties.getAliyun().getEnabled()) {
-            translatorManager.addTranslator(TranslatorType.Aliyun, new AliyunTranslator(properties.getAliyun()));
-        }
-        return translatorManager;
+        TranslatorConfig config = TranslatorConfig.builder()
+                .enabled(properties.getEnabled())
+                .type(properties.getType())
+                .aliyun(properties.getAliyun())
+                .baidu(properties.getBaidu())
+                .build();
+        return new TranslatorManager(config);
     }
 
 }

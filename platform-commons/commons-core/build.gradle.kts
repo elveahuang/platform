@@ -56,6 +56,7 @@ dependencies {
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-common")
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-sms")
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-tmt")
+    compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-iai")
     compileOnly("com.larksuite.oapi:oapi-sdk")
     // 3rd party
     api("com.github.spotbugs:spotbugs-annotations")

@@ -2,10 +2,7 @@ package cn.elvea.platform.commons.core.extensions.translator;
 
 import cn.elvea.platform.commons.core.extensions.translator.aliyun.AliyunTranslator;
 import cn.elvea.platform.commons.core.extensions.translator.baidu.BaiduTranslator;
-import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Map;
 
 /**
  * @author elvea
@@ -14,24 +11,23 @@ import java.util.Map;
 @Slf4j
 public class TranslatorManager {
 
-    private final TranslatorType type;
+    private final TranslatorConfig config;
 
-    private final Map<TranslatorType, Translator> translatorMap = Maps.newHashMap();
-
-    public TranslatorManager(TranslatorType type) {
-        this.type = type;
-    }
-
-    public void addTranslator(TranslatorType type, Translator translator) {
-        translatorMap.put(type, translator);
+    public TranslatorManager(TranslatorConfig config) {
+        this.config = config;
     }
 
     public Translator getTranslator() {
-        return this.translatorMap.get(this.type);
+        if (TranslatorType.Aliyun.equals(config.getType())) {
+            return getAliyunTranslator();
+        } else if (TranslatorType.Baidu.equals(config.getType())) {
+            return getBaiduTranslator();
+        }
+        return getAliyunTranslator();
     }
 
     public BaiduTranslator getBaiduTranslator() {
-        return (BaiduTranslator) this.translatorMap.get(TranslatorType.Baidu);
+        return getBaiduTranslator(this.config.getBaidu());
     }
 
     public BaiduTranslator getBaiduTranslator(BaiduTranslator.Config config) {
@@ -39,7 +35,7 @@ public class TranslatorManager {
     }
 
     public AliyunTranslator getAliyunTranslator() {
-        return (AliyunTranslator) this.translatorMap.get(TranslatorType.Aliyun);
+        return this.getAliyunTranslator(this.config.getAliyun());
     }
 
     public AliyunTranslator getAliyunTranslator(AliyunTranslator.Config config) {

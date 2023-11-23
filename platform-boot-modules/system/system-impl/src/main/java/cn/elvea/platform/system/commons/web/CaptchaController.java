@@ -38,7 +38,7 @@ public class CaptchaController extends AbstractController {
     @ApiResponse(description = "获取验证码")
     @PostMapping(API_V1_CAPTCHA_CODE)
     public R<CaptchaCodeDto> captchaCode() throws Exception {
-        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.CODE).build();
+        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.CODE).size(4).build();
         Captcha captcha = this.captchaApi.generate(request);
         return R.success(CaptchaCodeDto.builder().key(captcha.getKey()).image(captcha.getImage()).build());
     }
@@ -49,7 +49,7 @@ public class CaptchaController extends AbstractController {
     @ApiResponse(description = "获取邮件验证码")
     @PostMapping(API_V1_CAPTCHA_MAIL)
     public R<CaptchaDto> captchaEmail(@RequestParam String email) throws Exception {
-        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.MAIL).email(email).build();
+        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.MAIL).size(6).email(email).build();
         Captcha captcha = this.captchaApi.generate(request);
         return R.success(CaptchaDto.builder().key(captcha.getKey()).build());
     }
@@ -62,7 +62,9 @@ public class CaptchaController extends AbstractController {
     @RateLimit
     public R<CaptchaDto> captchaMobile(@RequestParam String mobileCountryCode, @RequestParam String mobileNumber) throws Exception {
         CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.SMS)
-                .mobileCountryCode(mobileCountryCode).mobileNumber(mobileNumber)
+                .mobileCountryCode(mobileCountryCode)
+                .mobileNumber(mobileNumber)
+                .size(6)
                 .build();
         Captcha captcha = this.captchaApi.generate(request);
         return R.success(CaptchaDto.builder().key(captcha.getKey()).build());

@@ -42,6 +42,7 @@ dependencies {
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-common")
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-sms")
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-tmt")
+    compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-iai")
     compileOnly("com.larksuite.oapi:oapi-sdk")
     // modules
     api(project(":platform-commons:commons-core"))

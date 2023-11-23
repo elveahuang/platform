@@ -209,3 +209,9 @@ platform:
             enabled: false
             app-id:
             secret-key:
+    face-body:
+        enabled: false
+        aliyun:
+            enabled: false
+            access-key-id:
+            access-key-secret:

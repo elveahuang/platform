@@ -24,3 +24,4 @@ cn.elvea.platform.commons.core.autoconfigure.extensions.mail.MailAutoConfigurati
 cn.elvea.platform.commons.core.autoconfigure.extensions.sms.SmsAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.captcha.CaptchaAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.translator.TranslatorAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.extensions.facebody.FaceBodyAutoConfiguration
