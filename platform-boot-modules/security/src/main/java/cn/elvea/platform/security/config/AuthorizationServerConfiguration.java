@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationContext;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationToken;
@@ -33,7 +34,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.time.Duration;
 import java.util.List;
@@ -70,6 +70,8 @@ public class AuthorizationServerConfiguration {
     ) throws Exception {
         log.info("Creating authorizationServerSecurityFilterChain for App Server...");
 
+        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
         PasswordAuthenticationProvider passwordAuthenticationProvider = new PasswordAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator);
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator);
         SocialAuthenticationProvider socialAuthenticationProvider = new SocialAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator);
@@ -77,41 +79,36 @@ public class AuthorizationServerConfiguration {
         Function<OidcUserInfoAuthenticationContext, OidcUserInfo> userInfoMapper = (context) -> {
             OidcUserInfoAuthenticationToken authentication = context.getAuthentication();
             JwtAuthenticationToken principal = (JwtAuthenticationToken) authentication.getPrincipal();
-
             return new OidcUserInfo(principal.getToken().getClaims());
         };
 
-        OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
-        authorizationServerConfigurer.oidc(oidc -> oidc.userInfoEndpoint((userInfo) -> userInfo
-                .userInfoMapper(userInfoMapper)
-        ));
-        authorizationServerConfigurer.tokenEndpoint(tokenEndpoint -> tokenEndpoint
-                .accessTokenRequestConverters(authenticationConverters -> authenticationConverters.addAll(List.of(
-                        new SmsAuthenticationConverter(),
-                        new PasswordAuthenticationConverter(),
-                        new SocialAuthenticationConverter()
-                )))
-                .authenticationProviders(authenticationProviders -> authenticationProviders.addAll(List.of(
+        http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(oidc ->
+                oidc.userInfoEndpoint((userInfo) -> userInfo.userInfoMapper(userInfoMapper))
+        ).tokenEndpoint(tokenEndpoint ->
+                tokenEndpoint.accessTokenRequestConverters(authenticationConverters ->
+                        authenticationConverters.addAll(List.of(
+                                new SmsAuthenticationConverter(),
+                                new PasswordAuthenticationConverter(),
+                                new SocialAuthenticationConverter()
+                        ))
+                ).authenticationProviders(authenticationProviders -> authenticationProviders.addAll(List.of(
                         socialAuthenticationProvider,
                         passwordAuthenticationProvider,
                         smsAuthenticationProvider
                 )))
         );
 
-        RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
-        http.securityMatcher(endpointsMatcher)
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-                .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
-                .cors(Customizer.withDefaults())
-                .oauth2ResourceServer((resourceServerConfigurer) -> resourceServerConfigurer.jwt(configurer -> {
-                    configurer.decoder(jwtDecoder);
-                    configurer.jwtAuthenticationConverter(this.jwtAuthenticationConverter);
+        http.oauth2ResourceServer((rsc) -> rsc.jwt(jc -> {
+                    jc.decoder(jwtDecoder);
+                    jc.jwtAuthenticationConverter(this.jwtAuthenticationConverter);
                 }))
+                .cors(Customizer.withDefaults())
                 .addFilterAfter(this.captchaAuthenticationFilter, CsrfFilter.class)
                 .exceptionHandling(e -> {
                     e.authenticationEntryPoint(authenticationEntryPoint);
                     e.accessDeniedHandler(accessDeniedHandler);
-                }).apply(authorizationServerConfigurer);
+                });
+
         return http.build();
     }
 
