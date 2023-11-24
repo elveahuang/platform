@@ -1,6 +1,8 @@
 package cn.elvea.platform.commons.core.data.jdbc.service;
 
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
+import cn.elvea.platform.commons.core.data.jdbc.domain.BaseEntity;
+import cn.elvea.platform.commons.core.data.jdbc.domain.SimpleEntity;
 import cn.elvea.platform.commons.core.data.jdbc.repository.BaseEntityRepository;
 import cn.elvea.platform.commons.core.service.AbstractService;
 import cn.elvea.platform.commons.core.service.EntityService;
@@ -22,8 +24,9 @@ import java.util.List;
  * @param <T> 实体
  * @param <K> 主键
  * @param <R> Repository
- * @author dev
+ * @author elvea
  * @see AbstractService
+ * @see EnhancedEntityService
  * @see EntityService
  * @since 0.0.1
  */
@@ -136,6 +139,14 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
+     * @see EntityService#findAll(Pageable)
+     */
+    @Override
+    public Page<T> findByPage(Pageable pageable, T example) {
+        return findByPage(pageable);
+    }
+
+    /**
      * @see EntityService#insert(IdEntity)
      */
     @Override
@@ -184,19 +195,29 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EntityService#delete(IdEntity)
-     */
-    @Override
-    public void delete(T entity) {
-        this.getRepository().delete(entity);
-    }
-
-    /**
      * @see EntityService#deleteById(Serializable)
      */
     @Override
     public void deleteById(K id) {
         this.getRepository().deleteById(id);
+    }
+
+    /**
+     * @see EntityService#deleteBatchById(Collection)
+     */
+    @Override
+    public void deleteBatchById(Collection<K> entityIdList) {
+        if (CollectionUtils.isNotEmpty(entityIdList)) {
+            this.getRepository().deleteAllById(entityIdList);
+        }
+    }
+
+    /**
+     * @see EntityService#delete(IdEntity)
+     */
+    @Override
+    public void delete(T entity) {
+        this.getRepository().delete(entity);
     }
 
     /**
@@ -218,6 +239,42 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
+     * @see EntityService#softDelete(IdEntity)
+     */
+    @Override
+    public void softDelete(T entity) {
+        if (entity instanceof BaseEntity baseEntity) {
+            baseEntity.setActive(Boolean.FALSE);
+            this.save(entity);
+        } else if (entity instanceof SimpleEntity simpleEntity) {
+            simpleEntity.setActive(Boolean.FALSE);
+            this.save(entity);
+        }
+    }
+
+    /**
+     * @see EntityService#softDeleteBatch(Collection, int)
+     */
+    @Override
+    public void softDeleteBatch(Collection<T> entityList, int batchSize) {
+        entityList.forEach((entity) -> {
+            if (entity instanceof BaseEntity baseEntity) {
+                baseEntity.setActive(Boolean.FALSE);
+            } else if (entity instanceof SimpleEntity simpleEntity) {
+                simpleEntity.setActive(Boolean.FALSE);
+            }
+        });
+        this.saveBatch(entityList, batchSize);
+    }
+
+    /**
+     * @see EntityService#softDeleteAll()
+     */
+    @Override
+    public void softDeleteAll() {
+    }
+
+    /**
      * @see EntityService#count()
      */
     @Override
@@ -232,5 +289,13 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     public boolean existsById(K id) {
         return this.getRepository().existsById(id);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // EnhancedEntityService
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // 辅助方法
+    // -----------------------------------------------------------------------------------------------------------------
 
 }

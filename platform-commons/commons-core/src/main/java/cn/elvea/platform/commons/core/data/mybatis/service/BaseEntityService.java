@@ -48,8 +48,9 @@ import java.util.stream.Collectors;
  * @param <K> 主键
  * @param <M> Mapper
  * @author elvea
- * @see EntityService
  * @see AbstractService
+ * @see EnhancedEntityService
+ * @see EntityService
  * @since 0.0.1
  */
 @Slf4j
@@ -89,7 +90,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EnhancedEntityService#getMapper()
+     * @see EnhancedEntityService#getMapperClass()
      */
     @Override
     public Class<M> getMapperClass() {
@@ -129,7 +130,8 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
      */
     @Override
     public List<T> findByIds(Collection<K> ids) {
-        return (CollectionUtils.isNotEmpty(ids)) ? this.getMapper().selectBatchIds(ids) : Collections.emptyList();
+        return (CollectionUtils.isNotEmpty(ids)) ?
+                this.getMapper().selectBatchIds(ids) : Collections.emptyList();
     }
 
     /**
@@ -296,7 +298,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EntityService#deleteAll()
+     * @see EntityService#softDelete(IdEntity)
      */
     @Override
     public void softDelete(T entity) {
@@ -310,7 +312,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EntityService#deleteAll()
+     * @see EntityService#softDeleteBatch(Collection, int)
      */
     @Override
     public void softDeleteBatch(Collection<T> entityList, int batchSize) {
@@ -326,7 +328,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EntityService#deleteAll()
+     * @see EntityService#softDeleteAll()
      */
     @Override
     public void softDeleteAll() {

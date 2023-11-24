@@ -27,6 +27,7 @@ import java.util.List;
  * @param <R> Repository
  * @author elvea
  * @see AbstractService
+ * @see EnhancedEntityService
  * @see EntityService
  * @since 0.0.1
  */
@@ -292,6 +293,10 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     public boolean existsById(K id) {
         return this.getRepository().existsById(id);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // EnhancedEntityService
+    // -----------------------------------------------------------------------------------------------------------------
 
     // -----------------------------------------------------------------------------------------------------------------
     // 辅助方法

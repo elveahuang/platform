@@ -24,19 +24,10 @@ import static org.apache.commons.lang3.ObjectUtils.isEmpty;
  */
 public interface EntityService<T extends IdEntity, K extends Serializable> extends Service {
 
-    /**
-     *
-     */
     int DEFAULT_BATCH_SIZE = 1000;
 
-    /**
-     *
-     */
     Class<T> getEntityClass();
 
-    /**
-     *
-     */
     Class<K> getEntityIdClass();
 
     /**
@@ -55,9 +46,6 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
 
     /**
      * 根据ID查询唯一记录
-     *
-     * @param id ID
-     * @return T
      */
     T findById(K id);
 
@@ -73,36 +61,26 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
 
     /**
      * 查询所有记录，支持排序
-     *
-     * @return Iterable<T>
      */
     List<T> findAll(Sort sort);
 
     /**
      * 查询所有记录，支持分页
-     *
-     * @return Iterable<T>
      */
     List<T> findAll(Pageable pageable);
 
     /**
      * 查询所有记录，支持分页
-     *
-     * @return Iterable<T>
      */
     Page<T> findByPage(Pageable pageable);
 
     /**
      * 查询所有记录，支持分页
-     *
-     * @return Iterable<T>
      */
     Page<T> findByPage(Pageable pageable, T example);
 
     /**
      * 新增实体
-     *
-     * @return T
      */
     T insert(T entity);
 
@@ -120,8 +98,6 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
 
     /**
      * 更新实体
-     *
-     * @return T
      */
     T updateById(T entity);
 
@@ -139,8 +115,6 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
 
     /**
      * 保存实体
-     *
-     * @return T
      */
     T save(T entity);
 

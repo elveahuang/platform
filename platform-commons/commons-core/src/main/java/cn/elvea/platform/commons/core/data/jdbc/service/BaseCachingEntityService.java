@@ -15,7 +15,8 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * @author dev
+ * @author elvea
+ * @see EntityService
  * @see CachingEntityService
  * @see BaseEntityService
  * @since 0.0.1
@@ -26,15 +27,17 @@ import java.util.Collection;
 public abstract class BaseCachingEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
         extends BaseEntityService<T, K, R> implements CachingEntityService<T, K> {
 
-    @Autowired
-    protected R repository;
-
-    @Override
-    public R getRepository() {
-        return repository;
-    }
-
     private CacheService cacheService;
+
+    /**
+     * @see EntityService#save(IdEntity)
+     */
+    @Override
+    public T save(T entity) {
+        T t = super.save(entity);
+        deleteCache(t);
+        return t;
+    }
 
     /**
      * @see EntityService#insert(IdEntity)
@@ -52,16 +55,6 @@ public abstract class BaseCachingEntityService<T extends IdEntity, K extends Ser
     @Override
     public T updateById(T entity) {
         T t = super.updateById(entity);
-        deleteCache(t);
-        return t;
-    }
-
-    /**
-     * @see EntityService#save(IdEntity)
-     */
-    @Override
-    public T save(T entity) {
-        T t = super.save(entity);
         deleteCache(t);
         return t;
     }

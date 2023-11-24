@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @param <T> 实体类型
  * @param <K> 主键类型
- * @author dev
+ * @author elvea
  * @see EntityService
  * @see Service
  * @since 0.0.1
