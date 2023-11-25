@@ -18,10 +18,7 @@ import cn.elvea.platform.system.core.model.dto.UserLoginDto;
 import cn.elvea.platform.system.core.model.entity.AuthorityEntity;
 import cn.elvea.platform.system.core.model.entity.RoleEntity;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
-import cn.elvea.platform.system.core.model.form.ChangePasswordForm;
-import cn.elvea.platform.system.core.model.form.ForgotPasswordForm;
-import cn.elvea.platform.system.core.model.form.ResetPasswordForm;
-import cn.elvea.platform.system.core.model.form.UserRegisterForm;
+import cn.elvea.platform.system.core.model.form.*;
 import cn.elvea.platform.system.core.model.vo.UserForgetPasswordVo;
 import cn.elvea.platform.system.core.service.AuthorityService;
 import cn.elvea.platform.system.core.service.RoleService;
@@ -178,6 +175,21 @@ public class UserApiImpl implements UserApi {
             return R.error();
         }
         userEntity.setPassword(passwordEncoder.encode(changePasswordForm.getNewPassword()));
+        userService.updateById(userEntity);
+        return R.success();
+    }
+
+    /**
+     * @see UserApi#updateAccount(UserAccountForm)
+     */
+    @Override
+    public R<?> updateAccount(UserAccountForm userAccountForm) {
+        String userName = SecurityUtils.getUsername();
+        UserEntity userEntity = userService.findByUsername(userName);
+        if (ObjectUtils.isEmpty(userEntity)) {
+            return R.error();
+        }
+        userEntity.setDisplayName(userAccountForm.getDisplayName());
         userService.updateById(userEntity);
         return R.success();
     }

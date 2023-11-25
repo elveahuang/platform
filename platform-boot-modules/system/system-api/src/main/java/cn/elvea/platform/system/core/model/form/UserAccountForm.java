@@ -16,15 +16,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRegisterForm implements Serializable {
-    @NotEmpty(message = "{system__validation__user__username_not_empty}")
-    private String username;
+public class UserAccountForm implements Serializable {
     @NotEmpty
-    private String password;
-    @NotEmpty
-    private String email;
-    @NotEmpty
-    private String captchaKey;
-    @NotEmpty
-    private String captchaValue;
+    private String displayName;
 }

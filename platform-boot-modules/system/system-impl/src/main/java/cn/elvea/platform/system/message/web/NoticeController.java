@@ -1,6 +1,8 @@
 package cn.elvea.platform.system.message.web;
 
+import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
 import cn.elvea.platform.system.message.model.entity.NoticeEntity;
@@ -28,20 +30,26 @@ public class NoticeController extends AbstractController {
 
     private final NoticeService noticeService;
 
+    @Authenticated
     @Operation(summary = "获取系统通知列表")
     @ApiResponse(description = "获取系统通知列表")
     @PostMapping(API_V1__NOTICE__LIST)
-    @OperationLog("获取公告资讯列表")
+    @OperationLog("获取系统通知列表")
     public R<?> list(NoticeSearchRequest request) {
-        return R.success(noticeService.findByUserId(request));
+        return R.success(noticeService.findMyNoticeByUserId(request));
     }
 
+    @Authenticated
     @Operation(summary = "获取系统通知详情")
     @ApiResponse(description = "获取系统通知详情")
     @PostMapping(API_V1__NOTICE__DETAILS)
-    @OperationLog("获取公告资讯详情")
+    @OperationLog("获取系统通知详情")
     public R<NoticeEntity> details(@RequestParam Long id) {
-        return R.success(noticeService.findById(id));
+        NoticeEntity entity = noticeService.findById(id);
+        if (entity != null && entity.getRecipientId().longValue() == SecurityUtils.getUid()) {
+            return R.success(entity);
+        }
+        return R.error();
     }
 
 }

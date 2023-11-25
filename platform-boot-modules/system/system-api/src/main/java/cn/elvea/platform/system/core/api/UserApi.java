@@ -3,10 +3,7 @@ package cn.elvea.platform.system.core.api;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
 import cn.elvea.platform.system.core.model.dto.UserLoginDto;
-import cn.elvea.platform.system.core.model.form.ChangePasswordForm;
-import cn.elvea.platform.system.core.model.form.ForgotPasswordForm;
-import cn.elvea.platform.system.core.model.form.ResetPasswordForm;
-import cn.elvea.platform.system.core.model.form.UserRegisterForm;
+import cn.elvea.platform.system.core.model.form.*;
 import cn.elvea.platform.system.core.model.vo.UserForgetPasswordVo;
 
 /**
@@ -26,6 +23,8 @@ public interface UserApi {
     R<?> register(UserRegisterForm userRegisterForm);
 
     R<?> changePassword(ChangePasswordForm changePasswordForm);
+
+    R<?> updateAccount(UserAccountForm userAccountForm);
 
     R<UserForgetPasswordVo> forgotPassword(ForgotPasswordForm userRegisterForm);
 

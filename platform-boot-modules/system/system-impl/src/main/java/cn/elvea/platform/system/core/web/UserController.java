@@ -7,10 +7,7 @@ import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
-import cn.elvea.platform.system.core.model.form.ChangePasswordForm;
-import cn.elvea.platform.system.core.model.form.ForgotPasswordForm;
-import cn.elvea.platform.system.core.model.form.ResetPasswordForm;
-import cn.elvea.platform.system.core.model.form.UserRegisterForm;
+import cn.elvea.platform.system.core.model.form.*;
 import cn.elvea.platform.system.core.model.vo.UserForgetPasswordVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -53,9 +50,9 @@ public class UserController {
     }
 
     @Anonymous
-    @OperationLog("退出登录")
     @Operation(summary = "退出登录")
     @ApiResponse(description = "退出登录")
+    @OperationLog("退出登录")
     @PostMapping(API_V1__USER__LOGOUT)
     public R<?> logout() {
         return userApi.logout();
@@ -64,6 +61,7 @@ public class UserController {
     @Anonymous
     @Operation(summary = "忘记密码")
     @ApiResponse(description = "忘记密码")
+    @OperationLog("忘记密码")
     @PostMapping(API_V1__USER__FORGOT_PASSWORD)
     public R<UserForgetPasswordVo> forgotPassword(@Valid ForgotPasswordForm form) {
         return userApi.forgotPassword(form);
@@ -72,6 +70,7 @@ public class UserController {
     @Anonymous
     @Operation(summary = "重置密码")
     @ApiResponse(description = "重置密码")
+    @OperationLog("重置密码")
     @PostMapping(API_V1__USER__RESET_PASSWORD)
     public R<?> resetPassword(@Valid ResetPasswordForm form) {
         return userApi.resetPassword(form);
@@ -80,9 +79,19 @@ public class UserController {
     @Authenticated
     @Operation(summary = "修改密码")
     @ApiResponse(description = "修改密码")
+    @OperationLog("编辑个人资料")
     @PostMapping(API_V1__USER__CHANGE_PASSWORD)
     public R<?> changePassword(@Valid ChangePasswordForm form) {
         return userApi.changePassword(form);
+    }
+
+    @Authenticated
+    @Operation(summary = "编辑个人资料")
+    @ApiResponse(description = "编辑个人资料")
+    @OperationLog("编辑个人资料")
+    @PostMapping(API_V1__USER__ACCOUNT)
+    public R<?> updateAccount(@Valid UserAccountForm form) {
+        return userApi.updateAccount(form);
     }
 
 }

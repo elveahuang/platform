@@ -1,6 +1,7 @@
 package cn.elvea.platform.system.message.service.impl;
 
 import cn.elvea.platform.commons.core.data.jpa.service.BaseEntityService;
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import cn.elvea.platform.system.message.model.entity.NoticeEntity;
 import cn.elvea.platform.system.message.model.entity.NoticeEntity_;
 import cn.elvea.platform.system.message.repository.NoticeRepository;
@@ -20,11 +21,26 @@ import java.util.List;
  * @since 0.0.1
  */
 @Slf4j
-@AllArgsConstructor
 @Service
+@AllArgsConstructor
 public class NoticeServiceImpl
         extends BaseEntityService<NoticeEntity, Long, NoticeRepository>
         implements NoticeService {
+
+    /**
+     * @see NoticeService#findMyNoticeByUserId(NoticeSearchRequest)
+     */
+    @Override
+    public Page<NoticeEntity> findMyNoticeByUserId(NoticeSearchRequest request) {
+        request.setUserId(SecurityUtils.getUid());
+        Specification<NoticeEntity> specification = (root, query, builder) -> {
+            List<Predicate> predicates = org.apache.commons.compress.utils.Lists.newArrayList();
+            predicates.add(builder.equal(root.get(NoticeEntity_.recipientId), request.getUserId()));
+            predicates.add(builder.equal(root.get(NoticeEntity_.active), Boolean.TRUE));
+            return builder.and(predicates.toArray(new Predicate[0]));
+        };
+        return this.repository.findAll(specification, request.getPageable());
+    }
 
     @Override
     public Page<NoticeEntity> findByUserId(NoticeSearchRequest request) {

@@ -34,6 +34,8 @@ public interface SystemMappingConstants {
 
     String API_V1__USER__CHANGE_PASSWORD = MappingConstants.API_V1_URL_PREFIX + "/change-password";
 
+    String API_V1__USER__ACCOUNT = MappingConstants.API_V1_URL_PREFIX + "/user/account";
+
     String API_V1__LINK__GENERATE = MappingConstants.API_V1_URL_PREFIX + "/link/generate";
 
     String API_V1__LINK__GO = MappingConstants.API_V1_URL_PREFIX + "/link/go";
@@ -116,10 +118,8 @@ public interface SystemMappingConstants {
     // 消息通知 - 前台
     // -----------------------------------------------------------------------------------------------------------------
 
-    // 获取系统消息列表
     String API_V1__NOTICE__LIST = MappingConstants.API_V1_URL_PREFIX + "/notice/list";
 
-    // 获取消息通知详情
     String API_V1__NOTICE__DETAILS = MappingConstants.API_V1_URL_PREFIX + "/notice/details";
 
 }
