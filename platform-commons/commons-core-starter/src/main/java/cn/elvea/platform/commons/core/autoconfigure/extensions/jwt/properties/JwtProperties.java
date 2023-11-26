@@ -28,6 +28,6 @@ public class JwtProperties {
 
     private Duration accessTokenTimeToLive = Duration.ofMinutes(5);
 
-    private Duration refreshTokenTimeToLive = Duration.ofDays(1);
+    private Duration refreshTokenTimeToLive = Duration.ofDays(14);
 
 }
