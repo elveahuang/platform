@@ -76,6 +76,7 @@ dependencies {
     compileOnly("org.thymeleaf:thymeleaf")
     compileOnly("nl.basjes.parse.useragent:yauaa")
     compileOnly("cn.hutool:hutool-captcha")
+    compileOnly("cn.hutool:hutool-dfa")
     compileOnly("joda-time:joda-time")
     compileOnly("com.squareup.okio:okio")
     compileOnly("org.aspectj:aspectjweaver")

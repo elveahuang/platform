@@ -283,6 +283,26 @@ CREATE TABLE `sys_config`
 ) COMMENT '系统设置表';
 
 --
+-- 系统关键字表
+--
+
+DROP TABLE IF EXISTS `sys_keyword`;
+
+CREATE TABLE `sys_keyword`
+(
+    `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `content`          VARCHAR(100)     NOT NULL DEFAULT '' COMMENT '关键字',
+    `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`       DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `last_modified_by` BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '最后修改人',
+    `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
+    `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
+    `deleted_at`       DATETIME         NULL COMMENT '删除时间',
+    CONSTRAINT `pk_sys_keyword` PRIMARY KEY (`id`)
+) COMMENT '系统关键字表';
+
+--
 -- 语言表
 --
 

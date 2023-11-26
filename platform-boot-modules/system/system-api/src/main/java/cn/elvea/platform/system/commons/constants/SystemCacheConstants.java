@@ -12,6 +12,8 @@ public interface SystemCacheConstants {
 
     String CONFIG = "config";
 
+    String KEYWORD = "keyword";
+
     String USER = "user";
 
     String USER_AUTHORITY = "user-authority";

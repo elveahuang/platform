@@ -53,6 +53,7 @@ dependencies {
     implementation("ognl:ognl")
     implementation("nl.basjes.parse.useragent:yauaa")
     implementation("cn.hutool:hutool-captcha")
+    implementation("cn.hutool:hutool-dfa")
     // development & test
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("jakarta.servlet:jakarta.servlet-api")
