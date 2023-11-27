@@ -4,7 +4,8 @@ import cn.elvea.platform.commons.core.data.domain.IdEntity;
 import cn.elvea.platform.commons.core.data.mybatis.mapper.BaseEntityMapper;
 import cn.elvea.platform.commons.core.service.EntityService;
 import cn.elvea.platform.commons.core.service.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.io.Serializable;
 import java.util.List;
@@ -31,13 +32,20 @@ public interface EnhancedEntityService<T extends IdEntity, K extends Serializabl
      *
      * @return Iterable<T>
      */
-    List<T> findAll(Page<T> page);
+    List<T> findAllByMpPage(IPage<T> page);
 
     /**
      * 查询所有记录，支持分页
      *
-     * @return Iterable<T>
+     * @return IPage<T>
      */
-    Page<T> findByPage(Page<T> page);
+    IPage<T> findByMpPage(IPage<T> page);
+
+    /**
+     * 查询所有记录，支持分页
+     *
+     * @return IPage<T>
+     */
+    IPage<T> findByMpPage(IPage<T> page, QueryWrapper<T> wrapper);
 
 }

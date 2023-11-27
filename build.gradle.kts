@@ -132,7 +132,7 @@ allprojects {
             dependency("org.bouncycastle:bcutil-jdk18on:1.76")
             // xml & docs
             dependency("xalan:xalan:2.7.3")
-            dependency("org.jsoup:jsoup:1.16.1")
+            dependency("org.jsoup:jsoup:1.17.1")
             dependency("xerces:xercesImpl:2.12.2")
             dependency("com.alibaba:easyexcel:3.3.2")
             dependency("org.apache.poi:poi:5.2.4")

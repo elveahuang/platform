@@ -12,6 +12,7 @@ import cn.elvea.platform.commons.core.utils.GenericsUtils;
 import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.Assert;
@@ -355,19 +356,27 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * @see EntityService#existsById(Serializable)
+     * @see EnhancedEntityService#findAllByMpPage(IPage)
      */
     @Override
-    public List<T> findAll(com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page) {
+    public List<T> findAllByMpPage(IPage<T> page) {
         return this.mapper.selectList(page, Wrappers.emptyWrapper());
     }
 
     /**
-     * @see EntityService#existsById(Serializable)
+     * @see EnhancedEntityService#findByMpPage(IPage)
      */
     @Override
-    public com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> findByPage(com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page) {
-        return this.mapper.selectPage(page, Wrappers.emptyWrapper());
+    public IPage<T> findByMpPage(IPage<T> page) {
+        return this.findByMpPage(page, Wrappers.emptyWrapper());
+    }
+
+    /**
+     * @see EnhancedEntityService#findByMpPage(IPage, QueryWrapper)
+     */
+    @Override
+    public IPage<T> findByMpPage(IPage<T> page, QueryWrapper<T> wrapper) {
+        return this.mapper.selectPage(page, wrapper);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
