@@ -6,11 +6,13 @@
     <meta charset="utf-8"/>
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" th:href="@{/assets/main.css(v=${applicationVersion})}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css(v=${applicationVersion})}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css(v=${applicationVersion})}"/>
 </th:block>
 <th:block th:fragment="js">
-    <script type="module" th:src="@{/assets/vendor.js(v=${applicationVersion})}"></script>
-    <script type="module" th:src="@{/assets/main.js(v=${applicationVersion})}"></script>
+    <script type="module" th:src="@{/webjars/jquery/jquery.min.js(v=${applicationVersion})}"></script>
+    <script type="module" th:src="@{/webjars/popper.js/umd/popper.min.js(v=${applicationVersion})}"></script>
+    <script type="module" th:src="@{/webjars/bootstrap/js/bootstrap.min.js(v=${applicationVersion})}"></script>
 </th:block>
 </body>
 </html>

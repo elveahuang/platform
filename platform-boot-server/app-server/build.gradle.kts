@@ -54,6 +54,12 @@ dependencies {
     implementation("nl.basjes.parse.useragent:yauaa")
     implementation("cn.hutool:hutool-captcha")
     implementation("cn.hutool:hutool-dfa")
+    // webjars
+    implementation("org.webjars:webjars-locator-core")
+    implementation("org.webjars:jquery")
+    implementation("org.webjars:popper.js")
+    implementation("org.webjars:bootstrap")
+    implementation("org.webjars.npm:bootstrap-icons")
     // development & test
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("jakarta.servlet:jakarta.servlet-api")

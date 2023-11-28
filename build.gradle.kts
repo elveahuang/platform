@@ -192,6 +192,12 @@ allprojects {
             dependency("org.apache.commons:commons-lang3:3.14.0")
             dependency("org.apache.commons:commons-compress:1.25.0")
             dependency("org.apache.commons:commons-collections4:4.4")
+            // webjars
+            dependency("org.webjars:webjars-locator-core:0.48")
+            dependency("org.webjars:jquery:3.7.1")
+            dependency("org.webjars:popper.js:2.11.7")
+            dependency("org.webjars:bootstrap:5.3.2")
+            dependency("org.webjars.npm:bootstrap-icons:1.11.1")
         }
     }
 

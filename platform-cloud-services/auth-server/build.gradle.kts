@@ -34,6 +34,12 @@ dependencies {
     implementation("org.redisson:redisson")
     implementation("me.ahoo.cosid:cosid-spring-redis")
     implementation("me.ahoo.cosid:cosid-spring-boot-starter")
+    // webjars
+    implementation("org.webjars:webjars-locator-core")
+    implementation("org.webjars:jquery")
+    implementation("org.webjars:popper.js")
+    implementation("org.webjars:bootstrap")
+    implementation("org.webjars.npm:bootstrap-icons")
     // modules
     implementation(project(":platform-commons:commons-core-starter"))
     implementation(project(":platform-cloud-modules:system:system-api"))

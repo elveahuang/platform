@@ -92,7 +92,8 @@ public interface SecurityConstants {
             "/webjars/**",
             "/public/**",
             "/static/**",
-            "/actuator/**",
+            "/webjars/**",
+            "/actuator/**"
     };
 
 }
