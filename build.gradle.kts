@@ -59,7 +59,7 @@ allprojects {
         imports {
             mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.0")
             mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.0")
-            mavenBom("org.springframework.shell:spring-shell-dependencies:3.1.5")
+            mavenBom("org.springframework.shell:spring-shell-dependencies:3.1.6")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2022.0.4")
             mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2022.0.0.0")
             mavenBom("com.tencent.cloud:spring-cloud-tencent-dependencies:1.12.4-2022.0.4")
@@ -193,7 +193,6 @@ allprojects {
             dependency("org.apache.commons:commons-compress:1.25.0")
             dependency("org.apache.commons:commons-collections4:4.4")
             // webjars
-            dependency("org.webjars:webjars-locator-core:0.48")
             dependency("org.webjars:jquery:3.7.1")
             dependency("org.webjars:popper.js:2.11.7")
             dependency("org.webjars:bootstrap:5.3.2")

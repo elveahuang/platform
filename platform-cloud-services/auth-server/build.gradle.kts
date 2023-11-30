@@ -35,7 +35,6 @@ dependencies {
     implementation("me.ahoo.cosid:cosid-spring-redis")
     implementation("me.ahoo.cosid:cosid-spring-boot-starter")
     // webjars
-    implementation("org.webjars:webjars-locator-core")
     implementation("org.webjars:jquery")
     implementation("org.webjars:popper.js")
     implementation("org.webjars:bootstrap")
