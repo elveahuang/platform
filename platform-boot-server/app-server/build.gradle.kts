@@ -55,6 +55,7 @@ dependencies {
     implementation("cn.hutool:hutool-captcha")
     implementation("cn.hutool:hutool-dfa")
     // webjars
+    implementation("org.webjars:webjars-locator-core")
     implementation("org.webjars:jquery")
     implementation("org.webjars:popper.js")
     implementation("org.webjars:bootstrap")
