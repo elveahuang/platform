@@ -356,6 +356,26 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * @see EnhancedEntityService#findOneByExample(IdEntity)
+     */
+    @Override
+    public T findOneByExample(T example) {
+        return findOneByWrapper(new QueryWrapper<>(example));
+    }
+
+    /**
+     * @see EnhancedEntityService#findOneByWrapper(QueryWrapper)
+     */
+    @Override
+    public T findOneByWrapper(QueryWrapper<T> wrapper) {
+        IPage<T> page = this.mapper.selectPage(MyBatisPlusUtils.getLimitPage(), wrapper);
+        if (page != null && CollectionUtils.isNotEmpty(page.getRecords())) {
+            return page.getRecords().get(0);
+        }
+        return null;
+    }
+
+    /**
      * @see EnhancedEntityService#findAllByMpPage(IPage)
      */
     @Override

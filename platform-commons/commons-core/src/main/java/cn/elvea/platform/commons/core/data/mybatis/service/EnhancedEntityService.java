@@ -28,6 +28,16 @@ public interface EnhancedEntityService<T extends IdEntity, K extends Serializabl
     Class<M> getMapperClass();
 
     /**
+     * 查询单条记录
+     */
+    T findOneByExample(T example);
+
+    /**
+     * 查询单条记录
+     */
+    T findOneByWrapper(QueryWrapper<T> wrapper);
+
+    /**
      * 查询所有记录，支持分页
      *
      * @return Iterable<T>

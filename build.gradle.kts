@@ -84,9 +84,9 @@ allprojects {
             dependency("io.swagger.core.v3:swagger-annotations-jakarta:2.2.19")
             dependency("io.swagger.core.v3:swagger-models:2.2.19")
             dependency("io.swagger.core.v3:swagger-models-jakarta:2.2.19")
-            dependency("org.springdoc:springdoc-openapi-starter-common:2.2.0")
-            dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
-            dependency("org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0")
+            dependency("org.springdoc:springdoc-openapi-starter-common:2.3.0")
+            dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+            dependency("org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0")
             // database & nosql
             dependency("org.mybatis:mybatis:3.5.14")
             dependency("org.mybatis:mybatis-spring:3.0.3")
