@@ -12,31 +12,13 @@ public interface SecurityConstants {
      * =================================================================================================================
      */
 
-    String JWT_KEY_UID = "uid";
-
     String JWT_KEY_SID = "sid";
 
+    String JWT_KEY_UID = "uid";
+
+    String JWT_KEY_USER = "user";
+
     String JWT_KEY_USERNAME = "username";
-
-    String JWT_KEY_NAME = "name";
-
-    String JWT_KEY_AUTHORITIES = "authorities";
-
-    String JWT_KEY_ACCOUNT = "account";
-
-    String JWT_KEY_TOKEN_TYPE = "type";
-
-    String JWT_TOKEN_TYPE_ACCESS_TOKEN = "access_token";
-
-    String JWT_TOKEN_TYPE_REFRESH_TOKEN = "refresh_token";
-
-    /**
-     * =================================================================================================================
-     * JWT Auth Endpoint
-     * =================================================================================================================
-     */
-
-    String JWT_AUTH_TOKEN_ENDPOINT = "/api/auth/token";
 
     /**
      * =================================================================================================================
@@ -92,8 +74,7 @@ public interface SecurityConstants {
             "/webjars/**",
             "/public/**",
             "/static/**",
-            "/webjars/**",
-            "/actuator/**"
+            "/actuator/**",
     };
 
 }

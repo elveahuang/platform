@@ -36,7 +36,7 @@ public abstract class SecurityUtils {
     public static Long getUid(Authentication authentication) {
         if (!ObjectUtils.isEmpty(authentication)) {
             if (authentication.getPrincipal() instanceof User user) {
-                return user.getId();
+                return user.getUid();
             } else if (authentication.getPrincipal() instanceof Jwt jwt) {
                 return jwt.getClaim(SecurityConstants.JWT_KEY_UID);
             }
@@ -72,6 +72,20 @@ public abstract class SecurityUtils {
      */
     public static String getUsername() {
         return getUsername(getAuthentication());
+    }
+
+    /**
+     * 是否为系统管理员
+     */
+    public static boolean isAdmin() {
+        return isAdmin(getUid());
+    }
+
+    /**
+     * 是否为系统管理员
+     */
+    public static boolean isAdmin(Long userId) {
+        return userId != null && 1L == userId;
     }
 
     /**

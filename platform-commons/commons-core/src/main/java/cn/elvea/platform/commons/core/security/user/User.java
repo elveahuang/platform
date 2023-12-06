@@ -1,10 +1,12 @@
 package cn.elvea.platform.commons.core.security.user;
 
+import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.util.Assert;
 
 import java.io.Serial;
@@ -17,11 +19,14 @@ import java.util.*;
  */
 @Getter
 @Setter
-public class User implements UserDetails {
+public class User implements UserDetails, OAuth2AuthenticatedPrincipal, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
     private String sid;
 
-    private final Long id;
+    private final Long uid;
 
     private final String password;
 
@@ -41,10 +46,10 @@ public class User implements UserDetails {
         this(id, username, password, authorities, true, true, true, true);
     }
 
-    public User(Long id, String username, String password,
+    public User(Long uid, String username, String password,
                 Set<GrantedAuthority> authorities,
                 boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired) {
-        this.id = id;
+        this.uid = uid;
         this.password = password;
         this.username = username;
         this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
@@ -62,6 +67,16 @@ public class User implements UserDetails {
             sortedAuthorities.add(grantedAuthority);
         }
         return sortedAuthorities;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return Maps.newHashMap();
+    }
+
+    @Override
+    public String getName() {
+        return this.getUsername();
     }
 
     private static class AuthorityComparator implements Comparator<GrantedAuthority>, Serializable {
