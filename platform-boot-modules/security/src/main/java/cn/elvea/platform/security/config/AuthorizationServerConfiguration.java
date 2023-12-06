@@ -33,6 +33,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 
 import java.time.Duration;
@@ -59,6 +61,10 @@ public class AuthorizationServerConfiguration {
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
     private final AccessDeniedHandler accessDeniedHandler;
+
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -95,7 +101,7 @@ public class AuthorizationServerConfiguration {
                         socialAuthenticationProvider,
                         passwordAuthenticationProvider,
                         smsAuthenticationProvider
-                )))
+                ))).accessTokenResponseHandler(authenticationSuccessHandler).errorResponseHandler(authenticationFailureHandler)
         );
 
         http.oauth2ResourceServer((rsc) -> rsc.jwt(jc -> {

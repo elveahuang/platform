@@ -43,6 +43,10 @@ public class UserSessionDto implements Serializable {
      */
     private String clientId;
     /**
+     * 客户端名称
+     */
+    private String clientName;
+    /**
      * 客户端版本
      */
     private String clientVersion;
