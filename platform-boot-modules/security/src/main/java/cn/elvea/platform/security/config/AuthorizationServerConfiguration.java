@@ -2,7 +2,6 @@ package cn.elvea.platform.security.config;
 
 import cn.elvea.platform.commons.core.extensions.jwt.JwtConfig;
 import cn.elvea.platform.security.authentication.*;
-import cn.elvea.platform.security.token.CustomTokenCustomizer;
 import cn.elvea.platform.security.web.authentication.CaptchaAuthenticationFilter;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
@@ -37,7 +36,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
@@ -48,13 +46,17 @@ import static cn.elvea.platform.commons.core.constants.SecurityConstants.*;
  * @since 0.0.1
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
 @AllArgsConstructor
+@Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfiguration {
 
     private final JwtDecoder jwtDecoder;
 
+    private final JWKSource<SecurityContext> jwkSource;
+
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
+
+    private final OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer;
 
     private final CaptchaAuthenticationFilter captchaAuthenticationFilter;
 
@@ -119,7 +121,7 @@ public class AuthorizationServerConfiguration {
     }
 
     @Bean
-    public OAuth2TokenGenerator<?> tokenGenerator(JWKSource<SecurityContext> jwkSource, CustomTokenCustomizer tokenCustomizer) {
+    public OAuth2TokenGenerator<?> tokenGenerator() {
         JwtGenerator jwtGenerator = new JwtGenerator(new NimbusJwtEncoder(jwkSource));
         jwtGenerator.setJwtCustomizer(tokenCustomizer);
 
@@ -151,10 +153,10 @@ public class AuthorizationServerConfiguration {
     @Bean
     public TokenSettings tokenSettings(JwtConfig config) {
         return TokenSettings.builder()
-                .authorizationCodeTimeToLive(Duration.ofMinutes(5))
+                .authorizationCodeTimeToLive(config.getAuthorizationCodeTimeToLive())
                 .accessTokenTimeToLive(config.getAccessTokenTimeToLive())
                 .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
-                .deviceCodeTimeToLive(Duration.ofMinutes(5))
+                .deviceCodeTimeToLive(config.getDeviceCodeTimeToLive())
                 .reuseRefreshTokens(true)
                 .refreshTokenTimeToLive(config.getRefreshTokenTimeToLive())
                 .idTokenSignatureAlgorithm(SignatureAlgorithm.RS256)

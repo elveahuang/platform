@@ -29,9 +29,15 @@ public class JwtConfig {
     private String privateKeyValue;
 
     @Builder.Default
-    private Duration accessTokenTimeToLive = Duration.ofMinutes(5);
+    private Duration authorizationCodeTimeToLive = Duration.ofMinutes(5);
 
     @Builder.Default
-    private Duration refreshTokenTimeToLive = Duration.ofDays(14);
+    private Duration deviceCodeTimeToLive = Duration.ofMinutes(5);
+
+    @Builder.Default
+    private Duration accessTokenTimeToLive = Duration.ofMinutes(15);
+
+    @Builder.Default
+    private Duration refreshTokenTimeToLive = Duration.ofDays(3);
 
 }

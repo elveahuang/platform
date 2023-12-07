@@ -26,8 +26,12 @@ public class JwtProperties {
 
     private String privateKeyValue;
 
-    private Duration accessTokenTimeToLive = Duration.ofMinutes(5);
+    private Duration authorizationCodeTimeToLive = Duration.ofMinutes(5);
 
-    private Duration refreshTokenTimeToLive = Duration.ofDays(14);
+    private Duration deviceCodeTimeToLive = Duration.ofMinutes(5);
+
+    private Duration accessTokenTimeToLive = Duration.ofMinutes(15);
+
+    private Duration refreshTokenTimeToLive = Duration.ofDays(3);
 
 }
