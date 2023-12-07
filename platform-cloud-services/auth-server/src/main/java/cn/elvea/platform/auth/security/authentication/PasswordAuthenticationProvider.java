@@ -29,8 +29,6 @@ import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.ERROR_URI;
-
 /**
  * @author elvea
  * @since 0.0.1
@@ -41,12 +39,16 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
     private static final OAuth2TokenType ID_TOKEN_TOKEN_TYPE = new OAuth2TokenType(OidcParameterNames.ID_TOKEN);
 
     private final AuthenticationManager authenticationManager;
+
     private final OAuth2AuthorizationService authorizationService;
+
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
 
-    public PasswordAuthenticationProvider(AuthenticationManager authenticationManager,
-                                          OAuth2AuthorizationService authorizationService,
-                                          OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator) {
+    public PasswordAuthenticationProvider(
+            AuthenticationManager authenticationManager,
+            OAuth2AuthorizationService authorizationService,
+            OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator
+    ) {
         Assert.notNull(authorizationService, "authorizationService cannot be null");
         Assert.notNull(tokenGenerator, "tokenGenerator cannot be null");
 
@@ -64,12 +66,18 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
         RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 
         // 验证客户端是否支持密码授权模式
-        if (registeredClient != null && !registeredClient.getAuthorizationGrantTypes().contains(CustomAuthorizationGrantType.PASSWORD)) {
+        if (registeredClient == null) {
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
         }
 
-        // 密码验证
+        if (!registeredClient.getAuthorizationGrantTypes().contains(CustomAuthorizationGrantType.PASSWORD)) {
+            throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
+        }
+
+        // 附加参数
         Map<String, Object> additionalParameters = authenticationToken.getAdditionalParameters();
+
+        // 密码验证
         String username = (String) additionalParameters.get(OAuth2ParameterNames.USERNAME);
         String password = (String) additionalParameters.get(OAuth2ParameterNames.PASSWORD);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, password);
@@ -102,7 +110,7 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
         OAuth2TokenContext tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType.ACCESS_TOKEN).build();
         OAuth2Token generatedAccessToken = this.tokenGenerator.generate(tokenContext);
         if (generatedAccessToken == null) {
-            OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR, "The token generator failed to generate the access token.", ERROR_URI);
+            OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR, "The token generator failed to generate the access token.", OAuth2ParameterNames.ERROR_URI);
             throw new OAuth2AuthenticationException(error);
         }
 
@@ -130,7 +138,7 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
             tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType.REFRESH_TOKEN).build();
             OAuth2Token generatedRefreshToken = this.tokenGenerator.generate(tokenContext);
             if (!(generatedRefreshToken instanceof OAuth2RefreshToken)) {
-                OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR, "The token generator failed to generate the refresh token.", ERROR_URI);
+                OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR, "The token generator failed to generate the refresh token.", OAuth2ParameterNames.ERROR_URI);
                 throw new OAuth2AuthenticationException(error);
             }
             refreshToken = (OAuth2RefreshToken) generatedRefreshToken;
@@ -144,7 +152,7 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
             tokenContext = tokenContextBuilder.tokenType(ID_TOKEN_TOKEN_TYPE).authorization(authorizationBuilder.build()).build();
             OAuth2Token generatedIdToken = this.tokenGenerator.generate(tokenContext);
             if (!(generatedIdToken instanceof Jwt)) {
-                OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR, "The token generator failed to generate the ID token.", ERROR_URI);
+                OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR, "The token generator failed to generate the ID token.", OAuth2ParameterNames.ERROR_URI);
                 throw new OAuth2AuthenticationException(error);
             }
             idToken = new OidcIdToken(generatedIdToken.getTokenValue(), generatedIdToken.getIssuedAt(), generatedIdToken.getExpiresAt(), ((Jwt) generatedIdToken).getClaims());

@@ -4,6 +4,7 @@ dependencies {
     api("org.springframework:spring-tx")
     api("org.springframework.data:spring-data-commons")
     api("org.springframework.data:spring-data-relational")
+    api("org.springframework.cloud:spring-cloud-commons")
     compileOnly("org.springframework:spring-jdbc")
     compileOnly("org.springframework:spring-webmvc")
     compileOnly("org.springframework.data:spring-data-redis")

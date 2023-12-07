@@ -1,7 +1,6 @@
 package cn.elvea.platform.auth.config;
 
 import cn.elvea.platform.auth.security.authentication.*;
-import cn.elvea.platform.auth.security.token.CustomTokenCustomizer;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.AllArgsConstructor;
@@ -12,6 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
@@ -40,7 +40,12 @@ import static cn.elvea.platform.commons.core.constants.SecurityConstants.*;
 @Configuration(proxyBeanMethods = false)
 @AllArgsConstructor
 public class AuthorizationServerConfiguration {
+
     private final JwtDecoder jwtDecoder;
+
+    private final JWKSource<SecurityContext> jwkSource;
+
+    private final OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer;
 
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
@@ -97,7 +102,7 @@ public class AuthorizationServerConfiguration {
     }
 
     @Bean
-    public OAuth2TokenGenerator<?> tokenGenerator(JWKSource<SecurityContext> jwkSource, CustomTokenCustomizer tokenCustomizer) {
+    public OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator() {
         JwtGenerator jwtGenerator = new JwtGenerator(new NimbusJwtEncoder(jwkSource));
         jwtGenerator.setJwtCustomizer(tokenCustomizer);
         OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
