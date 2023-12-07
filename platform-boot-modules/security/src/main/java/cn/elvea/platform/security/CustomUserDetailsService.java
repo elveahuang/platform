@@ -1,9 +1,10 @@
 package cn.elvea.platform.security;
 
+import cn.elvea.platform.commons.core.enums.MobileCountryCodeEnum;
 import cn.elvea.platform.commons.core.security.user.User;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.RegexUtils;
+import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserLoginDto;
 import com.google.common.collect.Sets;
@@ -37,13 +38,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (RegexUtils.checkEmail(username)) {
             user = userApi.findByEmail(username);
         } else if (RegexUtils.checkMobile(username)) {
-            user = userApi.findByMobile("0086", username);
+            user = userApi.findByMobile(MobileCountryCodeEnum.ZH_CN.getCode(), username);
         } else {
             user = userApi.findByUsername(username);
         }
-        if (ObjectUtils.isEmpty(user)) {
+        if (null == user) {
             throw new UsernameNotFoundException(username);
         }
+
         // 查询用户所有权限和所有角色，合并成统一的权限集合
         Set<GrantedAuthority> authorities = Sets.newHashSet();
         if (CollectionUtils.isNotEmpty(user.getAuthorities())) {
@@ -52,7 +54,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (CollectionUtils.isNotEmpty(user.getRoles())) {
             authorities.addAll(user.getRoles().stream().map(e -> new SimpleGrantedAuthority(e.getCode())).collect(Collectors.toSet()));
         }
-        return new User(user.getId(), user.getUsername(), user.getPassword(), authorities);
+        return new User(StringUtils.uuid(), user.getId(), user.getUsername(), user.getPassword(), authorities);
     }
 
 }

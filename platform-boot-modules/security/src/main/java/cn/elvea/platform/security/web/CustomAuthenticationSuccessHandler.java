@@ -1,9 +1,11 @@
 package cn.elvea.platform.security.web;
 
-import cn.elvea.platform.commons.core.utils.SecurityUtils;
+import cn.elvea.platform.commons.core.constants.SecurityConstants;
+import cn.elvea.platform.commons.core.security.user.User;
 import cn.elvea.platform.commons.core.utils.ServletUtils;
 import cn.elvea.platform.system.core.api.UserSessionApi;
 import cn.elvea.platform.system.core.model.dto.UserSessionDto;
+import com.google.common.collect.Maps;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,21 +48,29 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         try {
             String clientId = "";
             String clientName = "";
+            Map<String, Object> parameterMap = Maps.newHashMap();
             if (authentication instanceof OAuth2AccessTokenAuthenticationToken accessTokenAuthenticationToken) {
                 clientId = accessTokenAuthenticationToken.getRegisteredClient().getClientId();
                 clientName = accessTokenAuthenticationToken.getRegisteredClient().getClientName();
+                parameterMap = accessTokenAuthenticationToken.getAdditionalParameters();
             }
 
-            UserSessionDto userSession = UserSessionDto.builder()
-                    .userId(SecurityUtils.getUid(authentication))
-                    .username(SecurityUtils.getUsername(authentication))
-                    .success(Boolean.TRUE)
-                    .ua(ServletUtils.getUserAgent())
-                    .host(ServletUtils.getHost(request))
-                    .clientId(clientId)
-                    .clientName(clientName)
-                    .build();
-            this.userSessionApi.saveUserSession(userSession);
+            if (!CollectionUtils.isEmpty(parameterMap)
+                    && parameterMap.containsKey(SecurityConstants.JWT_KEY_USER)
+                    && parameterMap.get(SecurityConstants.JWT_KEY_USER) instanceof User user) {
+
+                UserSessionDto userSession = UserSessionDto.builder()
+                        .sessionId(user.getSid())
+                        .userId(user.getUid())
+                        .username(user.getUsername())
+                        .success(Boolean.TRUE)
+                        .ua(ServletUtils.getUserAgent())
+                        .host(ServletUtils.getHost(request))
+                        .clientId(clientId)
+                        .clientName(clientName)
+                        .build();
+                this.userSessionApi.saveUserSession(userSession);
+            }
         } catch (Exception e) {
             log.error("Failed to save UserSession.", e);
         }

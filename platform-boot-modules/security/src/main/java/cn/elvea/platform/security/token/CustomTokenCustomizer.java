@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.server.authorization.token.JwtEncodin
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.stereotype.Component;
 
+
 /**
  * @author elvea
  * @since 0.0.1
@@ -24,14 +25,16 @@ public class CustomTokenCustomizer implements OAuth2TokenCustomizer<JwtEncodingC
         if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
             if (context.getPrincipal().getPrincipal() instanceof User user) {
                 context.getClaims().claims(claims -> {
-                    claims.put(SecurityConstants.JWT_KEY_USER, user);
+                    claims.put(SecurityConstants.JWT_KEY_SID, user.getSid());
                     claims.put(SecurityConstants.JWT_KEY_UID, user.getUid());
                     claims.put(SecurityConstants.JWT_KEY_USERNAME, user.getUsername());
+                    claims.put(SecurityConstants.JWT_KEY_USER, user);
                 });
             }
         } else if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {
             if (context.getPrincipal().getPrincipal() instanceof User user) {
                 context.getClaims().claims(claims -> {
+                    claims.put(SecurityConstants.JWT_KEY_SID, user.getSid());
                     claims.put(SecurityConstants.JWT_KEY_UID, user.getUid());
                     claims.put(SecurityConstants.JWT_KEY_USERNAME, user.getUsername());
                 });

@@ -5,7 +5,6 @@ import cn.elvea.platform.commons.core.utils.JacksonUtils;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -33,7 +32,9 @@ public abstract class UserMixin {
 }
 
 class UserDeserializer extends JsonDeserializer<User> {
-    private static final TypeReference<Set<GrantedAuthority>> GRANTED_AUTHORITY_SET = new TypeReference<Set<GrantedAuthority>>() {
+
+    private static final TypeReference<Set<GrantedAuthority>> GRANTED_AUTHORITY_SET = new TypeReference<>() {
+        //
     };
 
     @Override
@@ -43,8 +44,9 @@ class UserDeserializer extends JsonDeserializer<User> {
         return deserialize(parser, mapper, root);
     }
 
-    private User deserialize(JsonParser parser, ObjectMapper mapper, JsonNode root) throws JsonParseException {
-        Long id = JacksonUtils.findLongValue(root, "id");
+    private User deserialize(JsonParser parser, ObjectMapper mapper, JsonNode root) {
+        Long uid = JacksonUtils.findLongValue(root, "uid");
+        String sid = JacksonUtils.findStringValue(root, "sid");
         String username = JacksonUtils.findStringValue(root, "username");
         String password = JacksonUtils.findStringValue(root, "password");
         boolean enabled = JacksonUtils.findBooleanValue(root, "enabled");
@@ -52,7 +54,7 @@ class UserDeserializer extends JsonDeserializer<User> {
         boolean credentialsNonExpired = JacksonUtils.findBooleanValue(root, "credentialsNonExpired");
         boolean accountNonLocked = JacksonUtils.findBooleanValue(root, "accountNonLocked");
         Set<GrantedAuthority> authorities = JacksonUtils.findValue(root, "authorities", GRANTED_AUTHORITY_SET, mapper);
-        return new User(id, username, password, authorities, enabled, accountNonExpired, accountNonLocked, credentialsNonExpired);
+        return new User(sid, uid, username, password, authorities, enabled, accountNonExpired, accountNonLocked, credentialsNonExpired);
     }
 
 }

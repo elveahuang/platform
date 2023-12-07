@@ -1,5 +1,6 @@
 package cn.elvea.platform.security.authentication;
 
+import cn.elvea.platform.commons.core.constants.SecurityConstants;
 import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +27,10 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.security.Principal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -164,13 +168,14 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
         this.authorizationService.save(authorization);
         log.info("Saved authorization for grant type {}.", CustomAuthorizationGrantType.PASSWORD);
 
-        //
-        additionalParameters = Collections.emptyMap();
+        // 附加参数
+        Map<String, Object> parameters = new HashMap<>(additionalParameters);
+        parameters.put(SecurityConstants.JWT_KEY_USER, usernamePasswordAuthentication.getPrincipal());
         if (idToken != null) {
-            additionalParameters = new HashMap<>();
-            additionalParameters.put(OidcParameterNames.ID_TOKEN, idToken.getTokenValue());
+            parameters.put(OidcParameterNames.ID_TOKEN, idToken.getTokenValue());
         }
-        return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken, refreshToken, additionalParameters);
+
+        return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken, refreshToken, parameters);
     }
 
     @Override

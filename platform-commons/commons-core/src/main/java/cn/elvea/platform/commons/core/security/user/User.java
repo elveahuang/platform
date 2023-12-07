@@ -24,9 +24,11 @@ public class User implements UserDetails, OAuth2AuthenticatedPrincipal, Serializ
     @Serial
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
-    private String sid;
-
+    // 用户ID
     private final Long uid;
+
+    // 会话ID
+    private final String sid;
 
     private final String password;
 
@@ -42,13 +44,14 @@ public class User implements UserDetails, OAuth2AuthenticatedPrincipal, Serializ
 
     private final boolean credentialsNonExpired;
 
-    public User(Long id, String username, String password, Set<GrantedAuthority> authorities) {
-        this(id, username, password, authorities, true, true, true, true);
+    public User(String sid, Long uid, String username, String password, Set<GrantedAuthority> authorities) {
+        this(sid, uid, username, password, authorities, true, true, true, true);
     }
 
-    public User(Long uid, String username, String password,
+    public User(String sid, Long uid, String username, String password,
                 Set<GrantedAuthority> authorities,
                 boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired) {
+        this.sid = sid;
         this.uid = uid;
         this.password = password;
         this.username = username;
