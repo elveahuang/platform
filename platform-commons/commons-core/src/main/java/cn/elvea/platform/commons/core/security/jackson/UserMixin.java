@@ -45,8 +45,7 @@ class UserDeserializer extends JsonDeserializer<User> {
     }
 
     private User deserialize(JsonParser parser, ObjectMapper mapper, JsonNode root) {
-        Long uid = JacksonUtils.findLongValue(root, "uid");
-        String sid = JacksonUtils.findStringValue(root, "sid");
+        Long id = JacksonUtils.findLongValue(root, "id");
         String username = JacksonUtils.findStringValue(root, "username");
         String password = JacksonUtils.findStringValue(root, "password");
         boolean enabled = JacksonUtils.findBooleanValue(root, "enabled");
@@ -54,7 +53,7 @@ class UserDeserializer extends JsonDeserializer<User> {
         boolean credentialsNonExpired = JacksonUtils.findBooleanValue(root, "credentialsNonExpired");
         boolean accountNonLocked = JacksonUtils.findBooleanValue(root, "accountNonLocked");
         Set<GrantedAuthority> authorities = JacksonUtils.findValue(root, "authorities", GRANTED_AUTHORITY_SET, mapper);
-        return new User(sid, uid, username, password, authorities, enabled, accountNonExpired, accountNonLocked, credentialsNonExpired);
+        return new User(id, username, password, authorities, enabled, accountNonExpired, accountNonLocked, credentialsNonExpired);
     }
 
 }

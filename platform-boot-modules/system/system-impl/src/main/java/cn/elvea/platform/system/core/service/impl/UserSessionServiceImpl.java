@@ -5,9 +5,15 @@ import cn.elvea.platform.commons.core.cache.SimpleCacheKeyGenerator;
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
 import cn.elvea.platform.system.core.model.entity.UserSessionEntity;
+import cn.elvea.platform.system.core.model.entity.UserSessionEntity_;
 import cn.elvea.platform.system.core.repository.UserSessionRepository;
 import cn.elvea.platform.system.core.service.UserSessionService;
+import jakarta.persistence.criteria.Predicate;
+import org.apache.commons.compress.utils.Lists;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author elvea
@@ -24,6 +30,19 @@ public class UserSessionServiceImpl extends BaseCachingEntityService<UserSession
     @Override
     public CacheKeyGenerator getCacheKeyGenerator() {
         return cacheKeyGenerator;
+    }
+
+    /**
+     * @see UserSessionService#findBySessionId(String)
+     */
+    @Override
+    public UserSessionEntity findBySessionId(String sessionId) {
+        Specification<UserSessionEntity> specification = (root, query, builder) -> {
+            List<Predicate> predicates = Lists.newArrayList();
+            predicates.add(builder.equal(root.get(UserSessionEntity_.sessionId), sessionId));
+            return builder.and(predicates.toArray(new Predicate[0]));
+        };
+        return this.repository.findOne(specification).orElse(null);
     }
 
 }

@@ -8,4 +8,10 @@ import cn.elvea.platform.system.core.model.entity.UserSessionEntity;
  * @since 0.0.1
  */
 public interface UserSessionService extends CachingEntityService<UserSessionEntity, Long> {
+
+    /**
+     * 获取单条会话记录
+     */
+    UserSessionEntity findBySessionId(String sessionId);
+
 }

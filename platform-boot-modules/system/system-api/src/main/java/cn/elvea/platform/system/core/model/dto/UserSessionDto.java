@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.model.dto;
 
-
+import cn.elvea.platform.commons.core.enums.ActionTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +14,14 @@ import java.time.LocalDateTime;
  * @since 0.0.1
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class UserSessionDto implements Serializable {
+    /**
+     * 操作类型
+     */
+    private ActionTypeEnum actionType;
     /**
      * 会话标识
      */

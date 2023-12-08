@@ -12,13 +12,11 @@ public interface SecurityConstants {
      * =================================================================================================================
      */
 
-    String JWT_KEY_SID = "sid";
-
     String JWT_KEY_UID = "uid";
 
-    String JWT_KEY_USER = "user";
-
     String JWT_KEY_USERNAME = "username";
+
+    String JWT_KEY_AUTHORITIES = "authorities";
 
     /**
      * =================================================================================================================

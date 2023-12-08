@@ -1,12 +1,5 @@
 package cn.elvea.platform.security.web;
 
-import cn.elvea.platform.commons.core.constants.SecurityConstants;
-import cn.elvea.platform.commons.core.security.user.User;
-import cn.elvea.platform.commons.core.utils.ServletUtils;
-import cn.elvea.platform.system.core.api.UserSessionApi;
-import cn.elvea.platform.system.core.model.dto.UserSessionDto;
-import com.google.common.collect.Maps;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -36,60 +29,25 @@ import java.util.Map;
 @AllArgsConstructor
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final UserSessionApi userSessionApi;
-
     private final HttpMessageConverter<OAuth2AccessTokenResponse> accessTokenHttpResponseConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         log.info("CustomAuthenticationSuccessHandler.onAuthenticationSuccess...");
 
-        // 保存用户成功登录记录
         try {
-            String clientId = "";
-            String clientName = "";
-            Map<String, Object> parameterMap = Maps.newHashMap();
-            if (authentication instanceof OAuth2AccessTokenAuthenticationToken accessTokenAuthenticationToken) {
-                clientId = accessTokenAuthenticationToken.getRegisteredClient().getClientId();
-                clientName = accessTokenAuthenticationToken.getRegisteredClient().getClientName();
-                parameterMap = accessTokenAuthenticationToken.getAdditionalParameters();
-            }
-
-            if (!CollectionUtils.isEmpty(parameterMap)
-                    && parameterMap.containsKey(SecurityConstants.JWT_KEY_USER)
-                    && parameterMap.get(SecurityConstants.JWT_KEY_USER) instanceof User user) {
-
-                UserSessionDto userSession = UserSessionDto.builder()
-                        .sessionId(user.getSid())
-                        .userId(user.getUid())
-                        .username(user.getUsername())
-                        .success(Boolean.TRUE)
-                        .ua(ServletUtils.getUserAgent())
-                        .host(ServletUtils.getHost(request))
-                        .clientId(clientId)
-                        .clientName(clientName)
-                        .build();
-                this.userSessionApi.saveUserSession(userSession);
-            }
-        } catch (Exception e) {
-            log.error("Failed to save UserSession.", e);
-        }
-
-        // 返回访问凭证
-        try {
-            sendAccessTokenResponse(request, response, authentication);
+            sendAccessTokenResponse(response, authentication);
             log.info("CustomAuthenticationSuccessHandler.onAuthenticationSuccess done.");
         } catch (IOException e) {
             log.error("CustomAuthenticationSuccessHandler.onAuthenticationSuccess failed.", e);
         }
     }
 
-    private void sendAccessTokenResponse(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+    private void sendAccessTokenResponse(HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2AccessTokenAuthenticationToken accessTokenAuthentication = (OAuth2AccessTokenAuthenticationToken) authentication;
 
         OAuth2AccessToken accessToken = accessTokenAuthentication.getAccessToken();
         OAuth2RefreshToken refreshToken = accessTokenAuthentication.getRefreshToken();
-        Map<String, Object> additionalParameters = accessTokenAuthentication.getAdditionalParameters();
 
         OAuth2AccessTokenResponse.Builder builder = OAuth2AccessTokenResponse
                 .withToken(accessToken.getTokenValue())
@@ -101,9 +59,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         if (refreshToken != null) {
             builder.refreshToken(refreshToken.getTokenValue());
         }
+
+        Map<String, Object> additionalParameters = accessTokenAuthentication.getAdditionalParameters();
         if (!CollectionUtils.isEmpty(additionalParameters)) {
             builder.additionalParameters(additionalParameters);
         }
+
         OAuth2AccessTokenResponse accessTokenResponse = builder.build();
         ServletServerHttpResponse httpResponse = new ServletServerHttpResponse(response);
         this.accessTokenHttpResponseConverter.write(accessTokenResponse, null, httpResponse);

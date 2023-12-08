@@ -33,10 +33,29 @@ public abstract class SecurityUtils {
     /**
      * 获取用户ID
      */
+    public static User getUser(Authentication authentication) {
+        if (!ObjectUtils.isEmpty(authentication)) {
+            if (authentication.getPrincipal() instanceof User user) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取用户ID
+     */
+    public static User getUser() {
+        return getUser(getAuthentication());
+    }
+
+    /**
+     * 获取用户ID
+     */
     public static Long getUid(Authentication authentication) {
         if (!ObjectUtils.isEmpty(authentication)) {
             if (authentication.getPrincipal() instanceof User user) {
-                return user.getUid();
+                return user.getId();
             } else if (authentication.getPrincipal() instanceof Jwt jwt) {
                 return jwt.getClaim(SecurityConstants.JWT_KEY_UID);
             }

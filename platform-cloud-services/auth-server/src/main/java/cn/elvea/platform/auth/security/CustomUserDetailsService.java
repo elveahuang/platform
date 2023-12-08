@@ -2,7 +2,6 @@ package cn.elvea.platform.auth.security;
 
 import cn.elvea.platform.commons.core.security.user.User;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserLoginDto;
 import com.google.common.collect.Sets;
@@ -44,7 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (CollectionUtils.isNotEmpty(user.getRoles())) {
             authorities.addAll(user.getRoles().stream().map(e -> new SimpleGrantedAuthority(e.getCode())).collect(Collectors.toSet()));
         }
-        return new User(StringUtils.uuid(), user.getId(), user.getUsername(), user.getPassword(), authorities);
+        return new User(user.getId(), user.getUsername(), user.getPassword(), authorities);
     }
 
 }

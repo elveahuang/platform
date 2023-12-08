@@ -1,6 +1,5 @@
 package cn.elvea.platform.security.authentication;
 
-import cn.elvea.platform.commons.core.constants.SecurityConstants;
 import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,10 +26,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -76,12 +72,9 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
         }
 
-        // 附加参数
-        Map<String, Object> additionalParameters = authenticationToken.getAdditionalParameters();
-
         // 密码验证
-        String username = (String) additionalParameters.get(OAuth2ParameterNames.USERNAME);
-        String password = (String) additionalParameters.get(OAuth2ParameterNames.PASSWORD);
+        String username = (String) authenticationToken.getAdditionalParameters().get(OAuth2ParameterNames.USERNAME);
+        String password = (String) authenticationToken.getAdditionalParameters().get(OAuth2ParameterNames.PASSWORD);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         Authentication usernamePasswordAuthentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
@@ -120,7 +113,7 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
                 generatedAccessToken.getTokenValue(), generatedAccessToken.getIssuedAt(),
                 generatedAccessToken.getExpiresAt(), tokenContext.getAuthorizedScopes());
 
-        //
+        // ----- Access token -----
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
                 .principalName(usernamePasswordAuthentication.getName())
                 .authorizationGrantType(CustomAuthorizationGrantType.PASSWORD)
@@ -132,7 +125,7 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
             authorizationBuilder.accessToken(accessToken);
         }
 
-        // Refresh token
+        // ----- Refresh token -----
         OAuth2RefreshToken refreshToken = null;
         if (registeredClient.getAuthorizationGrantTypes().contains(AuthorizationGrantType.REFRESH_TOKEN)
                 && !clientPrincipal.getClientAuthenticationMethod().equals(ClientAuthenticationMethod.NONE)) {
@@ -148,7 +141,7 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
             authorizationBuilder.refreshToken(refreshToken);
         }
 
-        // OIDC ID Token
+        // ----- ID token -----
         OidcIdToken idToken;
         if (requestedScopes.contains(OidcScopes.OPENID)) {
             tokenContext = tokenContextBuilder.tokenType(ID_TOKEN_TOKEN_TYPE).authorization(authorizationBuilder.build()).build();
@@ -169,13 +162,13 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
         log.info("Saved authorization for grant type {}.", CustomAuthorizationGrantType.PASSWORD);
 
         // 附加参数
-        Map<String, Object> parameters = new HashMap<>(additionalParameters);
-        parameters.put(SecurityConstants.JWT_KEY_USER, usernamePasswordAuthentication.getPrincipal());
+        Map<String, Object> additionalParameters = Collections.emptyMap();
         if (idToken != null) {
-            parameters.put(OidcParameterNames.ID_TOKEN, idToken.getTokenValue());
+            additionalParameters = new HashMap<>();
+            additionalParameters.put(OidcParameterNames.ID_TOKEN, idToken.getTokenValue());
         }
 
-        return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken, refreshToken, parameters);
+        return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken, refreshToken, additionalParameters);
     }
 
     @Override

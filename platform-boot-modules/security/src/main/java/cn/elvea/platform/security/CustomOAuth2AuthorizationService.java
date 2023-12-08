@@ -1,6 +1,12 @@
 package cn.elvea.platform.security;
 
+import cn.elvea.platform.commons.core.enums.ActionTypeEnum;
+import cn.elvea.platform.commons.core.security.user.User;
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
+import cn.elvea.platform.commons.core.utils.ServletUtils;
 import cn.elvea.platform.security.utils.OAuth2Utils;
+import cn.elvea.platform.system.core.api.UserSessionApi;
+import cn.elvea.platform.system.core.model.dto.UserSessionDto;
 import cn.elvea.platform.system.security.api.AuthorizationApi;
 import cn.elvea.platform.system.security.api.ClientApi;
 import cn.elvea.platform.system.security.model.dto.AuthorizationDto;
@@ -8,6 +14,7 @@ import cn.elvea.platform.system.security.model.dto.ClientDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.OAuth2Token;
@@ -22,6 +29,7 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
@@ -38,6 +46,8 @@ public class CustomOAuth2AuthorizationService implements OAuth2AuthorizationServ
 
     private final ClientApi clientApi;
 
+    private final UserSessionApi userSessionApi;
+
     private final AuthorizationApi authorizationApi;
 
     private final TokenSettings tokenSettings;
@@ -45,6 +55,34 @@ public class CustomOAuth2AuthorizationService implements OAuth2AuthorizationServ
     @Override
     public void save(OAuth2Authorization authorization) {
         this.authorizationApi.save(toEntity(authorization));
+
+        // 保存用户会话记录
+        try {
+            User user = null;
+
+            String principalKey = Principal.class.getName();
+            if (authorization.getAttributes().containsKey(principalKey) &&
+                    authorization.getAttribute(principalKey) instanceof UsernamePasswordAuthenticationToken usernamePasswordAuthentication) {
+                user = SecurityUtils.getUser(usernamePasswordAuthentication);
+            }
+
+            if (user != null) {
+                UserSessionDto userSession = UserSessionDto.builder()
+                        .actionType(ActionTypeEnum.SAVE)
+                        .sessionId(authorization.getId())
+                        .userId(user.getId())
+                        .username(authorization.getPrincipalName())
+                        .success(Boolean.TRUE)
+                        .ua(ServletUtils.getUserAgent())
+                        .host(ServletUtils.getHost())
+                        .clientId(authorization.getRegisteredClientId())
+                        .clientName(authorization.getRegisteredClientId())
+                        .build();
+                this.userSessionApi.saveUserSession(userSession);
+            }
+        } catch (Exception e) {
+            log.error("Failed to save UserSession.", e);
+        }
     }
 
     @Override
@@ -54,7 +92,7 @@ public class CustomOAuth2AuthorizationService implements OAuth2AuthorizationServ
 
     @Override
     public OAuth2Authorization findById(String id) {
-        return toObject(this.authorizationApi.findById(Long.valueOf(id)), tokenSettings);
+        return toObject(this.authorizationApi.findByUuid(id), tokenSettings);
     }
 
     @Override

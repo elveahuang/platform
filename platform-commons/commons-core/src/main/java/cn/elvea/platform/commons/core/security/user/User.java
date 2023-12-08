@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author elvea
@@ -24,11 +25,7 @@ public class User implements UserDetails, OAuth2AuthenticatedPrincipal, Serializ
     @Serial
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
-    // 用户ID
-    private final Long uid;
-
-    // 会话ID
-    private final String sid;
+    private final Long id;
 
     private final String password;
 
@@ -44,15 +41,14 @@ public class User implements UserDetails, OAuth2AuthenticatedPrincipal, Serializ
 
     private final boolean credentialsNonExpired;
 
-    public User(String sid, Long uid, String username, String password, Set<GrantedAuthority> authorities) {
-        this(sid, uid, username, password, authorities, true, true, true, true);
+    public User(Long id, String username, String password, Set<GrantedAuthority> authorities) {
+        this(id, username, password, authorities, true, true, true, true);
     }
 
-    public User(String sid, Long uid, String username, String password,
+    public User(Long id, String username, String password,
                 Set<GrantedAuthority> authorities,
                 boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired) {
-        this.sid = sid;
-        this.uid = uid;
+        this.id = id;
         this.password = password;
         this.username = username;
         this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
@@ -60,16 +56,6 @@ public class User implements UserDetails, OAuth2AuthenticatedPrincipal, Serializ
         this.accountNonExpired = accountNonExpired;
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    private static SortedSet<GrantedAuthority> sortAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
-        SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<>(new User.AuthorityComparator());
-        for (GrantedAuthority grantedAuthority : authorities) {
-            Assert.notNull(grantedAuthority, "GrantedAuthority list cannot contain any null elements");
-            sortedAuthorities.add(grantedAuthority);
-        }
-        return sortedAuthorities;
     }
 
     @Override
@@ -80,6 +66,20 @@ public class User implements UserDetails, OAuth2AuthenticatedPrincipal, Serializ
     @Override
     public String getName() {
         return this.getUsername();
+    }
+
+    public Set<String> getGrantedAuthority() {
+        return this.authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+    }
+
+    private static SortedSet<GrantedAuthority> sortAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
+        SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<>(new User.AuthorityComparator());
+        for (GrantedAuthority grantedAuthority : authorities) {
+            Assert.notNull(grantedAuthority, "GrantedAuthority list cannot contain any null elements");
+            sortedAuthorities.add(grantedAuthority);
+        }
+        return sortedAuthorities;
     }
 
     private static class AuthorityComparator implements Comparator<GrantedAuthority>, Serializable {
