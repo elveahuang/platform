@@ -1,6 +1,7 @@
 package cn.elvea.platform.commons.core.message.amqp;
 
 import cn.elvea.platform.commons.core.context.Context;
+import cn.elvea.platform.commons.core.service.AbstractService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 0.0.1
  */
 @Slf4j
-public abstract class AbstractAmqpService<T> implements AmqpService<T> {
+public abstract class AbstractAmqpService<T> extends AbstractService implements AmqpService<T> {
 
     protected Context context;
 
