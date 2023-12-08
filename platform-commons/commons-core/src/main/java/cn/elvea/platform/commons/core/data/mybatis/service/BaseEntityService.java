@@ -370,7 +370,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     public T findOneByWrapper(QueryWrapper<T> wrapper) {
         IPage<T> page = this.mapper.selectPage(MyBatisPlusUtils.getLimitPage(), wrapper);
         if (page != null && CollectionUtils.isNotEmpty(page.getRecords())) {
-            return page.getRecords().get(0);
+            return page.getRecords().getFirst();
         }
         return null;
     }
@@ -398,6 +398,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     public IPage<T> findByMpPage(IPage<T> page, QueryWrapper<T> wrapper) {
         return this.mapper.selectPage(page, wrapper);
     }
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // 辅助方法
