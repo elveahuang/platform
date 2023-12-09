@@ -15,6 +15,6 @@ public class KeywordProperties {
 
     public static final String PREFIX = "platform.keyword";
 
-    private Boolean enabled = Boolean.TRUE;
+    private Boolean enabled = Boolean.FALSE;
 
 }

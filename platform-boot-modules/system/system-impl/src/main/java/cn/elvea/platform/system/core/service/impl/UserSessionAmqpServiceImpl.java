@@ -1,7 +1,6 @@
 package cn.elvea.platform.system.core.service.impl;
 
 import cn.elvea.platform.commons.core.enums.ActionTypeEnum;
-import cn.elvea.platform.commons.core.enums.BaseEnum;
 import cn.elvea.platform.commons.core.message.amqp.AbstractAmqpService;
 import cn.elvea.platform.system.commons.constants.SystemAmqpConstants;
 import cn.elvea.platform.system.core.model.converter.UserSessionConverter;
@@ -34,33 +33,31 @@ public class UserSessionAmqpServiceImpl extends AbstractAmqpService<UserSessionD
     public void execute(UserSessionDto dto) {
         LocalDateTime localDateTime = this.getCurLocalDateTime();
         UserSessionEntity entity = this.userSessionService.findBySessionId(dto.getSessionId());
-        if (ActionTypeEnum.DELETE.equals(BaseEnum.getEnumByValue(dto.getActionType(), ActionTypeEnum.class))) {
-            entity.setUa(dto.getUa());
-            entity.setHost(dto.getHost());
-            entity.setEndDatetime(localDateTime);
-            entity.setLastModifiedBy(dto.getUserId());
-            entity.setLastModifiedAt(localDateTime);
-            entity.setDeletedBy(dto.getUserId());
-            entity.setDeletedAt(localDateTime);
-            this.userSessionService.save(entity);
-        } else if (entity != null) {
-            entity.setUa(dto.getUa());
-            entity.setHost(dto.getHost());
-            entity.setLastAccessDatetime(localDateTime);
-            entity.setLastModifiedBy(dto.getUserId());
-            entity.setLastModifiedAt(localDateTime);
-            this.userSessionService.save(entity);
+        if (ActionTypeEnum.DELETE.equals(dto.getActionType())) {
+            if (entity != null) {
+                entity.setEndDatetime(localDateTime);
+                entity.setLastModifiedBy(dto.getUserId());
+                entity.setLastModifiedAt(localDateTime);
+                entity.setDeletedBy(dto.getUserId());
+                entity.setDeletedAt(localDateTime);
+                this.userSessionService.save(entity);
+            }
         } else {
-            entity = UserSessionConverter.INSTANCE.dto2Entity(dto);
-            entity.setStartDatetime(localDateTime);
+            if (entity != null) {
+                entity.setLastAccessDatetime(localDateTime);
+            } else {
+                entity = UserSessionConverter.INSTANCE.dto2Entity(dto);
+                entity.setStartDatetime(localDateTime);
+                entity.setCreatedBy(dto.getUserId());
+                entity.setCreatedAt(localDateTime);
+            }
+            entity.setUa(dto.getUa());
+            entity.setHost(dto.getHost());
             entity.setLastAccessDatetime(localDateTime);
-            entity.setCreatedBy(dto.getUserId());
-            entity.setCreatedAt(localDateTime);
             entity.setLastModifiedBy(dto.getUserId());
             entity.setLastModifiedAt(localDateTime);
             this.userSessionService.save(entity);
         }
-
     }
 
     @Override

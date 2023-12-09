@@ -34,10 +34,8 @@ public abstract class SecurityUtils {
      * 获取用户ID
      */
     public static User getUser(Authentication authentication) {
-        if (!ObjectUtils.isEmpty(authentication)) {
-            if (authentication.getPrincipal() instanceof User user) {
-                return user;
-            }
+        if (!ObjectUtils.isEmpty(authentication) && authentication.getPrincipal() instanceof User user) {
+            return user;
         }
         return null;
     }
@@ -50,15 +48,30 @@ public abstract class SecurityUtils {
     }
 
     /**
+     * 获取会话ID
+     */
+    public static String getSid() {
+        return getSid(getAuthentication());
+    }
+
+    /**
+     * 获取会话ID
+     */
+    public static String getSid(Authentication authentication) {
+        if (!ObjectUtils.isEmpty(authentication) && authentication.getPrincipal() instanceof Jwt jwt) {
+            return jwt.getId();
+        }
+        return null;
+    }
+
+    /**
      * 获取用户ID
      */
     public static Long getUid(Authentication authentication) {
-        if (!ObjectUtils.isEmpty(authentication)) {
-            if (authentication.getPrincipal() instanceof User user) {
-                return user.getId();
-            } else if (authentication.getPrincipal() instanceof Jwt jwt) {
-                return jwt.getClaim(SecurityConstants.JWT_KEY_UID);
-            }
+        if (!ObjectUtils.isEmpty(authentication) && authentication.getPrincipal() instanceof User user) {
+            return user.getId();
+        } else if (!ObjectUtils.isEmpty(authentication) && authentication.getPrincipal() instanceof Jwt jwt) {
+            return jwt.getClaim(SecurityConstants.JWT_KEY_UID);
         }
         return 0L;
     }
@@ -74,14 +87,12 @@ public abstract class SecurityUtils {
      * 获取用户名
      */
     public static String getUsername(Authentication authentication) {
-        if (!ObjectUtils.isEmpty(authentication)) {
-            if (authentication.getPrincipal() instanceof User user) {
-                return user.getUsername();
-            } else if (authentication.getPrincipal() instanceof Jwt jwt) {
-                return jwt.getClaim(SecurityConstants.JWT_KEY_USERNAME);
-            } else {
-                return authentication.getName();
-            }
+        if (!ObjectUtils.isEmpty(authentication) && authentication.getPrincipal() instanceof User user) {
+            return user.getUsername();
+        } else if (!ObjectUtils.isEmpty(authentication) && authentication.getPrincipal() instanceof Jwt jwt) {
+            return jwt.getClaim(SecurityConstants.JWT_KEY_USERNAME);
+        } else if (!ObjectUtils.isEmpty(authentication)) {
+            return authentication.getName();
         }
         return null;
     }

@@ -52,7 +52,7 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml-lite")
     // modules
     implementation(project(":platform-commons:commons-core-starter"))
-    implementation(project(":platform-cloud-modules:system:system-web"))
+    implementation(project(":platform-cloud-modules:system:system-impl"))
     // development & test
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("jakarta.servlet:jakarta.servlet-api")

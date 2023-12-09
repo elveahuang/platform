@@ -215,3 +215,5 @@ platform:
             enabled: false
             access-key-id:
             access-key-secret:
+    keyword:
+        enabled: false

@@ -1,20 +1,19 @@
 package cn.elvea.platform.system.core.api.impl;
 
+import cn.elvea.platform.commons.core.enums.ActionTypeEnum;
 import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
 import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
 import cn.elvea.platform.commons.core.extensions.captcha.service.CaptchaService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.SecurityUtils;
+import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.converter.AuthorityConverter;
 import cn.elvea.platform.system.core.model.converter.RoleConverter;
 import cn.elvea.platform.system.core.model.converter.UserConverter;
-import cn.elvea.platform.system.core.model.dto.UserCheckEmailDto;
-import cn.elvea.platform.system.core.model.dto.UserCheckUsernameDto;
-import cn.elvea.platform.system.core.model.dto.UserInfoDto;
-import cn.elvea.platform.system.core.model.dto.UserLoginDto;
+import cn.elvea.platform.system.core.model.dto.*;
 import cn.elvea.platform.system.core.model.entity.AuthorityEntity;
 import cn.elvea.platform.system.core.model.entity.RoleEntity;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
@@ -23,6 +22,7 @@ import cn.elvea.platform.system.core.model.vo.UserForgetPasswordVo;
 import cn.elvea.platform.system.core.service.AuthorityService;
 import cn.elvea.platform.system.core.service.RoleService;
 import cn.elvea.platform.system.core.service.UserService;
+import cn.elvea.platform.system.core.service.UserSessionAmqpService;
 import com.lark.oapi.core.utils.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +53,8 @@ public class UserApiImpl implements UserApi {
     private final CaptchaService captchaService;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final UserSessionAmqpService userSessionAmqpService;
 
     /**
      * @see UserApi#getUserInfo(String)
@@ -249,9 +251,26 @@ public class UserApiImpl implements UserApi {
      */
     @Override
     public R<?> logout() {
-        if (!SecurityUtils.isAnonymous()) {
+        if (SecurityUtils.isAnonymous()) {
+            return R.success();
+        }
+
+        try {
+            Long uid = SecurityUtils.getUid();
+            String sid = SecurityUtils.getSid();
             String userName = SecurityUtils.getUsername();
-            log.info("Cur username - [{}}]", userName);
+            log.info("Logout username - [{}}] - uid - [{}]. - sid - [{}].", userName, uid, sid);
+
+            if (StringUtils.isNotEmpty(sid)) {
+                UserSessionDto userSession = UserSessionDto.builder().actionType(ActionTypeEnum.DELETE)
+                        .sessionId(sid)
+                        .userId(uid)
+                        .username(userName)
+                        .build();
+                this.userSessionAmqpService.send(userSession);
+            }
+        } catch (Exception e) {
+            log.error("Failed to save UserSession.", e);
         }
         return R.success();
     }

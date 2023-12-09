@@ -35,13 +35,13 @@ include("platform-boot-server:app-server")
 // ---------------------------------------------------------------------------------------------------------------------
 // 微服务-模块
 include("platform-cloud-modules:system:system-api")
-include("platform-cloud-modules:system:system-biz")
-include("platform-cloud-modules:system:system-web")
+include("platform-cloud-modules:system:system-impl")
+include("platform-cloud-modules:system:system-server")
+include("platform-cloud-modules:security:security-core")
 include("platform-cloud-modules:lxp:lxp-api")
 include("platform-cloud-modules:lxp:lxp-impl")
-// 微服务-服务
+include("platform-cloud-modules:lxp:lxp-server")
+// 微服务-基础服务
 include("platform-cloud-services:gateway-server")
 include("platform-cloud-services:auth-server")
 include("platform-cloud-services:sba-server")
-include("platform-cloud-services:system-server")
-include("platform-cloud-services:lxp-server")

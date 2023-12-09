@@ -2,6 +2,7 @@ dependencies {
     // spring
     api("org.springframework:spring-webmvc")
     api("org.springframework.amqp:spring-rabbit")
+    api("org.springframework.security:spring-security-core")
     // modules
     api(project(":platform-commons:commons-core"))
     api(project(":platform-cloud-modules:system:system-api"))
