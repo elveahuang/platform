@@ -13,8 +13,8 @@ import cn.elvea.platform.commons.core.utils.EncryptUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.lark.oapi.Client;
 import com.lark.oapi.core.Config;
-import com.lark.oapi.service.contact.v3.ContactService;
-import com.lark.oapi.service.im.v1.ImService;
+import com.lark.oapi.service.contact.ContactService;
+import com.lark.oapi.service.im.ImService;
 
 /**
  * @author elvea

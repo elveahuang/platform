@@ -4,8 +4,8 @@ import cn.elvea.platform.commons.core.oapis.lark.bean.JsapiSignature;
 import cn.elvea.platform.commons.core.oapis.lark.config.AppConfig;
 import com.lark.oapi.Client;
 import com.lark.oapi.core.Config;
-import com.lark.oapi.service.contact.v3.ContactService;
-import com.lark.oapi.service.im.v1.ImService;
+import com.lark.oapi.service.contact.ContactService;
+import com.lark.oapi.service.im.ImService;
 
 /**
  * 基于飞书官方SDK二次封装
