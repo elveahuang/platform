@@ -1,6 +1,5 @@
 package cn.elvea.platform.config;
 
-import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.utils.JacksonUtils;
 import cn.elvea.platform.security.annotations.EnableCustomSecurity;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,16 +32,9 @@ import static cn.elvea.platform.commons.core.storage.domain.FileParameter.withDe
 @Configuration(proxyBeanMethods = false)
 public class WebSecurityConfiguration {
 
-    private final Context context;
-
     private final JwtDecoder jwtDecoder;
 
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.debug(this.context.isDebugEnabled());
-    }
 
     /**
      * 接口安全设置

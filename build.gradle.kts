@@ -10,7 +10,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
     id("com.google.osdetector") version "1.7.3" apply false
     id("org.hibernate.orm") version "6.4.1.Final" apply false
-    id("org.springframework.boot") version "3.2.0" apply false
+    id("org.springframework.boot") version "3.2.1" apply false
     id("org.jetbrains.kotlin.jvm") version "1.9.21" apply false
     id("org.graalvm.buildtools.native") version "0.9.28" apply false
 }
@@ -58,7 +58,7 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.0")
-            mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.0")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.1")
             mavenBom("org.springframework.shell:spring-shell-dependencies:3.1.6")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
             mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2022.0.0.0")
