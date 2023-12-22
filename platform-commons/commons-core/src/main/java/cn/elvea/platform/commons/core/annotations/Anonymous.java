@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.core.annotations;
 
-import jakarta.annotation.security.PermitAll;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.lang.annotation.*;
 
@@ -11,6 +11,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
-@PermitAll
+@PreAuthorize("permitAll()")
 public @interface Anonymous {
 }
