@@ -16,10 +16,12 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  */
 @Data
 @NoArgsConstructor
-@ConfigurationProperties(prefix = "platform.storage")
+@ConfigurationProperties(prefix = StorageProperties.PREFIX)
 public class StorageProperties {
 
-    private Boolean enabled = Boolean.FALSE;
+    public static final String PREFIX = "platform.storage";
+
+    private boolean enabled = false;
 
     private StorageType type = StorageType.LOCAL;
 

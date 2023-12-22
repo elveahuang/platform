@@ -17,14 +17,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = SmsProperties.PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = SmsProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({SmsProperties.class})
 public class SmsAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
     public SmsSender smsSender(SmsProperties properties) {
-        if (properties.getAliyun().getEnabled()) {
+        if (properties.getAliyun().isEnabled()) {
             return new AliyunSmsSender(SmsServer.builder().aliyun(properties.getAliyun()).build());
         }
         return new AliyunSmsSender();

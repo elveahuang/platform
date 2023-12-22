@@ -19,9 +19,9 @@ public class SequenceProperties implements Serializable {
 
     public static final String PREFIX = "platform.sequence";
 
-    private SequenceType type = SequenceType.Manual;
+    private boolean enabled = false;
 
-    private Boolean enabled = Boolean.FALSE;
+    private SequenceType type = SequenceType.Manual;
 
     private Long epoch = DateTimeConstants.EPOCH;
 

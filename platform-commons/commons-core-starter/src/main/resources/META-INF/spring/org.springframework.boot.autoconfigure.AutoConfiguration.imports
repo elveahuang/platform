@@ -1,10 +1,10 @@
 cn.elvea.platform.commons.core.autoconfigure.core.CommonsAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.cache.CustomCacheAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.sequence.SequenceAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.log.LogAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.extensions.log.LogAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.storage.StorageAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.scheduling.quartz.CustomQuartzAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.ds.CustomDataSourceAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.extensions.quartz.CustomQuartzAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.data.core.CustomDataSourceAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.core.CustomDataAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.jdbc.CustomJdbcAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.jpa.CustomJpaAutoConfiguration

@@ -55,16 +55,16 @@ public class SpringMailSender implements MailSender {
         mailSender.setDefaultEncoding(GlobalConstants.ENCODING);
         mailSender.setHost(server.getHost());
         mailSender.setPort(port);
-        if (server.getAuth()) {
+        if (server.isAuth()) {
             mailSender.setUsername(server.getUsername());
             mailSender.setPassword(server.getPassword());
         }
         Properties properties = new Properties();
-        properties.setProperty("mail.smtp.auth", String.valueOf(server.getAuth()));
+        properties.setProperty("mail.smtp.auth", String.valueOf(server.isAuth()));
         properties.setProperty("mail.debug", "true");
         properties.setProperty("mail.smtp.timeout", "25000");
         properties.setProperty("mail.smtp.port", String.valueOf(port));
-        if (server.getSsl()) {
+        if (server.isSsl()) {
             // 启用安全连接
             if (SslProtocolTypeEnum.STARTTLS.equals(server.getSslProtocol())) {
                 // StartTLS

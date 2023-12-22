@@ -80,7 +80,7 @@ public class AliyunTranslator implements Translator {
     @Data
     @NoArgsConstructor
     public static class Config {
-        private Boolean enabled = Boolean.FALSE;
+        private boolean enabled = false;
         private String endpoint = "mt.aliyuncs.com";
         private String accessKeyId = "";
         private String accessKeySecret = "";

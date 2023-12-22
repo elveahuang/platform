@@ -16,14 +16,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = MailProperties.PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = MailProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({MailProperties.class})
 public class MailAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
     public MailSender mailSender(MailProperties properties) {
-        if (properties.getServer().getEnabled()) {
+        if (properties.getServer().isEnabled()) {
             return new SpringMailSender(properties.getServer());
         }
         return new SpringMailSender();

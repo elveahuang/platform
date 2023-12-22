@@ -82,7 +82,7 @@ public class CustomRedisAutoConfiguration {
     public RedisCacheService redisCacheService(RedisTemplate<String, Object> redisTemplate,
                                                StringRedisTemplate stringRedisTemplate,
                                                CustomCacheProperties properties) {
-        return new RedisCacheServiceImpl(redisTemplate, stringRedisTemplate, properties.getCacheNullValue(), properties.getBatchSize());
+        return new RedisCacheServiceImpl(redisTemplate, stringRedisTemplate, properties.isCacheNullValue(), properties.getBatchSize());
     }
 
     /**

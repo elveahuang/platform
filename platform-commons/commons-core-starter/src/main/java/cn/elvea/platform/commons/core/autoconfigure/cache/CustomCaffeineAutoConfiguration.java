@@ -36,7 +36,7 @@ public class CustomCaffeineAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(CaffeineCacheService.class)
     public CaffeineCacheService caffeineCacheService(CustomCacheProperties properties) {
-        return new CaffeineCacheServiceImpl(properties.getCacheNullValue(), properties.getBatchSize());
+        return new CaffeineCacheServiceImpl(properties.isCacheNullValue(), properties.getBatchSize());
     }
 
     /**
@@ -59,7 +59,7 @@ public class CustomCaffeineAutoConfiguration {
                 .recordStats()
                 .initialCapacity(500)
                 .expireAfterWrite(properties.getTimeToLive());
-        cacheManager.setAllowNullValues(properties.getCacheNullValue());
+        cacheManager.setAllowNullValues(properties.isCacheNullValue());
         cacheManager.setCaffeine(caffeine);
         return cacheManager;
     }

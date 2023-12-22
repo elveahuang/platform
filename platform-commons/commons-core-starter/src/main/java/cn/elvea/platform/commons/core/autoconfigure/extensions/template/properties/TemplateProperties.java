@@ -15,6 +15,6 @@ public class TemplateProperties {
 
     public static final String PREFIX = "platform.template";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
 }

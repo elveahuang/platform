@@ -16,26 +16,23 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = FaceBodyProperties.PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = FaceBodyProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({FaceBodyProperties.class})
 public class FaceBodyAutoConfiguration {
 
-    private final FaceBodyProperties properties;
-
     public FaceBodyAutoConfiguration(FaceBodyProperties properties) {
-        log.debug("current default face-body is {}", properties.getType());
-        this.properties = properties;
+        log.debug("Current default face-body service is {}", properties.getType());
+
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public FaceBodyManager faceBodyManager() {
+    public FaceBodyManager faceBodyManager(FaceBodyProperties properties) {
         FaceBodyConfig config = FaceBodyConfig.builder()
-                .enabled(this.properties.getEnabled())
-                .type(this.properties.getType())
-                .aliyun(this.properties.getAliyun())
-                .tencent(this.properties.getTencent())
-                .build();
+                .enabled(properties.isEnabled())
+                .type(properties.getType())
+                .aliyun(properties.getAliyun())
+                .tencent(properties.getTencent()).build();
         return new FaceBodyManager(config);
     }
 

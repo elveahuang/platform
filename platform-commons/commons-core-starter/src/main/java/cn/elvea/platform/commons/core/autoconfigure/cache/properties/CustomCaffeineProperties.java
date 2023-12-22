@@ -15,8 +15,8 @@ public class CustomCaffeineProperties {
 
     public static final String PREFIX = "platform.cache.caffeine";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
-    private Boolean springCacheEnabled = Boolean.FALSE;
+    private boolean springCacheEnabled = false;
 
 }

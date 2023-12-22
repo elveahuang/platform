@@ -45,7 +45,7 @@ public class LarkAutoConfiguration {
                 .appSecret(properties.getAppSecret())
                 .verificationToken(properties.getVerificationToken())
                 .encryptKey(properties.getEncryptKey())
-                .debug(properties.getDebug())
+                .debug(properties.isDebug())
                 .cache(cache)
                 .build();
         LarkServiceImpl service = new LarkServiceImpl(cache, properties.getCacheKeyPrefix());

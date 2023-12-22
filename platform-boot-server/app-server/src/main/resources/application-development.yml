@@ -45,6 +45,7 @@ spring:
             host: 127.0.0.1
             port: 6379
             database: 0
+            password: redis
             lettuce:
                 pool:
                     enabled: true
@@ -55,8 +56,8 @@ spring:
         host: localhost
         port: 5672
         virtual-host: platform
-        username: guest
-        password: guest
+        username: admin
+        password: admin
         publisher-confirm-type: correlated
         publisher-returns: true
         listener:
@@ -97,48 +98,24 @@ cosid:
 platform:
     debug:
         enabled: true
-    rate-limit:
-        enabled: true
-    amqp:
-        enabled: true
     sequence:
         enabled: true
         type: manual
-    template:
-        enabled: true
-    log:
-        enabled: true
-    mail:
-        enabled: true
-        server:
-            enabled: true
-            from:
-            host:
-            port:
-            username:
-            password:
-    captcha:
-        enabled: true
-    sms:
-        enabled: true
-        aliyun:
-            enabled: true
-            access-key-id:
-            access-key-secret:
-            sign-name:
-            template:
-    datasource:
-        enabled: true
-        master:
-            enabled: true
-        slave:
-            enabled: false
-        job:
-            enabled: true
     data:
         enabled: true
-        jdbc:
-            enabled: true
+        core:
+            jdbc:
+                enabled: true
+            auditing:
+                enabled: true
+            ds:
+                enabled: true
+                master:
+                    enabled: true
+                slave:
+                    enabled: true
+                job:
+                    enabled: true
         jpa:
             enabled: true
         mybatis:
@@ -155,15 +132,6 @@ platform:
         caffeine:
             enabled: true
             spring-cache-enabled: false
-    storage:
-        enabled: false
-        type: local
-        oss:
-            enabled: false
-            endpoint:
-            accessKeyId:
-            accessKeySecret:
-            bucketName:
     quartz:
         enabled: true
         cluster:
@@ -182,8 +150,8 @@ platform:
         lark:
             enabled: false
             app-type: self_built
-            app-id: xxx
-            app-secret: xxx
+            app-id:
+            app-secret:
         weixin:
             cp:
                 enabled: false
@@ -198,8 +166,35 @@ platform:
                 enabled: false
                 app-id:
                 app-secret:
+    storage:
+        enabled: true
+        type: local
+        oss:
+            enabled: false
+            endpoint:
+            accessKeyId:
+            accessKeySecret:
+            bucketName:
+    sms:
+        enabled: true
+        type: aliyun
+        aliyun:
+            enabled: true
+            access-key-id:
+            access-key-secret:
+            sign-name:
+            template:
+    mail:
+        enabled: true
+        server:
+            enabled: true
+            from:
+            host:
+            port: 25
+            username:
+            password:
     translator:
-        enabled: false
+        enabled: true
         type: aliyun
         aliyun:
             enabled: false
@@ -210,10 +205,9 @@ platform:
             app-id:
             secret-key:
     face-body:
-        enabled: false
+        enabled: true
+        type: aliyun
         aliyun:
             enabled: false
             access-key-id:
             access-key-secret:
-    keyword:
-        enabled: false

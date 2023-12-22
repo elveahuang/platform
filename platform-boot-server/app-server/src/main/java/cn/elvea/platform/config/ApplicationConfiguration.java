@@ -1,7 +1,7 @@
 package cn.elvea.platform.config;
 
 import cn.elvea.platform.commons.core.constants.GlobalConstants;
-import cn.elvea.platform.commons.core.log.LogManagerCustomizer;
+import cn.elvea.platform.commons.core.extensions.log.LogManagerCustomizer;
 import cn.elvea.platform.lxp.commons.constants.LxpConstants;
 import cn.elvea.platform.system.commons.constants.SystemConstants;
 import cn.elvea.platform.system.commons.interceptor.LogInterceptor;

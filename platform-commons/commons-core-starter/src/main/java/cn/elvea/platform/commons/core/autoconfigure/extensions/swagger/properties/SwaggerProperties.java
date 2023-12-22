@@ -18,7 +18,7 @@ public class SwaggerProperties {
     /**
      * 是否开启
      */
-    private Boolean enabled = Boolean.TRUE;
+    private boolean enabled = false;
 
     /**
      * 标题

@@ -15,6 +15,6 @@ public class RateLimitProperties {
 
     public static final String PREFIX = "platform.rate-limit";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
 }

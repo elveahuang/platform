@@ -15,7 +15,7 @@ public class WeiXinMpProperties {
 
     public static final String PREFIX = "platform.oapis.weixin.mp";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private String cacheKeyPrefix = "mp";
 

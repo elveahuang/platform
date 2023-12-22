@@ -17,7 +17,7 @@ public class MailProperties {
 
     public static final String PREFIX = "platform.mail";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     @NestedConfigurationProperty
     private MailServer server = new MailServer();

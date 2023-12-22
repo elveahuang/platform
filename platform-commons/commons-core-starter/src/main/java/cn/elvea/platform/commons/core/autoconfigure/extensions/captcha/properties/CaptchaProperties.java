@@ -15,7 +15,7 @@ public class CaptchaProperties {
 
     public static final String PREFIX = "platform.captcha";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private String cacheKeyPrefix = "captcha";
 

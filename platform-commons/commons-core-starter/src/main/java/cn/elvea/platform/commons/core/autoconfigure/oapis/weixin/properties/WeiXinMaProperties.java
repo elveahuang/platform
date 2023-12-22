@@ -15,7 +15,7 @@ public class WeiXinMaProperties {
 
     public static final String PREFIX = "platform.oapis.weixin.ma";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private String cacheKeyPrefix = "ma";
 

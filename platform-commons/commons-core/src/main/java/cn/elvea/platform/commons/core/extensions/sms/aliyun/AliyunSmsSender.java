@@ -82,23 +82,14 @@ public class AliyunSmsSender implements SmsSender {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ServerConfig implements Serializable {
-
-        public final static String ENDPOINT = "dysmsapi.aliyuncs.com";
-
         @Builder.Default
-        private Boolean enabled = Boolean.FALSE;
-
+        private boolean enabled = false;
         @Builder.Default
-        private String endpoint = ENDPOINT;
-
+        private String endpoint = "dysmsapi.aliyuncs.com";
         private String accessKeyId;
-
         private String accessKeySecret;
-
         private String signName;
-
         private String template;
-
     }
 
 }

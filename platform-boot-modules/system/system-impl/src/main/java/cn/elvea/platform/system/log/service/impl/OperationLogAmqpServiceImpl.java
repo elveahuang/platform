@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.log.service.impl;
 
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.log.dto.OperationLogDto;
-import cn.elvea.platform.commons.core.message.amqp.AbstractAmqpService;
+import cn.elvea.platform.commons.core.extensions.log.dto.OperationLogDto;
+import cn.elvea.platform.commons.core.extensions.amqp.AbstractAmqpService;
 import cn.elvea.platform.system.commons.constants.SystemAmqpConstants;
 import cn.elvea.platform.system.log.model.converter.OperationLogConverter;
 import cn.elvea.platform.system.log.model.entity.OperationLogEntity;

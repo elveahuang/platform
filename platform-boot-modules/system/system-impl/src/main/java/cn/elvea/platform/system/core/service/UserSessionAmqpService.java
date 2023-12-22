@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.service;
 
-import cn.elvea.platform.commons.core.message.amqp.AmqpService;
+import cn.elvea.platform.commons.core.extensions.amqp.AmqpService;
 import cn.elvea.platform.system.core.model.dto.UserSessionDto;
 
 /**

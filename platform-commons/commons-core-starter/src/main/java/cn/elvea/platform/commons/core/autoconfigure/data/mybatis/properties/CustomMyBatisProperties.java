@@ -15,6 +15,6 @@ public class CustomMyBatisProperties {
 
     public static final String PREFIX = "platform.data.mybatis";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
 }

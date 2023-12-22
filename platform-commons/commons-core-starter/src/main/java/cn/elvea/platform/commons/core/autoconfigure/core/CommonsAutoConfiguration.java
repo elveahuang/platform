@@ -1,8 +1,8 @@
 package cn.elvea.platform.commons.core.autoconfigure.core;
 
 import cn.elvea.platform.commons.core.autoconfigure.core.properties.CommonsProperties;
+import cn.elvea.platform.commons.core.autoconfigure.extensions.log.properties.LogProperties;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.time.properties.DateTimeProperties;
-import cn.elvea.platform.commons.core.autoconfigure.log.properties.LogProperties;
 import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.extensions.i18n.DefaultLanguageResolver;
 import cn.elvea.platform.commons.core.extensions.i18n.LanguageResolver;
@@ -47,8 +47,8 @@ public class CommonsAutoConfiguration {
     @ConditionalOnMissingBean
     public Context Context(CommonsProperties properties) {
         return Context.builder()
-                .debugEnabled(properties.getDebug().getEnabled())
-                .amqpEnabled(properties.getAmqp().getEnabled())
+                .debugEnabled(properties.getDebug().isEnabled())
+                .amqpEnabled(properties.getAmqp().isEnabled())
                 .build();
     }
 

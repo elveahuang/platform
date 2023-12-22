@@ -1,5 +1,6 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.sms.properties;
 
+import cn.elvea.platform.commons.core.extensions.sms.SmsServerType;
 import cn.elvea.platform.commons.core.extensions.sms.aliyun.AliyunSmsSender;
 import cn.elvea.platform.commons.core.extensions.sms.tencent.TencentSmsSender;
 import lombok.Data;
@@ -18,7 +19,9 @@ public class SmsProperties {
 
     public static final String PREFIX = "platform.sms";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
+
+    private SmsServerType type = SmsServerType.Aliyun;
 
     @NestedConfigurationProperty
     private AliyunSmsSender.ServerConfig aliyun = AliyunSmsSender.ServerConfig.builder().build();

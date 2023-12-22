@@ -15,7 +15,7 @@ public class WeiXinCpProperties {
 
     public static final String PREFIX = "platform.oapis.weixin.cp";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private String cacheKeyPrefix = "cp";
 

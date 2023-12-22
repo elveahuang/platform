@@ -25,13 +25,13 @@ public class CommonsProperties implements Serializable {
      * 调试模式
      */
     @NestedConfigurationProperty
-    private Debug debug = Debug.builder().build();
+    private CommonsProperties.Debug debug = Debug.builder().build();
 
     /**
      * 消息队列
      */
     @NestedConfigurationProperty
-    private Amqp amqp = Amqp.builder().build();
+    private CommonsProperties.Amqp amqp = Amqp.builder().build();
 
     /**
      * 指定用户时区
@@ -51,19 +51,15 @@ public class CommonsProperties implements Serializable {
     @Data
     @Builder
     public static class Debug {
-
         @Builder.Default
-        private Boolean enabled = Boolean.FALSE;
-
+        private boolean enabled = false;
     }
 
     @Data
     @Builder
     public static class Amqp {
-
         @Builder.Default
-        private Boolean enabled = Boolean.FALSE;
-
+        private boolean enabled = true;
     }
 
 }

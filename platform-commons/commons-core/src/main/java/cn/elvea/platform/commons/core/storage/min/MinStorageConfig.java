@@ -15,7 +15,7 @@ public class MinStorageConfig implements Serializable {
     /**
      * 是否启用
      */
-    private Boolean enabled;
+    private boolean enabled = false;
     /**
      * Endpoint
      */

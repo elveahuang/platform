@@ -15,6 +15,6 @@ public class CustomJdbcProperties {
 
     public static final String PREFIX = "platform.data.jdbc";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
 }

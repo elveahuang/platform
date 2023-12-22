@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Import;
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({CustomCacheProperties.class})
-@ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @Import({
         CustomRedisAutoConfiguration.class,
         CustomRedissonAutoConfiguration.class,

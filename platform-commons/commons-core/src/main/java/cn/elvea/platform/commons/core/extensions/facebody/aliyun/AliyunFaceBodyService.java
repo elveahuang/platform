@@ -122,7 +122,7 @@ public class AliyunFaceBodyService implements FaceBodyService {
     @AllArgsConstructor
     public static class Config implements Serializable {
         @Builder.Default
-        private Boolean enabled = Boolean.FALSE;
+        private boolean enabled = false;
         @Builder.Default
         private String endpoint = "facebody.cn-shanghai.aliyuncs.com";
         @Builder.Default

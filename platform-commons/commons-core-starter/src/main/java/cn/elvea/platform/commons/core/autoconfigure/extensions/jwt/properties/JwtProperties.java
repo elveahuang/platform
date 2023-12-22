@@ -18,7 +18,7 @@ public class JwtProperties {
 
     public static final String PREFIX = "platform.jwt";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private String algorithm = JwsAlgorithms.RS256;
 

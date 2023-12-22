@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 
 /**
  * @author elvea
  * @since 0.0.1
  */
 public class FileUtils {
+
+    public static final String SEPARATOR = FileSystems.getDefault().getSeparator();
 
     public static FileInputStream openInputStream(final File file) throws IOException {
         if (file.exists()) {

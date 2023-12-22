@@ -6,6 +6,7 @@ import cn.elvea.platform.commons.core.storage.manager.DefaultStorageManager;
 import cn.elvea.platform.commons.core.storage.manager.StorageManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,15 +18,16 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(StorageProperties.class)
+@ConditionalOnProperty(prefix = StorageProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 public class StorageAutoConfiguration {
 
     public StorageAutoConfiguration(StorageProperties properties) {
         log.info("StorageAutoConfiguration is enabled.");
         log.info("Current Storage is {}", properties.getType());
-        log.info("Local Storage is {}", properties.getLocal().getEnabled());
-        log.info("Min Storage is {}", properties.getMin().getEnabled());
-        log.info("COS Storage is {}", properties.getCos().getEnabled());
-        log.info("OSS Storage is {}", properties.getOss().getEnabled());
+        log.info("Local Storage is {}", properties.getLocal().isEnabled());
+        log.info("Min Storage is {}", properties.getMin().isEnabled());
+        log.info("COS Storage is {}", properties.getCos().isEnabled());
+        log.info("OSS Storage is {}", properties.getOss().isEnabled());
     }
 
     /**

@@ -16,27 +16,23 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({TranslatorProperties.class})
-@ConditionalOnProperty(prefix = TranslatorProperties.PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = TranslatorProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 public class TranslatorAutoConfiguration {
 
-    private final TranslatorProperties properties;
-
     public TranslatorAutoConfiguration(TranslatorProperties properties) {
-        log.debug("current default translator is {}", properties.getType());
-        this.properties = properties;
+        log.debug("Current default translator service is {}", properties.getType());
     }
 
     /**
      * @return {@link TranslatorManager}
      */
     @Bean
-    public TranslatorManager translatorManager() {
+    public TranslatorManager translatorManager(TranslatorProperties properties) {
         TranslatorConfig config = TranslatorConfig.builder()
-                .enabled(properties.getEnabled())
+                .enabled(properties.isEnabled())
                 .type(properties.getType())
                 .aliyun(properties.getAliyun())
-                .baidu(properties.getBaidu())
-                .build();
+                .baidu(properties.getBaidu()).build();
         return new TranslatorManager(config);
     }
 

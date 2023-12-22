@@ -18,11 +18,11 @@ public class CustomCacheProperties {
 
     public static final String PREFIX = "platform.cache";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private CacheType type = CacheType.Redis;
 
-    private Boolean cacheNullValue = Boolean.TRUE;
+    private boolean cacheNullValue = true;
 
     private int batchSize = 1000;
 

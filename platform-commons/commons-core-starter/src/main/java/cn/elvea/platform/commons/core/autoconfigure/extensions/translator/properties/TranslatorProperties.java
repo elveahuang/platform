@@ -21,7 +21,7 @@ public class TranslatorProperties implements Serializable {
 
     public static final String PREFIX = "platform.translator";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private TranslatorType type = TranslatorType.Aliyun;
 

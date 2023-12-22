@@ -15,7 +15,7 @@ public class DingTalkProperties {
 
     public static final String PREFIX = "platform.oapis.dingtalk";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private String cacheKeyPrefix = "dingtalk";
 

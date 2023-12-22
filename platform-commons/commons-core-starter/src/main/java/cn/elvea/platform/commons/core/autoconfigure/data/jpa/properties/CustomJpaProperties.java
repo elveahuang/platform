@@ -15,8 +15,8 @@ public class CustomJpaProperties {
 
     public static final String PREFIX = "platform.data.jpa";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
-    private Boolean showSql = Boolean.TRUE;
+    private boolean showSql = false;
 
 }

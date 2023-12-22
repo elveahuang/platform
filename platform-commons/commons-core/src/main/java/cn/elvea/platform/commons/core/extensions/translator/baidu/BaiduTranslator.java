@@ -90,7 +90,7 @@ public class BaiduTranslator implements Translator {
     @Data
     @NoArgsConstructor
     public static class Config {
-        private Boolean enabled = Boolean.FALSE;
+        private boolean enabled = false;
         private String endpoint = "https://fanyi-api.baidu.com/api/trans/vip/translate";
         private String appId = "";
         private String secretKey = "";

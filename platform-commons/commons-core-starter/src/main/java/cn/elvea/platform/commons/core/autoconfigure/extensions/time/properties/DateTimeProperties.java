@@ -15,7 +15,7 @@ import java.io.Serializable;
 @ConfigurationProperties(prefix = DateTimeProperties.PREFIX)
 public class DateTimeProperties implements Serializable {
 
-    public static final String PREFIX = "platform.ra";
+    public static final String PREFIX = "platform.time";
 
     private boolean enabled = false;
 

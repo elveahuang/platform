@@ -3,9 +3,9 @@ package cn.elvea.platform.commons.core.storage.local;
 import cn.elvea.platform.commons.core.exception.ServiceException;
 import cn.elvea.platform.commons.core.storage.AbstractStorageService;
 import cn.elvea.platform.commons.core.storage.StorageService;
-import cn.elvea.platform.commons.core.storage.StorageUtils;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileParameter;
+import cn.elvea.platform.commons.core.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.FileCopyUtils;
 
@@ -44,7 +44,7 @@ public class LocalStorageServiceImpl extends AbstractStorageService implements L
     @Override
     public FileObject<?> uploadFile(InputStream is, FileParameter params, String path) throws Exception {
         try {
-            File file = new File(this.config.getPath() + StorageUtils.SEPARATOR + path);
+            File file = new File(this.config.getPath() + FileUtils.SEPARATOR + path);
 
             File parent = file.getParentFile();
             if (parent != null && !parent.mkdirs() && !parent.isDirectory()) {

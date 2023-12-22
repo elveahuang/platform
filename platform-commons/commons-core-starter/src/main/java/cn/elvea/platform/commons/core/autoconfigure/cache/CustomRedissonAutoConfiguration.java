@@ -125,7 +125,7 @@ public class CustomRedissonAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(RedissonCacheService.class)
     public RedissonCacheService redissonCacheService(RedissonClient redissonClient, CustomCacheProperties properties) {
-        return new RedissonCacheServiceImpl(redissonClient, properties.getCacheNullValue(), properties.getBatchSize());
+        return new RedissonCacheServiceImpl(redissonClient, properties.isCacheNullValue(), properties.getBatchSize());
     }
 
     /**
@@ -148,7 +148,7 @@ public class CustomRedissonAutoConfiguration {
     public CacheManager cacheManager(CustomCacheProperties properties, RedissonClient redissonClient, Codec codec) {
         RedissonSpringCacheManager cacheManager = new RedissonSpringCacheManager(redissonClient);
         cacheManager.setCodec(codec);
-        cacheManager.setAllowNullValues(properties.getCacheNullValue());
+        cacheManager.setAllowNullValues(properties.isCacheNullValue());
         return cacheManager;
     }
 

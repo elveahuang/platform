@@ -15,9 +15,9 @@ public class CustomRedissonProperties {
 
     public static final String PREFIX = "platform.cache.redisson";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
-    private Boolean springCacheEnabled = Boolean.FALSE;
+    private boolean springCacheEnabled = false;
 
     private int maxActive = 32;
 

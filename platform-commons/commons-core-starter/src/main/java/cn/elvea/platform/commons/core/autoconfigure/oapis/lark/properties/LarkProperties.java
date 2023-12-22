@@ -16,7 +16,7 @@ public class LarkProperties {
 
     public static final String PREFIX = "platform.oapis.lark";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private String cacheKeyPrefix = "lark";
 
@@ -34,6 +34,6 @@ public class LarkProperties {
 
     private String encryptKey;
 
-    private Boolean debug = Boolean.FALSE;
+    private boolean debug = false;
 
 }

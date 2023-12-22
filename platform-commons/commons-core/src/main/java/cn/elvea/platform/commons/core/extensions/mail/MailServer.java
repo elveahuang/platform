@@ -17,27 +17,17 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MailServer implements Serializable {
-
     @Builder.Default
-    private Boolean enabled = Boolean.TRUE;
-
+    private boolean enabled = false;
     @Builder.Default
-    private Boolean auth = Boolean.TRUE;
-
+    private boolean auth = true;
     @Builder.Default
-    private Boolean ssl = Boolean.TRUE;
-
+    private boolean ssl = true;
     @Builder.Default
     private SslProtocolTypeEnum sslProtocol = SslProtocolTypeEnum.SSL;
-
     private String from;
-
     private String host;
-
     private int port;
-
     private String username;
-
     private String password;
-
 }

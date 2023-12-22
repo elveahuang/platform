@@ -17,7 +17,7 @@ import org.thymeleaf.TemplateEngine;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = TemplateProperties.PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = TemplateProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({TemplateProperties.class})
 public class TemplateAutoConfiguration {
 

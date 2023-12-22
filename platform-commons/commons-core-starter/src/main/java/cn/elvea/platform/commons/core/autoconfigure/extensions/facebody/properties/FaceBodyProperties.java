@@ -19,7 +19,7 @@ public class FaceBodyProperties {
 
     public static final String PREFIX = "platform.face-body";
 
-    private Boolean enabled = Boolean.FALSE;
+    private boolean enabled = false;
 
     private FaceBodyType type = FaceBodyType.Aliyun;
 
