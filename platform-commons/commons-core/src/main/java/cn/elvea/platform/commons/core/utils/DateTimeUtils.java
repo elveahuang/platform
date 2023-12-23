@@ -13,7 +13,7 @@ import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 
 /**
- * @author elvea
+ * @author dev
  * @since 0.0.1
  */
 @Slf4j
@@ -26,8 +26,18 @@ public abstract class DateTimeUtils {
     public static final DateTimeFormatter DATE_TIME_FORMATTER;
     public static final DateTimeFormatter SIMPLE_DATE_TIME_FORMATTER;
     public static final DateTimeFormatter FULL_DATE_TIME_FORMATTER;
+    public final static LocalDateTime MIN_DATETIME;
+    public final static LocalDateTime MAX_DATETIME;
+
+    public final static int DATETIME_PAD_END_HH_MM_SS = 1;
+    public final static int DATETIME_PAD_END_MM_SS = 2;
+    public final static int DATETIME_PAD_END_SS = 3;
 
     static {
+
+        MIN_DATETIME = LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
+
+        MAX_DATETIME = LocalDateTime.of(9999, 12, 31, 23, 59, 59, 0);
 
         TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_TIME_PATTERN).toFormatter();
 
@@ -177,6 +187,42 @@ public abstract class DateTimeUtils {
 
     public static LocalTime toLocalTime(Date date) {
         return toLocalDateTime(date).toLocalTime();
+    }
+
+    public static LocalDateTime processStartDate(LocalDateTime localDateTime) {
+        return processStartDate(localDateTime, DATETIME_PAD_END_HH_MM_SS);
+    }
+
+    public static LocalDateTime processStartDate(LocalDateTime ldt, final int padEndType) {
+        if (ldt == null) {
+            return LocalDateTime.MIN;
+        }
+        if (DATETIME_PAD_END_HH_MM_SS == padEndType) {
+            ldt = LocalDateTime.of(ldt.getYear(), ldt.getMonth(), ldt.getDayOfMonth(), 0, 0, 0, 0);
+        } else if (DATETIME_PAD_END_MM_SS == padEndType) {
+            ldt = LocalDateTime.of(ldt.getYear(), ldt.getMonth(), ldt.getDayOfMonth(), ldt.getHour(), 0, 0, 0);
+        } else if (DATETIME_PAD_END_SS == padEndType) {
+            ldt = LocalDateTime.of(ldt.getYear(), ldt.getMonth(), ldt.getDayOfMonth(), ldt.getHour(), ldt.getMinute(), 0, 0);
+        }
+        return ldt;
+    }
+
+    public static LocalDateTime processEndDate(LocalDateTime date) {
+        return processEndDate(date, DATETIME_PAD_END_HH_MM_SS);
+    }
+
+    public static LocalDateTime processEndDate(LocalDateTime ldt, final int padEndType) {
+        if (ldt == null) {
+            return MAX_DATETIME;
+        }
+        if (DATETIME_PAD_END_HH_MM_SS == padEndType) {
+            ldt = LocalDateTime.of(ldt.getYear(), ldt.getMonth(), ldt.getDayOfMonth(), 23, 59, 59, 999);
+        } else if (DATETIME_PAD_END_MM_SS == padEndType) {
+            ldt = LocalDateTime.of(ldt.getYear(), ldt.getMonth(), ldt.getDayOfMonth(), ldt.getHour(), 59, 59, 0);
+        } else if (DATETIME_PAD_END_SS == padEndType) {
+            ldt = LocalDateTime.of(ldt.getYear(), ldt.getMonth(), ldt.getDayOfMonth(), ldt.getHour(), ldt.getMinute(), 59, 999);
+        }
+        return ldt;
     }
 
 }

@@ -41,4 +41,18 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
         return RandomStringUtils.randomNumeric(length);
     }
 
+    /**
+     * 转大写
+     */
+    public static String toUpperCase(String text) {
+        return isNotEmpty(text) ? text.toUpperCase() : null;
+    }
+
+    /**
+     * 转小写
+     */
+    public static String toLowerCase(String text) {
+        return isNotEmpty(text) ? text.toLowerCase() : null;
+    }
+
 }

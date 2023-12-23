@@ -6,7 +6,6 @@ cn.elvea.platform.commons.core.autoconfigure.storage.StorageAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.quartz.CustomQuartzAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.core.CustomDataSourceAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.core.CustomDataAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.data.jdbc.CustomJdbcAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.jpa.CustomJpaAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.mybatis.CustomMyBatisAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.elasticsearch.CustomElasticsearchAutoConfiguration

@@ -52,6 +52,10 @@ public interface SecurityConstants {
 
     String API_REQUEST_PATH = "/api/**";
 
+    String ADMIN_API_REQUEST_PATH = "/api/admin/**";
+
+    String ADMIN_REQUEST_PATH = "/admin/**";
+
     /**
      * =================================================================================================================
      * 忽略权限检查的地址

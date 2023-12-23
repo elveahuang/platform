@@ -4,6 +4,7 @@ import cn.elvea.platform.commons.core.autoconfigure.data.mybatis.properties.Cust
 import cn.elvea.platform.commons.core.data.mybatis.handler.CustomMetaObjectHandler;
 import cn.elvea.platform.commons.core.data.mybatis.id.CustomIdentifierGenerator;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.autoconfigure.DdlApplicationRunner;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -17,6 +18,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Collections;
 
 /**
  * @author elvea
@@ -57,7 +60,6 @@ public class CustomMyBatisAutoConfiguration {
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         // 防止全表更新与删除
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
-
         return interceptor;
     }
 
@@ -65,6 +67,12 @@ public class CustomMyBatisAutoConfiguration {
     @ConditionalOnMissingBean
     public CustomMetaObjectHandler customMetaObjectHandler() {
         return new CustomMetaObjectHandler();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DdlApplicationRunner ddlApplicationRunner() {
+        return new DdlApplicationRunner(Collections.emptyList());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
