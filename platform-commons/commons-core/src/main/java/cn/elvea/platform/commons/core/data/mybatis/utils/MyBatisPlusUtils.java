@@ -47,7 +47,9 @@ public abstract class MyBatisPlusUtils {
      */
     public static <E> Page<E> getMyBatisPlusPage(Pageable pageable) {
         Page<E> page = new Page<>(pageable.getPageNumber() + 1, pageable.getPageSize());
-        List<OrderItem> orders = pageable.getSort().get().map((e) -> new OrderItem(e.getProperty(), Sort.Direction.ASC.equals(e.getDirection()))).toList();
+        List<OrderItem> orders = pageable.getSort().get().map((e) ->
+                Sort.Direction.ASC.equals(e.getDirection()) ? OrderItem.asc(e.getProperty()) : OrderItem.desc(e.getProperty())
+        ).toList();
         page.setOrders(orders);
         return page;
     }

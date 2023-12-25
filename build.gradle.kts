@@ -11,7 +11,7 @@ plugins {
     id("com.google.osdetector") version "1.7.3" apply false
     id("org.hibernate.orm") version "6.4.1.Final" apply false
     id("org.springframework.boot") version "3.2.1" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.9.21" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.9.22" apply false
     id("org.graalvm.buildtools.native") version "0.9.28" apply false
 }
 
@@ -57,7 +57,7 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.0")
+            mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.1")
             mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.1")
             mavenBom("org.springframework.shell:spring-shell-dependencies:3.1.6")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
@@ -68,7 +68,7 @@ allprojects {
             mavenBom("cn.hutool:hutool-bom:5.8.23")
             mavenBom("me.ahoo.cosid:cosid-bom:2.6.2")
             mavenBom("org.mockito:mockito-bom:5.7.0")
-            mavenBom("org.jetbrains.kotlin:kotlin-bom:1.9.21")
+            mavenBom("org.jetbrains.kotlin:kotlin-bom:1.9.22")
         }
 
         dependencies {
@@ -92,12 +92,12 @@ allprojects {
             dependency("org.mybatis:mybatis-spring:3.0.3")
             dependency("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
             dependency("org.mybatis.generator:mybatis-generator-core:1.4.2")
-            dependency("com.baomidou:mybatis-plus:3.5.4.1")
-            dependency("com.baomidou:mybatis-plus-annotation:3.5.4.1")
-            dependency("com.baomidou:mybatis-plus-core:3.5.4.1")
-            dependency("com.baomidou:mybatis-plus-extension:3.5.4.1")
-            dependency("com.baomidou:mybatis-plus-generator:3.5.4.1")
-            dependency("com.baomidou:mybatis-plus-boot-starter:3.5.4.1")
+            dependency("com.baomidou:mybatis-plus:3.5.5")
+            dependency("com.baomidou:mybatis-plus-annotation:3.5.5")
+            dependency("com.baomidou:mybatis-plus-core:3.5.5")
+            dependency("com.baomidou:mybatis-plus-extension:3.5.5")
+            dependency("com.baomidou:mybatis-plus-generator:3.5.5")
+            dependency("com.baomidou:mybatis-plus-boot-starter:3.5.5")
             dependency("org.apache.shardingsphere:shardingsphere-jdbc-core:5.4.1")
             dependency("com.github.jsqlparser:jsqlparser:4.6")
             dependency("org.redisson:redisson:3.25.1")
@@ -107,7 +107,7 @@ allprojects {
             dependency("com.nimbusds:nimbus-jose-jwt:9.37.3")
             dependency("com.nimbusds:oauth2-oidc-sdk:11.8")
             dependency("org.json:json:20231013")
-            dependency("com.alibaba:fastjson:2.0.43")
+            dependency("com.alibaba:fastjson:2.0.44")
             dependency("com.github.spotbugs:spotbugs-annotations:4.8.3")
             dependency("org.jetbrains:annotations:24.1.0")
             dependency("org.ow2.asm:asm:9.6")
