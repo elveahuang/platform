@@ -26,7 +26,7 @@ import java.util.concurrent.locks.Lock;
 public class RedisDistributedLock implements Lock {
 
     private final String luaScript = """
-            if redis.call('get',KEYS[1]) == ARGV[1] then
+            if redis.call('get', KEYS[1]) == ARGV[1] then
                 return redis.call('del',KEYS[1])
             else
                 return 0
@@ -105,6 +105,7 @@ public class RedisDistributedLock implements Lock {
     }
 
     @Override
+    @NonNull
     public Condition newCondition() {
         throw new UnsupportedOperationException();
     }

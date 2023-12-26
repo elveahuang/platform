@@ -51,9 +51,9 @@ dependencies {
     implementation("com.larksuite.oapi:oapi-sdk")
     // others
     implementation("ognl:ognl")
-    implementation("nl.basjes.parse.useragent:yauaa")
     implementation("cn.hutool:hutool-captcha")
     implementation("cn.hutool:hutool-dfa")
+    implementation("cn.hutool:hutool-http")
     // webjars
     implementation("org.webjars:webjars-locator-core")
     implementation("org.webjars:jquery")

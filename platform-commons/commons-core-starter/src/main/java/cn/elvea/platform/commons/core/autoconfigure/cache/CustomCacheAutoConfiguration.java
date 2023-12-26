@@ -15,11 +15,7 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({CustomCacheProperties.class})
 @ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
-@Import({
-        CustomRedisAutoConfiguration.class,
-        CustomRedissonAutoConfiguration.class,
-        CustomCaffeineAutoConfiguration.class,
-})
+@Import({CustomRedisAutoConfiguration.class, CustomRedissonAutoConfiguration.class,})
 public class CustomCacheAutoConfiguration {
 
     public CustomCacheAutoConfiguration(CustomCacheProperties properties) {

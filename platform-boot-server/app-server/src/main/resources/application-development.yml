@@ -76,31 +76,23 @@ springdoc:
         enabled: true
         path: /swagger-ui.html
 cosid:
-    enabled: false
+    enabled: true
     namespace: ${spring.application.name}
     machine:
         enabled: true
-        machine-bit: 10
         distributor:
             type: redis
         guarder:
             enabled: true
     snowflake:
         enabled: true
-        zone-id: Asia/Shanghai
         epoch: 1672502400000
-        share:
-            enabled: true
-            machine-bit: 10
 ### --------------------------------------------------------------------------------------------------------------------
 ### Platform Config
 ### --------------------------------------------------------------------------------------------------------------------
 platform:
     debug:
         enabled: true
-    sequence:
-        enabled: true
-        type: manual
     data:
         enabled: true
         core:
@@ -124,14 +116,11 @@ platform:
         enabled: true
         type: redisson
         redis:
-            enabled: true
+            enabled: false
             spring-cache-enabled: false
         redisson:
             enabled: true
             spring-cache-enabled: true
-        caffeine:
-            enabled: true
-            spring-cache-enabled: false
     quartz:
         enabled: true
         cluster:

@@ -29,7 +29,7 @@ public class SequenceAutoConfiguration {
 
     @Configuration(proxyBeanMethods = false)
     @EnableConfigurationProperties(SequenceProperties.class)
-    @ConditionalOnProperty(name = "platform.sequence.type", havingValue = "auto")
+    @ConditionalOnProperty(name = "platform.sequence.type", havingValue = "auto", matchIfMissing = true)
     static class CosIdSequenceAutoConfiguration {
 
         public CosIdSequenceAutoConfiguration() {
@@ -48,7 +48,7 @@ public class SequenceAutoConfiguration {
 
     @Configuration(proxyBeanMethods = false)
     @EnableConfigurationProperties(SequenceProperties.class)
-    @ConditionalOnProperty(name = "platform.sequence.type", havingValue = "manual", matchIfMissing = true)
+    @ConditionalOnProperty(name = "platform.sequence.type", havingValue = "manual")
     static class DefaultSequenceAutoConfiguration {
 
         public DefaultSequenceAutoConfiguration() {
@@ -58,11 +58,7 @@ public class SequenceAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public Sequence sequence(SequenceProperties properties) {
-            Sequence sequence = new DefaultSnowflakeSequence(
-                    properties.getEpoch(),
-                    properties.getDatacenterId(),
-                    properties.getWorkerId()
-            );
+            Sequence sequence = new DefaultSnowflakeSequence(properties.getEpoch(), properties.getDatacenterId(), properties.getWorkerId());
             SequenceManager.setSequence(sequence);
             return sequence;
         }

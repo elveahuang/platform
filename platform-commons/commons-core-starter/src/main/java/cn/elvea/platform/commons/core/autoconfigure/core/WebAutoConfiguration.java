@@ -1,6 +1,6 @@
-package cn.elvea.platform.commons.core.autoconfigure.extensions.time;
+package cn.elvea.platform.commons.core.autoconfigure.core;
 
-import cn.elvea.platform.commons.core.autoconfigure.extensions.time.properties.DateTimeProperties;
+import cn.elvea.platform.commons.core.autoconfigure.core.properties.CommonsProperties;
 import cn.elvea.platform.commons.core.extensions.time.LegacyDateTimeAnnotationFormatterFactory;
 import cn.elvea.platform.commons.core.extensions.time.StandardDateTimeAnnotationFormatterFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +18,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties({DateTimeProperties.class})
-@ConditionalOnProperty(prefix = DateTimeProperties.PREFIX, name = "enabled", havingValue = "true")
-@AutoConfigureAfter(DateTimeProperties.class)
-public class DateTimeAutoConfiguration implements WebMvcConfigurer {
+@EnableConfigurationProperties({CommonsProperties.class})
+@ConditionalOnProperty(prefix = CommonsProperties.PREFIX_WEB, name = "enabled", havingValue = "true")
+@AutoConfigureAfter(CommonsProperties.class)
+public class WebAutoConfiguration implements WebMvcConfigurer {
 
     private LegacyDateTimeAnnotationFormatterFactory legacyDateTimeAnnotationFormatterFactory;
 

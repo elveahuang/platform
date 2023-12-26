@@ -2,11 +2,14 @@ package cn.elvea.platform.commons.core.autoconfigure.core;
 
 import cn.elvea.platform.commons.core.autoconfigure.core.properties.CommonsProperties;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.log.properties.LogProperties;
-import cn.elvea.platform.commons.core.autoconfigure.extensions.time.properties.DateTimeProperties;
 import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.extensions.i18n.DefaultLanguageResolver;
 import cn.elvea.platform.commons.core.extensions.i18n.LanguageResolver;
 import cn.elvea.platform.commons.core.extensions.json.jackson.CustomJsonModule;
+import cn.elvea.platform.commons.core.extensions.keyword.DefaultKeywordManager;
+import cn.elvea.platform.commons.core.extensions.keyword.KeywordManager;
+import cn.elvea.platform.commons.core.extensions.sensitive.DefaultSensitiveService;
+import cn.elvea.platform.commons.core.extensions.sensitive.SensitiveService;
 import cn.elvea.platform.commons.core.extensions.time.DefaultTimeZoneResolver;
 import cn.elvea.platform.commons.core.extensions.time.LegacyDateTimeAnnotationFormatterFactory;
 import cn.elvea.platform.commons.core.extensions.time.StandardDateTimeAnnotationFormatterFactory;
@@ -31,12 +34,11 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({
         CommonsProperties.class,
-        DateTimeProperties.class,
         LogProperties.class,
 })
-public class CommonsAutoConfiguration {
+public class CoreAutoConfiguration {
 
-    public CommonsAutoConfiguration() {
+    public CoreAutoConfiguration() {
         log.info("CommonsAutoConfiguration is enabled.");
     }
 
@@ -101,16 +103,8 @@ public class CommonsAutoConfiguration {
      * Jackson Customizer
      */
     @Bean
-    public CustomJsonModule customJsonModule(TimeZoneResolver resolver) {
-        return new CustomJsonModule(resolver);
-    }
-
-    /**
-     * Jackson Customizer
-     */
-    @Bean
-    public CustomObjectMapperBuilderCustomizer objectMapperBuilderCustomizer(CustomJsonModule customJsonModule) {
-        return new CustomObjectMapperBuilderCustomizer(customJsonModule);
+    public CustomObjectMapperBuilderCustomizer objectMapperBuilderCustomizer() {
+        return new CustomObjectMapperBuilderCustomizer();
     }
 
     /**
@@ -118,17 +112,11 @@ public class CommonsAutoConfiguration {
      */
     public static class CustomObjectMapperBuilderCustomizer implements Jackson2ObjectMapperBuilderCustomizer, Ordered {
 
-        private final CustomJsonModule customJsonModule;
-
-        public CustomObjectMapperBuilderCustomizer(CustomJsonModule customJsonModule) {
-            this.customJsonModule = customJsonModule;
-        }
-
         @Override
         public void customize(Jackson2ObjectMapperBuilder builder) {
             builder.modulesToInstall(new JavaTimeModule());
             builder.modulesToInstall(new Jdk8Module());
-            builder.modulesToInstall(this.customJsonModule);
+            builder.modulesToInstall(new CustomJsonModule());
         }
 
         @Override
@@ -136,6 +124,24 @@ public class CommonsAutoConfiguration {
             return 1;
         }
 
+    }
+
+    /**
+     * @return {@link SensitiveService}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public SensitiveService sensitiveService() {
+        return new DefaultSensitiveService();
+    }
+
+    /**
+     * @return {@link KeywordManager}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public KeywordManager keywordManager() {
+        return new DefaultKeywordManager();
     }
 
 }

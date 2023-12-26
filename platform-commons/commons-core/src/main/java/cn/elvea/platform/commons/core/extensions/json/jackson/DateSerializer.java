@@ -2,7 +2,7 @@ package cn.elvea.platform.commons.core.extensions.json.jackson;
 
 import cn.elvea.platform.commons.core.annotations.JsonFormat;
 import cn.elvea.platform.commons.core.constants.DateTimeConstants;
-import cn.elvea.platform.commons.core.extensions.time.TimeZoneResolver;
+import cn.elvea.platform.commons.core.extensions.time.TimeZoneManager;
 import cn.elvea.platform.commons.core.utils.DateUtils;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
@@ -22,19 +22,16 @@ import java.util.Date;
  */
 public class DateSerializer extends StdSerializer<Date> implements ContextualSerializer {
 
-    private final TimeZoneResolver resolver;
-
     private String pattern;
 
     private boolean timeZoneConvert = false;
 
-    public DateSerializer(TimeZoneResolver resolver) {
+    public DateSerializer() {
         super(Date.class);
-        this.resolver = resolver;
     }
 
-    public DateSerializer(TimeZoneResolver resolver, String pattern, boolean timeZoneConvert) {
-        this(resolver);
+    public DateSerializer(String pattern, boolean timeZoneConvert) {
+        super(Date.class);
         this.pattern = pattern;
         this.timeZoneConvert = timeZoneConvert;
     }
@@ -43,7 +40,7 @@ public class DateSerializer extends StdSerializer<Date> implements ContextualSer
     public void serialize(Date date, JsonGenerator generator, SerializerProvider provider) throws IOException {
         String pattern = StringUtils.isNotEmpty(this.pattern) ? this.pattern : DateTimeConstants.DEFAULT_DATE_TIME_PATTERN;
         if (timeZoneConvert) {
-            generator.writeString(DateUtils.format(date, pattern, resolver.resolveUserTimeZone()));
+            generator.writeString(DateUtils.format(date, pattern, TimeZoneManager.getResolver().resolveUserTimeZone()));
         } else {
             generator.writeString(DateUtils.format(date, pattern));
         }
@@ -55,10 +52,10 @@ public class DateSerializer extends StdSerializer<Date> implements ContextualSer
             com.fasterxml.jackson.annotation.JsonFormat.Value format = findFormatOverrides(provider, property, handledType());
             JsonFormat annotation = property.getAnnotation(JsonFormat.class);
             if (annotation != null) {
-                return new DateSerializer(resolver, annotation.pattern(), annotation.timeZoneConvert());
+                return new DateSerializer(annotation.pattern(), annotation.timeZoneConvert());
             }
         }
-        return new DateSerializer(resolver);
+        return new DateSerializer();
     }
 
 }

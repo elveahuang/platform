@@ -1,7 +1,7 @@
 package cn.elvea.platform.commons.core.extensions.json.jackson;
 
 import cn.elvea.platform.commons.core.annotations.JsonFormat;
-import cn.elvea.platform.commons.core.extensions.time.TimeZoneResolver;
+import cn.elvea.platform.commons.core.extensions.time.TimeZoneManager;
 import cn.elvea.platform.commons.core.utils.DateTimeUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.fasterxml.jackson.core.JsonParser;
@@ -23,19 +23,16 @@ import java.time.format.DateTimeFormatter;
  */
 public final class LocalDateTimeDeserializer extends StdDeserializer<LocalDateTime> implements ContextualDeserializer {
 
-    private final TimeZoneResolver resolver;
-
     private String pattern;
 
     private boolean timeZoneConvert = false;
 
-    public LocalDateTimeDeserializer(TimeZoneResolver resolver) {
+    public LocalDateTimeDeserializer() {
         super(LocalDateTime.class);
-        this.resolver = resolver;
     }
 
-    public LocalDateTimeDeserializer(TimeZoneResolver resolver, String pattern, boolean timeZoneConvert) {
-        this(resolver);
+    public LocalDateTimeDeserializer(String pattern, boolean timeZoneConvert) {
+        super(LocalDateTime.class);
         this.pattern = pattern;
         this.timeZoneConvert = timeZoneConvert;
     }
@@ -44,7 +41,7 @@ public final class LocalDateTimeDeserializer extends StdDeserializer<LocalDateTi
     public LocalDateTime deserialize(JsonParser parser, DeserializationContext deserializationContext) throws IOException {
         LocalDateTime localDateTime = DateTimeUtils.parse(parser.getText(), getFormatter(), LocalDateTime.class);
         if (timeZoneConvert) {
-            return DateTimeUtils.transfer(localDateTime, resolver.resolveUserZoneId(), resolver.resolveSystemZoneId());
+            return DateTimeUtils.transfer(localDateTime, TimeZoneManager.getResolver().resolveUserZoneId(), TimeZoneManager.getResolver().resolveSystemZoneId());
         } else {
             return localDateTime;
         }
@@ -55,9 +52,9 @@ public final class LocalDateTimeDeserializer extends StdDeserializer<LocalDateTi
         com.fasterxml.jackson.annotation.JsonFormat.Value format = findFormatOverrides(context, property, handledType());
         JsonFormat annotation = property.getAnnotation(JsonFormat.class);
         if (annotation != null) {
-            return new LocalDateTimeDeserializer(resolver, annotation.pattern(), annotation.timeZoneConvert());
+            return new LocalDateTimeDeserializer(annotation.pattern(), annotation.timeZoneConvert());
         }
-        return new LocalDateTimeDeserializer(resolver);
+        return new LocalDateTimeDeserializer();
     }
 
     private DateTimeFormatter getFormatter() {

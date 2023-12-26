@@ -31,7 +31,6 @@ dependencies {
     // others
     api("ognl:ognl")
     api("cn.hutool:hutool-captcha")
-    api("nl.basjes.parse.useragent:yauaa")
     api("org.hibernate.orm:hibernate-core")
     //
     compileOnly("jakarta.servlet:jakarta.servlet-api")

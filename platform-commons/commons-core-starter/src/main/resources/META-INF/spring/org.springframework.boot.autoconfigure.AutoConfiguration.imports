@@ -1,11 +1,12 @@
-cn.elvea.platform.commons.core.autoconfigure.core.CommonsAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.core.CoreAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.core.WebAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.cache.CustomCacheAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.sequence.SequenceAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.log.LogAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.storage.StorageAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.quartz.CustomQuartzAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.data.core.CustomDataSourceAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.core.CustomDataAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.data.core.CustomDataSourceAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.jpa.CustomJpaAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.mybatis.CustomMyBatisAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.data.elasticsearch.CustomElasticsearchAutoConfiguration
@@ -16,7 +17,6 @@ cn.elvea.platform.commons.core.autoconfigure.oapis.weixin.WeiXinMpAutoConfigurat
 cn.elvea.platform.commons.core.autoconfigure.oapis.lark.LarkAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.oapis.dingtalk.DingTalkAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.JwtAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.extensions.time.DateTimeAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.swagger.SwaggerAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.limit.RateLimitAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.mail.MailAutoConfiguration
@@ -24,4 +24,3 @@ cn.elvea.platform.commons.core.autoconfigure.extensions.sms.SmsAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.captcha.CaptchaAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.translator.TranslatorAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.facebody.FaceBodyAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.extensions.keyword.KeywordAutoConfiguration

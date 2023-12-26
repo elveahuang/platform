@@ -2,7 +2,7 @@ package cn.elvea.platform.commons.core.extensions.json.jackson;
 
 import cn.elvea.platform.commons.core.annotations.JsonFormat;
 import cn.elvea.platform.commons.core.constants.DateTimeConstants;
-import cn.elvea.platform.commons.core.extensions.time.TimeZoneResolver;
+import cn.elvea.platform.commons.core.extensions.time.TimeZoneManager;
 import cn.elvea.platform.commons.core.utils.DateUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.fasterxml.jackson.core.JsonParser;
@@ -21,19 +21,16 @@ import java.util.Date;
  */
 public class DateDeserializer extends StdDeserializer<Date> implements ContextualDeserializer {
 
-    private final TimeZoneResolver resolver;
-
     private String pattern;
 
     private boolean timeZoneConvert = false;
 
-    public DateDeserializer(TimeZoneResolver resolver) {
+    public DateDeserializer() {
         super(Date.class);
-        this.resolver = resolver;
     }
 
-    public DateDeserializer(TimeZoneResolver resolver, String pattern, boolean timeZoneConvert) {
-        this(resolver);
+    public DateDeserializer(String pattern, boolean timeZoneConvert) {
+        super(Date.class);
         this.pattern = pattern;
         this.timeZoneConvert = timeZoneConvert;
     }
@@ -45,7 +42,7 @@ public class DateDeserializer extends StdDeserializer<Date> implements Contextua
             pattern = this.pattern;
         }
         if (timeZoneConvert) {
-            return DateUtils.parse(parser.getValueAsString(), pattern, resolver.resolveUserTimeZone());
+            return DateUtils.parse(parser.getValueAsString(), pattern, TimeZoneManager.getResolver().resolveUserTimeZone());
         } else {
             return DateUtils.parse(parser.getValueAsString(), pattern);
         }
@@ -56,9 +53,9 @@ public class DateDeserializer extends StdDeserializer<Date> implements Contextua
         com.fasterxml.jackson.annotation.JsonFormat.Value format = findFormatOverrides(context, property, handledType());
         JsonFormat annotation = property.getAnnotation(JsonFormat.class);
         if (annotation != null) {
-            return new DateDeserializer(resolver, annotation.pattern(), annotation.timeZoneConvert());
+            return new DateDeserializer(annotation.pattern(), annotation.timeZoneConvert());
         }
-        return new DateDeserializer(resolver);
+        return new DateDeserializer();
     }
 
 }

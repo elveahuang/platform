@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.log;
 
-import cn.elvea.platform.commons.core.autoconfigure.core.CommonsAutoConfiguration;
+import cn.elvea.platform.commons.core.autoconfigure.core.CoreAutoConfiguration;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.log.properties.LogProperties;
 import cn.elvea.platform.commons.core.extensions.log.LogManager;
 import cn.elvea.platform.commons.core.extensions.log.LogManagerCustomizer;
@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = LogProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(LogProperties.class)
-@AutoConfigureAfter(CommonsAutoConfiguration.class)
+@AutoConfigureAfter(CoreAutoConfiguration.class)
 public class LogAutoConfiguration {
 
     public LogAutoConfiguration() {

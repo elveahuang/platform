@@ -20,7 +20,6 @@ dependencies {
     compileOnly("org.redisson:redisson")
     compileOnly("org.hibernate.orm:hibernate-core")
     compileOnly("me.ahoo.cosid:cosid-spring-redis")
-    compileOnly("com.github.ben-manes.caffeine:caffeine")
     compileOnly("org.mybatis:mybatis")
     compileOnly("org.mybatis:mybatis-spring")
     compileOnly("com.baomidou:mybatis-plus-core")

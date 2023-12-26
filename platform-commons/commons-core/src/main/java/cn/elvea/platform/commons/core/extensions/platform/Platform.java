@@ -1,7 +1,9 @@
 package cn.elvea.platform.commons.core.extensions.platform;
 
+import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import lombok.Builder;
-import nl.basjes.parse.useragent.UserAgent;
 
 /**
  * @author elvea
@@ -10,18 +12,29 @@ import nl.basjes.parse.useragent.UserAgent;
 @Builder
 public class Platform {
 
-    private UserAgent ua;
+    private String ua;
+
+    private UserAgent uaObject;
 
     public Platform parse() {
+        this.uaObject = UserAgentUtil.parse(this.ua);
         return this;
     }
 
-    public Boolean isWeChat() {
-        return ua.getUserAgentString().contains("WeChat");
+    public boolean isMobile() {
+        return uaObject.isMobile();
     }
 
-    public Boolean isLark() {
-        return ua.getUserAgentString().contains("Lark");
+    public boolean isWeChat() {
+        return StringUtils.isNotEmpty(ua) && ua.contains("WeChat");
+    }
+
+    public boolean isDingTalk() {
+        return StringUtils.isNotEmpty(ua) && ua.contains("DingTalk");
+    }
+
+    public boolean isLark() {
+        return StringUtils.isNotEmpty(ua) && ua.contains("Lark");
     }
 
 }

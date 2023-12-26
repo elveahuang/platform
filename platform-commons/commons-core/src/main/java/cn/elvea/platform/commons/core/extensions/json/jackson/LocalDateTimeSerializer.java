@@ -2,7 +2,7 @@ package cn.elvea.platform.commons.core.extensions.json.jackson;
 
 import cn.elvea.platform.commons.core.annotations.JsonFormat;
 import cn.elvea.platform.commons.core.constants.DateTimeConstants;
-import cn.elvea.platform.commons.core.extensions.time.TimeZoneResolver;
+import cn.elvea.platform.commons.core.extensions.time.TimeZoneManager;
 import cn.elvea.platform.commons.core.utils.DateTimeUtils;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
@@ -23,19 +23,16 @@ import java.time.format.DateTimeFormatter;
  */
 public final class LocalDateTimeSerializer extends StdSerializer<LocalDateTime> implements ContextualSerializer {
 
-    private final TimeZoneResolver resolver;
-
     private String pattern;
 
     private boolean timeZoneConvert = false;
 
-    public LocalDateTimeSerializer(TimeZoneResolver resolver) {
+    public LocalDateTimeSerializer() {
         super(LocalDateTime.class);
-        this.resolver = resolver;
     }
 
-    public LocalDateTimeSerializer(TimeZoneResolver resolver, String pattern, boolean timeZoneConvert) {
-        this(resolver);
+    public LocalDateTimeSerializer(String pattern, boolean timeZoneConvert) {
+        super(LocalDateTime.class);
         this.pattern = pattern;
         this.timeZoneConvert = timeZoneConvert;
     }
@@ -43,7 +40,7 @@ public final class LocalDateTimeSerializer extends StdSerializer<LocalDateTime> 
     @Override
     public void serialize(LocalDateTime localDateTime, JsonGenerator generator, SerializerProvider provider) throws IOException {
         if (timeZoneConvert) {
-            LocalDateTime targetLocalDateTime = DateTimeUtils.transfer(localDateTime, resolver.resolveSystemZoneId(), resolver.resolveUserZoneId());
+            LocalDateTime targetLocalDateTime = DateTimeUtils.transfer(localDateTime, TimeZoneManager.getResolver().resolveSystemZoneId(), TimeZoneManager.getResolver().resolveUserZoneId());
             generator.writeString(DateTimeUtils.format(targetLocalDateTime, getFormatter()));
         } else {
             generator.writeString(DateTimeUtils.format(localDateTime, DateTimeConstants.Pattern.DATE_TIME));
@@ -56,10 +53,10 @@ public final class LocalDateTimeSerializer extends StdSerializer<LocalDateTime> 
             com.fasterxml.jackson.annotation.JsonFormat.Value format = findFormatOverrides(provider, property, handledType());
             JsonFormat annotation = property.getAnnotation(JsonFormat.class);
             if (annotation != null) {
-                return new LocalDateTimeSerializer(resolver, annotation.pattern(), annotation.timeZoneConvert());
+                return new LocalDateTimeSerializer(annotation.pattern(), annotation.timeZoneConvert());
             }
         }
-        return new LocalDateTimeSerializer(resolver);
+        return new LocalDateTimeSerializer();
     }
 
     private DateTimeFormatter getFormatter() {
