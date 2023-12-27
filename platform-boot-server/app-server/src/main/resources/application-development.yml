@@ -106,14 +106,14 @@ platform:
                 enabled: true
             auditing:
                 enabled: true
-            ds:
+        datasource:
+            enabled: true
+            master:
                 enabled: true
-                master:
-                    enabled: true
-                slave:
-                    enabled: true
-                job:
-                    enabled: true
+            slave:
+                enabled: true
+            job:
+                enabled: true
         jpa:
             enabled: true
         mybatis:

@@ -1,7 +1,7 @@
-package cn.elvea.platform.commons.core.autoconfigure.data.core;
+package cn.elvea.platform.commons.core.autoconfigure.data.datasource;
 
 import cn.elvea.platform.commons.core.annotations.ds.*;
-import cn.elvea.platform.commons.core.autoconfigure.data.core.properties.CustomDataSourceProperties;
+import cn.elvea.platform.commons.core.autoconfigure.data.datasource.properties.CustomDataSourceProperties;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-import static cn.elvea.platform.commons.core.autoconfigure.data.core.properties.CustomDataSourceProperties.*;
+import static cn.elvea.platform.commons.core.autoconfigure.data.datasource.properties.CustomDataSourceProperties.*;
 import static cn.elvea.platform.commons.core.constants.DataSourceConstants.*;
 
 /**

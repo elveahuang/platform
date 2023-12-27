@@ -1,7 +1,6 @@
 package cn.elvea.platform.commons.core.autoconfigure.data.core;
 
 import cn.elvea.platform.commons.core.autoconfigure.data.core.properties.CustomDataProperties;
-import cn.elvea.platform.commons.core.autoconfigure.data.core.properties.CustomDataSourceProperties;
 import cn.elvea.platform.commons.core.data.core.Dao;
 import cn.elvea.platform.commons.core.data.core.dialect.DbDialect;
 import cn.elvea.platform.commons.core.data.core.utils.JdbcUtils;

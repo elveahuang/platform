@@ -1,8 +1,7 @@
-package cn.elvea.platform.commons.core.autoconfigure.data.core.properties;
+package cn.elvea.platform.commons.core.autoconfigure.data.datasource.properties;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -11,17 +10,16 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  * @since 0.0.1
  */
 @Data
-@NoArgsConstructor
 @ConfigurationProperties(CustomDataSourceProperties.PREFIX)
 public class CustomDataSourceProperties {
 
-    public static final String PREFIX = "platform.data.core.ds";
+    public static final String PREFIX = "platform.data.datasource";
 
-    public static final String MASTER_DATASOURCE_PREFIX = "platform.data.core.ds.master";
+    public static final String MASTER_DATASOURCE_PREFIX = "platform.data.datasource.master";
 
-    public static final String SLAVE_DATASOURCE_PREFIX = "platform.data.core.ds.slave";
+    public static final String SLAVE_DATASOURCE_PREFIX = "platform.data.datasource.slave";
 
-    public static final String JOB_DATASOURCE_PREFIX = "platform.data.core.ds.job";
+    public static final String JOB_DATASOURCE_PREFIX = "platform.data.datasource.job";
 
     private boolean enabled = false;
 
