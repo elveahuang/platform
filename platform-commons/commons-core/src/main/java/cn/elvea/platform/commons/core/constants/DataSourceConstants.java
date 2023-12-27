@@ -9,22 +9,27 @@ public interface DataSourceConstants {
     /**
      * 主数据源
      */
-    String DS_MASTER = "masterDataSource";
 
-    String DS_CONFIG_MASTER = "masterDataSourceConfig";
+    String MASTER_DATASOURCE = "masterDataSourceConfig";
+
+    String MASTER_DATASOURCE_PROPERTIES = "masterDataSourceProperties";
 
     /**
      * 从数据源
      */
-    String DS_SLAVE = "slaveDataSource";
 
-    String DS_CONFIG_SLAVE = "slaveDataSourceConfig";
+    String SLAVE_DATASOURCE = "slaveDataSourceConfig";
+
+    String SLAVE_DATASOURCE_PROPERTIES = "slaveDataSourceProperties";
 
     /**
      * 定时任务数据源
      */
-    String DS_JOB = "jobDataSource";
 
-    String DS_CONFIG_JOB = "jobDataSourceConfig";
+    String JOB_DATASOURCE = "jobDataSourceConfig";
+
+    String JOB_DATASOURCE_PROPERTIES = "jobDataSourceProperties";
+
+    String JOB_TRANSACTION_MANAGER = "jobTransactionManager";
 
 }

@@ -169,10 +169,10 @@ public class CatalogRelationServiceImpl extends BaseEntityService<CatalogRelatio
     })
     public void clearCache() {
         if (log.isDebugEnabled()) {
-            log.debug("Clear cache [{}]...", CACHE_PARENT_CATALOG_RELATION);
-            log.debug("Clear cache [{}]...", CACHE_DIRECT_PARENT_CATALOG_RELATION);
-            log.debug("Clear cache [{}]...", CACHE_CHILD_CATALOG_RELATION);
-            log.debug("Clear cache [{}]...", CACHE_DIRECT_CHILD_CATALOG_RELATION);
+            log.info("Clear cache [{}]...", CACHE_PARENT_CATALOG_RELATION);
+            log.info("Clear cache [{}]...", CACHE_DIRECT_PARENT_CATALOG_RELATION);
+            log.info("Clear cache [{}]...", CACHE_CHILD_CATALOG_RELATION);
+            log.info("Clear cache [{}]...", CACHE_DIRECT_CHILD_CATALOG_RELATION);
         }
     }
 

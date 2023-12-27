@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 public class FaceBodyAutoConfiguration {
 
     public FaceBodyAutoConfiguration(FaceBodyProperties properties) {
-        log.debug("Current default face-body service is {}", properties.getType());
+        log.info("Current default face-body service is {}", properties.getType());
 
     }
 

@@ -5,16 +5,17 @@ import cn.hutool.http.useragent.UserAgentUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * 获取当前客户端环境信息
- * <a href="https://yauaa.basjes.nl/">...</a>
- *
- * @author elvea
+ * @author dev
  * @since 0.0.1
  */
 public abstract class PlatformHelper {
 
+    public static Platform fromServletRequest() {
+        return fromServletRequest(ServletUtils.getRequest());
+    }
+
     public static Platform fromServletRequest(HttpServletRequest request) {
-        return fromUserAgent(ServletUtils.getUserAgent());
+        return fromUserAgent(ServletUtils.getUserAgent(request));
     }
 
     public static Platform fromUserAgent(String ua) {

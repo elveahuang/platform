@@ -1,7 +1,8 @@
 package cn.elvea.platform.commons.core.autoconfigure.data.core;
 
+import cn.elvea.platform.commons.core.annotations.ds.*;
 import cn.elvea.platform.commons.core.autoconfigure.data.core.properties.CustomDataSourceProperties;
-import cn.elvea.platform.commons.core.constants.DataSourceConstants;
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,8 +16,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+
+import static cn.elvea.platform.commons.core.autoconfigure.data.core.properties.CustomDataSourceProperties.*;
+import static cn.elvea.platform.commons.core.constants.DataSourceConstants.*;
 
 /**
  * @author elvea
@@ -39,63 +45,99 @@ public class CustomDataSourceAutoConfiguration {
     }
 
     /**
-     * 默认数据源
+     * ========================================================================================================================
+     * 默认数据源配置
+     * ========================================================================================================================
      */
+
     @Bean
     @Primary
-    public DataSource dataSource(@Autowired(required = false) @Qualifier(DataSourceConstants.DS_MASTER) DataSource masterDataSource, @Autowired(required = false) @Qualifier(DataSourceConstants.DS_SLAVE) DataSource slaveDataSource) {
+    public DataSource dataSource(@Autowired(required = false) @Qualifier(MASTER_DATASOURCE) DataSource masterDataSource,
+                                 @Autowired(required = false) @Qualifier(SLAVE_DATASOURCE) DataSource slaveDataSource) {
+        log.info("Creating PrimaryDataSource...");
         return masterDataSource;
     }
 
     /**
-     * 主数据源配置
+     * ========================================================================================================================
+     * 主库数据源配置
+     * ========================================================================================================================
      */
-    @Bean(name = DataSourceConstants.DS_CONFIG_MASTER)
+
+    @MasterDataSourceProperties
+    @Bean(name = MASTER_DATASOURCE_PROPERTIES)
     @ConfigurationProperties("spring.datasource.master")
-    @ConditionalOnProperty(prefix = CustomDataSourceProperties.DS_MASTER_PREFIX, name = "enabled", havingValue = "true")
+    @ConditionalOnProperty(prefix = MASTER_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
     public DataSourceProperties masterDataSourceProperties() {
+        log.info("Creating MasterDataSourceProperties...");
         return new DataSourceProperties();
     }
 
-    @Bean(name = DataSourceConstants.DS_MASTER)
-    @ConditionalOnProperty(prefix = CustomDataSourceProperties.DS_MASTER_PREFIX, name = "enabled", havingValue = "true")
-    public DataSource masterDataSource(@Qualifier(DataSourceConstants.DS_CONFIG_MASTER) DataSourceProperties masterDataSourceProperties) {
-        log.debug("Creating Master DataSource...");
-        return masterDataSourceProperties.initializeDataSourceBuilder().build();
+    @MasterDataSource
+    @Bean(name = MASTER_DATASOURCE)
+    @ConfigurationProperties("spring.datasource.master.hikari")
+    @ConditionalOnProperty(prefix = MASTER_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
+    public DataSource masterDataSource(@Qualifier(MASTER_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
+        log.info("Creating MasterDataSource...");
+        return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     /**
-     * 从数据源配置
+     * ========================================================================================================================
+     * 从库数据源配置
+     * ========================================================================================================================
      */
-    @Bean(name = DataSourceConstants.DS_CONFIG_SLAVE)
+
+    @SlaveDataSourceProperties
+    @Bean(name = SLAVE_DATASOURCE_PROPERTIES)
     @ConfigurationProperties("spring.datasource.slave")
-    @ConditionalOnProperty(prefix = CustomDataSourceProperties.DS_SLAVE_PREFIX, name = "enabled", havingValue = "true")
+    @ConditionalOnProperty(prefix = SLAVE_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
     public DataSourceProperties slaveDataSourceProperties() {
+        log.info("Creating SlaveDataSourceProperties...");
         return new DataSourceProperties();
     }
 
-    @Bean(name = DataSourceConstants.DS_SLAVE)
-    @ConditionalOnProperty(prefix = CustomDataSourceProperties.DS_SLAVE_PREFIX, name = "enabled", havingValue = "true")
-    public DataSource slaveDataSource(@Qualifier(DataSourceConstants.DS_CONFIG_SLAVE) DataSourceProperties slaveDataSourceProperties) {
-        log.debug("Creating Slave DataSource...");
-        return slaveDataSourceProperties.initializeDataSourceBuilder().build();
+    @SlaveDataSource
+    @Bean(name = SLAVE_DATASOURCE)
+    @ConfigurationProperties("spring.datasource.slave.hikari")
+    @ConditionalOnProperty(prefix = SLAVE_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
+    public DataSource slaveDataSource(@Qualifier(SLAVE_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
+        log.info("Creating SlaveDataSource...");
+        return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     /**
-     * 定时任务数据源配置
+     * ========================================================================================================================
+     * 任务数据源配置
+     * ========================================================================================================================
      */
-    @Bean(name = DataSourceConstants.DS_CONFIG_JOB)
+
+    @JobDataSourceProperties
+    @Bean(name = JOB_DATASOURCE_PROPERTIES)
     @ConfigurationProperties("spring.datasource.job")
-    @ConditionalOnProperty(prefix = CustomDataSourceProperties.DS_JOB_PREFIX, name = "enabled", havingValue = "true")
+    @ConditionalOnProperty(prefix = JOB_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
     public DataSourceProperties jobDataSourceProperties() {
+        log.info("Creating JobDataSourceProperties...");
         return new DataSourceProperties();
     }
 
-    @Bean(name = DataSourceConstants.DS_JOB)
-    @ConditionalOnProperty(prefix = CustomDataSourceProperties.DS_JOB_PREFIX, name = "enabled", havingValue = "true")
-    public DataSource jobDataSource(@Qualifier(DataSourceConstants.DS_CONFIG_JOB) DataSourceProperties jobDataSourceProperties) {
-        log.debug("Creating Job DataSource...");
-        return jobDataSourceProperties.initializeDataSourceBuilder().build();
+    @JobDataSource
+    @Bean(name = JOB_DATASOURCE)
+    @ConfigurationProperties("spring.datasource.job.hikari")
+    @ConditionalOnProperty(prefix = JOB_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
+    public DataSource jobDataSource(@Qualifier(JOB_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
+        log.info("Creating JobDataSource...");
+        return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+    }
+
+    @JobTransactionManager
+    @Bean(name = JOB_TRANSACTION_MANAGER)
+    @ConditionalOnProperty(prefix = JOB_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
+    public PlatformTransactionManager jobTransactionManager(@Qualifier(JOB_DATASOURCE) DataSource dataSource) {
+        log.info("Creating JobTransactionManager...");
+        DataSourceTransactionManager txManager = new DataSourceTransactionManager();
+        txManager.setDataSource(dataSource);
+        return txManager;
     }
 
 }

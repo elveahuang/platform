@@ -11,6 +11,7 @@ import cn.elvea.platform.commons.core.extensions.time.LegacyDateTimeAnnotationFo
 import cn.elvea.platform.commons.core.extensions.time.StandardDateTimeAnnotationFormatterFactory;
 import cn.elvea.platform.commons.core.extensions.time.TimeZoneResolver;
 import cn.elvea.platform.commons.core.utils.SpringUtils;
+import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +45,18 @@ public class CoreAutoConfiguration {
     @Bean(name = "context")
     @ConditionalOnMissingBean
     public Context Context(CoreProperties properties) {
+        Context.Home home = Context.Home.builder()
+                .admin(StringUtils.isNotEmpty(properties.getHome().getAdmin()) ? properties.getHome().getAdmin() : "")
+                .webapp(StringUtils.isNotEmpty(properties.getHome().getWebapp()) ? properties.getHome().getWebapp() : "")
+                .mobile(StringUtils.isNotEmpty(properties.getHome().getMobile()) ? properties.getHome().getMobile() : "")
+                .main(StringUtils.isNotEmpty(properties.getHome().getMain()) ? properties.getHome().getMain() : "")
+                .build();
+
         return Context.builder()
                 .debugEnabled(properties.getDebug().isEnabled())
                 .amqpEnabled(properties.getAmqp().isEnabled())
+                .home(home)
+                .mode(properties.getMode())
                 .build();
     }
 

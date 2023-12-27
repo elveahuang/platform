@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 public class TranslatorAutoConfiguration {
 
     public TranslatorAutoConfiguration(TranslatorProperties properties) {
-        log.debug("Current default translator service is {}", properties.getType());
+        log.info("Current default translator service is {}", properties.getType());
     }
 
     /**

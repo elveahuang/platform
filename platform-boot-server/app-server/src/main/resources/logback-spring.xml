@@ -14,7 +14,7 @@
     <property name="pattern.file" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5le] [%t] [%F:%L] - %m%n"/>
     <!-- 日志归档策略 -->
     <property name="rolling.policy.size" value="50MB"/>
-    <property name="rolling.policy.history" value="7"/>
+    <property name="rolling.policy.history" value="14"/>
 
     <!-- 控制台 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -37,7 +37,12 @@
     </appender>
 
     <!-- 错误日志 -->
-    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
         <file>${log.path}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
@@ -62,7 +67,7 @@
         </encoder>
     </appender>
 
-    <!-- 链接日志 -->
+    <!-- 消息日志 -->
     <appender name="MESSAGE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}/message.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -79,14 +84,16 @@
     <logger name="cn.elvea" level="INFO"/>
 
     <logger name="cn.elvea.platform.system.commons.interceptor.LogInterceptor" level="INFO">
-        <appender-ref ref="MESSAGE"/>
-    </logger>
-
-    <logger name="cn.elvea.platform.system.message" level="INFO">
         <appender-ref ref="URL"/>
     </logger>
 
+    <logger name="cn.elvea.platform.system.message" level="INFO">
+        <appender-ref ref="MESSAGE"/>
+    </logger>
+
     <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
         <appender-ref ref="DEBUG"/>
+        <appender-ref ref="ERROR"/>
     </root>
 </configuration>

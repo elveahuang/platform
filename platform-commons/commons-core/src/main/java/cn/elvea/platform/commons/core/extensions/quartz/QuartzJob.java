@@ -25,14 +25,14 @@ public abstract class QuartzJob implements Job {
 
             Trigger trigger = jobContext.getTrigger();
 
-            log.debug("Job [{}] trigger [{}] exec start.", jobDetail.getKey(), trigger.getKey());
+            log.info("Job [{}] trigger [{}] exec start.", jobDetail.getKey(), trigger.getKey());
             execute();
-            log.debug("Job [{}] trigger [{}] exec end.", jobDetail.getKey(), trigger.getKey());
-            log.debug("Job [{}] trigger [{}] getFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getFireTime());
-            log.debug("Job [{}] trigger [{}] getNextFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getNextFireTime());
-            log.debug("Job [{}] trigger [{}] getPreviousFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getPreviousFireTime());
-            log.debug("Job [{}] trigger [{}] getScheduledFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getScheduledFireTime());
-            log.debug("Job [{}] trigger [{}] getRefireCount - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getRefireCount());
+            log.info("Job [{}] trigger [{}] exec end.", jobDetail.getKey(), trigger.getKey());
+            log.info("Job [{}] trigger [{}] getFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getFireTime());
+            log.info("Job [{}] trigger [{}] getNextFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getNextFireTime());
+            log.info("Job [{}] trigger [{}] getPreviousFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getPreviousFireTime());
+            log.info("Job [{}] trigger [{}] getScheduledFireTime - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getScheduledFireTime());
+            log.info("Job [{}] trigger [{}] getRefireCount - {}", jobDetail.getKey(), trigger.getKey(), jobContext.getRefireCount());
         } catch (Exception e) {
             log.error("Job exec error.", e);
         }

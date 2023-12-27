@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Import;
 public class CustomCacheAutoConfiguration {
 
     public CustomCacheAutoConfiguration(CustomCacheProperties properties) {
-        log.debug("CustomCacheAutoConfiguration......");
-        log.debug("Current Cache - {}", properties.getType());
+        log.info("CustomCacheAutoConfiguration......");
+        log.info("Current Cache - {}", properties.getType());
     }
 
 }

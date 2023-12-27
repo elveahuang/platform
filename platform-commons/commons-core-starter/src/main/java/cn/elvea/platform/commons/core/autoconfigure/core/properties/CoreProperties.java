@@ -1,6 +1,7 @@
 package cn.elvea.platform.commons.core.autoconfigure.core.properties;
 
 import cn.elvea.platform.commons.core.constants.DateTimeConstants;
+import cn.elvea.platform.commons.core.context.Mode;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,12 @@ public class CoreProperties implements Serializable {
     public static final String PREFIX = "platform";
 
     /**
-     * 调试模式
+     * 模式
+     */
+    private Mode mode = Mode.Production;
+
+    /**
+     * 调试
      */
     @NestedConfigurationProperty
     private CoreProperties.Debug debug = Debug.builder().build();
@@ -32,6 +38,12 @@ public class CoreProperties implements Serializable {
      */
     @NestedConfigurationProperty
     private CoreProperties.Amqp amqp = Amqp.builder().build();
+
+    /**
+     * 应用主页配置
+     */
+    @NestedConfigurationProperty
+    private CoreProperties.Home home = Home.builder().build();
 
     /**
      * 指定用户时区
@@ -60,6 +72,15 @@ public class CoreProperties implements Serializable {
     public static class Amqp {
         @Builder.Default
         private boolean enabled = true;
+    }
+
+    @Data
+    @Builder
+    public static class Home {
+        private String main;
+        private String admin;
+        private String webapp;
+        private String mobile;
     }
 
 }

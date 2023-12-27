@@ -26,8 +26,8 @@ public class UserServiceTests extends BaseTests {
 
     @Test
     public void base() {
-        log.debug("getCurrentEntityClass - {}", this.userService.currentEntityClass());
-        log.debug("getCurrentEntityIdClass - {}", this.userService.currentEntityIdClass());
+        log.info("getCurrentEntityClass - {}", this.userService.currentEntityClass());
+        log.info("getCurrentEntityIdClass - {}", this.userService.currentEntityIdClass());
         Assertions.assertNotNull(this.userService);
         Assertions.assertNotNull(this.userService.getEntityIdClass());
         Assertions.assertNotNull(this.userService.currentEntityClass());

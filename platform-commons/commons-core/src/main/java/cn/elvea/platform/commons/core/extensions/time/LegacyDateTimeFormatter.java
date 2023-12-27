@@ -34,7 +34,7 @@ public class LegacyDateTimeFormatter implements Formatter<Date> {
 
     @Override
     public Date parse(@NonNull String text, @NonNull Locale locale) throws ParseException {
-        log.debug("LegacyDateTimeFormatter.parse - text {}", text);
+        log.info("LegacyDateTimeFormatter.parse - text {}", text);
         String pattern = DateTimeConstants.DEFAULT_DATE_TIME_PATTERN;
         if (StringUtils.isNotEmpty(this.pattern)) {
             pattern = this.pattern;
@@ -48,7 +48,7 @@ public class LegacyDateTimeFormatter implements Formatter<Date> {
 
     @Override
     public String print(@NonNull Date date, @NonNull Locale locale) {
-        log.debug("LegacyDateTimeFormatter.print - date {}.", date);
+        log.info("LegacyDateTimeFormatter.print - date {}.", date);
         String pattern = DateTimeConstants.DEFAULT_DATE_TIME_PATTERN;
         if (StringUtils.isNotEmpty(this.pattern)) {
             pattern = this.pattern;

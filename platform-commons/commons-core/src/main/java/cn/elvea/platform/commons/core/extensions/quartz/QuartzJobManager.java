@@ -158,9 +158,9 @@ public class QuartzJobManager {
      */
     private void clear() {
         try {
-            log.debug("Clear scheduler. start.");
+            log.info("Clear scheduler. start.");
             scheduler.clear();
-            log.debug("Clear scheduler. done.");
+            log.info("Clear scheduler. done.");
         } catch (SchedulerException e) {
             log.error("Clear scheduler failed.", e);
         }

@@ -54,7 +54,7 @@ public class CustomRedissonAutoConfiguration {
     public CustomRedissonAutoConfiguration(RedisProperties redisProperties,
                                            CustomRedissonProperties redissonProperties,
                                            @Autowired(required = false) List<RedissonAutoConfigurationCustomizer> redissonAutoConfigurationCustomizers) {
-        log.debug("CustomRedissonAutoConfiguration......");
+        log.info("CustomRedissonAutoConfiguration......");
         this.redisProperties = redisProperties;
         this.redissonProperties = redissonProperties;
         this.redissonAutoConfigurationCustomizers = redissonAutoConfigurationCustomizers;

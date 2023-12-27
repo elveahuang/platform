@@ -38,7 +38,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class CustomRedisAutoConfiguration {
 
     public CustomRedisAutoConfiguration() {
-        log.debug("CustomRedisAutoConfiguration......");
+        log.info("CustomRedisAutoConfiguration......");
     }
 
     @Bean

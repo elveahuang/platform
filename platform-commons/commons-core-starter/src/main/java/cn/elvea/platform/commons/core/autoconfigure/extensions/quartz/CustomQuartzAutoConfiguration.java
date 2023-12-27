@@ -1,13 +1,15 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.quartz;
 
+import cn.elvea.platform.commons.core.annotations.ds.JobDataSource;
+import cn.elvea.platform.commons.core.annotations.ds.JobTransactionManager;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.quartz.properties.CustomQuartzProperties;
-import cn.elvea.platform.commons.core.constants.DataSourceConstants;
 import cn.elvea.platform.commons.core.extensions.quartz.QuartzJobManager;
 import lombok.extern.slf4j.Slf4j;
+import org.quartz.Calendar;
+import org.quartz.JobDetail;
 import org.quartz.Scheduler;
+import org.quartz.Trigger;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -16,10 +18,11 @@ import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
 import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.boot.autoconfigure.quartz.SchedulerFactoryBeanCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -45,31 +48,16 @@ public class CustomQuartzAutoConfiguration {
     }
 
     @Bean
-    @Order(0)
-    @ConditionalOnProperty(prefix = CustomQuartzProperties.CLUSTER_PREFIX, name = "enabled", havingValue = "true")
-    public SchedulerFactoryBeanCustomizer dataSourceCustomizer(
-            @Autowired(required = false) @Qualifier(DataSourceConstants.DS_MASTER) DataSource masterDataSource,
-            @Autowired(required = false) @Qualifier(DataSourceConstants.DS_JOB) DataSource jobDataSource
-    ) {
-        return (schedulerFactoryBean) -> {
-            DataSource dataSourceToUse = getDataSource(masterDataSource, jobDataSource);
-            schedulerFactoryBean.setDataSource(dataSourceToUse);
-        };
-    }
-
-    private DataSource getDataSource(DataSource dataSource, DataSource jobDataSource) {
-        return (jobDataSource != null) ? jobDataSource : dataSource;
-    }
-
-    @Bean
     @ConditionalOnMissingBean
     public SchedulerFactoryBean quartzScheduler(QuartzProperties properties,
                                                 ObjectProvider<SchedulerFactoryBeanCustomizer> customizers,
+                                                ObjectProvider<JobDetail> jobDetails,
+                                                Map<String, Calendar> calendars,
+                                                ObjectProvider<Trigger> triggers,
                                                 ApplicationContext applicationContext) {
+        SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         SpringBeanJobFactory jobFactory = new SpringBeanJobFactory();
         jobFactory.setApplicationContext(applicationContext);
-
-        SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         schedulerFactoryBean.setJobFactory(jobFactory);
         if (properties.getSchedulerName() != null) {
             schedulerFactoryBean.setSchedulerName(properties.getSchedulerName());
@@ -81,8 +69,48 @@ public class CustomQuartzAutoConfiguration {
         if (!properties.getProperties().isEmpty()) {
             schedulerFactoryBean.setQuartzProperties(asProperties(properties.getProperties()));
         }
+        schedulerFactoryBean.setJobDetails(jobDetails.orderedStream().toArray(JobDetail[]::new));
+        schedulerFactoryBean.setCalendars(calendars);
+        schedulerFactoryBean.setTriggers(triggers.orderedStream().toArray(Trigger[]::new));
         customizers.orderedStream().forEach((customizer) -> customizer.customize(schedulerFactoryBean));
         return schedulerFactoryBean;
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnProperty(prefix = "spring.quartz", name = "job-store-type", havingValue = "jdbc")
+    @Import(DatabaseInitializationDependencyConfigurer.class)
+    protected static class JdbcStoreTypeConfiguration {
+
+        public JdbcStoreTypeConfiguration() {
+            log.info("JdbcStoreTypeConfiguration is enabled.");
+        }
+
+        @Bean
+        public SchedulerFactoryBeanCustomizer dataSourceCustomizer(DataSource dataSource,
+                                                                   @JobDataSource ObjectProvider<DataSource> jobDataSource,
+                                                                   ObjectProvider<PlatformTransactionManager> transactionManager,
+                                                                   @JobTransactionManager ObjectProvider<PlatformTransactionManager> jobTransactionManager) {
+            return (schedulerFactoryBean) -> {
+                schedulerFactoryBean.setDataSource(getDataSource(dataSource, jobDataSource));
+                PlatformTransactionManager txManager = getTransactionManager(transactionManager, jobTransactionManager);
+                if (txManager != null) {
+                    schedulerFactoryBean.setTransactionManager(txManager);
+                }
+            };
+        }
+
+        private DataSource getDataSource(DataSource dataSource, ObjectProvider<DataSource> quartzDataSource) {
+            DataSource dataSourceIfAvailable = quartzDataSource.getIfAvailable();
+            return (dataSourceIfAvailable != null) ? dataSourceIfAvailable : dataSource;
+        }
+
+        private PlatformTransactionManager getTransactionManager(
+                ObjectProvider<PlatformTransactionManager> transactionManager,
+                ObjectProvider<PlatformTransactionManager> jobTransactionManager) {
+            PlatformTransactionManager txManager = jobTransactionManager.getIfAvailable();
+            return (txManager != null) ? txManager : transactionManager.getIfUnique();
+        }
+
     }
 
     @Bean

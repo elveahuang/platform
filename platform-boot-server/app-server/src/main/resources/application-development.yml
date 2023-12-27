@@ -68,6 +68,7 @@ spring:
                 default-requeue-rejected: true
     quartz:
         scheduler-name: QuartzScheduler
+        job-store-type: jdbc
 ### --------------------------------------------------------------------------------------------------------------------
 ### Spring Extension Config
 ### --------------------------------------------------------------------------------------------------------------------
@@ -81,7 +82,9 @@ cosid:
     machine:
         enabled: true
         distributor:
-            type: redis
+            type: manual
+            manual:
+                machine-id: 1
         guarder:
             enabled: true
     snowflake:
@@ -91,8 +94,12 @@ cosid:
 ### Platform Config
 ### --------------------------------------------------------------------------------------------------------------------
 platform:
-    debug:
-        enabled: true
+    mode: production
+    home:
+        admin: http://127.0.0.1:8081
+        mobile: http://127.0.0.1:8082
+        webapp: http://127.0.0.1:8083
+        main: http://127.0.0.1:8084
     data:
         enabled: true
         core:
@@ -123,8 +130,6 @@ platform:
             spring-cache-enabled: true
     quartz:
         enabled: true
-        cluster:
-            enabled: true
     oapis:
         dingtalk:
             enabled: false

@@ -17,11 +17,11 @@ public class CustomDataSourceProperties {
 
     public static final String PREFIX = "platform.data.core.ds";
 
-    public static final String DS_MASTER_PREFIX = "platform.data.core.ds.master";
+    public static final String MASTER_DATASOURCE_PREFIX = "platform.data.core.ds.master";
 
-    public static final String DS_SLAVE_PREFIX = "platform.data.core.ds.slave";
+    public static final String SLAVE_DATASOURCE_PREFIX = "platform.data.core.ds.slave";
 
-    public static final String DS_JOB_PREFIX = "platform.data.core.ds.job";
+    public static final String JOB_DATASOURCE_PREFIX = "platform.data.core.ds.job";
 
     private boolean enabled = false;
 

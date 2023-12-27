@@ -1,6 +1,7 @@
 package cn.elvea.platform.commons.core.context;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeansException;
@@ -36,6 +37,14 @@ public class Context implements Serializable, ApplicationContextAware, MessageSo
     private ApplicationContext applicationContext;
 
     private MessageSourceAccessor messageSourceAccessor;
+
+    @Builder.Default
+    private Mode mode = Mode.Production;
+
+    @Setter
+    @Getter
+    @Builder.Default
+    private Context.Home home = Context.Home.builder().build();
 
     @Override
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
@@ -123,6 +132,33 @@ public class Context implements Serializable, ApplicationContextAware, MessageSo
      */
     public String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
         return this.messageSourceAccessor.getMessage(code, args, defaultMessage, locale);
+    }
+
+    /**
+     * 是否生产模式
+     */
+    public boolean isProductionMode() {
+        return Mode.Production.equals(this.mode);
+    }
+
+    /**
+     * 是否开发模式
+     */
+    public boolean isDevelopmentMode() {
+        return !isProductionMode();
+    }
+
+    @Data
+    @Builder
+    public static class Home implements Serializable {
+        @Builder.Default
+        private String main = "";
+        @Builder.Default
+        private String admin = "";
+        @Builder.Default
+        private String webapp = "";
+        @Builder.Default
+        private String mobile = "";
     }
 
 }
