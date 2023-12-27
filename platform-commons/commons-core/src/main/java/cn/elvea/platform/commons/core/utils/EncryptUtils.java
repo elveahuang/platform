@@ -174,7 +174,7 @@ public abstract class EncryptUtils {
     }
 
     public static String decodeBase64AsString(String input) {
-        return new String(Base64.getDecoder().decode(input));
+        return decodeBase64AsString(input.getBytes(StandardCharsets.UTF_8));
     }
 
     public static String decodeBase64AsString(byte[] input) {

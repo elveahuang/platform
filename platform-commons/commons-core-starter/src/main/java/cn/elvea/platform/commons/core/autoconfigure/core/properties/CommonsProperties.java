@@ -21,8 +21,6 @@ public class CommonsProperties implements Serializable {
 
     public static final String PREFIX = "platform";
 
-    public static final String PREFIX_WEB = "platform.web";
-
     /**
      * 调试模式
      */
@@ -34,18 +32,6 @@ public class CommonsProperties implements Serializable {
      */
     @NestedConfigurationProperty
     private CommonsProperties.Amqp amqp = Amqp.builder().build();
-
-    /**
-     *
-     */
-    @NestedConfigurationProperty
-    private CommonsProperties.Keyword keyword = Keyword.builder().build();
-
-    /**
-     *
-     */
-    @NestedConfigurationProperty
-    private CommonsProperties.Web web = Web.builder().build();
 
     /**
      * 指定用户时区
@@ -72,20 +58,6 @@ public class CommonsProperties implements Serializable {
     @Data
     @Builder
     public static class Amqp {
-        @Builder.Default
-        private boolean enabled = true;
-    }
-
-    @Data
-    @Builder
-    public static class Keyword {
-        @Builder.Default
-        private boolean enabled = true;
-    }
-
-    @Data
-    @Builder
-    public static class Web {
         @Builder.Default
         private boolean enabled = true;
     }

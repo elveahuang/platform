@@ -126,22 +126,6 @@ public class CoreAutoConfiguration {
 
     }
 
-    /**
-     * @return {@link SensitiveService}
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public SensitiveService sensitiveService() {
-        return new DefaultSensitiveService();
-    }
 
-    /**
-     * @return {@link KeywordManager}
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public KeywordManager keywordManager() {
-        return new DefaultKeywordManager();
-    }
 
 }

@@ -3,6 +3,7 @@ package cn.elvea.platform.commons.core.autoconfigure.extensions.jwt;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties.JwtProperties;
 import cn.elvea.platform.commons.core.extensions.jwt.JwtConfig;
 import cn.elvea.platform.commons.core.extensions.jwt.JwtHelper;
+import cn.elvea.platform.commons.core.extensions.jwt.enums.Strategy;
 import cn.elvea.platform.commons.core.utils.EncryptUtils;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -22,8 +23,10 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
+import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.UUID;
 
 /**
  * @author elvea
@@ -31,13 +34,14 @@ import java.security.interfaces.RSAPublicKey;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = JwtProperties.PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = JwtProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({JwtProperties.class})
 public class JwtAutoConfiguration {
 
     private final JwtProperties properties;
 
-    JwtAutoConfiguration(JwtProperties properties) {
+    public JwtAutoConfiguration(JwtProperties properties) {
+        log.info("JwtAutoConfiguration is enabled.");
         this.properties = properties;
     }
 
@@ -49,9 +53,6 @@ public class JwtAutoConfiguration {
     public JwtConfig config() {
         return JwtConfig.builder()
                 .enabled(this.properties.isEnabled())
-                .algorithm(this.properties.getAlgorithm())
-                .publicKeyValue(this.properties.getPublicKeyValue())
-                .privateKeyValue(this.properties.getPrivateKeyValue())
                 .accessTokenTimeToLive(this.properties.getAccessTokenTimeToLive())
                 .refreshTokenTimeToLive(this.properties.getRefreshTokenTimeToLive())
                 .build();
@@ -63,9 +64,16 @@ public class JwtAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public JWK jwk() {
-        RSAPublicKey rsaPublicKey = (RSAPublicKey) EncryptUtils.toPublicKey(this.properties.getPublicKeyValue());
-        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) EncryptUtils.toPrivateKey(this.properties.getPrivateKeyValue());
-        return new RSAKey.Builder(rsaPublicKey).privateKey(rsaPrivateKey).build();
+        if (Strategy.MANUEL.equals(this.properties.getStrategy())) {
+            RSAPublicKey publicKey = (RSAPublicKey) EncryptUtils.toPublicKey(this.properties.getPublicKeyValue());
+            RSAPrivateKey privateKey = (RSAPrivateKey) EncryptUtils.toPrivateKey(this.properties.getPrivateKeyValue());
+            return new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
+        } else {
+            KeyPair keyPair = EncryptUtils.generateKeyPair();
+            RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+            RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+            return new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
+        }
     }
 
     /**
@@ -102,11 +110,7 @@ public class JwtAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public JwtHelper jwtHelper(JwtProperties properties, JwtEncoder encoder, JwtDecoder decoder) {
-        JwtConfig config = new JwtConfig();
-        config.setAlgorithm(properties.getAlgorithm());
-        config.setPublicKeyValue(properties.getPublicKeyValue());
-        config.setPrivateKeyValue(properties.getPrivateKeyValue());
+    public JwtHelper jwtHelper(JwtConfig config, JwtEncoder encoder, JwtDecoder decoder) {
         return new JwtHelper(config, encoder, decoder);
     }
 

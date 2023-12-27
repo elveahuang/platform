@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.oauth2.jose.jws.JwsAlgorithms;
 
 import java.time.Duration;
 
@@ -20,13 +19,6 @@ public class JwtConfig {
 
     @Builder.Default
     private Boolean enabled = Boolean.FALSE;
-
-    @Builder.Default
-    private String algorithm = JwsAlgorithms.RS256;
-
-    private String publicKeyValue;
-
-    private String privateKeyValue;
 
     @Builder.Default
     private Duration authorizationCodeTimeToLive = Duration.ofMinutes(5);

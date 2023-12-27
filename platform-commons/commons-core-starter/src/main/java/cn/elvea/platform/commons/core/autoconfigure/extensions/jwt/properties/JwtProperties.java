@@ -1,5 +1,6 @@
 package cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties;
 
+import cn.elvea.platform.commons.core.extensions.jwt.enums.Strategy;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,7 +19,9 @@ public class JwtProperties {
 
     public static final String PREFIX = "platform.jwt";
 
-    private boolean enabled = false;
+    private boolean enabled = true;
+
+    private Strategy strategy = Strategy.AUTO;
 
     private String algorithm = JwsAlgorithms.RS256;
 
