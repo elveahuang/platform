@@ -4,7 +4,6 @@ import cn.elvea.platform.commons.core.constants.DateTimeConstants;
 import cn.elvea.platform.commons.core.context.Mode;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -16,7 +15,6 @@ import java.time.ZoneId;
  * @since 0.0.1
  */
 @Data
-@NoArgsConstructor
 @ConfigurationProperties(CoreProperties.PREFIX)
 public class CoreProperties implements Serializable {
 
@@ -28,22 +26,22 @@ public class CoreProperties implements Serializable {
     private Mode mode = Mode.Production;
 
     /**
-     * 调试
+     * 调试模式
      */
     @NestedConfigurationProperty
-    private CoreProperties.Debug debug = Debug.builder().build();
+    private Debug debug = Debug.builder().build();
 
     /**
      * 消息队列
      */
     @NestedConfigurationProperty
-    private CoreProperties.Amqp amqp = Amqp.builder().build();
+    private Amqp amqp = Amqp.builder().build();
 
     /**
      * 应用主页配置
      */
     @NestedConfigurationProperty
-    private CoreProperties.Home home = Home.builder().build();
+    private Home home = Home.builder().build();
 
     /**
      * 指定用户时区
@@ -63,6 +61,9 @@ public class CoreProperties implements Serializable {
     @Data
     @Builder
     public static class Debug {
+        /**
+         * 是否启用调试模式
+         */
         @Builder.Default
         private boolean enabled = false;
     }
@@ -70,6 +71,9 @@ public class CoreProperties implements Serializable {
     @Data
     @Builder
     public static class Amqp {
+        /**
+         * 是否启用消息队列
+         */
         @Builder.Default
         private boolean enabled = true;
     }
@@ -77,9 +81,21 @@ public class CoreProperties implements Serializable {
     @Data
     @Builder
     public static class Home {
+        /**
+         * 默认主页
+         */
         private String main;
+        /**
+         * 管理端主页
+         */
         private String admin;
+        /**
+         * 电脑端主页
+         */
         private String webapp;
+        /**
+         * 移动端主页
+         */
         private String mobile;
     }
 

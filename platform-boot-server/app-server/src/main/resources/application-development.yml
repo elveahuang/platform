@@ -101,7 +101,6 @@ platform:
         webapp: http://127.0.0.1:8083
         main: http://127.0.0.1:8084
     data:
-        enabled: true
         core:
             jdbc:
                 enabled: true
@@ -128,6 +127,8 @@ platform:
         redisson:
             enabled: true
             spring-cache-enabled: true
+    amqp:
+        enabled: true
     quartz:
         enabled: true
     oapis:
