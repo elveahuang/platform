@@ -21,7 +21,7 @@ public class SequenceProperties implements Serializable {
 
     private boolean enabled = false;
 
-    private SequenceType type = SequenceType.Manual;
+    private SequenceType type = SequenceType.AUTO;
 
     private Long epoch = DateTimeConstants.EPOCH;
 

@@ -5,6 +5,6 @@ package cn.elvea.platform.commons.core.sequence;
  * @since 0.0.1
  */
 public enum SequenceType {
-    Manual,
-    Auto,
+    MANUAL,
+    AUTO,
 }

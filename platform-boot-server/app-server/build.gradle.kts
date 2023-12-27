@@ -49,11 +49,6 @@ dependencies {
     implementation("com.tencentcloudapi:tencentcloud-sdk-java-sms")
     implementation("com.tencentcloudapi:tencentcloud-sdk-java-tmt")
     implementation("com.larksuite.oapi:oapi-sdk")
-    // others
-    implementation("ognl:ognl")
-    implementation("cn.hutool:hutool-captcha")
-    implementation("cn.hutool:hutool-dfa")
-    implementation("cn.hutool:hutool-http")
     // webjars
     implementation("org.webjars:webjars-locator-core")
     implementation("org.webjars:jquery")

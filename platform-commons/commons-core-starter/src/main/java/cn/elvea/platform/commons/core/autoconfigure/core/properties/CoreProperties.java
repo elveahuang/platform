@@ -16,8 +16,8 @@ import java.time.ZoneId;
  */
 @Data
 @NoArgsConstructor
-@ConfigurationProperties(CommonsProperties.PREFIX)
-public class CommonsProperties implements Serializable {
+@ConfigurationProperties(CoreProperties.PREFIX)
+public class CoreProperties implements Serializable {
 
     public static final String PREFIX = "platform";
 
@@ -25,13 +25,13 @@ public class CommonsProperties implements Serializable {
      * 调试模式
      */
     @NestedConfigurationProperty
-    private CommonsProperties.Debug debug = Debug.builder().build();
+    private CoreProperties.Debug debug = Debug.builder().build();
 
     /**
      * 消息队列
      */
     @NestedConfigurationProperty
-    private CommonsProperties.Amqp amqp = Amqp.builder().build();
+    private CoreProperties.Amqp amqp = Amqp.builder().build();
 
     /**
      * 指定用户时区
