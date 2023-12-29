@@ -18,6 +18,7 @@ public interface DateTimeConstants {
     String DEFAULT_SIMPLE_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
     String DEFAULT_FULL_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
     String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
+    String DEFAULT_SIMPLE_DATE_PATTERN = "yyyyMMdd";
 
     ZoneId ZONE_ID_DEFAULT = ZoneId.systemDefault();
     ZoneId ZONE_ID_UTC = ZoneId.of("UTC");
@@ -29,6 +30,7 @@ public interface DateTimeConstants {
 
     enum Pattern {
         DATE,
+        SIMPLE_DATE,
         DATE_TIME,
         FULL_DATE_TIME,
         SIMPLE_DATE_TIME,

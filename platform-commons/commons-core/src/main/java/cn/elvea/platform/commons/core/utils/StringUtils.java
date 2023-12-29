@@ -1,5 +1,6 @@
 package cn.elvea.platform.commons.core.utils;
 
+import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -19,6 +20,15 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String uuid() {
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 生成UUID
+     *
+     * @return UUID
+     */
+    public static String simpleUuid() {
+        return IdUtil.simpleUUID();
     }
 
     /**

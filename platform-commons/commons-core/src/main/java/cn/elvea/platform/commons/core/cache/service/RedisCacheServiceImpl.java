@@ -3,7 +3,7 @@ package cn.elvea.platform.commons.core.cache.service;
 import cn.elvea.platform.commons.core.cache.CacheKey;
 import cn.elvea.platform.commons.core.cache.lock.RedisDistributedLock;
 import cn.elvea.platform.commons.core.cache.utils.RedisUtils;
-import cn.elvea.platform.commons.core.enums.RateLimitType;
+import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
 import com.google.common.collect.Lists;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.*;
@@ -345,9 +345,9 @@ public class RedisCacheServiceImpl extends AbstractCacheService implements Redis
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * @see CacheService#rateLimiter(String, RateLimitType, long, long)
+     * @see CacheService#rateLimiter(String, RateLimitTypeEnum, long, long)
      */
-    public long rateLimiter(String key, RateLimitType type, long rate, long rateInterval) {
+    public long rateLimiter(String key, RateLimitTypeEnum type, long rate, long rateInterval) {
         Long count = this.redisUtils.trySetRate(key, rate, rateInterval);
         if (count != null && count.intValue() <= rate) {
             return count.intValue();

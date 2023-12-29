@@ -6,8 +6,8 @@ import cn.elvea.platform.commons.core.enums.LangTypeEnum;
 import cn.elvea.platform.commons.core.extensions.translator.Translator;
 import cn.elvea.platform.commons.core.extensions.translator.TranslatorManager;
 import cn.elvea.platform.commons.core.sequence.Sequence;
-import cn.elvea.platform.commons.core.storage.local.LocalStorageService;
-import cn.elvea.platform.commons.core.storage.manager.StorageManager;
+import cn.elvea.platform.commons.core.storage.StorageManager;
+import cn.elvea.platform.commons.core.storage.StorageService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.i18n.enums.LabelTypeEnum;
@@ -98,7 +98,7 @@ public class LabelServiceImpl extends BaseCachingEntityService<LabelEntity, Long
                 Properties properties = new Properties();
                 properties.putAll(labelMap.get(langTypeEnum));
 
-                LocalStorageService storageService = this.storageManager.getLocalStorageService();
+                StorageService storageService = this.storageManager.getStorageService();
 
                 String tempFileName = storageService.generateExtFilename("properties");
                 File tempFile = storageService.newTempFile(tempFileName);
@@ -107,7 +107,7 @@ public class LabelServiceImpl extends BaseCachingEntityService<LabelEntity, Long
                 } catch (Exception e) {
                     log.error("Fail to generate properties file.", e);
                 }
-                storageService.uploadFile(tempFile, "/i18n/properties/" + langTypeEnum.getCode() + ".properties");
+                storageService.uploadFile(tempFile);
             }
         } else if (LabelTypeEnum.JSON.equals(labelType)) {
             for (LangTypeEnum langTypeEnum : LangTypeEnum.values()) {
@@ -115,12 +115,12 @@ public class LabelServiceImpl extends BaseCachingEntityService<LabelEntity, Long
                 JsonObject json = new JsonObject();
                 labelMap.get(langTypeEnum).forEach(json::addProperty);
 
-                LocalStorageService storageService = this.storageManager.getLocalStorageService();
+                StorageService storageService = this.storageManager.getMinStorageService();
 
                 String tempFileName = storageService.generateExtFilename("properties");
                 File tempFile = storageService.newTempFile(tempFileName);
                 FileUtils.writeStringToFile(tempFile, json.toString(), GlobalConstants.UTF8);
-                storageService.uploadFile(tempFile, "/i18n/json/" + langTypeEnum.getCode() + ".json");
+                storageService.uploadFile(tempFile);
             }
         }
 

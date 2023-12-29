@@ -159,7 +159,13 @@ platform:
                 app-secret:
     storage:
         enabled: true
-        type: local
+        type: min
+        min:
+            enabled: true
+            bucket-name: elvea
+            access-key: L2dHclRRksLLK3U9l23B
+            secret-key: I1D2veFcykXYpXKXvWu33rFlHLllLeAwGVwBsJOT
+            endpoint: https://storage.dfox.cn
         oss:
             enabled: false
             endpoint:

@@ -2,7 +2,7 @@ package cn.elvea.platform.commons.core.extensions.limit;
 
 import cn.elvea.platform.commons.core.annotations.RateLimiter;
 import cn.elvea.platform.commons.core.cache.service.CacheService;
-import cn.elvea.platform.commons.core.enums.RateLimitType;
+import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
 import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
 import cn.elvea.platform.commons.core.exception.ServiceException;
 import cn.elvea.platform.commons.core.utils.ServletUtils;
@@ -54,7 +54,7 @@ public class RateLimitAspect {
         int time = rateLimiter.time();
         int limit = rateLimiter.limit();
         String key = getKey(rateLimiter, point);
-        RateLimitType type = rateLimiter.type();
+        RateLimitTypeEnum type = rateLimiter.type();
         try {
             long number = cacheService.rateLimiter(key, type, limit, time);
             if (number == -1) {
@@ -98,7 +98,7 @@ public class RateLimitAspect {
         }
         StringBuilder stringBuffer = new StringBuilder(RATE_LIMIT_KEY);
         stringBuffer.append(ServletUtils.getRequest().getRequestURI()).append(":");
-        if (rateLimiter.type() == RateLimitType.IP) {
+        if (rateLimiter.type() == RateLimitTypeEnum.IP) {
             stringBuffer.append(ServletUtils.getHost()).append(":");
         }
         return stringBuffer.append(key).toString();

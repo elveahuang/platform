@@ -23,6 +23,7 @@ public abstract class DateTimeUtils {
     public static final DateTimeFormatter SIMPLE_TIME_FORMATTER;
     public static final DateTimeFormatter FULL_TIME_FORMATTER;
     public static final DateTimeFormatter DATE_FORMATTER;
+    public static final DateTimeFormatter SIMPLE_DATE_FORMATTER;
     public static final DateTimeFormatter DATE_TIME_FORMATTER;
     public static final DateTimeFormatter SIMPLE_DATE_TIME_FORMATTER;
     public static final DateTimeFormatter FULL_DATE_TIME_FORMATTER;
@@ -41,26 +42,19 @@ public abstract class DateTimeUtils {
 
         TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_TIME_PATTERN).toFormatter();
 
-        SIMPLE_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_SIMPLE_TIME_PATTERN)
-                .parseDefaulting(SECOND_OF_MINUTE, 1)
-                .toFormatter();
+        SIMPLE_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_SIMPLE_TIME_PATTERN).parseDefaulting(SECOND_OF_MINUTE, 1).toFormatter();
 
         FULL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_FULL_TIME_PATTERN).toFormatter();
 
-        DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
-                .appendPattern(DEFAULT_DATE_TIME_PATTERN)
-                .parseDefaulting(MILLI_OF_SECOND, 0)
-                .toFormatter();
+        DATE_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_DATE_TIME_PATTERN).parseDefaulting(MILLI_OF_SECOND, 0).toFormatter();
 
-        SIMPLE_DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
-                .appendPattern(DEFAULT_SIMPLE_DATE_TIME_PATTERN)
-                .parseDefaulting(SECOND_OF_MINUTE, 0)
-                .parseDefaulting(MILLI_OF_SECOND, 0)
-                .toFormatter();
+        SIMPLE_DATE_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_SIMPLE_DATE_TIME_PATTERN).parseDefaulting(SECOND_OF_MINUTE, 0).parseDefaulting(MILLI_OF_SECOND, 0).toFormatter();
 
         FULL_DATE_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_FULL_DATE_TIME_PATTERN).toFormatter();
 
         DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_DATE_PATTERN).toFormatter();
+
+        SIMPLE_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern(DEFAULT_SIMPLE_DATE_PATTERN).toFormatter();
 
     }
 
@@ -69,6 +63,7 @@ public abstract class DateTimeUtils {
     static {
         Map<Pattern, String> formats = new EnumMap<>(Pattern.class);
         formats.put(Pattern.DATE, DEFAULT_DATE_PATTERN);
+        formats.put(Pattern.SIMPLE_DATE, DEFAULT_SIMPLE_DATE_PATTERN);
         formats.put(Pattern.DATE_TIME, DEFAULT_DATE_TIME_PATTERN);
         formats.put(Pattern.FULL_DATE_TIME, DEFAULT_FULL_DATE_TIME_PATTERN);
         formats.put(Pattern.SIMPLE_DATE_TIME, DEFAULT_SIMPLE_DATE_TIME_PATTERN);
@@ -155,6 +150,7 @@ public abstract class DateTimeUtils {
     public static DateTimeFormatter getFormatter(Pattern dateTimePattern) {
         return switch (dateTimePattern) {
             case DATE -> DATE_FORMATTER;
+            case SIMPLE_DATE -> SIMPLE_DATE_FORMATTER;
             case DATE_TIME -> DATE_TIME_FORMATTER;
             case SIMPLE_DATE_TIME -> SIMPLE_DATE_TIME_FORMATTER;
             case FULL_DATE_TIME -> FULL_DATE_TIME_FORMATTER;

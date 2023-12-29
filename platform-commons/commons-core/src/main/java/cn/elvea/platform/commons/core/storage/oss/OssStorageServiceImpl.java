@@ -5,7 +5,6 @@ import cn.elvea.platform.commons.core.storage.AbstractStorageService;
 import cn.elvea.platform.commons.core.storage.StorageService;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileParameter;
-import cn.elvea.platform.commons.core.storage.enums.FileAccessTypeEnum;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.GetObjectRequest;
@@ -18,9 +17,6 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-
-import static com.aliyun.oss.model.CannedAccessControlList.Private;
-import static com.aliyun.oss.model.CannedAccessControlList.PublicRead;
 
 /**
  * 阿里云存储服务
@@ -114,25 +110,20 @@ public class OssStorageServiceImpl extends AbstractStorageService implements Oss
     }
 
     /**
-     * @see StorageService#uploadFile(InputStream, FileParameter, String)
+     * @see StorageService#uploadFile(InputStream, FileParameter)
      */
     @Override
-    public FileObject<?> uploadFile(InputStream is, FileParameter params, String path) throws Exception {
+    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) {
         OSS client = null;
         try {
             client = getClient();
 
-            // 上传文件
-            PutObjectResult result = client.putObject(this.getBucketName(), path, is);
+            String name = generateFilename(parameter);
+            String path = generatePath(parameter);
+            String key = generateKey(parameter, name, path);
 
-            // 设置权限
-            if (params != null && FileAccessTypeEnum.PRIVATE.equals(params.getAccessType())) {
-                client.setObjectAcl(this.getBucketName(), path, Private);
-            } else {
-                client.setObjectAcl(this.getBucketName(), path, PublicRead);
-            }
-
-            return OssFileObject.builder().key(path).build();
+            PutObjectResult result = client.putObject(this.getBucketName(), key, is);
+            return OssFileObject.builder().response(result).build();
         } finally {
             this.closeClient(client);
         }

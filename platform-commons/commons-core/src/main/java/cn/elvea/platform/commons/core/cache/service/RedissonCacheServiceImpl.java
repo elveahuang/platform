@@ -2,7 +2,7 @@ package cn.elvea.platform.commons.core.cache.service;
 
 import cn.elvea.platform.commons.core.cache.CacheKey;
 import cn.elvea.platform.commons.core.cache.utils.RedissonUtils;
-import cn.elvea.platform.commons.core.enums.RateLimitType;
+import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -314,9 +314,9 @@ public class RedissonCacheServiceImpl extends AbstractCacheService implements Re
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * @see CacheService#rateLimiter(String, RateLimitType, long, long)
+     * @see CacheService#rateLimiter(String, RateLimitTypeEnum, long, long)
      */
-    public long rateLimiter(String key, RateLimitType type, long rate, long rateInterval) {
+    public long rateLimiter(String key, RateLimitTypeEnum type, long rate, long rateInterval) {
         return this.redissonUtils.rateLimiter(key, type, rate, rateInterval);
     }
 

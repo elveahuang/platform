@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.core.annotations;
 
-import cn.elvea.platform.commons.core.enums.RateLimitType;
+import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
 
 import java.lang.annotation.*;
 
@@ -19,7 +19,7 @@ public @interface RateLimiter {
 
     int limit() default 100;
 
-    RateLimitType type() default RateLimitType.DEFAULT;
+    RateLimitTypeEnum type() default RateLimitTypeEnum.DEFAULT;
 
     String message() default "{rate.limiter.message}";
 

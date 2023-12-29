@@ -1,9 +1,9 @@
 package cn.elvea.platform.commons.core.storage.oss;
 
+import cn.elvea.platform.commons.core.enums.StorageTypeEnum;
 import cn.elvea.platform.commons.core.storage.domain.AbstractFileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
-import cn.elvea.platform.commons.core.storage.enums.StorageType;
-import com.aliyun.oss.model.OSSObject;
+import com.aliyun.oss.model.GenericResult;
 import lombok.*;
 
 import java.io.File;
@@ -17,15 +17,15 @@ import java.io.File;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class OssFileObject extends AbstractFileObject<OSSObject> implements FileObject<OSSObject> {
+public class OssFileObject extends AbstractFileObject<GenericResult> implements FileObject<GenericResult> {
 
     @Builder.Default
-    private StorageType storageType = StorageType.OSS;
+    private StorageTypeEnum storageType = StorageTypeEnum.OSS;
 
     private String key;
 
     private File object;
 
-    private OSSObject response;
+    private GenericResult response;
 
 }

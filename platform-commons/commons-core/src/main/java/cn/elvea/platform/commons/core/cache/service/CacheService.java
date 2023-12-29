@@ -1,7 +1,7 @@
 package cn.elvea.platform.commons.core.cache.service;
 
 import cn.elvea.platform.commons.core.cache.CacheKey;
-import cn.elvea.platform.commons.core.enums.RateLimitType;
+import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
 import org.springframework.lang.NonNull;
 
 import java.time.Duration;
@@ -260,6 +260,6 @@ public interface CacheService {
     // 限流
     // -----------------------------------------------------------------------------------------------------------------
 
-    long rateLimiter(String key, RateLimitType type, long rate, long rateInterval);
+    long rateLimiter(String key, RateLimitTypeEnum type, long rate, long rateInterval);
 
 }

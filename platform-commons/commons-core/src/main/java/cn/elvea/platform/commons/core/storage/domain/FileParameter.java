@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.core.storage.domain;
 
-import cn.elvea.platform.commons.core.storage.enums.FileAccessTypeEnum;
+import cn.elvea.platform.commons.core.enums.FileAccessTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +19,31 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class FileParameter implements Serializable {
+
+    /**
+     * 媒体类型
+     */
+    private String contentType;
+
+    /**
+     * 原始文件名
+     */
+    private String originalFilename;
+
+    /**
+     * 目标文件名
+     */
+    private String targetFilename;
+
+    /**
+     * 文件大小
+     */
+    private long size;
+
+    /**
+     * 存储路径
+     */
+    private String path;
 
     private FileAccessTypeEnum accessType;
 

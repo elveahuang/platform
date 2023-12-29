@@ -8,7 +8,7 @@ import cn.elvea.platform.commons.core.storage.domain.FileParameter;
 import io.minio.GetObjectResponse;
 import io.minio.MinioClient;
 import io.minio.ObjectWriteResponse;
-import io.minio.UploadObjectArgs;
+import io.minio.PutObjectArgs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -37,8 +37,7 @@ public class MinStorageServiceImpl extends AbstractStorageService implements Min
      */
     @Override
     public MinioClient getClient() {
-        return MinioClient.builder().endpoint(this.config.getEndpoint())
-                .credentials(this.config.getAccessKey(), this.config.getSecretKey()).build();
+        return MinioClient.builder().endpoint(this.config.getEndpoint()).credentials(this.config.getAccessKey(), this.config.getSecretKey()).build();
     }
 
     /**
@@ -95,22 +94,27 @@ public class MinStorageServiceImpl extends AbstractStorageService implements Min
         }
     }
 
-    /**
-     * @see StorageService#uploadFile(InputStream, FileParameter, String)
-     */
     @Override
-    public FileObject<?> uploadFile(InputStream is, FileParameter params, String path) throws Exception {
+    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) throws Exception {
         MinioClient client = null;
         try {
             client = getClient();
-            ObjectWriteResponse response = client.uploadObject(
-                    UploadObjectArgs.builder()
-                            .bucket(getBucketName())
-                            .object("my-objectname")
-                            .filename("my-video.avi")
-                            .contentType("video/mp4")
-                            .build());
-            return MinFileObject.builder().build();
+
+            String name = generateFilename(parameter);
+            String path = generatePath(parameter);
+            String key = generateKey(parameter, name, path);
+
+            PutObjectArgs args = PutObjectArgs.builder()
+                    .bucket(getBucketName())
+                    .stream(is, parameter.getSize(), -1)
+                    .contentType(parameter.getContentType())
+                    .object(key)
+                    .build();
+            ObjectWriteResponse response = client.putObject(args);
+            return MinFileObject.builder().response(response).build();
+        } catch (Exception e) {
+            log.error("UploadFile to minio failed.", e);
+            throw e;
         } finally {
             this.closeClient(client);
         }

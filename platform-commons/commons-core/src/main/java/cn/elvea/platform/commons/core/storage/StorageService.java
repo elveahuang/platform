@@ -2,8 +2,13 @@ package cn.elvea.platform.commons.core.storage;
 
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileParameter;
+import cn.elvea.platform.commons.core.utils.FileUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
  * 存储服务
@@ -28,44 +33,40 @@ public interface StorageService {
     /**
      * 上传文件
      */
-    default FileObject<?> uploadFile(byte[] data, String path) throws Exception {
-        return this.uploadFile(data, FileParameter.withDefault(), path);
+    default FileObject<?> uploadFile(MultipartFile file) throws Exception {
+        FileParameter parameter = FileParameter.builder()
+                .originalFilename(file.getOriginalFilename())
+                .contentType(file.getContentType())
+                .size(file.getSize())
+                .build();
+        return this.uploadFile(file.getInputStream(), parameter);
     }
 
     /**
      * 上传文件
      */
-    default FileObject<?> uploadFile(byte[] data, FileParameter params, String path) throws Exception {
-        return uploadFile(new ByteArrayInputStream(data), params, path);
+    default FileObject<?> uploadFile(File file) throws Exception {
+        FileParameter parameter = FileParameter.builder()
+                .originalFilename(file.getName())
+                .contentType(FileUtils.getContentType(file))
+                .size(FileUtils.getFileSize(file))
+                .build();
+        return this.uploadFile(file, parameter);
     }
 
     /**
      * 上传文件
      */
-    default FileObject<?> uploadFile(File file, String path) throws Exception {
-        return this.uploadFile(file, FileParameter.withDefault(), path);
-    }
-
-    /**
-     * 上传文件
-     */
-    default FileObject<?> uploadFile(File file, FileParameter params, String path) throws Exception {
+    default FileObject<?> uploadFile(File file, FileParameter parameter) throws Exception {
         try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
-            return this.uploadFile(is, params, path);
+            return this.uploadFile(is, parameter);
         }
     }
 
     /**
      * 上传文件
      */
-    default FileObject<?> uploadFile(InputStream is, String path) throws Exception {
-        return this.uploadFile(is, FileParameter.withDefault(), path);
-    }
-
-    /**
-     * 上传文件
-     */
-    FileObject<?> uploadFile(InputStream is, FileParameter params, String path) throws Exception;
+    FileObject<?> uploadFile(InputStream is, FileParameter parameter) throws Exception;
 
     /**
      * 创建临时文件夹

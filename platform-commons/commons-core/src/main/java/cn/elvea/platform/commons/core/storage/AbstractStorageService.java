@@ -1,12 +1,17 @@
 package cn.elvea.platform.commons.core.storage;
 
+import cn.elvea.platform.commons.core.constants.DateTimeConstants;
+import cn.elvea.platform.commons.core.storage.domain.FileParameter;
+import cn.elvea.platform.commons.core.utils.DateTimeUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * @author elvea
@@ -16,7 +21,34 @@ import java.io.IOException;
 public abstract class AbstractStorageService implements StorageService {
 
     protected String generateFilename(String filename) {
-        return StringUtils.uuid() + "." + FilenameUtils.getExtension(filename);
+        return StringUtils.simpleUuid() + "." + FilenameUtils.getExtension(filename);
+    }
+
+    protected String generateFilename(FileParameter parameter) {
+        String filename = parameter.getTargetFilename();
+        if (StringUtils.isEmpty(filename)) {
+            filename = generateFilename(parameter.getOriginalFilename());
+        }
+        return filename;
+    }
+
+    protected String generatePath(FileParameter parameter) {
+        String path = parameter.getPath();
+        if (StringUtils.isEmpty(path)) {
+            path = DateTimeUtils.format(LocalDateTime.now(), DateTimeConstants.Pattern.SIMPLE_DATE);
+        }
+        return path;
+    }
+
+    protected String generateKey(FileParameter parameter, String name, String path) {
+        return path + "/" + name;
+    }
+
+    protected String generateFileKey(FileParameter parameter) {
+        String suffix = FilenameUtils.getExtension(parameter.getOriginalFilename());
+        String uuid = IdUtil.simpleUUID();
+        String path = DateTimeUtils.format(LocalDateTime.now(), DateTimeConstants.Pattern.SIMPLE_DATE);
+        return path + "/" + uuid + "." + suffix;
     }
 
     /**

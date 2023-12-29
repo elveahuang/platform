@@ -1,8 +1,7 @@
 package cn.elvea.platform.commons.core.storage;
 
+import cn.elvea.platform.commons.core.enums.StorageTypeEnum;
 import cn.elvea.platform.commons.core.storage.cos.CosStorageConfig;
-import cn.elvea.platform.commons.core.storage.enums.StorageType;
-import cn.elvea.platform.commons.core.storage.local.LocalStorageConfig;
 import cn.elvea.platform.commons.core.storage.min.MinStorageConfig;
 import cn.elvea.platform.commons.core.storage.oss.OssStorageConfig;
 import lombok.AllArgsConstructor;
@@ -23,10 +22,7 @@ import java.io.Serializable;
 public class StorageConfig implements Serializable {
 
     @Builder.Default
-    private StorageType type = StorageType.MIN;
-
-    @Builder.Default
-    private LocalStorageConfig local = new LocalStorageConfig();
+    private StorageTypeEnum type = StorageTypeEnum.MIN;
 
     @Builder.Default
     private CosStorageConfig cos = new CosStorageConfig();

@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.core.cache.utils;
 
-import cn.elvea.platform.commons.core.enums.RateLimitType;
+import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RRateLimiter;
@@ -18,9 +18,9 @@ public class RedissonUtils {
 
     private final RedissonClient client;
 
-    public long rateLimiter(String key, RateLimitType type, long rate, long rateInterval) {
+    public long rateLimiter(String key, RateLimitTypeEnum type, long rate, long rateInterval) {
         RateType rateType = RateType.OVERALL;
-        if (type == RateLimitType.CLUSTER) {
+        if (type == RateLimitTypeEnum.CLUSTER) {
             rateType = RateType.PER_CLIENT;
         }
 

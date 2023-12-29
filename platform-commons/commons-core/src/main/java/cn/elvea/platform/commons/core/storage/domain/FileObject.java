@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.core.storage.domain;
 
-import cn.elvea.platform.commons.core.storage.enums.StorageType;
+import cn.elvea.platform.commons.core.enums.StorageTypeEnum;
 
 import java.io.File;
 import java.io.Serializable;
@@ -14,7 +14,7 @@ public interface FileObject<R> extends Serializable {
     /**
      * 存储类型
      */
-    StorageType getStorageType();
+    StorageTypeEnum getStorageType();
 
     /**
      * 文件标识

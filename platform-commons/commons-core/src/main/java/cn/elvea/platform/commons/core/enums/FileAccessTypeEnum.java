@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.core.storage.enums;
+package cn.elvea.platform.commons.core.enums;
 
 import lombok.Getter;
 

@@ -2,8 +2,8 @@ package cn.elvea.platform.commons.core.storage.service;
 
 import cn.elvea.platform.BaseTests;
 import cn.elvea.platform.commons.core.sequence.Sequence;
-import cn.elvea.platform.commons.core.storage.local.LocalStorageService;
-import cn.elvea.platform.commons.core.storage.manager.StorageManager;
+import cn.elvea.platform.commons.core.storage.StorageManager;
+import cn.elvea.platform.commons.core.storage.min.MinStorageService;
 import cn.elvea.platform.commons.core.storage.oss.OssStorageService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,15 +23,12 @@ public class StorageServiceTests extends BaseTests {
     StorageManager storageManager;
 
     @Test
-    public void localStorageServiceTest() throws Exception {
-        LocalStorageService service = this.storageManager.getLocalStorageService();
+    public void minStorageServiceTest() throws Exception {
+        MinStorageService service = this.storageManager.getMinStorageService();
         Assertions.assertNotNull(service);
 
         ClassPathResource resource = new ClassPathResource("html/tpl.html");
-
-        service.uploadFile(resource.getFile(), sequence.nextIdAsString() + "/html/tpl.html");
-        service.uploadFile(resource.getInputStream(), sequence.nextIdAsString() + "/html/tpl.html");
-        service.uploadFile(resource.getContentAsByteArray(), sequence.nextIdAsString() + "/html/tpl.html");
+        service.uploadFile(resource.getFile());
     }
 
     @Test
@@ -40,9 +37,7 @@ public class StorageServiceTests extends BaseTests {
         Assertions.assertNotNull(service);
 
         ClassPathResource resource = new ClassPathResource("html/tpl.html");
-        service.uploadFile(resource.getFile(), sequence.nextIdAsString() + "/html/tpl.html");
-        service.uploadFile(resource.getInputStream(), sequence.nextIdAsString() + "/html/tpl.html");
-        service.uploadFile(resource.getContentAsByteArray(), sequence.nextIdAsString() + "/html/tpl.html");
+        service.uploadFile(resource.getFile());
     }
 
 }

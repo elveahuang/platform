@@ -5,12 +5,12 @@ import cn.elvea.platform.commons.core.storage.AbstractStorageService;
 import cn.elvea.platform.commons.core.storage.StorageService;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileParameter;
-import cn.elvea.platform.commons.core.storage.enums.FileAccessTypeEnum;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.model.COSObject;
+import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -19,9 +19,6 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-
-import static com.qcloud.cos.model.CannedAccessControlList.Private;
-import static com.qcloud.cos.model.CannedAccessControlList.PublicRead;
 
 /**
  * 阿里云存储服务
@@ -113,22 +110,13 @@ public class CosStorageServiceImpl extends AbstractStorageService implements Cos
         }
     }
 
-    /**
-     * @see StorageService#uploadFile(InputStream, FileParameter, String)
-     */
     @Override
-    public FileObject<?> uploadFile(InputStream is, FileParameter params, String path) {
+    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) throws Exception {
         COSClient client = null;
         try {
-            String key = "";
-
             client = this.getClient();
-            client.putObject(getBucketName(), key, is, null);
-            if (params != null && FileAccessTypeEnum.PRIVATE.equals(params.getAccessType())) {
-                client.setObjectAcl(this.getBucketName(), key, Private);
-            } else {
-                client.setObjectAcl(this.getBucketName(), key, PublicRead);
-            }
+            String key = generateFileKey(parameter);
+            PutObjectResult result = client.putObject(getBucketName(), key, is, null);
             return CosFileObject.builder().build();
         } finally {
             this.closeClient(client);
