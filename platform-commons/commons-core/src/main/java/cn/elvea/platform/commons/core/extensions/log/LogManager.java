@@ -38,7 +38,7 @@ public class LogManager {
      * 作为第一个日志服务
      */
     public void first(LogStore loggingProvider) {
-        this.providers.add(0, loggingProvider);
+        this.providers.addFirst(loggingProvider);
     }
 
     /**

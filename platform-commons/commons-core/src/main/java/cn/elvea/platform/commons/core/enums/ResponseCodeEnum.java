@@ -10,14 +10,15 @@ import lombok.Getter;
 public enum ResponseCodeEnum implements BaseEnum<String> {
     // 框架基础
     SUCCESS("200", "", "正确执行并成功返回"),
-    ERROR("0", "", "系统错误"),
     UNAUTHORIZED("401", "", "未授权"),
     FORBIDDEN("403", "", "访问未授权"),
     NOT_FOUNT("404", "Not Found.", "请求地址不存在"),
     // 系统基础
+    ERROR("10000000", "System Exception", "系统错误"),
     PARAM_ERROR("10000001", "Param Error.", "参数检查不通过"),
     PARAM_NOT_PRESENT("10000002", "Param is not present.", "参数不能为空"),
     INVALID_CAPTCHA("10000003", "Incorrect Captcha.", "验证码错误或者验证码已经过期"),
+    RATE_LIMIT_ERROR("10000004", "Rate Limit.", "限流"),
     // 用户模块
     USER__USERNAME_NOT_AVAILABLE("10010001", "Param is not present.", "用户名不可用"),
     USER__EMAIL_NOT_AVAILABLE("10010002", "Param is not present.", "邮箱不可用"),

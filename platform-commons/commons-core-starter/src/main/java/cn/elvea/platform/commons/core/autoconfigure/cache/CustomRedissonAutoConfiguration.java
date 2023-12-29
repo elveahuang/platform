@@ -2,6 +2,7 @@ package cn.elvea.platform.commons.core.autoconfigure.cache;
 
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomCacheProperties;
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomRedissonProperties;
+import cn.elvea.platform.commons.core.cache.utils.RedissonUtils;
 import cn.elvea.platform.commons.core.cache.redisson.RedissonAutoConfigurationCustomizer;
 import cn.elvea.platform.commons.core.cache.service.CacheService;
 import cn.elvea.platform.commons.core.cache.service.RedissonCacheService;
@@ -120,12 +121,23 @@ public class CustomRedissonAutoConfiguration {
     }
 
     /**
+     * @see RedissonUtils
+     */
+    @Bean
+    @ConditionalOnMissingBean(RedissonUtils.class)
+    public RedissonUtils redissonUtils(RedissonClient redissonClient) {
+        return new RedissonUtils(redissonClient);
+    }
+
+    /**
      * @see CacheService
      */
     @Bean
     @ConditionalOnMissingBean(RedissonCacheService.class)
-    public RedissonCacheService redissonCacheService(RedissonClient redissonClient, CustomCacheProperties properties) {
-        return new RedissonCacheServiceImpl(redissonClient, properties.isCacheNullValue(), properties.getBatchSize());
+    public RedissonCacheService redissonCacheService(RedissonClient redissonClient,
+                                                     RedissonUtils redissonUtils,
+                                                     CustomCacheProperties properties) {
+        return new RedissonCacheServiceImpl(redissonClient, redissonUtils, properties.isCacheNullValue(), properties.getBatchSize());
     }
 
     /**

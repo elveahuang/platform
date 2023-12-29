@@ -5,7 +5,7 @@ package cn.elvea.platform.commons.core.extensions.log;
  * @since 0.0.1
  */
 @FunctionalInterface
-public interface LogManagerCustomizer {
+public interface LogCustomizer {
 
     /**
      * 定制日志服务管理器

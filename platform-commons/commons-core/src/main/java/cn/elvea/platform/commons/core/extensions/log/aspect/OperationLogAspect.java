@@ -7,6 +7,7 @@ import cn.elvea.platform.commons.core.utils.DateTimeUtils;
 import cn.elvea.platform.commons.core.utils.ExceptionUtils;
 import cn.elvea.platform.commons.core.utils.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,11 +22,10 @@ import org.aspectj.lang.annotation.Pointcut;
  */
 @Slf4j
 @Aspect
-public class OperationLogAspect extends AbstractLogAspect {
+@AllArgsConstructor
+public class OperationLogAspect {
 
-    public OperationLogAspect(LogManager logManager) {
-        super(logManager);
-    }
+    private final LogManager logManager;
 
     @Pointcut("@annotation(cn.elvea.platform.commons.core.annotations.OperationLog)")
     protected void operationLogAspect() {
@@ -49,18 +49,7 @@ public class OperationLogAspect extends AbstractLogAspect {
         try {
             HttpServletRequest request = ServletUtils.getRequest();
 
-            OperationLogDto dto = OperationLogDto.builder()
-                    .className(AopUtils.getJoinPointClass(joinPoint))
-                    .methodName(AopUtils.getJoinPointMethod(joinPoint))
-                    .requestUri(request.getRequestURI())
-                    .httpMethod(request.getMethod())
-                    .requestIp(ServletUtils.getHost())
-                    .requestUa(ServletUtils.getUserAgent(request))
-                    .requestParams(ServletUtils.getParamJson(request))
-                    .requestHeaderParams(ServletUtils.getHeaderJson(request))
-                    .execTime(0L)
-                    .exception(e != null ? ExceptionUtils.getStackTraceAsString(e) : "")
-                    .build();
+            OperationLogDto dto = OperationLogDto.builder().className(AopUtils.getJoinPointClass(joinPoint)).methodName(AopUtils.getJoinPointMethod(joinPoint)).requestUri(request.getRequestURI()).httpMethod(request.getMethod()).requestIp(ServletUtils.getHost()).requestUa(ServletUtils.getUserAgent(request)).requestParams(ServletUtils.getParamJson(request)).requestHeaderParams(ServletUtils.getHeaderJson(request)).execTime(0L).exception(e != null ? ExceptionUtils.getStackTraceAsString(e) : "").build();
 
             logManager.saveLog(dto);
         } catch (Exception ex) {
@@ -72,19 +61,7 @@ public class OperationLogAspect extends AbstractLogAspect {
         try {
             HttpServletRequest request = ServletUtils.getRequest();
 
-            OperationLogDto dto = OperationLogDto.builder()
-                    .className(AopUtils.getJoinPointClass(joinPoint))
-                    .methodName(AopUtils.getJoinPointMethod(joinPoint))
-                    .requestUri(request.getRequestURI())
-                    .httpMethod(request.getMethod())
-                    .requestIp(ServletUtils.getHost())
-                    .requestUa(ServletUtils.getUserAgent(request))
-                    .requestParams(ServletUtils.getParamJson(request))
-                    .requestHeaderParams(ServletUtils.getHeaderJson(request))
-                    .startTime(DateTimeUtils.toLocalDateTime(startTimeMillis))
-                    .endTime(DateTimeUtils.toLocalDateTime(endTimeMillis))
-                    .execTime((endTimeMillis - startTimeMillis))
-                    .build();
+            OperationLogDto dto = OperationLogDto.builder().className(AopUtils.getJoinPointClass(joinPoint)).methodName(AopUtils.getJoinPointMethod(joinPoint)).requestUri(request.getRequestURI()).httpMethod(request.getMethod()).requestIp(ServletUtils.getHost()).requestUa(ServletUtils.getUserAgent(request)).requestParams(ServletUtils.getParamJson(request)).requestHeaderParams(ServletUtils.getHeaderJson(request)).startTime(DateTimeUtils.toLocalDateTime(startTimeMillis)).endTime(DateTimeUtils.toLocalDateTime(endTimeMillis)).execTime((endTimeMillis - startTimeMillis)).build();
 
             logManager.saveLog(dto);
         } catch (Exception e) {

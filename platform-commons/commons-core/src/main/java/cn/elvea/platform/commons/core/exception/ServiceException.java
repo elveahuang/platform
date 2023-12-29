@@ -1,5 +1,6 @@
 package cn.elvea.platform.commons.core.exception;
 
+import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
 import com.aliyun.tea.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,8 @@ public class ServiceException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    public ResponseCodeEnum responseCode = ResponseCodeEnum.ERROR;
+
     public String code;
 
     public String message;
@@ -33,13 +36,14 @@ public class ServiceException extends RuntimeException {
     public ServiceException() {
     }
 
+    public ServiceException(ResponseCodeEnum responseCode) {
+        super(responseCode.getMessage());
+        this.responseCode = responseCode;
+    }
+
     public ServiceException(String message, Throwable cause) {
         super(message, cause);
         this.setMessage(message);
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     @Override

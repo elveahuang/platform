@@ -1,0 +1,33 @@
+package cn.elvea.platform.commons.core.enums;
+
+import lombok.Getter;
+
+/**
+ * @author elvea
+ * @since 0.0.1
+ */
+@Getter
+public enum RateLimitType implements BaseEnum<String> {
+    DEFAULT("DEFAULT", "默认限流"),
+    IP("IP", "IP限流"),
+    CLUSTER("CLUSTER", "CLUSTER限流");
+
+    private final String code;
+    private final String description;
+
+    RateLimitType(final String code, final String description) {
+        this.code = code;
+        this.description = description;
+    }
+
+    @Override
+    public String getValue() {
+        return this.code;
+    }
+
+    @Override
+    public String getLabel() {
+        return "label_rate_limit_type__".concat(this.code.toLowerCase());
+    }
+
+}

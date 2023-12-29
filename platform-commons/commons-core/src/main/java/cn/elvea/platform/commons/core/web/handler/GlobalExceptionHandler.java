@@ -1,7 +1,6 @@
 package cn.elvea.platform.commons.core.web.handler;
 
 import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
-import cn.elvea.platform.commons.core.exception.BusinessException;
 import cn.elvea.platform.commons.core.exception.ServiceException;
 import cn.elvea.platform.commons.core.exception.SystemException;
 import cn.elvea.platform.commons.core.utils.JacksonUtils;
@@ -82,23 +81,13 @@ public abstract class GlobalExceptionHandler {
     }
 
     /**
-     * 业务异常
-     */
-    @ExceptionHandler(BusinessException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<?> handleBusinessException(BusinessException e) {
-        log.error("handleException exception : {}", e.getMessage(), e);
-        return R.error(e.getLocalizedMessage());
-    }
-
-    /**
      * 服务异常
      */
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<?> handleSystemException(ServiceException e) {
+    public R<?> handleServiceException(ServiceException e) {
         log.error("handleSystemException exception : {}", e.getMessage(), e);
-        return R.error(e.getLocalizedMessage());
+        return R.fail(e.getResponseCode());
     }
 
     /**

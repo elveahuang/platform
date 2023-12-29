@@ -3,7 +3,7 @@ package cn.elvea.platform.commons.core.autoconfigure.extensions.log;
 import cn.elvea.platform.commons.core.autoconfigure.core.CoreAutoConfiguration;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.log.properties.LogProperties;
 import cn.elvea.platform.commons.core.extensions.log.LogManager;
-import cn.elvea.platform.commons.core.extensions.log.LogManagerCustomizer;
+import cn.elvea.platform.commons.core.extensions.log.LogCustomizer;
 import cn.elvea.platform.commons.core.extensions.log.aspect.OperationLogAspect;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -14,16 +14,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * @author elvea
  * @since 0.0.1
  */
 @Slf4j
+@EnableAspectJAutoProxy
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = LogProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties(LogProperties.class)
 @AutoConfigureAfter(CoreAutoConfiguration.class)
+@EnableConfigurationProperties(LogProperties.class)
+@ConditionalOnProperty(prefix = LogProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 public class LogAutoConfiguration {
 
     public LogAutoConfiguration() {
@@ -32,7 +34,7 @@ public class LogAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public LogManager logManager(ObjectProvider<LogManagerCustomizer> customizers) {
+    public LogManager logManager(ObjectProvider<LogCustomizer> customizers) {
         LogManager logManager = new LogManager();
         customizers.orderedStream().forEach((customizer) -> customizer.customize(logManager));
         return logManager;
@@ -42,6 +44,7 @@ public class LogAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnBean(LogManager.class)
     public OperationLogAspect optLogAspect(LogManager manager) {
+        log.info("Creating OperationLogAspect...");
         return new OperationLogAspect(manager);
     }
 

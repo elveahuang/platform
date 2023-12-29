@@ -5,7 +5,7 @@ import cn.hutool.http.useragent.UserAgentUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * @author dev
+ * @author elvea
  * @since 0.0.1
  */
 public abstract class PlatformHelper {

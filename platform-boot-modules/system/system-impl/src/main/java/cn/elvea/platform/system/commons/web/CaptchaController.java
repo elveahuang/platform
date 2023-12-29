@@ -2,7 +2,7 @@ package cn.elvea.platform.system.commons.web;
 
 import cn.elvea.platform.commons.core.annotations.Anonymous;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.annotations.RateLimit;
+import cn.elvea.platform.commons.core.annotations.RateLimiter;
 import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
 import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
 import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaCodeDto;
@@ -59,13 +59,9 @@ public class CaptchaController extends AbstractController {
     @Operation(summary = "获取手机验证码")
     @ApiResponse(description = "获取手机验证码")
     @PostMapping(API_V1_CAPTCHA_SMS)
-    @RateLimit
+    @RateLimiter
     public R<CaptchaDto> captchaMobile(@RequestParam String mobileCountryCode, @RequestParam String mobileNumber) throws Exception {
-        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.SMS)
-                .mobileCountryCode(mobileCountryCode)
-                .mobileNumber(mobileNumber)
-                .size(6)
-                .build();
+        CaptchaRequest request = CaptchaRequest.builder().type(CaptchaTypeEnum.SMS).mobileCountryCode(mobileCountryCode).mobileNumber(mobileNumber).size(6).build();
         Captcha captcha = this.captchaApi.generate(request);
         return R.success(CaptchaDto.builder().key(captcha.getKey()).build());
     }

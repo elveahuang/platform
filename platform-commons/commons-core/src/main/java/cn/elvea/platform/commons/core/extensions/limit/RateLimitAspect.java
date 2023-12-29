@@ -1,9 +1,32 @@
 package cn.elvea.platform.commons.core.extensions.limit;
 
+import cn.elvea.platform.commons.core.annotations.RateLimiter;
+import cn.elvea.platform.commons.core.cache.service.CacheService;
+import cn.elvea.platform.commons.core.enums.RateLimitType;
+import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
+import cn.elvea.platform.commons.core.exception.ServiceException;
+import cn.elvea.platform.commons.core.utils.ServletUtils;
+import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.hutool.core.util.ArrayUtil;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.ParserContext;
+import org.springframework.expression.common.TemplateParserContext;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+
+import java.lang.reflect.Method;
+
+import static cn.elvea.platform.commons.core.constants.GlobalConstants.RATE_LIMIT_KEY;
 
 /**
  * 限流拦截
@@ -13,11 +36,72 @@ import org.aspectj.lang.annotation.Aspect;
  */
 @Slf4j
 @Aspect
+@AllArgsConstructor
 public class RateLimitAspect {
 
-    @Around("@annotation(cn.elvea.platform.commons.core.annotations.RateLimit)")
-    public Object around(ProceedingJoinPoint pjp) throws Throwable {
-        return pjp.proceed();
+    private final ExpressionParser expressionParser = new SpelExpressionParser();
+
+    private final ParserContext parserContext = new TemplateParserContext();
+
+    private final EvaluationContext evaluationContext = new StandardEvaluationContext();
+
+    private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
+
+    private final CacheService cacheService;
+
+    @Before("@annotation(rateLimiter)")
+    public void doBefore(JoinPoint point, RateLimiter rateLimiter) {
+        int time = rateLimiter.time();
+        int limit = rateLimiter.limit();
+        String key = getKey(rateLimiter, point);
+        RateLimitType type = rateLimiter.type();
+        try {
+            long number = cacheService.rateLimiter(key, type, limit, time);
+            if (number == -1) {
+                throw new ServiceException(ResponseCodeEnum.RATE_LIMIT_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("Rate Limit Error.", e);
+            if (e instanceof ServiceException) {
+                throw e;
+            } else {
+                throw new ServiceException(ResponseCodeEnum.RATE_LIMIT_ERROR);
+            }
+        }
+    }
+
+    private String getKey(RateLimiter rateLimiter, JoinPoint point) {
+        String key = rateLimiter.key();
+        MethodSignature signature = (MethodSignature) point.getSignature();
+        Method method = signature.getMethod();
+        if (StringUtils.containsAny(key, "#")) {
+            Object[] args = point.getArgs();
+            String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
+            if (ArrayUtil.isEmpty(parameterNames)) {
+                throw new ServiceException();
+            }
+            for (int i = 0; i < parameterNames.length; i++) {
+                evaluationContext.setVariable(parameterNames[i], args[i]);
+            }
+            try {
+                Expression expression;
+                if (StringUtils.startsWith(key, parserContext.getExpressionPrefix()) && StringUtils.endsWith(key, parserContext.getExpressionSuffix())) {
+                    expression = expressionParser.parseExpression(key, parserContext);
+                } else {
+                    expression = expressionParser.parseExpression(key);
+                }
+                key = expression.getValue(evaluationContext, String.class) + ":";
+            } catch (Exception e) {
+                log.error("Rate Limit Error.", e);
+                throw new ServiceException(ResponseCodeEnum.RATE_LIMIT_ERROR);
+            }
+        }
+        StringBuilder stringBuffer = new StringBuilder(RATE_LIMIT_KEY);
+        stringBuffer.append(ServletUtils.getRequest().getRequestURI()).append(":");
+        if (rateLimiter.type() == RateLimitType.IP) {
+            stringBuffer.append(ServletUtils.getHost()).append(":");
+        }
+        return stringBuffer.append(key).toString();
     }
 
 }

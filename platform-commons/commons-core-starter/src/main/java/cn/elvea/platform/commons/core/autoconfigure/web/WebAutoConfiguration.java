@@ -5,7 +5,6 @@ import cn.elvea.platform.commons.core.extensions.time.LegacyDateTimeAnnotationFo
 import cn.elvea.platform.commons.core.extensions.time.StandardDateTimeAnnotationFormatterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +19,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({WebProperties.class})
 @ConditionalOnProperty(prefix = WebProperties.PREFIX, name = "enabled", havingValue = "true")
-@AutoConfigureAfter(WebProperties.class)
 public class WebAutoConfiguration implements WebMvcConfigurer {
 
     private LegacyDateTimeAnnotationFormatterFactory legacyDateTimeAnnotationFormatterFactory;
 
     private StandardDateTimeAnnotationFormatterFactory standardDateTimeAnnotationFormatterFactory;
+
+    public WebAutoConfiguration() {
+        log.info("WebAutoConfiguration is enabled.");
+    }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {

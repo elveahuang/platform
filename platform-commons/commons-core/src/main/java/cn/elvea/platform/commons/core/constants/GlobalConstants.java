@@ -88,6 +88,11 @@ public interface GlobalConstants {
     /**
      * 默认的邮件服务端口
      */
-    int DEFAULT_SMTP__SSL_PORT = 25;
+    int DEFAULT_SMTP__SSL_PORT = 465;
+
+    /**
+     * 限流缓存前缀
+     */
+    String RATE_LIMIT_KEY = "rateLimit:";
 
 }

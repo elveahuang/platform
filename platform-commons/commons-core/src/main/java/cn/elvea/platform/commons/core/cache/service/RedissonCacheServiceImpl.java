@@ -1,6 +1,8 @@
 package cn.elvea.platform.commons.core.cache.service;
 
 import cn.elvea.platform.commons.core.cache.CacheKey;
+import cn.elvea.platform.commons.core.cache.utils.RedissonUtils;
+import cn.elvea.platform.commons.core.enums.RateLimitType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -30,10 +32,13 @@ public class RedissonCacheServiceImpl extends AbstractCacheService implements Re
 
     private final RedissonClient redissonClient;
 
-    public RedissonCacheServiceImpl(RedissonClient redissonClient, boolean cacheNullValue, int batchSize) {
+    private final RedissonUtils redissonUtils;
+
+    public RedissonCacheServiceImpl(RedissonClient redissonClient, RedissonUtils redissonUtils, boolean cacheNullValue, int batchSize) {
+        this.redissonClient = redissonClient;
+        this.redissonUtils = redissonUtils;
         this.cacheNullValues = cacheNullValue;
         this.batchSize = batchSize;
-        this.redissonClient = redissonClient;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -289,8 +294,7 @@ public class RedissonCacheServiceImpl extends AbstractCacheService implements Re
         if (!CollectionUtils.isEmpty(keys)) {
             valueMap = this.redissonClient.getBuckets().get(keys.toArray(new String[]{}));
         }
-        return CollectionUtils.isEmpty(valueMap) ?
-                Collections.emptyList() : valueMap.values().stream().map(this::returnVal).collect(Collectors.toList());
+        return CollectionUtils.isEmpty(valueMap) ? Collections.emptyList() : valueMap.values().stream().map(this::returnVal).collect(Collectors.toList());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -302,7 +306,18 @@ public class RedissonCacheServiceImpl extends AbstractCacheService implements Re
      */
     @Override
     public Lock getLock(String key) {
-        return redissonClient.getLock(key);
+        return this.redissonClient.getLock(key);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // 限流
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @see CacheService#rateLimiter(String, RateLimitType, long, long)
+     */
+    public long rateLimiter(String key, RateLimitType type, long rate, long rateInterval) {
+        return this.redissonUtils.rateLimiter(key, type, rate, rateInterval);
     }
 
 }

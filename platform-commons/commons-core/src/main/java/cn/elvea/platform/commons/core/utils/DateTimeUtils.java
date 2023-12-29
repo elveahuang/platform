@@ -13,7 +13,7 @@ import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 
 /**
- * @author dev
+ * @author elvea
  * @since 0.0.1
  */
 @Slf4j

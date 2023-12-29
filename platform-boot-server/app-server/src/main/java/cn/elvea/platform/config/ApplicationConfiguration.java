@@ -1,7 +1,7 @@
 package cn.elvea.platform.config;
 
 import cn.elvea.platform.commons.core.constants.GlobalConstants;
-import cn.elvea.platform.commons.core.extensions.log.LogManagerCustomizer;
+import cn.elvea.platform.commons.core.extensions.log.LogCustomizer;
 import cn.elvea.platform.lxp.commons.constants.LxpConstants;
 import cn.elvea.platform.system.commons.constants.SystemConstants;
 import cn.elvea.platform.system.commons.interceptor.LogInterceptor;
@@ -25,13 +25,7 @@ public class ApplicationConfiguration {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames(
-                SystemConstants.I18N_SECURITY_MESSAGES,
-                SystemConstants.I18N_LABEL_MESSAGES,
-                SystemConstants.I18N_VALIDATION_MESSAGES,
-                LxpConstants.I18N_LABEL_MESSAGES,
-                LxpConstants.I18N_VALIDATION_MESSAGES
-        );
+        messageSource.setBasenames(SystemConstants.I18N_SECURITY_MESSAGES, SystemConstants.I18N_LABEL_MESSAGES, SystemConstants.I18N_VALIDATION_MESSAGES, LxpConstants.I18N_LABEL_MESSAGES, LxpConstants.I18N_VALIDATION_MESSAGES);
         messageSource.setDefaultEncoding(GlobalConstants.ENCODING);
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
@@ -41,7 +35,7 @@ public class ApplicationConfiguration {
      * 自定义日志存储，用于保存操作记录
      */
     @Bean
-    public LogManagerCustomizer logManagerCustomizer(LogApi logApi) {
+    public LogCustomizer logManagerCustomizer(LogApi logApi) {
         return configuration -> configuration.last(logApi::saveOperationLog);
     }
 

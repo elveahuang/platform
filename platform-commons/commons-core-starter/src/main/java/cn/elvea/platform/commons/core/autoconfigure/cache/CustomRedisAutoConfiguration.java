@@ -2,6 +2,7 @@ package cn.elvea.platform.commons.core.autoconfigure.cache;
 
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomCacheProperties;
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomRedisProperties;
+import cn.elvea.platform.commons.core.cache.utils.RedisUtils;
 import cn.elvea.platform.commons.core.cache.service.CacheService;
 import cn.elvea.platform.commons.core.cache.service.RedisCacheService;
 import cn.elvea.platform.commons.core.cache.service.RedisCacheServiceImpl;
@@ -75,14 +76,24 @@ public class CustomRedisAutoConfiguration {
     }
 
     /**
+     * @see RedisUtils
+     */
+    @Bean
+    @ConditionalOnMissingBean(RedisUtils.class)
+    public RedisUtils redisUtils(RedisTemplate<String, Object> redisTemplate) {
+        return new RedisUtils(redisTemplate);
+    }
+
+    /**
      * @see RedisCacheService
      */
     @Bean
     @ConditionalOnMissingBean(RedisCacheService.class)
     public RedisCacheService redisCacheService(RedisTemplate<String, Object> redisTemplate,
                                                StringRedisTemplate stringRedisTemplate,
+                                               RedisUtils redisUtils,
                                                CustomCacheProperties properties) {
-        return new RedisCacheServiceImpl(redisTemplate, stringRedisTemplate, properties.isCacheNullValue(), properties.getBatchSize());
+        return new RedisCacheServiceImpl(redisTemplate, stringRedisTemplate, redisUtils, properties.isCacheNullValue(), properties.getBatchSize());
     }
 
     /**

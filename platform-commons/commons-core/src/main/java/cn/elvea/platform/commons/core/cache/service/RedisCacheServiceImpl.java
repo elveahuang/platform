@@ -2,6 +2,8 @@ package cn.elvea.platform.commons.core.cache.service;
 
 import cn.elvea.platform.commons.core.cache.CacheKey;
 import cn.elvea.platform.commons.core.cache.lock.RedisDistributedLock;
+import cn.elvea.platform.commons.core.cache.utils.RedisUtils;
+import cn.elvea.platform.commons.core.enums.RateLimitType;
 import com.google.common.collect.Lists;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.*;
@@ -28,16 +30,20 @@ public class RedisCacheServiceImpl extends AbstractCacheService implements Redis
 
     private final StringRedisTemplate stringRedisTemplate;
 
+    private final RedisUtils redisUtils;
+
     private final RedisTemplate<String, Object> redisTemplate;
 
     private final ValueOperations<String, Object> valueOps;
 
     public RedisCacheServiceImpl(RedisTemplate<String, Object> redisTemplate,
                                  StringRedisTemplate stringRedisTemplate,
+                                 RedisUtils redisUtils,
                                  boolean cacheNullValue,
                                  int batchSize) {
         this.redisTemplate = redisTemplate;
         this.stringRedisTemplate = stringRedisTemplate;
+        this.redisUtils = redisUtils;
         this.valueOps = redisTemplate.opsForValue();
         this.cacheNullValues = cacheNullValue;
         this.batchSize = batchSize;
@@ -319,8 +325,7 @@ public class RedisCacheServiceImpl extends AbstractCacheService implements Redis
     @SuppressWarnings({"unchecked"})
     public <T> List<T> multiGet(@NonNull Collection<String> keys) {
         List<T> list = (List<T>) valueOps.multiGet(keys);
-        return CollectionUtils.isEmpty(list) ?
-                Collections.emptyList() : list.stream().map(this::returnVal).collect(Collectors.toList());
+        return CollectionUtils.isEmpty(list) ? Collections.emptyList() : list.stream().map(this::returnVal).collect(Collectors.toList());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -333,6 +338,22 @@ public class RedisCacheServiceImpl extends AbstractCacheService implements Redis
     @Override
     public Lock getLock(String key) {
         return new RedisDistributedLock(this.stringRedisTemplate, key, 10 * 60);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // 限流
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @see CacheService#rateLimiter(String, RateLimitType, long, long)
+     */
+    public long rateLimiter(String key, RateLimitType type, long rate, long rateInterval) {
+        Long count = this.redisUtils.trySetRate(key, rate, rateInterval);
+        if (count != null && count.intValue() <= rate) {
+            return count.intValue();
+        } else {
+            return -1L;
+        }
     }
 
 }
