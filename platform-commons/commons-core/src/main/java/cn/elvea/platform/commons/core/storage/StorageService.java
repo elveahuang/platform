@@ -68,27 +68,4 @@ public interface StorageService {
      */
     FileObject<?> uploadFile(InputStream is, FileParameter parameter) throws Exception;
 
-    /**
-     * 创建临时文件夹
-     *
-     * @return File
-     */
-    File newTempFolder();
-
-    /**
-     * 在系统临时目录下创建一个临时文件
-     *
-     * @param filename 文件路径
-     * @return 临时文件
-     */
-    File newTempFile(String filename) throws Exception;
-
-    /**
-     * 生成文件名
-     *
-     * @param ext 文件后缀名
-     * @return String
-     */
-    String generateExtFilename(String ext);
-
 }

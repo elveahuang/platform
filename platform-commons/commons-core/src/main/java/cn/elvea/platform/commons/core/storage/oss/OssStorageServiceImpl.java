@@ -1,12 +1,15 @@
 package cn.elvea.platform.commons.core.storage.oss;
 
 import cn.elvea.platform.commons.core.exception.ServiceException;
-import cn.elvea.platform.commons.core.storage.AbstractStorageService;
 import cn.elvea.platform.commons.core.storage.StorageService;
+import cn.elvea.platform.commons.core.storage.StorageUtils;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileParameter;
+import cn.elvea.platform.commons.core.utils.JacksonUtils;
+import cn.hutool.core.util.StrUtil;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectResult;
@@ -17,6 +20,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Date;
 
 /**
  * 阿里云存储服务
@@ -27,7 +31,7 @@ import java.io.InputStream;
  * @since 0.0.1
  */
 @Slf4j
-public class OssStorageServiceImpl extends AbstractStorageService implements OssStorageService {
+public class OssStorageServiceImpl implements OssStorageService, StorageService {
 
     private final OssStorageConfig config;
 
@@ -82,28 +86,43 @@ public class OssStorageServiceImpl extends AbstractStorageService implements Oss
      * @see OssStorageService#getFile(String, boolean)
      */
     @Override
-    public FileObject<?> getFile(String path, boolean withLocalTempFile) {
+    public FileObject<?> getFile(String key, boolean withLocalTempFile) {
         OSS client = null;
         try {
             client = getClient();
 
             // 获取云存储文件信息
-            OSSObject object = client.getObject(new GetObjectRequest(getBucketName(), path));
+            OSSObject object = client.getObject(new GetObjectRequest(getBucketName(), key));
+            log.error("OSS getObject response - [{}].", object.getKey());
+
+            //
+            String url;
+            if (StrUtil.isBlank(getDomain())) {
+                Date expiration = new Date(new Date().getTime() + 3600 * 1000 * 24);
+                GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(getBucketName(), key);
+                request.setExpiration(expiration);
+                url = client.generatePresignedUrl(request).toString();
+                log.error("OSS getObjectUrl response - [{}].", url);
+                url = url.substring(0, url.indexOf("?"));
+            } else {
+                url = getDomain() + "/" + key;
+            }
+            log.error("OSS getObjectUrl - [{}].", url);
 
             // 创建本地临时目录文件
             File localTempFile = null;
             if (withLocalTempFile) {
-                localTempFile = newTempFile(generateFilename(path));
+                localTempFile = StorageUtils.newTempFile(StorageUtils.generateFilename(key));
                 try (InputStream is = new FileInputStream(localTempFile)) {
                     FileUtils.writeByteArrayToFile(localTempFile, IOUtils.toByteArray(is));
                 }
             }
 
             // 构建文件信息
-            return OssFileObject.builder().object(localTempFile).response(object).build();
+            return OssFileObject.builder().object(localTempFile).url(url).response(object).build();
         } catch (Exception e) {
-            log.error("fail to get oss file with key - {}", path, e);
-            throw new ServiceException("Fail to get OSS file.", e);
+            log.error("OSS getFile failed.", e);
+            throw new ServiceException("OSS getFile failed.", e);
         } finally {
             this.closeClient(client);
         }
@@ -113,17 +132,19 @@ public class OssStorageServiceImpl extends AbstractStorageService implements Oss
      * @see StorageService#uploadFile(InputStream, FileParameter)
      */
     @Override
-    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) {
+    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) throws Exception {
         OSS client = null;
         try {
             client = getClient();
 
-            String name = generateFilename(parameter);
-            String path = generatePath(parameter);
-            String key = generateKey(parameter, name, path);
+            String name = StorageUtils.generateFilename(parameter);
+            String path = StorageUtils.generatePath(parameter);
+            String key = StorageUtils.generateKey(parameter, name, path);
 
             PutObjectResult result = client.putObject(this.getBucketName(), key, is);
-            return OssFileObject.builder().response(result).build();
+            log.error("OSS putObject response - [{}].", JacksonUtils.toJson(result));
+
+            return getFile(key, false);
         } finally {
             this.closeClient(client);
         }

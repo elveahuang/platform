@@ -14,11 +14,11 @@ import cn.elvea.platform.commons.core.storage.oss.OssStorageServiceImpl;
  * @author elvea
  * @since 0.0.1
  */
-public class StorageManager {
+public class Storage {
 
     private final StorageConfig config;
 
-    public StorageManager(StorageConfig config) {
+    public Storage(StorageConfig config) {
         this.config = config;
     }
 

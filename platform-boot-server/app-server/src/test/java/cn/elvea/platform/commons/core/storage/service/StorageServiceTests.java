@@ -2,7 +2,8 @@ package cn.elvea.platform.commons.core.storage.service;
 
 import cn.elvea.platform.BaseTests;
 import cn.elvea.platform.commons.core.sequence.Sequence;
-import cn.elvea.platform.commons.core.storage.StorageManager;
+import cn.elvea.platform.commons.core.storage.Storage;
+import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.min.MinStorageService;
 import cn.elvea.platform.commons.core.storage.oss.OssStorageService;
 import org.junit.jupiter.api.Assertions;
@@ -20,24 +21,26 @@ public class StorageServiceTests extends BaseTests {
     Sequence sequence;
 
     @Autowired(required = false)
-    StorageManager storageManager;
+    Storage storage;
 
     @Test
     public void minStorageServiceTest() throws Exception {
-        MinStorageService service = this.storageManager.getMinStorageService();
+        MinStorageService service = this.storage.getMinStorageService();
         Assertions.assertNotNull(service);
 
         ClassPathResource resource = new ClassPathResource("html/tpl.html");
-        service.uploadFile(resource.getFile());
+        FileObject<?> object = service.uploadFile(resource.getFile());
+        Assertions.assertNotNull(object);
     }
 
     @Test
     public void ossStorageServiceTest() throws Exception {
-        OssStorageService service = this.storageManager.getOssStorageService();
+        OssStorageService service = this.storage.getOssStorageService();
         Assertions.assertNotNull(service);
 
         ClassPathResource resource = new ClassPathResource("html/tpl.html");
-        service.uploadFile(resource.getFile());
+        FileObject<?> object = service.uploadFile(resource.getFile());
+        Assertions.assertNotNull(object);
     }
 
 }

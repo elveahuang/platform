@@ -1,8 +1,8 @@
 package cn.elvea.platform.commons.core.storage.cos;
 
 import cn.elvea.platform.commons.core.exception.ServiceException;
-import cn.elvea.platform.commons.core.storage.AbstractStorageService;
 import cn.elvea.platform.commons.core.storage.StorageService;
+import cn.elvea.platform.commons.core.storage.StorageUtils;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileParameter;
 import com.qcloud.cos.COSClient;
@@ -29,7 +29,7 @@ import java.io.InputStream;
  * @since 0.0.1
  */
 @Slf4j
-public class CosStorageServiceImpl extends AbstractStorageService implements CosStorageService {
+public class CosStorageServiceImpl implements CosStorageService, StorageService {
 
     private final CosStorageConfig config;
 
@@ -94,7 +94,7 @@ public class CosStorageServiceImpl extends AbstractStorageService implements Cos
             // 创建本地临时目录文件
             File localTempFile = null;
             if (withLocalTempFile) {
-                localTempFile = newTempFile(generateFilename(path));
+                localTempFile = StorageUtils.newTempFile(StorageUtils.generateFilename(path));
                 try (InputStream is = new FileInputStream(localTempFile)) {
                     FileUtils.writeByteArrayToFile(localTempFile, IOUtils.toByteArray(is));
                 }
@@ -115,7 +115,7 @@ public class CosStorageServiceImpl extends AbstractStorageService implements Cos
         COSClient client = null;
         try {
             client = this.getClient();
-            String key = generateFileKey(parameter);
+            String key = StorageUtils.generateFileKey(parameter);
             PutObjectResult result = client.putObject(getBucketName(), key, is, null);
             return CosFileObject.builder().build();
         } finally {

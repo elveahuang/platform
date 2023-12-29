@@ -26,6 +26,8 @@ public class OssFileObject extends AbstractFileObject<GenericResult> implements 
 
     private File object;
 
+    private String url;
+
     private GenericResult response;
 
 }

@@ -18,13 +18,13 @@ import java.time.LocalDateTime;
  * @since 0.0.1
  */
 @Slf4j
-public abstract class AbstractStorageService implements StorageService {
+public abstract class StorageUtils {
 
-    protected String generateFilename(String filename) {
+    public static String generateFilename(String filename) {
         return StringUtils.simpleUuid() + "." + FilenameUtils.getExtension(filename);
     }
 
-    protected String generateFilename(FileParameter parameter) {
+    public static String generateFilename(FileParameter parameter) {
         String filename = parameter.getTargetFilename();
         if (StringUtils.isEmpty(filename)) {
             filename = generateFilename(parameter.getOriginalFilename());
@@ -32,7 +32,7 @@ public abstract class AbstractStorageService implements StorageService {
         return filename;
     }
 
-    protected String generatePath(FileParameter parameter) {
+    public static String generatePath(FileParameter parameter) {
         String path = parameter.getPath();
         if (StringUtils.isEmpty(path)) {
             path = DateTimeUtils.format(LocalDateTime.now(), DateTimeConstants.Pattern.SIMPLE_DATE);
@@ -40,31 +40,24 @@ public abstract class AbstractStorageService implements StorageService {
         return path;
     }
 
-    protected String generateKey(FileParameter parameter, String name, String path) {
+    public static String generateKey(FileParameter parameter, String name, String path) {
         return path + "/" + name;
     }
 
-    protected String generateFileKey(FileParameter parameter) {
+    public static String generateFileKey(FileParameter parameter) {
         String suffix = FilenameUtils.getExtension(parameter.getOriginalFilename());
         String uuid = IdUtil.simpleUUID();
         String path = DateTimeUtils.format(LocalDateTime.now(), DateTimeConstants.Pattern.SIMPLE_DATE);
         return path + "/" + uuid + "." + suffix;
     }
 
-    /**
-     * @see StorageService#generateExtFilename(String)
-     */
-    @Override
-    public String generateExtFilename(String ext) {
-        return StringUtils.uuid() + "." + ext;
+
+    public static String generateExtFilename(String ext) {
+        return StringUtils.simpleUuid() + "." + ext;
     }
 
-    /**
-     * @see StorageService#newTempFolder()
-     */
-    @Override
-    public File newTempFolder() {
-        File tmpFile = new File(FileUtils.getTempDirectoryPath(), StringUtils.uuid());
+    public static File newTempFolder() {
+        File tmpFile = new File(FileUtils.getTempDirectoryPath(), StringUtils.simpleUuid());
         if (tmpFile.exists()) {
             try {
                 FileUtils.forceDelete(tmpFile);
@@ -78,8 +71,7 @@ public abstract class AbstractStorageService implements StorageService {
         return null;
     }
 
-    @Override
-    public File newTempFile(String filename) throws Exception {
+    public static File newTempFile(String filename) throws Exception {
         File tmpFile = new File(FileUtils.getTempDirectoryPath(), filename);
         // 强制建立目录，避免目录不存在报错
         FileUtils.forceMkdirParent(tmpFile);

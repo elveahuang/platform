@@ -32,4 +32,8 @@ public class MinStorageConfig implements Serializable {
      * BucketName
      */
     private String bucketName = "";
+    /**
+     * 自定义域名
+     */
+    private String domain = "";
 }

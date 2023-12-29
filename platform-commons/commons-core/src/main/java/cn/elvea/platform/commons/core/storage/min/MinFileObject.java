@@ -3,7 +3,7 @@ package cn.elvea.platform.commons.core.storage.min;
 import cn.elvea.platform.commons.core.enums.StorageTypeEnum;
 import cn.elvea.platform.commons.core.storage.domain.AbstractFileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
-import io.minio.GenericResponse;
+import io.minio.GetObjectResponse;
 import lombok.*;
 
 import java.io.File;
@@ -17,15 +17,17 @@ import java.io.File;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class MinFileObject extends AbstractFileObject<GenericResponse> implements FileObject<GenericResponse> {
+public class MinFileObject extends AbstractFileObject<GetObjectResponse> implements FileObject<GetObjectResponse> {
 
     @Builder.Default
     private StorageTypeEnum storageType = StorageTypeEnum.MIN;
 
     private String key;
 
+    private String url;
+
     private File object;
 
-    private GenericResponse response;
+    private GetObjectResponse response;
 
 }

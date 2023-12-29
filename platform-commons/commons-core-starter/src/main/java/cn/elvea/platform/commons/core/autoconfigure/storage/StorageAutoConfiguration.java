@@ -1,8 +1,8 @@
 package cn.elvea.platform.commons.core.autoconfigure.storage;
 
 import cn.elvea.platform.commons.core.autoconfigure.storage.properties.StorageProperties;
+import cn.elvea.platform.commons.core.storage.Storage;
 import cn.elvea.platform.commons.core.storage.StorageConfig;
-import cn.elvea.platform.commons.core.storage.StorageManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,18 +29,18 @@ public class StorageAutoConfiguration {
     }
 
     /**
-     * @return {@link StorageManager}
+     * @return {@link Storage}
      */
     @Bean
     @ConditionalOnMissingBean
-    StorageManager storageManager(StorageProperties properties) {
+    Storage storage(StorageProperties properties) {
         StorageConfig config = StorageConfig.builder()
                 .type(properties.getType())
                 .cos(properties.getCos())
                 .oss(properties.getOss())
                 .min(properties.getMin())
                 .build();
-        return new StorageManager(config);
+        return new Storage(config);
     }
 
 }

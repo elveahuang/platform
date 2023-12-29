@@ -1,14 +1,14 @@
 package cn.elvea.platform.commons.core.storage.min;
 
 import cn.elvea.platform.commons.core.exception.ServiceException;
-import cn.elvea.platform.commons.core.storage.AbstractStorageService;
 import cn.elvea.platform.commons.core.storage.StorageService;
+import cn.elvea.platform.commons.core.storage.StorageUtils;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileParameter;
-import io.minio.GetObjectResponse;
-import io.minio.MinioClient;
-import io.minio.ObjectWriteResponse;
-import io.minio.PutObjectArgs;
+import cn.elvea.platform.commons.core.utils.JacksonUtils;
+import cn.hutool.core.util.StrUtil;
+import io.minio.*;
+import io.minio.http.Method;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -24,7 +24,7 @@ import java.io.InputStream;
  * @since 0.0.1
  */
 @Slf4j
-public class MinStorageServiceImpl extends AbstractStorageService implements MinStorageService {
+public class MinStorageServiceImpl implements MinStorageService, StorageService {
 
     private final MinStorageConfig config;
 
@@ -60,35 +60,54 @@ public class MinStorageServiceImpl extends AbstractStorageService implements Min
      */
     @Override
     public String getDomain() {
-        return null;
+        return this.config.getDomain();
     }
 
     /**
      * @see StorageService#getFile(String)
      */
     @Override
-    public FileObject<?> getFile(String path, boolean withLocalTempFile) {
+    public FileObject<?> getFile(String key, boolean withLocalFile) {
         MinioClient client = null;
         try {
             client = getClient();
 
-            // 获取云存储文件信息
-            GetObjectResponse object = client.getObject(null);
+            GetObjectArgs args = GetObjectArgs.builder()
+                    .bucket(getBucketName()).object(key)
+                    .object(key)
+                    .build();
+            GetObjectResponse response = client.getObject(args);
+            log.error("Minio getObject response - [{}].", response.object());
+
+            //
+            String url;
+            if (StrUtil.isBlank(getDomain())) {
+                GetPresignedObjectUrlArgs urlArgs = GetPresignedObjectUrlArgs.builder()
+                        .bucket(getBucketName()).object(key)
+                        .method(Method.GET)
+                        .build();
+                url = client.getPresignedObjectUrl(urlArgs);
+                log.error("Minio getObjectUrl response - [{}].", url);
+                url = url.substring(0, url.indexOf("?"));
+            } else {
+                url = getDomain() + "/" + key;
+            }
+            log.error("Minio getObjectUrl - [{}].", url);
 
             // 创建本地临时目录文件
             File localTempFile = null;
-            if (withLocalTempFile) {
-                localTempFile = newTempFile(generateFilename(path));
+            if (withLocalFile) {
+                localTempFile = StorageUtils.newTempFile(StorageUtils.generateFilename(key));
                 try (InputStream is = new FileInputStream(localTempFile)) {
                     FileUtils.writeByteArrayToFile(localTempFile, IOUtils.toByteArray(is));
                 }
             }
 
             // 构建文件信息
-            return MinFileObject.builder().object(localTempFile).response(null).build();
+            return MinFileObject.builder().object(localTempFile).url(url).response(response).build();
         } catch (Exception e) {
-            log.error("fail to get oss file with key - {}", path, e);
-            throw new ServiceException("Fail to get OSS file.", e);
+            log.error("Minio getFile failed.", e);
+            throw new ServiceException("Minio getFile failed.", e);
         } finally {
             this.closeClient(client);
         }
@@ -100,9 +119,9 @@ public class MinStorageServiceImpl extends AbstractStorageService implements Min
         try {
             client = getClient();
 
-            String name = generateFilename(parameter);
-            String path = generatePath(parameter);
-            String key = generateKey(parameter, name, path);
+            String name = StorageUtils.generateFilename(parameter);
+            String path = StorageUtils.generatePath(parameter);
+            String key = StorageUtils.generateKey(parameter, name, path);
 
             PutObjectArgs args = PutObjectArgs.builder()
                     .bucket(getBucketName())
@@ -111,7 +130,9 @@ public class MinStorageServiceImpl extends AbstractStorageService implements Min
                     .object(key)
                     .build();
             ObjectWriteResponse response = client.putObject(args);
-            return MinFileObject.builder().response(response).build();
+            log.error("Minio putObject response - [{}].", JacksonUtils.toJson(response));
+
+            return getFile(key, false);
         } catch (Exception e) {
             log.error("UploadFile to minio failed.", e);
             throw e;
