@@ -72,39 +72,36 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
         try {
             client = getClient();
 
-            GetObjectArgs args = GetObjectArgs.builder()
-                    .bucket(getBucketName()).object(key)
-                    .object(key)
-                    .build();
-            GetObjectResponse response = client.getObject(args);
-            log.error("Minio getObject response - [{}].", response.object());
+            GetObjectArgs args = GetObjectArgs.builder().bucket(getBucketName()).object(key).object(key).build();
 
-            //
-            String url;
-            if (StrUtil.isBlank(getDomain())) {
-                GetPresignedObjectUrlArgs urlArgs = GetPresignedObjectUrlArgs.builder()
-                        .bucket(getBucketName()).object(key)
-                        .method(Method.GET)
-                        .build();
-                url = client.getPresignedObjectUrl(urlArgs);
-                log.error("Minio getObjectUrl response - [{}].", url);
-                url = url.substring(0, url.indexOf("?"));
-            } else {
-                url = getDomain() + "/" + key;
-            }
-            log.error("Minio getObjectUrl - [{}].", url);
+            try (GetObjectResponse response = client.getObject(args)) {
+                log.error("Minio getObject response - [{}].", response.object());
 
-            // 创建本地临时目录文件
-            File localTempFile = null;
-            if (withLocalFile) {
-                localTempFile = StorageUtils.newTempFile(StorageUtils.generateFilename(key));
-                try (InputStream is = new FileInputStream(localTempFile)) {
-                    FileUtils.writeByteArrayToFile(localTempFile, IOUtils.toByteArray(is));
+                // 获取文件链接
+                String url;
+                if (StrUtil.isBlank(getDomain())) {
+                    GetPresignedObjectUrlArgs urlArgs = GetPresignedObjectUrlArgs.builder().bucket(getBucketName()).object(key).method(Method.GET).build();
+                    url = client.getPresignedObjectUrl(urlArgs);
+                    log.error("Minio getObjectUrl response - [{}].", url);
+                    url = url.substring(0, url.indexOf("?"));
+                } else {
+                    url = getDomain() + "/" + key;
                 }
-            }
+                log.error("Minio getObjectUrl - [{}].", url);
 
-            // 构建文件信息
-            return MinFileObject.builder().object(localTempFile).url(url).response(response).build();
+                // 创建本地临时目录文件
+                File localTempFile = null;
+                if (withLocalFile) {
+                    localTempFile = StorageUtils.newTempFile(StorageUtils.generateFilename(key));
+                    try (InputStream is = new FileInputStream(localTempFile)) {
+                        FileUtils.writeByteArrayToFile(localTempFile, IOUtils.toByteArray(is));
+                    }
+                }
+
+                // 构建文件信息
+                GenericResponse genericResponse = new GenericResponse(response.headers(), response.bucket(), response.region(), response.object());
+                return MinFileObject.builder().object(localTempFile).url(url).response(genericResponse).build();
+            }
         } catch (Exception e) {
             log.error("Minio getFile failed.", e);
             throw new ServiceException("Minio getFile failed.", e);
@@ -123,12 +120,7 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
             String path = StorageUtils.generatePath(parameter);
             String key = StorageUtils.generateKey(parameter, name, path);
 
-            PutObjectArgs args = PutObjectArgs.builder()
-                    .bucket(getBucketName())
-                    .stream(is, parameter.getSize(), -1)
-                    .contentType(parameter.getContentType())
-                    .object(key)
-                    .build();
+            PutObjectArgs args = PutObjectArgs.builder().bucket(getBucketName()).stream(is, parameter.getSize(), -1).contentType(parameter.getContentType()).object(key).build();
             ObjectWriteResponse response = client.putObject(args);
             log.error("Minio putObject response - [{}].", JacksonUtils.toJson(response));
 

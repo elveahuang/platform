@@ -22,6 +22,11 @@ public interface FileObject<R> extends Serializable {
     String getKey();
 
     /**
+     * 文件链接
+     */
+    String getUrl();
+
+    /**
      * 文件对象
      */
     File getObject();

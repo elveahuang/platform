@@ -58,6 +58,13 @@ public class CustomDataSourceAutoConfiguration {
         return masterDataSource;
     }
 
+    @Bean
+    @Primary
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        log.info("Creating PrimaryTransactionManager...");
+        return new DataSourceTransactionManager(dataSource);
+    }
+
     /**
      * ========================================================================================================================
      * 主库数据源配置

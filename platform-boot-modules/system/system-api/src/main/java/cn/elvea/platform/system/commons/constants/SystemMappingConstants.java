@@ -56,6 +56,8 @@ public interface SystemMappingConstants {
 
     String API_V1__WECOM__CALLBACK = MappingConstants.API_V1_URL_PREFIX + "/wecom/callback";
 
+    String API_V1__ATTACHMENT__EDITOR_UPLOAD = MappingConstants.API_V1_URL_PREFIX + "/attachment/editor/upload";
+
     // -----------------------------------------------------------------------------------------------------------------
     // 后台管理
     // -----------------------------------------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 package cn.elvea.platform.commons.core.storage.cos;
 
+import cn.elvea.platform.commons.core.enums.StorageTypeEnum;
 import cn.elvea.platform.commons.core.storage.domain.AbstractFileObject;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
-import cn.elvea.platform.commons.core.enums.StorageTypeEnum;
 import com.qcloud.cos.model.COSObject;
 import lombok.*;
 
@@ -23,6 +23,8 @@ public class CosFileObject extends AbstractFileObject<COSObject> implements File
     private StorageTypeEnum storageType = StorageTypeEnum.COS;
 
     private String key;
+
+    private String url;
 
     private File object;
 
