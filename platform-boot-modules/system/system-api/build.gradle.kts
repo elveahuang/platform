@@ -1,7 +1,10 @@
 dependencies {
-    api(project(":platform-commons:commons-core"))
+    // spring
+    api("org.springframework:spring-web")
     // jakarta
     compileOnly("jakarta.servlet:jakarta.servlet-api")
+    // modules
+    api(project(":platform-commons:commons-core"))
 }
 
 tasks.named<Jar>("jar") {
