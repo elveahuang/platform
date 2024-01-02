@@ -44,7 +44,7 @@ spring:
         redis:
             host: 127.0.0.1
             port: 6379
-            database: 0
+            database: 11
             password: redis
             lettuce:
                 pool:
@@ -162,10 +162,10 @@ platform:
         type: min
         min:
             enabled: true
-            bucket-name: elvea
-            access-key: L2dHclRRksLLK3U9l23B
-            secret-key: I1D2veFcykXYpXKXvWu33rFlHLllLeAwGVwBsJOT
-            endpoint: https://storage.dfox.cn
+            bucket-name:
+            access-key:
+            secret-key:
+            endpoint:
         oss:
             enabled: false
             endpoint:

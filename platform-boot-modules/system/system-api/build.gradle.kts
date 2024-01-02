@@ -1,6 +1,4 @@
 dependencies {
-    // spring
-    api("org.springframework:spring-web")
     // jakarta
     compileOnly("jakarta.servlet:jakarta.servlet-api")
     // modules
