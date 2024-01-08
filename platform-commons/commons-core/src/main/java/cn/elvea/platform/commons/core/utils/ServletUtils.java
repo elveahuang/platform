@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -23,14 +24,8 @@ import java.util.*;
 public abstract class ServletUtils {
 
     private final static String UNKNOWN_IP = "unknown";
-    private final static String LOCAL_IP = "127.0.0.1";
 
-    public static final String TEXT_CONTENT_TYPE = "text/plain";
-    public static final String JSON_CONTENT_TYPE = "application/json";
-    public static final String XML_CONTENT_TYPE = "text/xml";
-    public static final String HTML_CONTENT_TYPE = "text/html";
-    public static final String JS_TYPE = "text/javascript";
-    public static final String EXCEL_TYPE = "application/vnd.ms-excel";
+    private final static String LOCAL_IP = "127.0.0.1";
 
     /**
      * 获取HttpServletRequest
@@ -44,6 +39,13 @@ public abstract class ServletUtils {
      */
     public static HttpServletResponse getResponse() {
         return getRequestAttributes().getResponse();
+    }
+
+    /**
+     * 获取HttpSession
+     */
+    public static HttpSession getSession() {
+        return getSession(false);
     }
 
     /**
@@ -265,21 +267,21 @@ public abstract class ServletUtils {
      * 直接输出文本
      */
     public static void renderText(HttpServletResponse response, final String text, final String... headers) {
-        render(response, TEXT_CONTENT_TYPE, text);
+        render(response, MediaType.TEXT_PLAIN_VALUE, text);
     }
 
     /**
      * 直接输出HTML
      */
     public static void renderHtml(HttpServletResponse response, final String html, final String... headers) {
-        render(response, HTML_CONTENT_TYPE, html, headers);
+        render(response, MediaType.TEXT_HTML_VALUE, html, headers);
     }
 
     /**
      * 直接输出XML
      */
     public static void renderXml(HttpServletResponse response, final String xml, final String... headers) {
-        render(response, XML_CONTENT_TYPE, xml, headers);
+        render(response, MediaType.APPLICATION_XML_VALUE, xml, headers);
     }
 
     /**
@@ -287,15 +289,14 @@ public abstract class ServletUtils {
      */
     public static void renderJson(HttpServletResponse response, final Object data, final String... headers) {
         try {
-            render(response, JSON_CONTENT_TYPE, JacksonUtils.toJson(data), headers);
+            render(response, MediaType.APPLICATION_JSON_VALUE, JacksonUtils.toJson(data), headers);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
 
     public static boolean isAjaxRequest(HttpServletRequest request) {
-        return (request.getHeader("X-Requested-With") != null
-                && "XMLHttpRequest".equals(request.getHeader("X-Requested-With")));
+        return (request.getHeader("X-Requested-With") != null && "XMLHttpRequest".equals(request.getHeader("X-Requested-With")));
     }
 
 }

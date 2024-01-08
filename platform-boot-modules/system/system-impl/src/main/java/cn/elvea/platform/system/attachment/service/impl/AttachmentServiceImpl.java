@@ -2,7 +2,6 @@ package cn.elvea.platform.system.attachment.service.impl;
 
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.system.attachment.model.entity.AttachmentEntity;
-import cn.elvea.platform.system.attachment.model.form.AttachmentForm;
 import cn.elvea.platform.system.attachment.repository.AttachmentRepository;
 import cn.elvea.platform.system.attachment.service.AttachmentService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,14 +13,5 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class AttachmentServiceImpl
-        extends BaseCachingEntityService<AttachmentEntity, Long, AttachmentRepository> implements AttachmentService {
-
-    /**
-     * @see AttachmentService#saveAttachment(AttachmentForm)
-     */
-    @Override
-    public void saveAttachment(AttachmentForm form) {
-    }
-
+public class AttachmentServiceImpl extends BaseCachingEntityService<AttachmentEntity, Long, AttachmentRepository> implements AttachmentService {
 }
