@@ -111,7 +111,7 @@ public class CosStorageServiceImpl implements CosStorageService, StorageService 
     }
 
     @Override
-    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) throws Exception {
+    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) {
         COSClient client = null;
         try {
             client = this.getClient();

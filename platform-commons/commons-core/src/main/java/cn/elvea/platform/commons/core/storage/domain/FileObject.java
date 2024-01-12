@@ -32,7 +32,7 @@ public interface FileObject<R> extends Serializable {
     File getObject();
 
     /**
-     *
+     * 服务响应
      */
     R getResponse();
 

@@ -2,6 +2,7 @@ package cn.elvea.platform.commons.core.data.mybatis.service;
 
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
 import cn.elvea.platform.commons.core.data.mybatis.domain.BaseEntity;
+import cn.elvea.platform.commons.core.data.mybatis.domain.BaseSuperBuilderEntity;
 import cn.elvea.platform.commons.core.data.mybatis.domain.SimpleEntity;
 import cn.elvea.platform.commons.core.data.mybatis.mapper.BaseEntityMapper;
 import cn.elvea.platform.commons.core.data.mybatis.utils.MyBatisPlusUtils;
@@ -306,6 +307,9 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
         if (entity instanceof BaseEntity baseEntity) {
             baseEntity.setActive(Boolean.FALSE);
             this.save(entity);
+        } else if (entity instanceof BaseSuperBuilderEntity baseSuperBuilderEntity) {
+            baseSuperBuilderEntity.setActive(Boolean.FALSE);
+            this.save(entity);
         } else if (entity instanceof SimpleEntity simpleEntity) {
             simpleEntity.setActive(Boolean.FALSE);
             this.save(entity);
@@ -318,7 +322,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     @Override
     public void softDeleteBatch(Collection<T> entityList, int batchSize) {
         this.updateBatchById(entityList.stream().peek(e -> {
-            if (e instanceof BaseEntity entity) {
+            if (e instanceof BaseSuperBuilderEntity entity) {
                 entity.setActive(Boolean.FALSE);
                 entity.setDeletedAt(getCurLocalDateTime());
                 entity.setDeletedBy(SecurityUtils.getUid());
@@ -348,7 +352,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
      */
     @Override
     public boolean existsById(K id) {
-        return this.findById(id) != null;
+        return null != id && this.findById(id) != null;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

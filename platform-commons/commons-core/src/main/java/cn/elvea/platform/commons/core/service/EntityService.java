@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
@@ -170,6 +171,14 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
     }
 
     /**
+     * 删除单个实体(执行回调方法，一般用于删除关联关系)
+     */
+    default void softDeleteById(K id, Consumer<T> callback) {
+        T entity = this.findById(id);
+        this.softDelete(entity, callback);
+    }
+
+    /**
      * 删除多个实体
      */
     default void softDeleteBatchById(Collection<K> entityIdList) {
@@ -180,6 +189,14 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
      * 删除单个实体
      */
     default void softDelete(T entity) {
+    }
+
+    /**
+     * 删除单个实体(执行回调方法，一般用于删除关联关系)
+     */
+    default void softDelete(T entity, Consumer<T> callback) {
+        this.softDelete(entity);
+        callback.accept(entity);
     }
 
     /**

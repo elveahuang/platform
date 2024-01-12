@@ -25,7 +25,7 @@ public abstract class StorageUtils {
     }
 
     public static String generateFilename(FileParameter parameter) {
-        String filename = parameter.getTargetFilename();
+        String filename = parameter.getFilename();
         if (StringUtils.isEmpty(filename)) {
             filename = generateFilename(parameter.getOriginalFilename());
         }
@@ -41,7 +41,11 @@ public abstract class StorageUtils {
     }
 
     public static String generateKey(FileParameter parameter, String name, String path) {
-        return path + "/" + name;
+        String key = parameter.getKey();
+        if (StringUtils.isEmpty(key)) {
+            return path + "/" + name;
+        }
+        return key;
     }
 
     public static String generateFileKey(FileParameter parameter) {
@@ -51,11 +55,13 @@ public abstract class StorageUtils {
         return path + "/" + uuid + "." + suffix;
     }
 
-
     public static String generateExtFilename(String ext) {
         return StringUtils.simpleUuid() + "." + ext;
     }
 
+    /**
+     * 新建本地临时文件夹
+     */
     public static File newTempFolder() {
         File tmpFile = new File(FileUtils.getTempDirectoryPath(), StringUtils.simpleUuid());
         if (tmpFile.exists()) {
@@ -71,6 +77,9 @@ public abstract class StorageUtils {
         return null;
     }
 
+    /**
+     * 新建本地临时文件
+     */
     public static File newTempFile(String filename) throws Exception {
         File tmpFile = new File(FileUtils.getTempDirectoryPath(), filename);
         // 强制建立目录，避免目录不存在报错

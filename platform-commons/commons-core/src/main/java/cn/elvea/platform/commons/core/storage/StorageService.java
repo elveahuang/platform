@@ -45,6 +45,13 @@ public interface StorageService {
     /**
      * 上传文件
      */
+    default FileObject<?> uploadFile(MultipartFile file, FileParameter parameter) throws Exception {
+        return this.uploadFile(file.getInputStream(), parameter);
+    }
+
+    /**
+     * 上传文件
+     */
     default FileObject<?> uploadFile(File file) throws Exception {
         FileParameter parameter = FileParameter.builder()
                 .originalFilename(file.getName())

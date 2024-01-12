@@ -26,8 +26,6 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.lang.reflect.Method;
 
-import static cn.elvea.platform.commons.core.constants.GlobalConstants.RATE_LIMIT_KEY;
-
 /**
  * 限流拦截
  *
@@ -38,6 +36,11 @@ import static cn.elvea.platform.commons.core.constants.GlobalConstants.RATE_LIMI
 @Aspect
 @AllArgsConstructor
 public class RateLimitAspect {
+
+    /**
+     * 限流缓存前缀
+     */
+    private final static String RATE_LIMIT_KEY = "RateLimiter";
 
     private final ExpressionParser expressionParser = new SpelExpressionParser();
 
@@ -96,12 +99,14 @@ public class RateLimitAspect {
                 throw new ServiceException(ResponseCodeEnum.RATE_LIMIT_ERROR);
             }
         }
-        StringBuilder stringBuffer = new StringBuilder(RATE_LIMIT_KEY);
-        stringBuffer.append(ServletUtils.getRequest().getRequestURI()).append(":");
+        StringBuilder sb = new StringBuilder(RATE_LIMIT_KEY);
+        sb.append(":").append(ServletUtils.getRequest().getRequestURI()).append(":");
         if (rateLimiter.type() == RateLimitTypeEnum.IP) {
-            stringBuffer.append(ServletUtils.getHost()).append(":");
+            sb.append(ServletUtils.getHost());
+        } else {
+            sb.append(cacheService.getClientId());
         }
-        return stringBuffer.append(key).toString();
+        return sb.append(key).toString();
     }
 
 }

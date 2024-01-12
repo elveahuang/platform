@@ -68,12 +68,7 @@ public interface GlobalConstants {
     /**
      * 默认分隔符
      */
-    String RELATION_DELIMITER = "~|~";
-
-    /**
-     * 默认分隔符
-     */
-    String STR_DELIMITER_1 = "~|~";
+    String DELIMITER = "~|~";
 
     /**
      * 默认分隔符
@@ -88,11 +83,6 @@ public interface GlobalConstants {
     /**
      * 默认的邮件服务端口
      */
-    int DEFAULT_SMTP__SSL_PORT = 465;
-
-    /**
-     * 限流缓存前缀
-     */
-    String RATE_LIMIT_KEY = "rateLimit:";
+    int DEFAULT_SMTP_SSL_PORT = 465;
 
 }

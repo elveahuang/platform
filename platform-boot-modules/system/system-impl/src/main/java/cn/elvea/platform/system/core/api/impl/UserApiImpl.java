@@ -207,7 +207,6 @@ public class UserApiImpl implements UserApi {
                 .email(form.getEmail())
                 .key(form.getCaptchaKey())
                 .value(form.getCaptchaValue())
-                .clearAfterCheck(false)
                 .build();
         if (!captchaService.check(captchaCheckRequest)) {
             return R.error();
@@ -231,7 +230,6 @@ public class UserApiImpl implements UserApi {
                 .email(form.getEmail())
                 .key(form.getCaptchaKey())
                 .value(form.getCaptchaValue())
-                .clearAfterCheck(true)
                 .build();
         if (!captchaService.check(captchaCheckRequest)) {
             return R.error();

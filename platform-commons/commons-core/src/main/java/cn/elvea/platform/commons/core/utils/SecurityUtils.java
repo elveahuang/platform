@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.Objects;
@@ -124,8 +125,7 @@ public abstract class SecurityUtils {
      * @return boolean
      */
     public static boolean isAnonymous() {
-        return Objects.isNull(SecurityContextHolder.getContext().getAuthentication()) ||
-                !SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+        return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
     }
 
     /**
@@ -134,8 +134,31 @@ public abstract class SecurityUtils {
      * @return boolean
      */
     public static boolean isAuthenticated() {
-        return !Objects.isNull(SecurityContextHolder.getContext().getAuthentication()) &&
-                SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+        return !Objects.isNull(SecurityContextHolder.getContext().getAuthentication())
+                && SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+    }
+
+    /**
+     * 密码加密
+     *
+     * @param password 明文密码
+     * @return 加密密码
+     */
+    public static String encode(String password) {
+        PasswordEncoder encoder = SpringUtils.getBean(PasswordEncoder.class);
+        return encoder.encode(password);
+    }
+
+    /**
+     * 密码比对
+     *
+     * @param rawPassword     明文密码
+     * @param encodedPassword 明文密码
+     * @return 是否匹配
+     */
+    public static boolean matches(String rawPassword, String encodedPassword) {
+        PasswordEncoder encoder = SpringUtils.getBean(PasswordEncoder.class);
+        return encoder.matches(rawPassword, encodedPassword);
     }
 
 }

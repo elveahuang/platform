@@ -6,11 +6,11 @@ package cn.elvea.platform.commons.core.security;
  */
 public final class CustomParameterNames {
 
+    public static final String TYPE = "type";
+
     public static final String CODE = "code";
 
     public static final String MOBILE = "mobile";
-
-    public static final String SOURCE = "source";
 
     public static final String CAPTCHA_KEY = "captchaKey";
 

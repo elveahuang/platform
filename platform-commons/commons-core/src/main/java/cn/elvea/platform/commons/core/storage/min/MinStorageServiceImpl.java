@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import static io.minio.ObjectWriteArgs.MIN_MULTIPART_SIZE;
+
 /**
  * @author elvea
  * @see MinStorageService
@@ -37,7 +39,10 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
      */
     @Override
     public MinioClient getClient() {
-        return MinioClient.builder().endpoint(this.config.getEndpoint()).credentials(this.config.getAccessKey(), this.config.getSecretKey()).build();
+        return MinioClient.builder()
+                .endpoint(this.config.getEndpoint())
+                .credentials(this.config.getAccessKey(), this.config.getSecretKey())
+                .build();
     }
 
     /**
@@ -45,6 +50,7 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
      */
     @Override
     public void closeClient(MinioClient client) {
+        log.info("Close Minio Client.");
     }
 
     /**
@@ -80,7 +86,11 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
                 // 获取文件链接
                 String url;
                 if (StrUtil.isBlank(getDomain())) {
-                    GetPresignedObjectUrlArgs urlArgs = GetPresignedObjectUrlArgs.builder().bucket(getBucketName()).object(key).method(Method.GET).build();
+                    GetPresignedObjectUrlArgs urlArgs = GetPresignedObjectUrlArgs.builder()
+                            .bucket(getBucketName())
+                            .object(key)
+                            .method(Method.GET)
+                            .build();
                     url = client.getPresignedObjectUrl(urlArgs);
                     log.error("Minio getObjectUrl response - [{}].", url);
                     url = url.substring(0, url.indexOf("?"));
@@ -100,10 +110,14 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
 
                 // 构建文件信息
                 GenericResponse genericResponse = new GenericResponse(response.headers(), response.bucket(), response.region(), response.object());
-                return MinFileObject.builder().object(localTempFile).url(url).response(genericResponse).build();
+                return MinFileObject.builder()
+                        .key(key)
+                        .object(localTempFile)
+                        .url(url)
+                        .response(genericResponse)
+                        .build();
             }
         } catch (Exception e) {
-            log.error("Minio getFile failed.", e);
             throw new ServiceException("Minio getFile failed.", e);
         } finally {
             this.closeClient(client);
@@ -111,7 +125,7 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
     }
 
     @Override
-    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) throws Exception {
+    public FileObject<?> uploadFile(InputStream is, FileParameter parameter) {
         MinioClient client = null;
         try {
             client = getClient();
@@ -120,14 +134,18 @@ public class MinStorageServiceImpl implements MinStorageService, StorageService 
             String path = StorageUtils.generatePath(parameter);
             String key = StorageUtils.generateKey(parameter, name, path);
 
-            PutObjectArgs args = PutObjectArgs.builder().bucket(getBucketName()).stream(is, parameter.getSize(), -1).contentType(parameter.getContentType()).object(key).build();
+            PutObjectArgs args = PutObjectArgs.builder()
+                    .bucket(getBucketName())
+                    .stream(is, parameter.getSize(), MIN_MULTIPART_SIZE)
+                    .contentType(parameter.getContentType())
+                    .object(key)
+                    .build();
             ObjectWriteResponse response = client.putObject(args);
-            log.error("Minio putObject response - [{}].", JacksonUtils.toJson(response));
+            log.info("Minio putObject response - [{}].", JacksonUtils.toJson(response));
 
             return getFile(key, false);
         } catch (Exception e) {
-            log.error("UploadFile to minio failed.", e);
-            throw e;
+            throw new ServiceException("Minio getFile failed.", e);
         } finally {
             this.closeClient(client);
         }

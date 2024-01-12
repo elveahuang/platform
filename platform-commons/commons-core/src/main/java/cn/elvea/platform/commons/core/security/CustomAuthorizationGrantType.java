@@ -14,4 +14,6 @@ public class CustomAuthorizationGrantType {
 
     public static final AuthorizationGrantType SMS = new AuthorizationGrantType("sms");
 
+    public static final AuthorizationGrantType TYPE = new AuthorizationGrantType("type");
+
 }

@@ -33,7 +33,7 @@ public class FileParameter implements Serializable {
     /**
      * 目标文件名
      */
-    private String targetFilename;
+    private String filename;
 
     /**
      * 文件大小
@@ -45,6 +45,14 @@ public class FileParameter implements Serializable {
      */
     private String path;
 
+    /**
+     * 存储标识
+     */
+    private String key;
+
+    /**
+     * 访问类型
+     */
     private FileAccessTypeEnum accessType;
 
     public static FileParameter withPublic() {

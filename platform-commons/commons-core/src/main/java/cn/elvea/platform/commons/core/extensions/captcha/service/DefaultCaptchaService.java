@@ -56,12 +56,13 @@ public class DefaultCaptchaService implements CaptchaService {
         } else if (CaptchaTypeEnum.CODE.equals(request.getType())) {
             result = (!ObjectUtils.isEmpty(captcha) && captcha.getValue().equalsIgnoreCase(request.getValue()));
         }
+        return result;
+    }
 
-        // 校验后删除验证码
-        if (request.isClearAfterCheck()) {
-            captchaStore.remove(request.getKey());
-        }
-
+    @Override
+    public boolean validate(CaptchaCheckRequest request) {
+        boolean result = check(request);
+        captchaStore.remove(request.getKey());
         return result;
     }
 

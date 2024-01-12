@@ -314,6 +314,14 @@ public class RedissonCacheServiceImpl extends AbstractCacheService implements Re
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * @see CacheService#getClientId()
+     */
+    @Override
+    public String getClientId() {
+        return this.redissonClient.getId();
+    }
+
+    /**
      * @see CacheService#rateLimiter(String, RateLimitTypeEnum, long, long)
      */
     public long rateLimiter(String key, RateLimitTypeEnum type, long rate, long rateInterval) {

@@ -260,6 +260,10 @@ public interface CacheService {
     // 限流
     // -----------------------------------------------------------------------------------------------------------------
 
+    default String getClientId() {
+        return "redis";
+    }
+
     long rateLimiter(String key, RateLimitTypeEnum type, long rate, long rateInterval);
 
 }

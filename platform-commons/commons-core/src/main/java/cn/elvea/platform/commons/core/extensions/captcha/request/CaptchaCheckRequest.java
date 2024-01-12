@@ -23,7 +23,4 @@ public class CaptchaCheckRequest implements Serializable {
     private String mobileNumber;
     private String key;
     private String value;
-    // 是否在校验后删除验证码
-    @Builder.Default
-    private boolean clearAfterCheck = false;
 }

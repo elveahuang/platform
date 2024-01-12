@@ -62,7 +62,7 @@ public class EntityRelationServiceImpl extends BaseCachingEntityService<EntityRe
                 if (CollectionUtils.isNotEmpty(ancestorRelationList)) {
                     entityRelationList.addAll(ancestorRelationList.stream().map(r -> {
                         // 关联路径
-                        sb.append(GlobalConstants.RELATION_DELIMITER).append(r.getAncestorId());
+                        sb.append(GlobalConstants.DELIMITER).append(r.getAncestorId());
                         // 构建关联
                         return EntityRelationEntity.builder()
                                 .ancestorId(r.getAncestorId())
@@ -84,7 +84,7 @@ public class EntityRelationServiceImpl extends BaseCachingEntityService<EntityRe
                         .build()
                 );
 
-                sb.append(GlobalConstants.RELATION_DELIMITER).append(ancestorId).append(GlobalConstants.RELATION_DELIMITER);
+                sb.append(GlobalConstants.DELIMITER).append(ancestorId).append(GlobalConstants.DELIMITER);
 
                 // 处理完整关联路径
                 entityRelationList.forEach(r -> r.setRelationPath(sb.toString()));

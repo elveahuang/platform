@@ -13,7 +13,15 @@ public interface CaptchaService {
 
     Captcha generate(CaptchaRequest request) throws Exception;
 
+    /**
+     * 检查验证码
+     */
     boolean check(CaptchaCheckRequest request);
+
+    /**
+     * 检查验证码，不管结果是否成功，检查后都将删除验证码
+     */
+    boolean validate(CaptchaCheckRequest request);
 
     CaptchaProvider getCaptchaProvider(CaptchaRequest request);
 
