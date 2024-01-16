@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.event.BeforeConvertCallback
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class MongoBeforeSaveCallback<T extends IdEntity> implements BeforeConvertCallback<T>, Ordered {
 

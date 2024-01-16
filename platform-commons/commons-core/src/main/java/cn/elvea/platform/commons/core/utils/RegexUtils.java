@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class RegexUtils {
 

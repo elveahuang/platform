@@ -4,7 +4,7 @@ package cn.elvea.platform.system.attachment.service;
  * 附件服务
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface AttachmentService {
 

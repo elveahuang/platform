@@ -26,7 +26,7 @@ import java.io.InputStream;
  * @author elvea
  * @see CosStorageService
  * @see StorageService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public class CosStorageServiceImpl implements CosStorageService, StorageService {

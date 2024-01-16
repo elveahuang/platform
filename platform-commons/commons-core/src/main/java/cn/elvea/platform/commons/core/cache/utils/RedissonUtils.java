@@ -1,16 +1,14 @@
 package cn.elvea.platform.commons.core.cache.utils;
 
 import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
+import cn.elvea.platform.commons.core.extensions.socket.message.SocketMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RRateLimiter;
-import org.redisson.api.RateIntervalUnit;
-import org.redisson.api.RateType;
-import org.redisson.api.RedissonClient;
+import org.redisson.api.*;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @AllArgsConstructor
@@ -31,6 +29,15 @@ public class RedissonUtils {
         } else {
             return -1L;
         }
+    }
+
+    public RTopic getTopic(String listener) {
+        return this.client.getTopic(listener);
+    }
+
+    public RFuture<Long> publishAsync(SocketMessage message) {
+        RTopic topic = getTopic(message.getType());
+        return topic.publishAsync(message);
     }
 
 }

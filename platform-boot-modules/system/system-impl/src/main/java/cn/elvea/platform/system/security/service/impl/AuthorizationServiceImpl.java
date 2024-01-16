@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author elvea
  * @see AuthorizationService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class AuthorizationServiceImpl extends BaseCachingEntityService<AuthorizationEntity, Long, AuthorizationRepository> implements AuthorizationService {

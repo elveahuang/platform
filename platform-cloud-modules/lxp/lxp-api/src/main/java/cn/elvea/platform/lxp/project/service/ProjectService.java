@@ -2,7 +2,7 @@ package cn.elvea.platform.lxp.project.service;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface ProjectService {
 }

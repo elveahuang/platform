@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Configuration
 @ExtendWith(SpringExtension.class)

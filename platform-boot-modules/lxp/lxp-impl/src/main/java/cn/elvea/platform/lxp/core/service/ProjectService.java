@@ -7,7 +7,7 @@ import cn.elvea.platform.lxp.core.model.entity.ProjectEntity;
 /**
  * @author elvea
  * @see EntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface ProjectService extends CachingEntityService<ProjectEntity, Long> {
 }

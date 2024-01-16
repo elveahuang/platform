@@ -12,7 +12,7 @@ import cn.elvea.platform.commons.core.storage.oss.OssStorageServiceImpl;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class Storage {
 

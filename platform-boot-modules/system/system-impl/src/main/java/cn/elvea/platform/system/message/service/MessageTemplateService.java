@@ -5,7 +5,7 @@ import cn.elvea.platform.system.message.model.entity.MessageTemplateEntity;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface MessageTemplateService extends CachingEntityService<MessageTemplateEntity, Long> {
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author elvea
  * @see AuthorizationConsentService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class AuthorizationConsentServiceImpl

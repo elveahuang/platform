@@ -5,7 +5,7 @@ import cn.elvea.platform.system.core.model.entity.LangEntity;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface LangTypeMapper extends BaseEntityMapper<LangEntity, Long> {
 }

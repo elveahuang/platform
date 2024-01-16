@@ -1,8 +1,12 @@
 package cn.elvea.platform.commons.core.service;
 
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
+import cn.elvea.platform.commons.core.data.mybatis.domain.event.PreSuperBuilderCreateEvent;
+import cn.elvea.platform.commons.core.data.mybatis.domain.event.PreSuperBuilderDeleteEvent;
+import cn.elvea.platform.commons.core.data.mybatis.domain.event.PreSuperBuilderModifiedEvent;
 import cn.elvea.platform.commons.core.utils.GenericsUtils;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,7 +25,7 @@ import static org.apache.commons.lang3.ObjectUtils.isEmpty;
  * @param <K> 主键类型
  * @author elvea
  * @see Service
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface EntityService<T extends IdEntity, K extends Serializable> extends Service {
 
@@ -49,6 +53,11 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
      * 根据ID查询唯一记录
      */
     T findById(K id);
+
+    /**
+     * 根据ID查询唯一记录，并执行回调(一般用于获取附加信息)
+     */
+    T findById(K id, Consumer<T> extraFn);
 
     /**
      * 根据ID查询多条记录
@@ -236,6 +245,30 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
             return !isEmpty(entity.getId()) && entity.getId() > 0;
         }
         return false;
+    }
+
+    /**
+     * 创建前
+     */
+    default <E extends PreSuperBuilderCreateEvent> void preCreate(E entity) {
+        entity.setCreatedAt(getCurLocalDateTime());
+        entity.setCreatedBy(SecurityUtils.getUid());
+    }
+
+    /**
+     * 更新前
+     */
+    default <E extends PreSuperBuilderModifiedEvent> void preUpdate(E entity) {
+        entity.setLastModifiedAt(getCurLocalDateTime());
+        entity.setLastModifiedBy(SecurityUtils.getUid());
+    }
+
+    /**
+     * 删除前
+     */
+    default <E extends PreSuperBuilderDeleteEvent> void preDelete(E entity) {
+        entity.setDeletedAt(getCurLocalDateTime());
+        entity.setDeletedBy(SecurityUtils.getUid());
     }
 
 }

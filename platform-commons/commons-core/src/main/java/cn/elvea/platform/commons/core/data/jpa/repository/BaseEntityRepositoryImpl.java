@@ -22,7 +22,7 @@ import java.io.Serializable;
  * @see PagingAndSortingRepository
  * @see CrudRepository
  * @see Repository
- * @since 0.0.1
+ * @since 24.1.0
  */
 @NoRepositoryBean
 public class BaseEntityRepositoryImpl<T extends IdEntity, K extends Serializable> extends SimpleJpaRepository<T, K>

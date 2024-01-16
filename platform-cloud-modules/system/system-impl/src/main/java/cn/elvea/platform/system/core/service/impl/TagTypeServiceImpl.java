@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @author elvea
  * @see TagTypeService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class TagTypeServiceImpl extends BaseCachingEntityService<TagTypeEntity, Long, TagTypeMapper> implements TagTypeService {

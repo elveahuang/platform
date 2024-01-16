@@ -25,7 +25,7 @@ import static cn.elvea.platform.commons.core.constants.GlobalConstants.MAX_BATCH
  * @author elvea
  * @see EntityService
  * @see Service
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface CachingEntityService<T extends IdEntity, K extends Serializable> extends EntityService<T, K> {
 

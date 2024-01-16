@@ -29,7 +29,7 @@ import java.util.UUID;
  * <a href="https://connect2id.com/products/nimbus-jose-jwt">...</a>
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class JwtUtils {
 

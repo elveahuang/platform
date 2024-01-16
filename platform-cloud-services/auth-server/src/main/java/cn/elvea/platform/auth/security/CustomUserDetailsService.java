@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * @author elvea
  * @see UserDetailsService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @AllArgsConstructor

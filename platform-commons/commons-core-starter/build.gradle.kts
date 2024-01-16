@@ -13,6 +13,7 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-data-mongodb")
     compileOnly("org.springframework.boot:spring-boot-starter-quartz")
     compileOnly("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compileOnly("org.springframework.boot:spring-boot-starter-websocket")
     // spring extensions
     compileOnly("me.ahoo.cosid:cosid-spring-boot-starter")
     compileOnly("com.baomidou:mybatis-plus-boot-starter")

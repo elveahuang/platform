@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class CaptchaApiImpl implements CaptchaApi {

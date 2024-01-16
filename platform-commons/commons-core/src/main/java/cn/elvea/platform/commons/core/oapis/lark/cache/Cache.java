@@ -4,7 +4,7 @@ import com.lark.oapi.core.cache.ICache;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface Cache extends ICache {
 }

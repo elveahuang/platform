@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 @AllArgsConstructor

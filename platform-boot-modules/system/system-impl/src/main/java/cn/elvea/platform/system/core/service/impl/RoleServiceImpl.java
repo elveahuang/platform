@@ -19,7 +19,7 @@ import java.util.List;
  * @author elvea
  * @see RoleService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class RoleServiceImpl extends BaseCachingEntityService<RoleEntity, Long, RoleRepository> implements RoleService {

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @see CacheService
  * @see RedissonCacheServiceImpl
  * @see AbstractCacheService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class RedissonCacheServiceImpl extends AbstractCacheService implements RedissonCacheService {
 

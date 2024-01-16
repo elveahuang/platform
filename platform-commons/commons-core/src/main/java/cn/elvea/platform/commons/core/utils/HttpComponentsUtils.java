@@ -28,7 +28,7 @@ import java.util.Map;
  * <a href="https://hc.apache.org/">...</a>
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class HttpComponentsUtils {
 

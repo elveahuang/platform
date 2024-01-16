@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 /**
  * @author elvea
  * @see ProjectService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @Controller

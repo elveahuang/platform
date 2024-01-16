@@ -12,7 +12,7 @@ import static cn.elvea.platform.system.commons.enums.EntityRelationTypeEnum.USR_
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class EntityRelationServiceTests extends BaseTests {
 

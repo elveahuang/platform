@@ -37,12 +37,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -53,10 +55,11 @@ import java.util.stream.Collectors;
  * @see AbstractService
  * @see EnhancedEntityService
  * @see EntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @NoRepositoryBean
+@Transactional
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, M extends BaseEntityMapper<T, K>>
         extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, M> {
@@ -125,6 +128,17 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     @Override
     public T findById(K id) {
         return this.getMapper().selectById(id);
+    }
+
+
+    /**
+     * @see EntityService#findById(Serializable, Consumer)
+     */
+    @Override
+    public T findById(K id, Consumer<T> extraFn) {
+        T entity = this.getMapper().selectById(id);
+        extraFn.accept(entity);
+        return entity;
     }
 
     /**
@@ -432,7 +446,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     /**
      * @return QueryWrapper
      */
-    protected QueryChainWrapper<T> query() {
+    public QueryChainWrapper<T> query() {
         return ChainWrappers.queryChain(getMapper());
     }
 
@@ -456,5 +470,4 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     protected LambdaUpdateChainWrapper<T> lambdaUpdate() {
         return ChainWrappers.lambdaUpdateChain(getMapper());
     }
-
 }

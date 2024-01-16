@@ -13,7 +13,7 @@ import static cn.elvea.platform.system.commons.constants.SystemServiceConstants.
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Component
 @FeignClient(name = SYSTEM_SERVICE, fallback = AuthorizationApi.AuthorizationApiFallback.class)

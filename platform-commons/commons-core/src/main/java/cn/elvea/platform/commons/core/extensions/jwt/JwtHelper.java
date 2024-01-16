@@ -4,7 +4,7 @@ import org.springframework.security.oauth2.jwt.*;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public record JwtHelper(JwtConfig config, JwtEncoder encoder, JwtDecoder decoder) {
 

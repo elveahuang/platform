@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public class LogInterceptor implements HandlerInterceptor {

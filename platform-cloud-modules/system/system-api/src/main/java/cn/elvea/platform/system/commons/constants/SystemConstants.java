@@ -2,7 +2,7 @@ package cn.elvea.platform.system.commons.constants;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface SystemConstants {
 

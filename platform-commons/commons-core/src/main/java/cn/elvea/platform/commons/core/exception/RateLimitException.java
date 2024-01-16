@@ -4,7 +4,7 @@ package cn.elvea.platform.commons.core.exception;
  * 限流异常
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class RateLimitException extends RuntimeException {
 

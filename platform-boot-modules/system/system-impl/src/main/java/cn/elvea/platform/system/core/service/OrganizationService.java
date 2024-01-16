@@ -8,7 +8,7 @@ import cn.elvea.platform.system.core.model.entity.OrganizationEntity;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface OrganizationService extends CachingEntityService<OrganizationEntity, Long> {
 

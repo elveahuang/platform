@@ -10,7 +10,7 @@ import java.util.List;
  * @author elvea
  * @see EntityService
  * @see CachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface RoleService extends CachingEntityService<RoleEntity, Long> {
 

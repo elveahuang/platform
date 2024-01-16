@@ -5,7 +5,7 @@ import cn.elvea.platform.system.message.model.dto.SendMessageAmqpDto;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface MessageAmqpService extends AmqpService<SendMessageAmqpDto> {
 }

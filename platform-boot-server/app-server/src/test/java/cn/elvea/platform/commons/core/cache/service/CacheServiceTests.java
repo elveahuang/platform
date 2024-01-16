@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class CacheServiceTests extends BaseTests {
 

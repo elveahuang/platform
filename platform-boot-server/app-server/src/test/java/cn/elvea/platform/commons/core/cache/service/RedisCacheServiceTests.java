@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @ActiveProfiles("RedisTemplate")
 public class RedisCacheServiceTests extends CacheServiceTests {

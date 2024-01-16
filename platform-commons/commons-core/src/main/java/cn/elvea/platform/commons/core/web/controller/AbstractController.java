@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 顶层抽象控制器
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class AbstractController {
 

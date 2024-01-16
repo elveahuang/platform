@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * @see CacheService
  * @see RedisCacheService
  * @see AbstractCacheService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class RedisCacheServiceImpl extends AbstractCacheService implements RedisCacheService {
 

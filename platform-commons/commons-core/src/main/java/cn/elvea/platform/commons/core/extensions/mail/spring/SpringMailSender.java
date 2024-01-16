@@ -16,7 +16,7 @@ import java.util.Properties;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @AllArgsConstructor
 @NoArgsConstructor

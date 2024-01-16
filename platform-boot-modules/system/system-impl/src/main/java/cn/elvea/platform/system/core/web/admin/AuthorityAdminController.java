@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @RestController
 @Tag(name = "AuthorityAdminController", description = "权限后台控制器")

@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  * @author elvea
  * @see UserService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, UserRepository> implements UserService {

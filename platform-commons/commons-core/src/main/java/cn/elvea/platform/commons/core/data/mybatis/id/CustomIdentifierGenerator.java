@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
  *
  * @author elvea
  * @see IdentifierGenerator
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class CustomIdentifierGenerator implements IdentifierGenerator {
 

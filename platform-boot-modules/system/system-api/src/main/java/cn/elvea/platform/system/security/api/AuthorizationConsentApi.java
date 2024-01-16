@@ -4,7 +4,7 @@ import cn.elvea.platform.system.security.model.dto.AuthorizationConsentDto;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface AuthorizationConsentApi {
 

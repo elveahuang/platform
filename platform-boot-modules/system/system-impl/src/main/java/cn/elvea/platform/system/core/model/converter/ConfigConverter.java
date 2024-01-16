@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Mapper
 public interface ConfigConverter {

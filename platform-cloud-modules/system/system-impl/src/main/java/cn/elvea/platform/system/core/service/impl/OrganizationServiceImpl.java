@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * @author elvea
  * @see OrganizationService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class OrganizationServiceImpl extends BaseCachingEntityService<OrganizationEntity, Long, OrganizationMapper> implements OrganizationService {

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * 岗位
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Data
 @TableName("sys_position")

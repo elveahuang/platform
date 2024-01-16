@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Repository
 public interface LabelRepository extends BaseEntityRepository<LabelEntity, Long> {

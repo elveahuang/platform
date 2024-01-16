@@ -7,7 +7,7 @@ import lombok.Getter;
  * 启用类型
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Getter
 public enum ActiveTypeEnum implements BaseEnum<Boolean> {

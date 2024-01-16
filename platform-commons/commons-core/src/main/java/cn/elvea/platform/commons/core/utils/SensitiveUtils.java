@@ -4,7 +4,7 @@ import cn.hutool.core.util.DesensitizedUtil;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class SensitiveUtils {
 

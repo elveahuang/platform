@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * <a href="https://square.github.io/okhttp/">...</a>
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class OkHttpUtils {
 

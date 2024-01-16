@@ -8,7 +8,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @NoRepositoryBean
 public abstract class BaseService {

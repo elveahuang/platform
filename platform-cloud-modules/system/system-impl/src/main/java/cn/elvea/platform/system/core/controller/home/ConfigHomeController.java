@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 系统设置控制器
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @RestController

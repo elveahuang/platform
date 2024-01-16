@@ -7,7 +7,7 @@ import cn.elvea.platform.system.core.model.entity.TagTypeEntity;
 /**
  * @author elvea
  * @see EntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface TagTypeService extends CachingEntityService<TagTypeEntity, Long> {
 }

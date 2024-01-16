@@ -27,3 +27,5 @@ cn.elvea.platform.commons.core.autoconfigure.extensions.sms.SmsAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.swagger.SwaggerAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.template.TemplateAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.translator.TranslatorAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.extensions.socket.WebSocketCommonAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.extensions.socket.WebSocketMessageBrokerAutoConfiguration

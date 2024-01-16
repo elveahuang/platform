@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author elvea
  * @see DictionaryItemService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class DictionaryItemServiceImpl extends BaseCachingEntityService<DictionaryItemEntity, Long, DictionaryItemMapper> implements DictionaryItemService {

@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * @author elvea
  * @see IdEntity
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Data
 @SuperBuilder

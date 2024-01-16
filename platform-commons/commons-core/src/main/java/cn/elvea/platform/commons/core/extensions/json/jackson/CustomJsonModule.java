@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class CustomJsonModule extends SimpleModule {
 

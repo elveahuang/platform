@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @author elvea
  * @see UserRoleService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class UserRoleServiceImpl extends BaseCachingEntityService<UserRoleEntity, Long, UserRoleRepository> implements UserRoleService {

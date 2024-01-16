@@ -17,7 +17,7 @@ import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @RestController

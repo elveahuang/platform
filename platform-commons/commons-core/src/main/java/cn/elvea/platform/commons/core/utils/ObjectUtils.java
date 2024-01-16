@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 
@@ -28,6 +28,8 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
     public static boolean equals(Object o1, Object o2) {
         if (o1 instanceof Number n1 && o2 instanceof Number n2) {
             return n1.longValue() == n2.longValue();
+        } else if (o1 instanceof String s1 && o2 instanceof String s2) {
+            return StringUtils.isNotEmpty(s1) && StringUtils.isNotEmpty(s2) && s1.equalsIgnoreCase(s2);
         }
         return nullSafeEquals(o1, o2);
     }

@@ -2,6 +2,7 @@ package cn.elvea.platform.commons.core.extensions.amqp;
 
 import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.service.AbstractService;
+import cn.elvea.platform.commons.core.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public abstract class AbstractAmqpService<T> extends AbstractService implements AmqpService<T> {
@@ -23,6 +24,7 @@ public abstract class AbstractAmqpService<T> extends AbstractService implements 
      */
     @Override
     public void send(T body) throws Exception {
+        log.info("Send Amqp Message - {}", JacksonUtils.toJson(body));
         this.send(getRoutingKey(), body);
     }
 
@@ -34,6 +36,20 @@ public abstract class AbstractAmqpService<T> extends AbstractService implements 
         if (this.isEnabled()) {
             log.info("RabbitMQ is enabled. send...");
             this.rabbitTemplate.convertAndSend(routingKey, body);
+        } else {
+            log.info("RabbitMQ is disabled. execute...");
+            this.execute(body);
+        }
+    }
+
+    /**
+     * @see AmqpService#send(String, Object)
+     */
+    @Override
+    public void send(String exchange, String routingKey, T body) throws Exception {
+        if (this.isEnabled()) {
+            log.info("RabbitMQ is enabled. send...");
+            this.rabbitTemplate.convertAndSend(exchange, routingKey, body);
         } else {
             log.info("RabbitMQ is disabled. execute...");
             this.execute(body);

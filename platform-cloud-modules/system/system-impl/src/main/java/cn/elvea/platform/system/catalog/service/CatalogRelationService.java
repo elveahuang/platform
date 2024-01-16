@@ -9,7 +9,7 @@ import java.util.List;
  * CatalogRelationManager
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface CatalogRelationService extends EntityService<CatalogRelationEntity, Long> {
 

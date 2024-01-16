@@ -2,7 +2,7 @@ package cn.elvea.platform.commons.core.extensions.amqp;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface AmqpService<T> {
 
@@ -16,9 +16,22 @@ public interface AmqpService<T> {
     /**
      * 发送消息
      *
-     * @param queueName 队列名称
-     * @param body      消息内容
+     * @param routingKey 队列名称
+     * @param body       消息内容
      */
-    void send(String queueName, T body) throws Exception;
+    void send(String routingKey, T body) throws Exception;
+
+    /**
+     * 发送消息
+     *
+     * @param exchange   交换机
+     * @param routingKey 队列名称
+     * @param body       消息内容
+     */
+    void send(String exchange, String routingKey, T body) throws Exception;
+
+    default String getExchange() {
+        return "";
+    }
 
 }

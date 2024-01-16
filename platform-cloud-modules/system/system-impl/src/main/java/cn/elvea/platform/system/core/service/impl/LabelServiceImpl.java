@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author elvea
  * @see LabelService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class LabelServiceImpl extends BaseEntityService<LabelEntity, Long, LangLabelMapper> implements LabelService {

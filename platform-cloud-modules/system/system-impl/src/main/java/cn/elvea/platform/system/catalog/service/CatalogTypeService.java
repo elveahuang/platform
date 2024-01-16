@@ -7,7 +7,7 @@ import cn.elvea.platform.system.catalog.model.entity.CatalogTypeEntity;
  * CatalogTypeManager
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface CatalogTypeService extends EntityService<CatalogTypeEntity, Long> {
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 谷歌翻译单元测试
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class AliyunTranslatorTests extends BaseTests {
 

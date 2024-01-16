@@ -12,7 +12,7 @@ import org.springframework.data.repository.Repository;
  * @see Repository
  * @see CrudRepository
  * @see PagingAndSortingRepository
- * @since 0.0.1
+ * @since 24.1.0
  */
 @NoRepositoryBean
 public interface BaseEntityRepository<T, K> extends CrudRepository<T, K>, PagingAndSortingRepository<T, K> {

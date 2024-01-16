@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author elvea
  * @see EntityService
  * @see Service
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface EnhancedEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
         extends EntityService<T, K> {

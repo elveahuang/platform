@@ -14,11 +14,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @param <T> 实体
@@ -28,10 +30,11 @@ import java.util.List;
  * @see AbstractService
  * @see EnhancedEntityService
  * @see EntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @NoRepositoryBean
+@Transactional
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
         extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, R> {
@@ -95,6 +98,16 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     @Override
     public T findById(K id) {
         return this.getRepository().findById(id).orElse(null);
+    }
+
+    /**
+     * @see EntityService#findById(Serializable, Consumer)
+     */
+    @Override
+    public T findById(K id, Consumer<T> extraFn) {
+        T entity = this.getRepository().findById(id).orElse(null);
+        extraFn.accept(entity);
+        return entity;
     }
 
     /**

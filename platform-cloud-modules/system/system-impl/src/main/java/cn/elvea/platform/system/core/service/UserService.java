@@ -9,7 +9,7 @@ import cn.elvea.platform.system.core.model.entity.UserEntity;
  * @author elvea
  * @see EntityService
  * @see CachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface UserService extends CachingEntityService<UserEntity, Long> {
 

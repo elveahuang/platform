@@ -18,14 +18,14 @@ import java.util.*;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public abstract class ServletUtils {
 
     private final static String UNKNOWN_IP = "unknown";
 
-    private final static String LOCAL_IP = "127.0.0.1";
+    private final static String LOCAL_IP = "127.24.1.0";
 
     /**
      * 获取HttpServletRequest

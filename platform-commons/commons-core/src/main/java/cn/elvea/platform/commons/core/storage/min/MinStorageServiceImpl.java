@@ -23,7 +23,7 @@ import static io.minio.ObjectWriteArgs.MIN_MULTIPART_SIZE;
  * @author elvea
  * @see MinStorageService
  * @see StorageService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public class MinStorageServiceImpl implements MinStorageService, StorageService {

@@ -11,7 +11,7 @@ import cn.elvea.platform.system.core.model.form.UserForm;
 /**
  * @author elvea
  * @see EntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface UserService extends CachingEntityService<UserEntity, Long> {
 

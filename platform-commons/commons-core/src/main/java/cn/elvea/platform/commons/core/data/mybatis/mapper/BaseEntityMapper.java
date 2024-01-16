@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @param <K>
  * @author elvea
  * @see BaseMapper
- * @since 0.0.1
+ * @since 24.1.0
  */
 @NoRepositoryBean
 public interface BaseEntityMapper<T extends IdEntity, K extends Serializable> extends BaseMapper<T> {

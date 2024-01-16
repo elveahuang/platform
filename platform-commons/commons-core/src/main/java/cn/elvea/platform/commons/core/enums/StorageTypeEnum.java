@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public enum StorageTypeEnum implements Serializable {
     MIN,

@@ -23,7 +23,7 @@ import java.util.Collections;
  * 当前阿里云视觉智能开放平台只支持上海区
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public class AliyunFaceBodyService implements FaceBodyService {
@@ -114,7 +114,7 @@ public class AliyunFaceBodyService implements FaceBodyService {
 
     /**
      * @author elvea
-     * @since 0.0.1
+     * @since 24.1.0
      */
     @Data
     @Builder

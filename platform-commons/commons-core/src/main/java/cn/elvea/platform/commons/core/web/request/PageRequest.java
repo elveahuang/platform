@@ -1,15 +1,19 @@
 package cn.elvea.platform.commons.core.web.request;
 
+import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.google.common.base.Strings;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.List;
+
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -55,6 +59,27 @@ public class PageRequest extends Request {
         } else {
             return org.springframework.data.domain.PageRequest.of(this.page - 1, size);
         }
+    }
+
+    /**
+     * 获取预期字段中的排序字段，不允许出现预期字段以外的数据，防止SQL注入
+     * @param expectColumns 预期的字段集合
+     * @return 排序字段
+     */
+    public String getExpectSort(List<String> expectColumns) {
+        String result = "";
+        if (StringUtils.isNotEmpty(this.sort)) {
+            String trimSort = StringUtils.trim(this.sort);
+            if (CollectionUtils.isNotEmpty(expectColumns)) {
+                for (String column : expectColumns) {
+                    if (trimSort.equals(column)) {
+                        result = trimSort;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
 }

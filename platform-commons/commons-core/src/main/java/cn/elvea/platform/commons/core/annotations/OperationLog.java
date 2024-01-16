@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * 日志注解
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Target({ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

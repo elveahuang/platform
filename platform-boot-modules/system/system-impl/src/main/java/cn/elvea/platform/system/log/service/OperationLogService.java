@@ -5,7 +5,7 @@ import cn.elvea.platform.system.log.model.entity.OperationLogEntity;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface OperationLogService extends CachingEntityService<OperationLogEntity, Long> {
 }

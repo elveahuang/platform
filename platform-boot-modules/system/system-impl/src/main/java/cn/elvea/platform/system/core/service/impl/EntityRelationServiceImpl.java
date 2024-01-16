@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author elvea
  * @see EntityRelationService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @Service

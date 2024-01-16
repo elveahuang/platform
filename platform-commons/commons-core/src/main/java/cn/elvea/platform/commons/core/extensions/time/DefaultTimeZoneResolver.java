@@ -10,7 +10,7 @@ import static cn.elvea.platform.commons.core.constants.DateTimeConstants.ZONE_ID
  * 直接返回当前系统的默认时区。
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class DefaultTimeZoneResolver implements TimeZoneResolver {
 

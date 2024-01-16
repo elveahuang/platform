@@ -5,7 +5,7 @@ import org.springframework.lang.NonNull;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Builder
 public record SimpleCacheKeyGenerator(String prefix) implements CacheKeyGenerator {

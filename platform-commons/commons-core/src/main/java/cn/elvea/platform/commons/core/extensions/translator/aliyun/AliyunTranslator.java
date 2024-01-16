@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * <a href="https://www.aliyun.com/product/ai/alimt">...</a>
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public class AliyunTranslator implements Translator {

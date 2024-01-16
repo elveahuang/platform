@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 标签管理控制器
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @RestController
 @Tag(name = "tag-mgr", description = "标签管理控制器")

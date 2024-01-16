@@ -12,7 +12,7 @@ import static cn.elvea.platform.system.commons.constants.SystemCacheConstants.CA
 /**
  * @author elvea
  * @see CatalogService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 @CacheConfig(cacheNames = CACHE_CATALOG)

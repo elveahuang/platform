@@ -25,7 +25,7 @@ import java.util.Base64;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public abstract class EncryptUtils {
     private static final String ENCODING = "UTF-8";

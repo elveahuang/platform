@@ -28,7 +28,7 @@ import java.util.List;
  * @author elvea
  * @see PositionService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 @AllArgsConstructor

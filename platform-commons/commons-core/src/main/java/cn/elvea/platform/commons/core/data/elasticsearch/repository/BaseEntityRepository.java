@@ -14,7 +14,7 @@ import org.springframework.data.repository.Repository;
  * @see PagingAndSortingRepository
  * @see CrudRepository
  * @see Repository
- * @since 0.0.1
+ * @since 24.1.0
  */
 @NoRepositoryBean
 public interface BaseEntityRepository<T, K> extends ElasticsearchRepository<T, K> {

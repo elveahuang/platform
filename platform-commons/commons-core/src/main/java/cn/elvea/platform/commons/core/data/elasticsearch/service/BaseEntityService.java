@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @param <T> 实体
@@ -25,7 +26,7 @@ import java.util.List;
  * @author elvea
  * @see AbstractService
  * @see EntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @NoRepositoryBean
@@ -82,6 +83,16 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     @Override
     public T findById(K id) {
         return this.getRepository().findById(id).orElse(null);
+    }
+
+    /**
+     * @see EntityService#findById(Serializable, Consumer)
+     */
+    @Override
+    public T findById(K id, Consumer<T> extraFn) {
+        T entity = this.getRepository().findById(id).orElse(null);
+        extraFn.accept(entity);
+        return entity;
     }
 
     /**

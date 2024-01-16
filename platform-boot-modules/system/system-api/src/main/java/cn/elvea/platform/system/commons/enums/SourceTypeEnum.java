@@ -12,7 +12,7 @@ import lombok.Getter;
  * 3. SYNC      - 同步数据
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Getter
 public enum SourceTypeEnum implements BaseEnum<Integer> {

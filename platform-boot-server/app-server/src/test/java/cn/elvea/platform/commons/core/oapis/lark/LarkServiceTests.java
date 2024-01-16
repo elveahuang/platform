@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class LarkServiceTests extends BaseTests {
 

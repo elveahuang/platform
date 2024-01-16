@@ -6,7 +6,7 @@ import java.security.KeyPair;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class StringUtilsTests {
 

@@ -9,7 +9,7 @@ import java.util.EnumSet;
  * 基础枚举接口
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface BaseEnum<T extends Serializable> {
 

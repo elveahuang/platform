@@ -16,7 +16,7 @@ import java.util.Set;
  * 传统的日期时间处理器
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class LegacyDateTimeAnnotationFormatterFactory extends EmbeddedValueResolutionSupport
         implements AnnotationFormatterFactory<DateTimeFormat> {

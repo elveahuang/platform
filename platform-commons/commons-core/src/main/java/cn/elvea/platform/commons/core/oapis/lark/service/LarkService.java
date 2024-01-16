@@ -13,7 +13,7 @@ import com.lark.oapi.service.im.ImService;
  * <a href="https://github.com/larksuite/oapi-sdk-java">...</a>
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface LarkService {
 

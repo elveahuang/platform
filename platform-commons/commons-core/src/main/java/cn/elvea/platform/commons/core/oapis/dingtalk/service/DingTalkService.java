@@ -8,7 +8,7 @@ import cn.elvea.platform.commons.core.oapis.dingtalk.config.AppConfig;
  * <a href="https://open.dingtalk.com/document/org</a>-roadmap">*</a>
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface DingTalkService {
 

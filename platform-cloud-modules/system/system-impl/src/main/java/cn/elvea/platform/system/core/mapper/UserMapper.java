@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author elvea
  * @see BaseEntityMapper
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Mapper
 @Repository

@@ -4,7 +4,7 @@ import org.springframework.data.relational.core.dialect.Dialect;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface DbDialect extends Dialect {
 

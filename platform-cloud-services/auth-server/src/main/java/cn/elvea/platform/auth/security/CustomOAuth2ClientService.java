@@ -11,7 +11,7 @@ import static cn.elvea.platform.auth.security.utils.OAuth2Utils.toRegisteredClie
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class CustomOAuth2ClientService implements RegisteredClientRepository {

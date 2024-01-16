@@ -4,7 +4,7 @@ package cn.elvea.platform.commons.core.extensions.translator;
  * 语言转换器
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface TranslatorConverter {
 

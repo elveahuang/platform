@@ -7,7 +7,7 @@ import cn.elvea.platform.system.core.model.entity.LangEntity;
  * LangManager
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface LangService extends EntityService<LangEntity, Long> {
 }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * 通用服务接口
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface Service {
 

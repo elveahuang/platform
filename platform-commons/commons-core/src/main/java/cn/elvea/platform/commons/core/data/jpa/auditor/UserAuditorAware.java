@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * @author elvea
  * @see AuditorAware
- * @since 0.0.1
+ * @since 24.1.0
  */
 public class UserAuditorAware implements AuditorAware<Long> {
 

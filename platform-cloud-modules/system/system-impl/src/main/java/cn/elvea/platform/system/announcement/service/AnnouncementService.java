@@ -8,7 +8,7 @@ import cn.elvea.platform.system.announcement.domain.entity.AnnouncementEntity;
  * @author elvea
  * @see EntityService
  * @see CachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface AnnouncementService extends CachingEntityService<AnnouncementEntity, Long> {
 }

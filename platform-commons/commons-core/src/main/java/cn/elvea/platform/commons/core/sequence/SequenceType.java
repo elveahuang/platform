@@ -2,7 +2,7 @@ package cn.elvea.platform.commons.core.sequence;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public enum SequenceType {
     MANUAL,

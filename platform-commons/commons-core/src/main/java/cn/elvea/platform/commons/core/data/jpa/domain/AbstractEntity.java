@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 /**
  * @author elvea
  * @see IdEntity
- * @since 0.0.1
+ * @since 24.1.0
  */
 @MappedSuperclass
 public abstract class AbstractEntity implements IdEntity {

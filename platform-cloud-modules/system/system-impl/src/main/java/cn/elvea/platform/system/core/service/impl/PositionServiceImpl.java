@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * @author elvea
  * @see PositionService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class PositionServiceImpl extends BaseCachingEntityService<PositionEntity, Long, PositionMapper> implements PositionService {

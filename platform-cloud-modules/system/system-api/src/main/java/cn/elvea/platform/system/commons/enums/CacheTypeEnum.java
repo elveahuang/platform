@@ -7,7 +7,7 @@ import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
  * 缓存类型
  *
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public enum CacheTypeEnum implements BaseEnum<String> {
 

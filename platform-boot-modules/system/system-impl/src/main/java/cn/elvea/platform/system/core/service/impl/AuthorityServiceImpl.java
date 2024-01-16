@@ -20,7 +20,7 @@ import java.util.List;
  * @author elvea
  * @see AuthorityService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class AuthorityServiceImpl extends BaseCachingEntityService<AuthorityEntity, Long, AuthorityRepository>

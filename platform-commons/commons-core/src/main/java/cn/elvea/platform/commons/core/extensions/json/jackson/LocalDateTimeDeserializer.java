@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public final class LocalDateTimeDeserializer extends StdDeserializer<LocalDateTime> implements ContextualDeserializer {
 

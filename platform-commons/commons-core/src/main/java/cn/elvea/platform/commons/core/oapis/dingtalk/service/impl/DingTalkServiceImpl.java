@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author elvea
  * @see DingTalkService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 public class DingTalkServiceImpl implements DingTalkService {

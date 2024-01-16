@@ -10,7 +10,7 @@ import static cn.elvea.platform.commons.core.constants.GlobalConstants.DEFAULT_C
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface CacheKeyGenerator {
 

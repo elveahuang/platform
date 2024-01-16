@@ -17,7 +17,7 @@ import java.io.IOException;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 @JsonDeserialize(using = LongDeserializer.class)

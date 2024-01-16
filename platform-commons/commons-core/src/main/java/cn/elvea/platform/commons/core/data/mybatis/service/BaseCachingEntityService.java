@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,11 +20,11 @@ import java.util.Collection;
  * @see EntityService
  * @see CachingEntityService
  * @see BaseEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Slf4j
 @NoRepositoryBean
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@Transactional
 public abstract class BaseCachingEntityService<T extends IdEntity, K extends Serializable, M extends BaseEntityMapper<T, K>>
         extends BaseEntityService<T, K, M> implements CachingEntityService<T, K> {
 

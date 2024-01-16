@@ -5,7 +5,7 @@ import cn.elvea.platform.system.catalog.model.entity.CatalogTypeEntity;
 
 /**
  * @author elvea
- * @since 0.0.1
+ * @since 24.1.0
  */
 public interface CatalogTypeService extends CachingEntityService<CatalogTypeEntity, Long> {
 }

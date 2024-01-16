@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author elvea
  * @see UserSessionService
  * @see BaseCachingEntityService
- * @since 0.0.1
+ * @since 24.1.0
  */
 @Service
 public class UserSessionServiceImpl extends BaseCachingEntityService<UserSessionEntity, Long, UserSessionMapper>

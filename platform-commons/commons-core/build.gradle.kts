@@ -8,6 +8,7 @@ dependencies {
     api("org.springframework.cloud:spring-cloud-commons")
     compileOnly("org.springframework:spring-jdbc")
     compileOnly("org.springframework:spring-webmvc")
+    compileOnly("org.springframework:spring-websocket")
     compileOnly("org.springframework.data:spring-data-redis")
     compileOnly("org.springframework.data:spring-data-jdbc")
     compileOnly("org.springframework.data:spring-data-jpa")
