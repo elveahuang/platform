@@ -14,4 +14,8 @@ public interface SystemAmqpConstants {
 
     String MESSAGE_QUEUE = "MESSAGE_QUEUE";
 
+    String MULTIPLE_LOGIN_QUEUE = "MULTIPLE_LOGIN_QUEUE";
+
+    String MULTIPLE_LOGIN_QUEUE_EXCHANGE = "MULTIPLE_LOGIN_QUEUE_EXCHANGE";
+    
 }

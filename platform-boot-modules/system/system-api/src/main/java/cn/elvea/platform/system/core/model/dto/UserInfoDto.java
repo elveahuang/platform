@@ -1,6 +1,8 @@
 package cn.elvea.platform.system.core.model.dto;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -18,10 +20,12 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfoDto implements Serializable {
     /**
      * ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     /**
      * 用户名

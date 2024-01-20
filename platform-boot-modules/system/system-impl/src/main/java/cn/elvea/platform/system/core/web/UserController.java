@@ -6,9 +6,9 @@ import cn.elvea.platform.commons.core.annotations.OperationLog;
 import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.system.core.api.UserApi;
+import cn.elvea.platform.system.core.model.dto.UserForgotPasswordDto;
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
 import cn.elvea.platform.system.core.model.form.*;
-import cn.elvea.platform.system.core.model.vo.UserForgetPasswordVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -63,7 +63,7 @@ public class UserController {
     @ApiResponse(description = "忘记密码")
     @OperationLog("忘记密码")
     @PostMapping(API_V1__USER__FORGOT_PASSWORD)
-    public R<UserForgetPasswordVo> forgotPassword(@Valid ForgotPasswordForm form) {
+    public R<UserForgotPasswordDto> forgotPassword(@Valid UserForgotPasswordForm form) {
         return userApi.forgotPassword(form);
     }
 
@@ -72,7 +72,7 @@ public class UserController {
     @ApiResponse(description = "重置密码")
     @OperationLog("重置密码")
     @PostMapping(API_V1__USER__RESET_PASSWORD)
-    public R<?> resetPassword(@Valid ResetPasswordForm form) {
+    public R<?> resetPassword(@Valid UserResetPasswordForm form) {
         return userApi.resetPassword(form);
     }
 
@@ -81,7 +81,7 @@ public class UserController {
     @ApiResponse(description = "修改密码")
     @OperationLog("编辑个人资料")
     @PostMapping(API_V1__USER__CHANGE_PASSWORD)
-    public R<?> changePassword(@Valid ChangePasswordForm form) {
+    public R<?> changePassword(@Valid UserChangePasswordForm form) {
         return userApi.changePassword(form);
     }
 
@@ -90,7 +90,7 @@ public class UserController {
     @ApiResponse(description = "编辑个人资料")
     @OperationLog("编辑个人资料")
     @PostMapping(API_V1__USER__ACCOUNT)
-    public R<?> updateAccount(@Valid UserAccountForm form) {
+    public R<?> updateAccount(@Valid UserBaseForm form) {
         return userApi.updateAccount(form);
     }
 

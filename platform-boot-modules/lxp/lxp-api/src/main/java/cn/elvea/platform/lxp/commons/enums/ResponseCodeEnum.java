@@ -1,6 +1,5 @@
 package cn.elvea.platform.lxp.commons.enums;
 
-
 import cn.elvea.platform.commons.core.enums.BaseEnum;
 import lombok.Getter;
 

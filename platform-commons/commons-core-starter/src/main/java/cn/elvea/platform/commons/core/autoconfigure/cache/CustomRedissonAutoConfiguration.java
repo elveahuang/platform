@@ -2,11 +2,11 @@ package cn.elvea.platform.commons.core.autoconfigure.cache;
 
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomCacheProperties;
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomRedissonProperties;
-import cn.elvea.platform.commons.core.cache.utils.RedissonUtils;
 import cn.elvea.platform.commons.core.cache.redisson.RedissonAutoConfigurationCustomizer;
 import cn.elvea.platform.commons.core.cache.service.CacheService;
 import cn.elvea.platform.commons.core.cache.service.RedissonCacheService;
 import cn.elvea.platform.commons.core.cache.service.RedissonCacheServiceImpl;
+import cn.elvea.platform.commons.core.cache.utils.RedissonUtils;
 import cn.elvea.platform.commons.core.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
@@ -101,8 +101,6 @@ public class CustomRedissonAutoConfiguration {
             config.useSingleServer()
                     .setAddress(prefix + redisProperties.getHost() + ":" + redisProperties.getPort())
                     .setConnectTimeout(timeout)
-                    .setConnectionPoolSize(this.redissonProperties.getMaxActive())
-                    .setConnectionMinimumIdleSize(this.redissonProperties.getMinIdle())
                     .setDatabase(redisProperties.getDatabase())
                     .setPassword(redisProperties.getPassword());
         }

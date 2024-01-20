@@ -1,9 +1,10 @@
 package cn.elvea.platform.security.authentication;
 
 import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
+import cn.elvea.platform.commons.core.security.CustomParameterNames;
+import cn.elvea.platform.security.CustomAuthenticationToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.core.*;
@@ -73,9 +74,10 @@ public class PasswordAuthenticationProvider extends AbstractAuthenticationProvid
         }
 
         // 密码验证
+        String type = (String) authenticationToken.getAdditionalParameters().get(CustomParameterNames.TYPE);
         String username = (String) authenticationToken.getAdditionalParameters().get(OAuth2ParameterNames.USERNAME);
         String password = (String) authenticationToken.getAdditionalParameters().get(OAuth2ParameterNames.PASSWORD);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        CustomAuthenticationToken usernamePasswordAuthenticationToken = new CustomAuthenticationToken(type, username, password);
         Authentication usernamePasswordAuthentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         // 检查客户端是否支持用户所需的权限范围

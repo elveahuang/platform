@@ -1,0 +1,44 @@
+package cn.elvea.platform.system.core.model.form;
+
+import cn.elvea.platform.commons.core.annotations.DateTimeFormat;
+import cn.elvea.platform.commons.core.annotations.JsonFormat;
+import cn.elvea.platform.commons.core.constants.DateTimeConstants;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+
+/**
+ * @author elvea
+ * @since 24.1.0
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountBaseForm implements Serializable {
+    /**
+     * ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+    /**
+     * 昵称
+     */
+    private String displayName;
+    /**
+     * 性别
+     */
+    private String sex;
+    /**
+     * 生日
+     */
+    @JsonFormat(pattern = DateTimeConstants.DEFAULT_DATE_TIME_PATTERN)
+    @DateTimeFormat(pattern = DateTimeConstants.DEFAULT_DATE_TIME_PATTERN)
+    private LocalDate birthday;
+}

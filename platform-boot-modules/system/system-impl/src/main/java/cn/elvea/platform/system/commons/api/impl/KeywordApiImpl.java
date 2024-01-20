@@ -2,8 +2,8 @@ package cn.elvea.platform.system.commons.api.impl;
 
 import cn.elvea.platform.commons.core.extensions.keyword.KeywordManager;
 import cn.elvea.platform.system.commons.api.KeywordApi;
-import cn.elvea.platform.system.core.model.entity.KeywordEntity;
-import cn.elvea.platform.system.core.service.KeywordService;
+import cn.elvea.platform.system.keyword.model.entity.KeywordEntity;
+import cn.elvea.platform.system.keyword.service.KeywordService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

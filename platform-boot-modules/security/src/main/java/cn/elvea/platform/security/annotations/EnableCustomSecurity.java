@@ -1,12 +1,14 @@
 package cn.elvea.platform.security.annotations;
 
-import cn.elvea.platform.security.config.AuthorizationServerConfiguration;
-import cn.elvea.platform.security.config.CommonSecurityConfiguration;
+import cn.elvea.platform.security.configuration.AuthorizationServerConfiguration;
+import cn.elvea.platform.security.configuration.CommonSecurityConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
+ * 权限注解，允许匿名访问
+ *
  * @author elvea
  * @since 24.1.0
  */

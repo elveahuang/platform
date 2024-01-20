@@ -22,7 +22,9 @@ public class PasswordAuthenticationToken extends OAuth2AuthorizationGrantAuthent
 
     private final Set<String> scopes;
 
-    public PasswordAuthenticationToken(Authentication clientPrincipal, @Nullable Set<String> scopes, @Nullable Map<String, Object> additionalParameters) {
+    public PasswordAuthenticationToken(Authentication clientPrincipal,
+                                       @Nullable Set<String> scopes,
+                                       @Nullable Map<String, Object> additionalParameters) {
         super(CustomAuthorizationGrantType.PASSWORD, clientPrincipal, additionalParameters);
         Assert.notNull(clientPrincipal, "clientPrincipal cannot be null");
         this.scopes = Collections.unmodifiableSet(CollectionUtils.isNotEmpty(scopes) ? new HashSet<>(scopes) : Collections.emptySet());

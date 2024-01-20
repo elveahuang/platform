@@ -7,7 +7,7 @@ import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
 import cn.elvea.platform.commons.core.security.CustomParameterNames;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.commons.api.CaptchaApi;
-import cn.elvea.platform.system.core.api.ConfigApi;
+import cn.elvea.platform.system.config.api.ConfigApi;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -6,9 +6,8 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * CatalogDto
- *
  * @author elvea
+ * @since 24.1.0
  */
 @Data
 @NoArgsConstructor

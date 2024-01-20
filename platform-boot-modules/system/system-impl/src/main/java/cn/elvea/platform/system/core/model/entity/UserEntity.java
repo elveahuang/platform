@@ -9,6 +9,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
+
 /**
  * @author elvea
  * @since 24.1.0
@@ -67,7 +69,7 @@ public class UserEntity extends BaseEntity {
     /**
      * 生日
      */
-    private String birthday;
+    private LocalDate birthday;
     /**
      * 备注
      */

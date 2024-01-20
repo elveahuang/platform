@@ -13,5 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class AttachmentServiceImpl extends BaseCachingEntityService<AttachmentEntity, Long, AttachmentRepository> implements AttachmentService {
+public class AttachmentServiceImpl
+        extends BaseCachingEntityService<AttachmentEntity, Long, AttachmentRepository>
+        implements AttachmentService {
 }

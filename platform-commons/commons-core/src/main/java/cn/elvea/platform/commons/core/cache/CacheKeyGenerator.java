@@ -31,4 +31,8 @@ public interface CacheKeyGenerator {
         return this.key("id", id);
     }
 
+    default CacheKey keyByCode(String code) {
+        return this.key("key", code);
+    }
+
 }

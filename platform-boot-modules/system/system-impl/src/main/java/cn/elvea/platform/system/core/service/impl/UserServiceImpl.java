@@ -7,17 +7,19 @@ import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.core.cache.UserCacheKeyGenerator;
 import cn.elvea.platform.system.core.model.converter.UserConverter;
-import cn.elvea.platform.system.core.model.dto.UserCheckEmailDto;
-import cn.elvea.platform.system.core.model.dto.UserCheckMobileDto;
-import cn.elvea.platform.system.core.model.dto.UserCheckUsernameDto;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
 import cn.elvea.platform.system.core.model.entity.UserEntity_;
 import cn.elvea.platform.system.core.model.form.UserForm;
+import cn.elvea.platform.system.core.model.request.UserCheckRequest;
 import cn.elvea.platform.system.core.repository.UserRepository;
 import cn.elvea.platform.system.core.service.UserService;
+import jakarta.persistence.criteria.Predicate;
+import org.apache.commons.compress.utils.Lists;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author elvea
@@ -36,33 +38,48 @@ public class UserServiceImpl extends BaseCachingEntityService<UserEntity, Long, 
     }
 
     /**
-     * @see UserService#checkUsername(UserCheckUsernameDto)
+     * @see UserService#check(UserCheckRequest)
      */
     @Override
-    public boolean checkUsername(UserCheckUsernameDto dto) {
-        Specification<UserEntity> specification = (root, query, builder) ->
-                builder.equal(root.get(UserEntity_.username), dto.getUsername());
-        return this.repository.count(specification) <= 0;
-    }
-
-    /**
-     * @see UserService#checkEmail(UserCheckEmailDto)
-     */
-    @Override
-    public boolean checkEmail(UserCheckEmailDto dto) {
-        Specification<UserEntity> specification = (root, query, builder) ->
-                builder.equal(root.get(UserEntity_.email), dto.getEmail());
-        return this.repository.count(specification) <= 0;
-    }
-
-    /**
-     * @see UserService#checkMobile(UserCheckMobileDto)
-     */
-    @Override
-    public boolean checkMobile(UserCheckMobileDto dto) {
-        Specification<UserEntity> specification = (root, query, builder) ->
-                builder.equal(root.get(UserEntity_.mobileNumber), dto.getMobileNumber());
-        return this.repository.count(specification) <= 0;
+    public boolean check(UserCheckRequest request) {
+        if (StringUtils.isNotEmpty(request.getUsername())) {
+            Specification<UserEntity> specification = (root, query, builder) -> {
+                List<Predicate> predicates = Lists.newArrayList();
+                if (StringUtils.isNotEmpty(request.getUsername())) {
+                    predicates.add(builder.equal(root.get(UserEntity_.USERNAME), request.getUsername()));
+                }
+                if (request.getId() != null && request.getId() > 0) {
+                    predicates.add(builder.equal(root.get(UserEntity_.ID), request.getId()));
+                }
+                return builder.and(predicates.toArray(new Predicate[0]));
+            };
+            return this.repository.count(specification) <= 0;
+        } else if (StringUtils.isNotEmpty(request.getMobileNumber())) {
+            Specification<UserEntity> specification = (root, query, builder) -> {
+                List<Predicate> predicates = Lists.newArrayList();
+                if (StringUtils.isNotEmpty(request.getEmail())) {
+                    predicates.add(builder.equal(root.get(UserEntity_.MOBILE_NUMBER), request.getMobileNumber()));
+                }
+                if (request.getId() != null && request.getId() > 0) {
+                    predicates.add(builder.equal(root.get(UserEntity_.ID), request.getId()));
+                }
+                return builder.and(predicates.toArray(new Predicate[0]));
+            };
+            return this.repository.count(specification) <= 0;
+        } else if (StringUtils.isNotEmpty(request.getEmail())) {
+            Specification<UserEntity> specification = (root, query, builder) -> {
+                List<Predicate> predicates = Lists.newArrayList();
+                if (StringUtils.isNotEmpty(request.getUsername())) {
+                    predicates.add(builder.equal(root.get(UserEntity_.EMAIL), request.getEmail()));
+                }
+                if (request.getId() != null && request.getId() > 0) {
+                    predicates.add(builder.equal(root.get(UserEntity_.ID), request.getId()));
+                }
+                return builder.and(predicates.toArray(new Predicate[0]));
+            };
+            return this.repository.count(specification) <= 0;
+        }
+        return false;
     }
 
     /**

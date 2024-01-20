@@ -10,6 +10,10 @@ public interface SystemCacheConstants {
     // System - Core
     // ========================================================================
 
+    String ACTOR = "actor";
+
+    String ACCOUNT = "account";
+
     String CONFIG = "config";
 
     String KEYWORD = "keyword";
@@ -39,6 +43,10 @@ public interface SystemCacheConstants {
     String ENTITY_RELATION = "entity-relation";
 
     String CATALOG_RELATION = "catalog-relation";
+
+    String DICT_TYPE = "dict-type";
+
+    String TAG_TYPE = "tag-type";
 
     // ========================================================================
     // System - Message

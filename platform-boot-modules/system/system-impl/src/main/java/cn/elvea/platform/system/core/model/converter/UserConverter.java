@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.core.model.converter;
 
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
-import cn.elvea.platform.system.core.model.dto.UserLoginDto;
+import cn.elvea.platform.system.core.model.dto.UserLoginInfoDto;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
 import cn.elvea.platform.system.core.model.form.UserForm;
 import org.mapstruct.Mapper;
@@ -21,11 +21,11 @@ public interface UserConverter {
     @Mapping(target = "positions", ignore = true)
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "authorities", ignore = true)
-    UserLoginDto entity2UserLoginDto(UserEntity entity);
+    UserLoginInfoDto entity2LoginInfoDto(UserEntity entity);
 
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "authorities", ignore = true)
-    UserInfoDto entity2UserInfoDto(UserEntity entity);
+    UserInfoDto entity2InfoDto(UserEntity entity);
 
     @Mapping(target = "displayName", ignore = true)
     @Mapping(target = "name", ignore = true)

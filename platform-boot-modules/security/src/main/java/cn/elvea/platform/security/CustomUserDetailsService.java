@@ -5,10 +5,12 @@ import cn.elvea.platform.commons.core.security.user.User;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.RegexUtils;
 import cn.elvea.platform.system.core.api.UserApi;
-import cn.elvea.platform.system.core.model.dto.UserLoginDto;
+import cn.elvea.platform.system.core.model.dto.UserLoginInfoDto;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,14 +28,16 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @AllArgsConstructor
+@Primary
 @Service
+@Qualifier("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserApi userApi;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserLoginDto user;
+        UserLoginInfoDto user;
         if (RegexUtils.checkEmail(username)) {
             user = userApi.findByEmail(username);
         } else if (RegexUtils.checkMobile(username)) {

@@ -3,6 +3,17 @@
 -- =====================================================================================================================
 
 --
+-- 内置账号
+--
+
+truncate sys_account;
+
+insert into sys_account (`id`, `username`, `email`, `mobile_country_code`, `mobile_number`,
+                         `display_name`, `birthday`, `active`, `created_at`, `password`)
+values (2, 'test', 'huang@elvea.cn', '0086', '13800138000', 'test', now(), 1, now(),
+        '$2a$10$/ax0s7CATLLmYwvedSmZZumjHgaspXxWb4uv2ywzi9fNU6M4AJqpq');
+
+--
 -- 角色
 --
 
@@ -68,147 +79,147 @@ values
     /* -------------------------------------------------------------------------------------------------------------- */
     /* 组织架构 */
     /* -------------------------------------------------------------------------------------------------------------- */
-    (1001000000, 0, 'organization', '组织架构', 'authority_organization', 'CATALOG', 88, 1),
+    (1001001000000, 0, 'organization', '组织架构', '', 'CATALOG', 88, 1),
     /* 组织架构 */
-    (1001001000, 1001000000, 'organization:organization', '组织架构', 'authority_organization_organization', 'MENU', 1, 1),
-    (1001001001, 1001001000, 'organization:organization:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1001001002, 1001001000, 'organization:organization:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1001001003, 1001001000, 'organization:organization:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1001001004, 1001001000, 'organization:organization:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
-    (1001001005, 1001001000, 'organization:organization:import', '导入', 'authority_import', 'RESOURCE', 1, 1),
-    (1001001006, 1001001000, 'organization:organization:export', '导出', 'authority_export', 'RESOURCE', 1, 1),
+    (1001001001000, 1001001000000, 'organization:organization', '组织架构', '', 'MENU', 1, 1),
+    (1001001001001, 1001001001000, 'organization:organization:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001001001002, 1001001001000, 'organization:organization:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001001001003, 1001001001000, 'organization:organization:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001001001004, 1001001001000, 'organization:organization:delete', '删除', '', 'RESOURCE', 1, 1),
+    (1001001001005, 1001001001000, 'organization:organization:import', '导入', '', 'RESOURCE', 1, 1),
+    (1001001001006, 1001001001000, 'organization:organization:export', '导出', '', 'RESOURCE', 1, 1),
     /* 岗位管理 */
-    (1001002000, 1001000000, 'organization:position', '岗位管理', 'authority_organization_position', 'MENU', 2, 1),
-    (1001002001, 1001002000, 'organization:position:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1001002002, 1001002000, 'organization:position:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1001002003, 1001002000, 'organization:position:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1001002004, 1001002000, 'organization:position:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
-    (1001002005, 1001002000, 'organization:position:import', '导入', 'authority_import', 'RESOURCE', 1, 1),
-    (1001002006, 1001002000, 'organization:position:export', '导出', 'authority_export', 'RESOURCE', 1, 1),
+    (1001001002000, 1001001000000, 'organization:position', '岗位管理', '', 'MENU', 2, 1),
+    (1001001002001, 1001001002000, 'organization:position:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001001002002, 1001001002000, 'organization:position:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001001002003, 1001001002000, 'organization:position:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001001002004, 1001001002000, 'organization:position:delete', '删除', '', 'RESOURCE', 1, 1),
+    (1001001002005, 1001001002000, 'organization:position:import', '导入', '', 'RESOURCE', 1, 1),
+    (1001001002006, 1001001002000, 'organization:position:export', '导出', '', 'RESOURCE', 1, 1),
     /* 用户管理 */
-    (1001003000, 1001000000, 'organization:user', '用户管理', 'authority_organization_user', 'MENU', 3, 1),
-    (1001003001, 1001003000, 'organization:user:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1001003002, 1001003000, 'organization:user:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1001003003, 1001003000, 'organization:user:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1001003004, 1001003000, 'organization:user:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
-    (1001003005, 1001003000, 'organization:user:import', '导入', 'authority_import', 'RESOURCE', 1, 1),
-    (1001003006, 1001003000, 'organization:user:export', '导出', 'authority_export', 'RESOURCE', 1, 1),
+    (1001001003000, 1001001000000, 'organization:user', '用户管理', '', 'MENU', 3, 1),
+    (1001001003001, 1001001003000, 'organization:user:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001001003002, 1001001003000, 'organization:user:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001001003003, 1001001003000, 'organization:user:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001001003004, 1001001003000, 'organization:user:delete', '删除', '', 'RESOURCE', 1, 1),
+    (1001001003005, 1001001003000, 'organization:user:import', '导入', '', 'RESOURCE', 1, 1),
+    (1001001003006, 1001001003000, 'organization:user:export', '导出', '', 'RESOURCE', 1, 1),
     /* 群组管理 */
-    (1001004000, 1001000000, 'organization:group', '群组管理', 'authority_organization_group', 'MENU', 4, 1),
-    (1001004001, 1001004000, 'organization:group:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1001004002, 1001004000, 'organization:group:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1001004003, 1001004000, 'organization:group:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1001004004, 1001004000, 'organization:group:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001001004000, 1001001000000, 'organization:group', '群组管理', '', 'MENU', 4, 1),
+    (1001001004001, 1001001004000, 'organization:group:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001001004002, 1001001004000, 'organization:group:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001001004003, 1001001004000, 'organization:group:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001001004004, 1001001004000, 'organization:group:delete', '删除', '', 'RESOURCE', 1, 1),
     /* -------------------------------------------------------------------------------------------------------------- */
     /* 资源管理 */
     /* -------------------------------------------------------------------------------------------------------------- */
-    (1002000000, 0, 'resource', '资源管理', 'authority_resource', 'CATALOG', 77, 1),
+    (1001002000000, 0, 'resource', '资源管理', '', 'CATALOG', 77, 1),
     /* 字典管理 */
-    (1002001000, 1002000000, 'resource:dictionary', '字典管理', 'authority_resource_dictionary', 'MENU', 1, 1),
-    (1002001001, 1002001000, 'resource:dictionary:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1002001002, 1002001000, 'resource:dictionary:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1002001003, 1002001000, 'resource:dictionary:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1002001004, 1002001000, 'resource:dictionary:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001002001000, 1001002000000, 'resource:dictionary', '字典管理', '', 'MENU', 1, 1),
+    (1001002001001, 1001002001000, 'resource:dictionary:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001002001002, 1001002001000, 'resource:dictionary:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001002001003, 1001002001000, 'resource:dictionary:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001002001004, 1001002001000, 'resource:dictionary:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 标签管理 */
-    (1002002000, 1002000000, 'resource:tag', '标签管理', 'authority_resource_tag', 'MENU', 2, 1),
-    (1002002001, 1002002000, 'resource:tag:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1002002002, 1002002000, 'resource:tag:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1002002003, 1002002000, 'resource:tag:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1002002004, 1002002000, 'resource:tag:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001002002000, 1001002000000, 'resource:tag', '标签管理', '', 'MENU', 2, 1),
+    (1001002002001, 1001002002000, 'resource:tag:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001002002002, 1001002002000, 'resource:tag:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001002002003, 1001002002000, 'resource:tag:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001002002004, 1001002002000, 'resource:tag:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 地区管理 */
-    (1002003000, 1002000000, 'resource:area', '地区管理', 'authority_resource_area', 'MENU', 3, 1),
-    (1002003001, 1002003000, 'resource:area:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1002003002, 1002003000, 'resource:area:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1002003003, 1002003000, 'resource:area:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1002003004, 1002003000, 'resource:area:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001002003000, 1001002000000, 'resource:area', '地区管理', '', 'MENU', 3, 1),
+    (1001002003001, 1001002003000, 'resource:area:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001002003002, 1001002003000, 'resource:area:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001002003003, 1001002003000, 'resource:area:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001002003004, 1001002003000, 'resource:area:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 附件管理 */
-    (1002004000, 1002000000, 'resource:attachment', '附件管理', 'authority_resource_attachment', 'MENU', 4, 1),
-    (1002004001, 1002004000, 'resource:attachment:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1002004002, 1002004000, 'resource:attachment:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1002004003, 1002004000, 'resource:attachment:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1002004004, 1002004000, 'resource:attachment:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001002004000, 1001002000000, 'resource:attachment', '附件管理', '', 'MENU', 4, 1),
+    (1001002004001, 1001002004000, 'resource:attachment:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001002004002, 1001002004000, 'resource:attachment:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001002004003, 1001002004000, 'resource:attachment:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001002004004, 1001002004000, 'resource:attachment:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 多语言文本 */
-    (1002005000, 1002000000, 'resource:label', '多语言文本', 'authority_resource_label', 'MENU', 5, 1),
-    (1002005001, 1002005000, 'resource:label:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1002005002, 1002005000, 'resource:label:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1002005003, 1002005000, 'resource:label:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1002005004, 1002005000, 'resource:label:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001002005000, 1001002000000, 'resource:label', '多语言文本', '', 'MENU', 5, 1),
+    (1001002005001, 1001002005000, 'resource:label:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001002005002, 1001002005000, 'resource:label:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001002005003, 1001002005000, 'resource:label:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001002005004, 1001002005000, 'resource:label:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 消息管理 */
-    (1002006000, 1002000000, 'resource:message', '消息管理', 'authority_resource_message', 'MENU', 6, 1),
-    (1002006001, 1002006000, 'resource:message:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1002006002, 1002006000, 'resource:message:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1002006003, 1002006000, 'resource:message:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1002006004, 1002006000, 'resource:message:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001002006000, 1001002000000, 'resource:message', '消息管理', '', 'MENU', 6, 1),
+    (1001002006001, 1001002006000, 'resource:message:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001002006002, 1001002006000, 'resource:message:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001002006003, 1001002006000, 'resource:message:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001002006004, 1001002006000, 'resource:message:delete', '删除', '', 'RESOURCE', 1, 1),
     /* -------------------------------------------------------------------------------------------------------------- */
     /* 系统设置 */
     /* -------------------------------------------------------------------------------------------------------------- */
-    (1003000000, 0, 'system', '系统', 'authority_system', 'CATALOG', 99, 1),
+    (1001003000000, 0, 'system', '系统', '', 'CATALOG', 99, 1),
     /* 权限管理 */
-    (1003001000, 1003000000, 'system:authority', '权限管理', 'authority_system_authority', 'MENU', 1, 1),
-    (1003001001, 1003001000, 'system:authority:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1003001002, 1003001000, 'system:authority:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
+    (1001003001000, 1001003000000, 'system:authority', '权限管理', '', 'MENU', 1, 1),
+    (1001003001001, 1001003001000, 'system:authority:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001003001002, 1001003001000, 'system:authority:edit', '编辑', '', 'RESOURCE', 1, 1),
     /* 角色管理 */
-    (1003002000, 1003000000, 'system:role', '角色管理', 'authority_system_role', 'MENU', 2, 1),
-    (1003002001, 1003002000, 'system:role:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1003002002, 1003002000, 'system:role:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1003002003, 1003002000, 'system:role:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1003002004, 1003002000, 'system:role:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001003002000, 1001003000000, 'system:role', '角色管理', '', 'MENU', 2, 1),
+    (1001003002001, 1001003002000, 'system:role:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001003002002, 1001003002000, 'system:role:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001003002003, 1001003002000, 'system:role:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001003002004, 1001003002000, 'system:role:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 系统设置 */
-    (1003003000, 1003000000, 'system:setting', '系统设置', 'authority_system_setting', 'MENU', 3, 1),
-    (1003003001, 1003003000, 'system:setting:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1003003002, 1003003000, 'system:setting:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
+    (1001003003000, 1001003000000, 'system:setting', '系统设置', '', 'MENU', 3, 1),
+    (1001003003001, 1001003003000, 'system:setting:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001003003002, 1001003003000, 'system:setting:edit', '编辑', '', 'RESOURCE', 1, 1),
     /* 在线用户 */
-    (1003004000, 1003000000, 'system:user', '在线用户', 'authority_system_user', 'MENU', 4, 1),
-    (1003004001, 1003004000, 'system:user:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1003004002, 1003004000, 'system:user:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001003004000, 1001003000000, 'system:user', '在线用户', '', 'MENU', 4, 1),
+    (1001003004001, 1001003004000, 'system:user:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001003004002, 1001003004000, 'system:user:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 系统日志 */
-    (1003005000, 1003000000, 'system:logging', '系统日志', 'authority_system_logging', 'MENU', 5, 1),
-    (1003005001, 1003005000, 'system:logging:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1003005002, 1003005000, 'system:logging:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001003005000, 1001003000000, 'system:logging', '系统日志', '', 'MENU', 5, 1),
+    (1001003005001, 1001003005000, 'system:logging:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001003005002, 1001003005000, 'system:logging:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 定时任务 */
-    (1003006000, 1003000000, 'system:task', '定时任务', 'authority_system_task', 'MENU', 6, 1),
-    (1003006001, 1003006000, 'system:task:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1003006002, 1003006000, 'system:task:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
+    (1001003006000, 1001003000000, 'system:task', '定时任务', '', 'MENU', 6, 1),
+    (1001003006001, 1001003006000, 'system:task:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001003006002, 1001003006000, 'system:task:edit', '编辑', '', 'RESOURCE', 1, 1),
     /* 应用管理 */
-    (1003007000, 1003000000, 'system:application', '应用管理', 'authority_system_application', 'MENU', 7, 1),
-    (1003007001, 1003007000, 'system:application:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1003007002, 1003007000, 'system:application:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001003007000, 1001003000000, 'system:application', '应用管理', '', 'MENU', 7, 1),
+    (1001003007001, 1001003007000, 'system:application:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001003007002, 1001003007000, 'system:application:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 消息管理 */
-    (1003008000, 1003000000, 'system:message', '消息管理', 'authority_system_application', 'MENU', 7, 1),
-    (1003008001, 1003008000, 'system:message:notice', '查看系统通知', 'authority_view', 'RESOURCE', 1, 1),
+    (1001003008000, 1001003000000, 'system:message', '消息管理', '', 'MENU', 7, 1),
+    (1001003008001, 1001003008000, 'system:message:notice', '查看系统通知', '', 'RESOURCE', 1, 1),
     /* -------------------------------------------------------------------------------------------------------------- */
     /* 工作台 */
     /* -------------------------------------------------------------------------------------------------------------- */
-    (1004000000, 0, 'workbench', '工作台', 'authority_workbench', 'CATALOG', 1, 1),
+    (1001004000000, 0, 'workbench', '工作台', '', 'CATALOG', 11, 1),
     /* -------------------------------------------------------------------------------------------------------------- */
     /* 仪表盘 */
     /* -------------------------------------------------------------------------------------------------------------- */
-    (1005000000, 0, 'dashboard', '仪表盘', 'authority_workbench', 'CATALOG', 2, 1),
+    (1001005000000, 0, 'dashboard', '仪表盘', '', 'CATALOG', 22, 0),
     /* 仪表盘 */
-    (1005001000, 1005000000, 'dashboard:analysis', '数据分析', 'authority_workbench_dashboard', 'MENU', 1, 1),
-    (1005002000, 1005000000, 'dashboard:monitor', '系统监控', 'authority_workbench_dashboard', 'MENU', 1, 1),
+    (1001005001000, 1001005000000, 'dashboard:analysis', '数据分析', '', 'MENU', 1, 0),
+    (1001005002000, 1001005001000, 'dashboard:monitor', '系统监控', '', 'MENU', 1, 0),
     /* -------------------------------------------------------------------------------------------------------------- */
     /* 站点管理 */
     /* -------------------------------------------------------------------------------------------------------------- */
-    (1006000000, 0, 'site', '站点', 'authority_site', 'CATALOG', 3, 1),
+    (1001006000000, 0, 'site', '站点', '', 'CATALOG', 33, 1),
     /* 公告管理 */
-    (1006001000, 1006000000, 'site:announcement', '公告管理', 'authority_site_product', 'MENU', 1, 1),
-    (1006001001, 1006001000, 'site:announcement:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1006001002, 1006001000, 'site:announcement:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1006001003, 1006001000, 'site:announcement:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1006001004, 1006001000, 'site:announcement:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001006001000, 1001006000000, 'site:announcement', '公告管理', '', 'MENU', 11, 1),
+    (1001006001001, 1001006001000, 'site:announcement:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001006001002, 1001006001000, 'site:announcement:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001006001003, 1001006001000, 'site:announcement:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001006001004, 1001006001000, 'site:announcement:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 宣传栏管理 */
-    (1006002000, 1006000000, 'site:poster', '公告管理', 'authority_site_product', 'MENU', 1, 1),
-    (1006002001, 1006002000, 'site:poster:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1006002002, 1006002000, 'site:poster:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1006002003, 1006002000, 'site:poster:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1006002004, 1006002000, 'site:poster:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1),
+    (1001006002000, 1001006000000, 'site:poster', '公告管理', '', 'MENU', 22, 1),
+    (1001006002001, 1001006002000, 'site:poster:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001006002002, 1001006002000, 'site:poster:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001006002003, 1001006002000, 'site:poster:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001006002004, 1001006002000, 'site:poster:delete', '删除', '', 'RESOURCE', 1, 1),
     /* 产品管理 */
-    (1006003000, 1006000000, 'site:product', '产品管理', 'authority_site_product', 'MENU', 1, 1),
-    (1006003001, 1006003000, 'site:product:view', '查看', 'authority_view', 'RESOURCE', 1, 1),
-    (1006003002, 1006003000, 'site:product:add', '添加', 'authority_add', 'RESOURCE', 1, 1),
-    (1006003003, 1006003000, 'site:product:edit', '编辑', 'authority_edit', 'RESOURCE', 1, 1),
-    (1006003004, 1006003000, 'site:product:delete', '删除', 'authority_delete', 'RESOURCE', 1, 1);
+    (1001006003000, 1001006000000, 'site:product', '产品管理', '', 'MENU', 33, 0),
+    (1001006003001, 1001006003000, 'site:product:view', '查看', '', 'RESOURCE', 1, 1),
+    (1001006003002, 1001006003000, 'site:product:add', '添加', '', 'RESOURCE', 1, 1),
+    (1001006003003, 1001006003000, 'site:product:edit', '编辑', '', 'RESOURCE', 1, 1),
+    (1001006003004, 1001006003000, 'site:product:delete', '删除', '', 'RESOURCE', 1, 1);
 
 --
 -- 角色权限关联
@@ -217,7 +228,7 @@ values
 truncate sys_role_authority;
 
 insert into sys_role_authority (`id`, `role_id`, `authority_id`, `created_at`)
-select concat(rpad(sr.id, 6, 0), rpad(sa.id, 10, 0)), sr.id, sa.id, now()
+select concat(rpad(sr.id, 6, 0), rpad(sa.id, 13, 0)), sr.id, sa.id, now()
 from sys_role sr,
      sys_authority sa
 where sr.id = 1;
@@ -244,6 +255,47 @@ values (1000001, 'UNSPECIFIED', '', '未指定', 0, 1),
        (1000002, 'USER_AVATAR', '', '用户头像', 0, 1),
        (1000003, 'POSTER_COVER', '', '宣传栏封面', 0, 1),
        (1000004, 'POSTER_MOBILE_COVER', '', '宣传栏移动端封面', 0, 1);
+
+--
+-- 字典类型
+--
+
+TRUNCATE `sys_dict`;
+
+INSERT INTO `sys_dict` (`id`, `code`, `title`, `label`, `description`, `source`, `active`)
+VALUES (1000001, 'UNSPECIFIED', '未指定', 'UNSPECIFIED', '未指定', 1, 0),
+       (1000002, 'BANNER', '宣传栏类型', 'BANNER', '宣传栏类型', 1, 1),
+       (1000003, 'ANNOUNCEMENT', '资讯类型', 'ANNOUNCEMENT', '资讯类型', 1, 1),
+       (1000004, 'NOTICE', '通知类型', 'NOTICE', '通知类型', 1, 1),
+       (1000005, 'ACCOUNT', '账号标识', 'ACCOUNT', '账号标识', 1, 1),
+       (1000006, 'USER', '用户标识', 'USER', '用户标识', 1, 1),
+       (1000007, 'DEPARTMENT', '部门标识', 'DEPARTMENT', '部门标识', 1, 1),
+       (1000008, 'POSITION', '岗位标识', 'POSITION', '岗位标识', 1, 1);
+
+TRUNCATE `sys_dict_item`;
+
+INSERT INTO `sys_dict_item` (`id`, `code`, `type_id`, `title`, `idx`, `source`, `active`)
+VALUES (1000002001, 'HOME', 1000002, '首页宣传栏', 1, 1, 1),
+       (1000002002, 'WELCOME', 1000002, '欢迎页宣传栏', 2, 1, 1),
+       (1000003001, 'SYSTEM', 1000003, '系统公告', 2, 1, 1),
+       (1000004001, 'SYSTEM', 1000004, '系统通知', 2, 1, 1),
+       (1000007001, 'GROUP', 1000004, '总部', 2, 1, 1),
+       (1000007002, 'BRANCH', 1000004, '分公司', 2, 1, 1),
+       (1000007003, 'DEPARTMENT', 1000004, '部门', 2, 1, 1);
+
+--
+-- 附件类型
+--
+
+delete
+from `sys_attachment_type`
+where `code` in ('UNSPECIFIED', 'USER_AVATAR', 'BANNER_COVER', 'BANNER_MOBILE_COVER');
+
+INSERT INTO `sys_attachment_type` (`id`, `code`, `label`, `title`, `multiple_ind`, `source`, `ext`, `file_types`, `active`)
+VALUES (1000001, 'UNSPECIFIED', '', '未指定', 0, 1, '', '', 0),
+       (1000002, 'USER_AVATAR', '', '用户头像', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1),
+       (1000003, 'BANNER_COVER', '', '宣传栏封面', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1),
+       (1000004, 'BANNER_MOBILE_COVER', '', '宣传栏移动端封面', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1);
 
 -- =====================================================================================================================
 -- 多语言

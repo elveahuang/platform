@@ -448,7 +448,7 @@ CREATE TABLE `sys_user`
     `password`             VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '密码',
     `id_card_type`         VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '证件类型',
     `id_card_no`           VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '证件号码',
-    `sex`                  VARCHAR(10)      NOT NULL DEFAULT '' COMMENT '性别',
+    `sex`                  VARCHAR(20)      NOT NULL DEFAULT '' COMMENT '性别',
     `birthday`             DATE COMMENT '生日',
     `description`          VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '备注',
     `last_login_status`    VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '最后登录状态',
@@ -800,9 +800,9 @@ CREATE TABLE `sys_catalog_relation`
 -- 字典类型表
 --
 
-DROP TABLE IF EXISTS `sys_dictionary_type`;
+DROP TABLE IF EXISTS `sys_dict_type`;
 
-CREATE TABLE `sys_dictionary_type`
+CREATE TABLE `sys_dict_type`
 (
     `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
     `code`             VARCHAR(100)     NOT NULL DEFAULT '' COMMENT '编号',
@@ -817,22 +817,23 @@ CREATE TABLE `sys_dictionary_type`
     `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
     `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
     `deleted_at`       DATETIME         NULL COMMENT '删除时间',
-    CONSTRAINT `pk_sys_dictionary_type` PRIMARY KEY (`id`),
-    INDEX `ix_sys_dictionary_type__code` (`code`)
-) COMMENT '字典分组表';
+    CONSTRAINT `pk_sys_dict_type` PRIMARY KEY (`id`),
+    INDEX `ix_sys_dict_type__code` (`code`)
+) COMMENT '字典类型表';
 
 --
 -- 字典明细表
 --
 
-DROP TABLE IF EXISTS `sys_dictionary_item`;
+DROP TABLE IF EXISTS `sys_dict_item`;
 
-CREATE TABLE `sys_dictionary_item`
+CREATE TABLE `sys_dict_item`
 (
     `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
     `type_id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '字典类型ID',
+    `code`             VARCHAR(100)     NOT NULL DEFAULT '' COMMENT '编号',
+    `title`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '文本',
     `idx`              INT UNSIGNED     NOT NULL DEFAULT 999 COMMENT '序号',
-    `label`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '文本',
     `source`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '数据来源',
     `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
     `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
@@ -841,17 +842,17 @@ CREATE TABLE `sys_dictionary_item`
     `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
     `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
     `deleted_at`       DATETIME         NULL COMMENT '删除时间',
-    CONSTRAINT `pk_sys_dictionary_item` PRIMARY KEY (`id`),
-    INDEX `ix_sys_dictionary_item__type_id` (`type_id`)
+    CONSTRAINT `pk_sys_dict_item` PRIMARY KEY (`id`),
+    INDEX `ix_sys_dict_item__type_id` (`type_id`)
 ) COMMENT '字典明细表';
 
 --
 -- 字典关联表
 --
 
-DROP TABLE IF EXISTS `sys_dictionary_relation`;
+DROP TABLE IF EXISTS `sys_dict_relation`;
 
-CREATE TABLE `sys_dictionary_relation`
+CREATE TABLE `sys_dict_relation`
 (
     `id`          BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'ID',
     `type_id`     BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '字典类型ID',
@@ -860,11 +861,11 @@ CREATE TABLE `sys_dictionary_relation`
     `target_id`   BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '目标实体',
     `created_by`  BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
     `created_at`  DATETIME        NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    CONSTRAINT `pk_sys_dictionary_relation` PRIMARY KEY (`id`),
-    INDEX `ix_sys_dictionary_relation__type_id` (`type_id`),
-    INDEX `ix_sys_dictionary_relation__item_id` (`item_id`),
-    INDEX `ix_sys_dictionary_relation__target_type` (`target_type`),
-    INDEX `ix_sys_dictionary_relation__target_id` (`target_id`)
+    CONSTRAINT `pk_sys_dict_relation` PRIMARY KEY (`id`),
+    INDEX `ix_sys_dict_relation__type_id` (`type_id`),
+    INDEX `ix_sys_dict_relation__item_id` (`item_id`),
+    INDEX `ix_sys_dict_relation__target_type` (`target_type`),
+    INDEX `ix_sys_dict_relation__target_id` (`target_id`)
 ) COMMENT '字典关联表';
 
 --
@@ -952,7 +953,9 @@ CREATE TABLE `sys_attachment_type`
     `title`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '标题',
     `label`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '文本',
     `description`      VARCHAR(250)     NOT NULL DEFAULT '' COMMENT '备注',
-    `multiple_ind`     TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否多选',
+    `ext`              VARCHAR(255)     NULL COMMENT '文件后缀',
+    `file_types`       VARCHAR(255)     NULL COMMENT '类型关联',
+    `multiple_ind`     TINYINT UNSIGNED          DEFAULT '0' NOT NULL COMMENT '是否多选',
     `default_ind`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否默认',
     `source`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '数据来源',
     `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
@@ -984,7 +987,7 @@ CREATE TABLE `sys_attachment_file`
     `file_key`          VARCHAR(2000)    NOT NULL DEFAULT '' COMMENT '文件标识',
     `size`              BIGINT           NOT NULL DEFAULT 0 COMMENT '文件大小',
     `url`               VARCHAR(2000)    NOT NULL DEFAULT '' COMMENT '文件链接',
-    `extra`             VARCHAR(2000)    NOT NULL DEFAULT '' COMMENT '附加信息',
+    `extra`             TEXT             NULL COMMENT '附加信息',
     `active`            TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
     `created_by`        BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
     `created_at`        DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -1004,12 +1007,13 @@ DROP TABLE IF EXISTS `sys_attachment_relation`;
 
 CREATE TABLE `sys_attachment_relation`
 (
-    `id`            BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'ID',
-    `attachment_id` BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '附件ID',
-    `target_type`   VARCHAR(50)     NOT NULL DEFAULT '' COMMENT '目标类型',
-    `target_id`     BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '目标实体',
-    `created_by`    BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
-    `created_at`    DATETIME        NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `id`            BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `attachment_id` BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '附件ID',
+    `target_type`   VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '目标类型',
+    `target_id`     BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '目标实体',
+    `active`        TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`    BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`    DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
     CONSTRAINT `pk_sys_attachment_relation` PRIMARY KEY (`id`),
     INDEX `ix_sys_attachment_relation__attachment_id` (`attachment_id`),
     INDEX `ix_sys_attachment_relation__target_type` (`target_type`),
@@ -1295,13 +1299,13 @@ ALTER TABLE `sys_notice`
 -- 宣传栏
 --
 
-DROP TABLE IF EXISTS `sys_poster`;
+DROP TABLE IF EXISTS `sys_banner`;
 
-CREATE TABLE `sys_poster`
+CREATE TABLE `sys_banner`
 (
     `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
     `title`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '标题',
-    `description`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '备注',
+    `description`      TEXT             NULL COMMENT '宣传栏内容描述',
     `sort_order`       INT UNSIGNED     NOT NULL DEFAULT 999 COMMENT '序号',
     `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
     `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
@@ -1310,7 +1314,7 @@ CREATE TABLE `sys_poster`
     `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
     `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
     `deleted_at`       DATETIME         NULL COMMENT '删除时间',
-    CONSTRAINT `pk_sys_poster` PRIMARY KEY (`id`)
+    CONSTRAINT `pk_sys_banner` PRIMARY KEY (`id`)
 ) COMMENT '宣传栏';
 
 --
@@ -1362,6 +1366,17 @@ CREATE TABLE `sys_product`
     CONSTRAINT `pk_sys_product` PRIMARY KEY (`id`)
 ) COMMENT '产品表';
 
+
+-- =====================================================================================================================
+-- View
+-- =====================================================================================================================
+
+CREATE OR REPLACE VIEW sys_v_operator (`type`, `id`, `username`) AS
+SELECT sa.id as `id`, 'account' as `type`, sa.username as 'username'
+FROM sys_account sa
+UNION
+SELECT su.id as `id`, 'user' as `type`, su.username as 'username'
+FROM sys_user su;
 
 -- =====================================================================================================================
 -- OAuth

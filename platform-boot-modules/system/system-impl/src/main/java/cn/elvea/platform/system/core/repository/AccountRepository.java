@@ -1,0 +1,12 @@
+package cn.elvea.platform.system.core.repository;
+
+import cn.elvea.platform.commons.core.data.jpa.repository.BaseEntityRepository;
+import cn.elvea.platform.system.core.model.entity.AccountEntity;
+import org.springframework.stereotype.Repository;
+
+/**
+ * @since 24.1.0
+ */
+@Repository
+public interface AccountRepository extends BaseEntityRepository<AccountEntity, Long> {
+}

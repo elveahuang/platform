@@ -2,7 +2,8 @@ package cn.elvea.platform.system.core.api;
 
 import cn.elvea.platform.BaseTests;
 import cn.elvea.platform.system.commons.constants.SystemConfigConstants;
-import cn.elvea.platform.system.core.model.dto.ConfigDto;
+import cn.elvea.platform.system.config.api.ConfigApi;
+import cn.elvea.platform.system.config.model.dto.ConfigDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
