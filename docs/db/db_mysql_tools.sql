@@ -9,5 +9,4 @@ truncate sys_message_template;
 truncate sys_message_content;
 truncate sys_message_user;
 truncate sys_message_history;
-truncate sys_message_log;
 truncate sys_notice;

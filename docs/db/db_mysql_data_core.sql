@@ -260,9 +260,9 @@ VALUES (1000001, 'UNSPECIFIED', '', '未指定', 0, 1, '', '', 0),
 -- 字典类型
 --
 
-TRUNCATE `sys_dict`;
+TRUNCATE `sys_dict_type`;
 
-INSERT INTO `sys_dict` (`id`, `code`, `title`, `label`, `description`, `source`, `active`)
+INSERT INTO `sys_dict_type` (`id`, `code`, `title`, `label`, `description`, `source`, `active`)
 VALUES (1000001, 'UNSPECIFIED', '未指定', 'UNSPECIFIED', '未指定', 1, 0),
        (1000002, 'BANNER', '宣传栏类型', 'BANNER', '宣传栏类型', 1, 1),
        (1000003, 'ANNOUNCEMENT', '资讯类型', 'ANNOUNCEMENT', '资讯类型', 1, 1),
@@ -390,10 +390,10 @@ values (1000001, 'MEMBER', 'Member', 'label_vip__member', 1, 0),
 -- 会员套餐
 --
 
-insert into `sys_member_type_item` (`id`, `vip_id`, `code`, `title`, `label`, `source`, `active`)
-values (1000002001, 1000002, 'MONTH', '月卡', 'label_vip_item__month', 1, 0),
-       (1000002001, 1000002, 'QUARTER', '季卡', 'label_vip_item__quarter', 1, 0),
-       (1000002001, 1000002, 'YEAR', '年卡', 'label_vip_item__year', 1, 1);
+insert into `sys_vip_item` (`id`, `vip_id`, `code`, `title`, `label`, `active`)
+values (1000002001, 1000002, 'MONTH', '月卡', 'label_vip_item__month', 1),
+       (1000002002, 1000002, 'QUARTER', '季卡', 'label_vip_item__quarter', 1),
+       (1000002003, 1000002, 'YEAR', '年卡', 'label_vip_item__year', 1);
 
 --
 -- 订单类型表

@@ -5,15 +5,19 @@ import cn.elvea.platform.commons.core.annotations.OperationLog;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
 import cn.elvea.platform.system.tag.api.TagApi;
+import cn.elvea.platform.system.tag.model.request.TagSearchRequest;
+import cn.elvea.platform.system.tag.model.request.TagTypeRequest;
 import cn.elvea.platform.system.tag.model.vo.TagTypeVo;
+import cn.elvea.platform.system.tag.model.vo.TagVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.API_V1__TAG__SEARCH;
 import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.API_V1__TAG__TYPE;
 
 /**
@@ -32,8 +36,17 @@ public class TagController extends AbstractController {
     @ApiResponse(description = "获取标签类型")
     @OperationLog("获取标签类型")
     @PostMapping(API_V1__TAG__TYPE)
-    public R<TagTypeVo> type(@RequestParam("code") String code) {
-        return R.success(tagApi.getTagType(code));
+    public R<TagTypeVo> type(TagTypeRequest request) {
+        return R.success(tagApi.getTagType(request));
+    }
+
+    @Authenticated
+    @Operation(summary = "搜索标签")
+    @ApiResponse(description = "搜索标签")
+    @OperationLog("搜索标签")
+    @PostMapping(API_V1__TAG__SEARCH)
+    public R<Page<TagVo>> search(TagSearchRequest request) {
+        return R.success(tagApi.search(request));
     }
 
 }

@@ -1,16 +1,28 @@
 package cn.elvea.platform.system.dict.api.impl;
 
+import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.system.dict.api.DictApi;
-import cn.elvea.platform.system.dict.model.converter.DictConverter;
+import cn.elvea.platform.system.dict.model.converter.DictItemConverter;
 import cn.elvea.platform.system.dict.model.entity.DictItemEntity;
 import cn.elvea.platform.system.dict.model.form.DictForm;
+import cn.elvea.platform.system.dict.model.request.DictRelationRequest;
+import cn.elvea.platform.system.dict.model.request.DictRelationSaveRequest;
+import cn.elvea.platform.system.dict.model.request.DictSearchRequest;
+import cn.elvea.platform.system.dict.model.request.DictTypeRequest;
+import cn.elvea.platform.system.dict.model.vo.DictItemVo;
+import cn.elvea.platform.system.dict.model.vo.DictRelationVo;
 import cn.elvea.platform.system.dict.model.vo.DictTypeVo;
 import cn.elvea.platform.system.dict.service.DictItemService;
 import cn.elvea.platform.system.dict.service.DictRelationService;
 import cn.elvea.platform.system.dict.service.DictTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author elvea
@@ -28,11 +40,34 @@ public class DictApiImpl implements DictApi {
     private final DictRelationService dictRelationService;
 
     /**
-     * @see DictApi#getDictType(String)
+     * @see DictApi#getDictType(DictTypeRequest)
      */
     @Override
-    public DictTypeVo getDictType(String code) {
-        return dictTypeService.getDictType(code);
+    public DictTypeVo getDictType(DictTypeRequest request) {
+        DictTypeVo vo = dictTypeService.getDictType(request.getType());
+        if (vo != null && request.isWithItem()) {
+            List<DictItemEntity> dictItemList = this.dictItemService.findByTypeId(vo.getId());
+            if (CollectionUtils.isNotEmpty(dictItemList)) {
+                vo.setItems(dictItemList.stream().map(DictItemConverter.INSTANCE::entity2Vo).toList());
+            }
+        }
+        return vo;
+    }
+
+    /**
+     * @see DictApi#search(DictSearchRequest)
+     */
+    @Override
+    public Page<DictItemVo> search(DictSearchRequest request) {
+        // 指定类型ID
+        request.setTypeId(dictTypeService.getDictTypeId(request.getType()));
+
+        Page<DictItemEntity> page = this.dictItemService.search(request);
+        if (CollectionUtils.isNotEmpty(page.getContent())) {
+            List<DictItemVo> itemList = page.getContent().stream().map(DictItemConverter.INSTANCE::entity2Vo).toList();
+            return new PageImpl<>(itemList, request.getPageable(), page.getTotalElements());
+        }
+        return new PageImpl<>(Collections.emptyList(), request.getPageable(), 0);
     }
 
     /**
@@ -40,8 +75,24 @@ public class DictApiImpl implements DictApi {
      */
     @Override
     public void saveDict(DictForm form) {
-        DictItemEntity entity = DictConverter.INSTANCE.form2Entity(form);
+        DictItemEntity entity = DictItemConverter.INSTANCE.form2Entity(form);
         this.dictItemService.save(entity);
+    }
+
+    /**
+     * @see DictApi#getDictRelation(DictRelationRequest)
+     */
+    @Override
+    public DictRelationVo getDictRelation(DictRelationRequest request) {
+        return null;
+    }
+
+    /**
+     * @see DictApi#saveDictRelation(DictRelationSaveRequest)
+     */
+    @Override
+    public void saveDictRelation(DictRelationSaveRequest request) {
+
     }
 
 }

@@ -3,7 +3,12 @@ package cn.elvea.platform.system.tag.api;
 import cn.elvea.platform.system.tag.model.form.TagForm;
 import cn.elvea.platform.system.tag.model.request.TagRelationRequest;
 import cn.elvea.platform.system.tag.model.request.TagRelationSaveRequest;
+import cn.elvea.platform.system.tag.model.request.TagSearchRequest;
+import cn.elvea.platform.system.tag.model.request.TagTypeRequest;
+import cn.elvea.platform.system.tag.model.vo.TagRelationVo;
 import cn.elvea.platform.system.tag.model.vo.TagTypeVo;
+import cn.elvea.platform.system.tag.model.vo.TagVo;
+import org.springframework.data.domain.Page;
 
 /**
  * @author elvea
@@ -11,14 +16,29 @@ import cn.elvea.platform.system.tag.model.vo.TagTypeVo;
  */
 public interface TagApi {
 
-    TagTypeVo getTagType(String code);
+    /**
+     * 获取标签类型定义
+     */
+    TagTypeVo getTagType(TagTypeRequest request);
 
-    TagTypeVo getTagType(String code, boolean withTag);
+    /**
+     * 搜索字典
+     */
+    Page<TagVo> search(TagSearchRequest request);
 
+    /**
+     * 保存标签
+     */
     void saveTag(TagForm form);
 
-    void getTagRelation(TagRelationRequest request);
+    /**
+     * 获取目标实体关联的标签
+     */
+    TagRelationVo getTagRelation(TagRelationRequest request);
 
+    /**
+     * 保存目标实体和标签的关联
+     */
     void saveTagRelation(TagRelationSaveRequest request);
 
 }

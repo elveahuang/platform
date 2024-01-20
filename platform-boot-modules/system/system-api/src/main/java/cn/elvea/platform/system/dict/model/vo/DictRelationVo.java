@@ -3,11 +3,15 @@ package cn.elvea.platform.system.dict.model.vo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 /**
  * @author elvea
@@ -19,18 +23,17 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class DictRelationVo implements Serializable {
     /**
-     * ID
+     * 目标实体类型
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    private String targetType;
     /**
-     * 字典类型ID
+     * 目标实体ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long typeId;
+    private Long targetId;
     /**
-     * 字典明细ID
+     * 字典项
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long itemId;
+    @Builder.Default
+    private List<DictItemVo> items = emptyList();
 }

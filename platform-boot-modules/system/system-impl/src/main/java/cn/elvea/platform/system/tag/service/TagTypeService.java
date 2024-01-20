@@ -11,6 +11,11 @@ import cn.elvea.platform.system.tag.model.vo.TagTypeVo;
 public interface TagTypeService extends CachingEntityService<TagTypeEntity, Long> {
 
     /**
+     * 获取指定标签类型ID
+     */
+    Long getTagTypeId(String code);
+
+    /**
      * 获取指定标签类型
      */
     TagTypeVo getTagType(String code);

@@ -854,13 +854,14 @@ DROP TABLE IF EXISTS `sys_dict_relation`;
 
 CREATE TABLE `sys_dict_relation`
 (
-    `id`          BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'ID',
-    `type_id`     BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '字典类型ID',
-    `item_id`     BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '字典明细ID',
-    `target_type` VARCHAR(50)     NOT NULL DEFAULT '' COMMENT '目标类型',
-    `target_id`   BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '目标实体',
-    `created_by`  BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
-    `created_at`  DATETIME        NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `target_type` VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '目标类型',
+    `target_id`   BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '目标实体ID',
+    `type_id`     BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '字典类型ID',
+    `item_id`     BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '字典项ID',
+    `active`      TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`  BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`  DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
     CONSTRAINT `pk_sys_dict_relation` PRIMARY KEY (`id`),
     INDEX `ix_sys_dict_relation__type_id` (`type_id`),
     INDEX `ix_sys_dict_relation__item_id` (`item_id`),
@@ -927,16 +928,16 @@ DROP TABLE IF EXISTS `sys_tag_relation`;
 CREATE TABLE `sys_tag_relation`
 (
     `id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
-    `type_id`     BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签类型ID',
-    `tag_id`      BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签ID',
     `target_type` VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '目标类型',
-    `target_id`   BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '目标实体',
+    `target_id`   BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '目标实体ID',
+    `type_id`     BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签类型ID',
+    `item_id`     BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签ID',
     `active`      TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
     `created_by`  BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
     `created_at`  DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
     CONSTRAINT `pk_sys_tag_relation` PRIMARY KEY (`id`),
     INDEX `ix_sys_tag_relation__type_id` (`type_id`),
-    INDEX `ix_sys_tag_relation__tag_id` (`tag_id`),
+    INDEX `ix_sys_tag_relation__tag_id` (`item_id`),
     INDEX `ix_sys_tag_relation__target_type` (`target_type`),
     INDEX `ix_sys_tag_relation__target_id` (`target_id`)
 ) COMMENT '标签关联表';
@@ -1272,6 +1273,8 @@ ALTER TABLE `sys_message_history`
 --
 -- 系统通知表
 --
+
+DROP TABLE IF EXISTS `sys_notice`;
 
 CREATE TABLE `sys_notice`
 (

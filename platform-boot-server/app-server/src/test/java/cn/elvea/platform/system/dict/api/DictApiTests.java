@@ -2,6 +2,7 @@ package cn.elvea.platform.system.dict.api;
 
 import cn.elvea.platform.BaseTests;
 import cn.elvea.platform.system.commons.constants.SystemDictionaryConstants;
+import cn.elvea.platform.system.dict.model.request.DictTypeRequest;
 import cn.elvea.platform.system.dict.model.vo.DictTypeVo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,8 @@ public class DictApiTests extends BaseTests {
 
     @Test
     public void baseTest() {
-        DictTypeVo vo = this.dictApi.getDictType(SystemDictionaryConstants.BANNER);
+        DictTypeRequest request = DictTypeRequest.builder().type(SystemDictionaryConstants.BANNER).build();
+        DictTypeVo vo = this.dictApi.getDictType(request);
         Assertions.assertNotNull(vo);
     }
 

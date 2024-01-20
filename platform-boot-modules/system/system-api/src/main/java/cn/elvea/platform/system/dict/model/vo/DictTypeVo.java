@@ -28,11 +28,11 @@ public class DictTypeVo implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     /**
-     * 编号
+     * 字典类型编号
      */
     private String code;
     /**
-     * 标题
+     * 字典类型标题
      */
     private String title;
     /**

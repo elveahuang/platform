@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * @author elvea
+ * @since 24.1.0
  */
 @Setter
 @Getter
@@ -26,22 +27,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class TagRelationEntity extends SimpleEntity {
     /**
-     * 标签类型ID
+     * 类型ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long typeId;
     /**
-     * 标签ID
+     * 关联项ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long tagId;
+    private Long itemId;
     /**
-     * 目标id
+     * 目标实体类型
+     */
+    private String targetType;
+    /**
+     * 目标实体ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long targetId;
-    /**
-     * 目标类型
-     */
-    private String targetType;
 }

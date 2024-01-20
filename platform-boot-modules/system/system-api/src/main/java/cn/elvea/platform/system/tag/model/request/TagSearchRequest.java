@@ -21,8 +21,8 @@ public class TagSearchRequest extends PageRequest {
     @Schema(title = "标签类型ID", defaultValue = "0")
     private Long typeId = 0L;
     /**
-     * 类型
+     * 类型编号
      */
     @Schema(title = "标签类型编号")
-    private String typeCode;
+    private String type;
 }

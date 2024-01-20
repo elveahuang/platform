@@ -82,6 +82,7 @@
 
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.transaction" level="DEBUG"/>
+    <logger name="org.springframework.jdbc" level="DEBUG"/>
     <logger name="cn.elvea" level="INFO"/>
 
     <logger name="cn.elvea.platform.system.commons.interceptor.LogInterceptor" level="INFO">

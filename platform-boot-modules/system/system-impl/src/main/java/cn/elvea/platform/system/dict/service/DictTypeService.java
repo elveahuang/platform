@@ -11,6 +11,11 @@ import cn.elvea.platform.system.dict.model.vo.DictTypeVo;
 public interface DictTypeService extends CachingEntityService<DictTypeEntity, Long> {
 
     /**
+     * 获取指定字典类型ID
+     */
+    Long getDictTypeId(String code);
+
+    /**
      * 获取指定字典类型
      */
     DictTypeVo getDictType(String code);

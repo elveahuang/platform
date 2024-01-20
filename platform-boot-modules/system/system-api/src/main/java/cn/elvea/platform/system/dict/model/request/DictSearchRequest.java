@@ -15,14 +15,14 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class DictSearchRequest extends PageRequest {
     /**
-     * 类型ID
+     * 标签类型ID
      */
     @Builder.Default
     @Schema(title = "标签类型ID", defaultValue = "0")
     private Long typeId = 0L;
     /**
-     * 类型
+     * 标签类型
      */
-    @Schema(title = "标签类型编号")
-    private String typeCode;
+    @Schema(title = "标签类型")
+    private String type;
 }

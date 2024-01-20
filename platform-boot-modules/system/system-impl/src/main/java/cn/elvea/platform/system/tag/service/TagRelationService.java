@@ -14,21 +14,24 @@ import java.util.List;
  */
 public interface TagRelationService extends CachingEntityService<TagRelationEntity, Long> {
 
+    /**
+     * 查询目标实体关联
+     */
     List<TagRelationEntity> findRelations(TagRelationRequest request);
 
     /**
-     * 根据业务实体类型ID和业务实体ID删除所有关联信息
+     * 保存目标实体关联
+     */
+    void saveRelation(TagRelationSaveRequest request);
+
+    /**
+     * 删除目标实体关联
      */
     void deleteRelation(TagRelationRequest request);
 
     /**
-     * 根据标签类型ID和标签ID删除所有关联信息
+     * 删除关联信息
      */
     void deleteRelation(TagRelationDeleteRequest request);
-
-    /**
-     * 保存业务实体和标签的关联关系
-     */
-    void saveRelation(TagRelationSaveRequest request);
 
 }

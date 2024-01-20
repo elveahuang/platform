@@ -36,6 +36,18 @@ public class DictTypeServiceImpl
     }
 
     /**
+     * @see DictTypeService#getDictTypeId(String)
+     */
+    @Override
+    public Long getDictTypeId(String code) {
+        DictTypeEntity entity = this.findByCode(code);
+        if (entity != null) {
+            return entity.getId();
+        }
+        return 0L;
+    }
+
+    /**
      * @see BaseCachingEntityService#setCache(IdEntity)
      */
     @Override

@@ -28,11 +28,11 @@ public class TagTypeVo implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     /**
-     * 编号
+     * 标签类型编号
      */
     private String code;
     /**
-     * 标题
+     * 标签类型标题
      */
     private String title;
     /**

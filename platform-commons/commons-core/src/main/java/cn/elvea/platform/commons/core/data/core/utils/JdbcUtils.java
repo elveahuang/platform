@@ -124,6 +124,16 @@ public abstract class JdbcUtils {
         }
     }
 
+    /**
+     * 转换成模糊搜索
+     *
+     * @param q 搜索关键字
+     * @return String
+     */
+    public static String generateLike(String q) {
+        return "%" + (Strings.isNullOrEmpty(q) ? "" : q.replaceAll("%", "\\\\%")) + "%";
+    }
+
     public static void close(ResultSet rs, Statement stmt) {
         close(rs);
         close(stmt);

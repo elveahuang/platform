@@ -120,6 +120,7 @@ public interface SystemMappingConstants {
     String API_V1_ADMIN__TAG__DELETE = API_V1_ADMIN_URL_PREFIX + "/tag/delete";
 
     String API_V1__TAG__TYPE = API_V1_URL_PREFIX + "/tag/type";
+    String API_V1__TAG__SEARCH = API_V1_URL_PREFIX + "/tag/search";
 
     // -----------------------------------------------------------------------------------------------------------------
     // 字典 - 前台
@@ -132,5 +133,6 @@ public interface SystemMappingConstants {
     String API_V1_ADMIN__DICT__DELETE = API_V1_ADMIN_URL_PREFIX + "/dict/delete";
 
     String API_V1__DICT__TYPE = API_V1_URL_PREFIX + "/dict/type";
+    String API_V1__DICT__SEARCH = API_V1_URL_PREFIX + "/dict/search";
 
 }

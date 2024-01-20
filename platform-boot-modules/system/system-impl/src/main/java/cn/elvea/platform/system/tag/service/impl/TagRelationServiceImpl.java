@@ -48,6 +48,25 @@ public class TagRelationServiceImpl
     }
 
     /**
+     * @see TagRelationService#saveRelation(TagRelationSaveRequest)
+     */
+    @Override
+    public void saveRelation(TagRelationSaveRequest request) {
+        if (ObjectUtils.isValidId(request.getTargetId()) && StringUtils.isNotEmpty(request.getTargetType())) {
+            this.deleteRelation(TagRelationRequest.builder().targetId(request.getTargetId()).targetType(request.getTargetType()).build());
+        }
+        List<TagRelationEntity> entityList = Arrays.stream(request.getIds()).map((id) -> TagRelationEntity.builder()
+                .targetId(request.getTargetId()).targetType(request.getTargetType())
+                .typeId(request.getTypeId()).itemId(id)
+                .build()
+        ).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(entityList)) {
+            saveBatch(entityList);
+            log.info("TagRelation Save success.");
+        }
+    }
+
+    /**
      * @see TagRelationService#deleteRelation(TagRelationRequest)
      */
     @Override
@@ -65,32 +84,11 @@ public class TagRelationServiceImpl
     public void deleteRelation(TagRelationDeleteRequest request) {
         Specification<TagRelationEntity> specification = (root, query, builder) -> {
             List<Predicate> predicates = Lists.newArrayList();
-            predicates.add(builder.equal(root.get(TagRelationEntity_.TAG_ID), request.getTagId()));
+            predicates.add(builder.equal(root.get(TagRelationEntity_.ITEM_ID), request.getTagId()));
             predicates.add(builder.equal(root.get(TagRelationEntity_.TYPE_ID), request.getTagTypeId()));
             return builder.and(predicates.toArray(new Predicate[0]));
         };
         this.repository.delete(specification);
-    }
-
-    /**
-     * @see TagRelationService#saveRelation(TagRelationSaveRequest)
-     */
-    @Override
-    public void saveRelation(TagRelationSaveRequest request) {
-        if (ObjectUtils.isValidId(request.getTargetId()) && StringUtils.isNotEmpty(request.getTargetType())) {
-            this.deleteRelation(TagRelationRequest.builder().targetId(request.getTargetId()).targetType(request.getTargetType()).build());
-        }
-        List<TagRelationEntity> entityList = Arrays.stream(request.getIds()).map((id) -> TagRelationEntity.builder()
-                .targetId(request.getTargetId()).targetType(request.getTargetType())
-                .typeId(request.getTypeId()).tagId(id)
-                .build()
-        ).collect(Collectors.toList()
-        );
-        if (CollectionUtils.isNotEmpty(entityList)) {
-            saveBatch(entityList);
-            log.info("TagRelation Save success.");
-        }
-
     }
 
 }

@@ -2,9 +2,9 @@
 -- 建库 - 主库
 -- =====================================================================================================================
 
-DROP DATABASE IF EXISTS `platform`;
+DROP DATABASE IF EXISTS `ee`;
 
-CREATE DATABASE IF NOT EXISTS `platform`
+CREATE DATABASE IF NOT EXISTS `ee`
     DEFAULT CHARACTER SET `utf8mb4`
     DEFAULT COLLATE `utf8mb4_0900_ai_ci`;
 
@@ -12,8 +12,8 @@ CREATE DATABASE IF NOT EXISTS `platform`
 -- 建库 - 定时任务库
 -- =====================================================================================================================
 
-DROP DATABASE IF EXISTS `quartz`;
+DROP DATABASE IF EXISTS `job`;
 
-CREATE DATABASE IF NOT EXISTS `quartz`
+CREATE DATABASE IF NOT EXISTS `job`
     DEFAULT CHARACTER SET `utf8mb4`
     DEFAULT COLLATE `utf8mb4_0900_ai_ci`;

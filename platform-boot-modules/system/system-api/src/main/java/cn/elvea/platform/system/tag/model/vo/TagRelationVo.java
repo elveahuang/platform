@@ -3,11 +3,15 @@ package cn.elvea.platform.system.tag.model.vo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 /**
  * @author elvea
@@ -19,23 +23,17 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class TagRelationVo implements Serializable {
     /**
-     * ID
+     * 目标实体类型
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    private String targetType;
     /**
-     * 标签类型ID
+     * 目标实体ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long typeId;
+    private Long targetId;
     /**
-     * 标签类型ID
+     * 标签项
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long typeCode;
-    /**
-     * 标签ID
-     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long tagId;
+    @Builder.Default
+    private List<TagVo> items = emptyList();
 }

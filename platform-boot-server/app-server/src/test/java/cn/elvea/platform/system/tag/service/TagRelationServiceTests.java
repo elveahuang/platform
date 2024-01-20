@@ -23,7 +23,7 @@ public class TagRelationServiceTests extends BaseTests {
     public void baseTest() {
         TagRelationEntity entity = TagRelationEntity.builder().build();
         entity.setTypeId(1L);
-        entity.setTagId(1L);
+        entity.setItemId(1L);
         entity.setTargetId(1L);
         entity.setTargetType(SystemTagConstants.USER);
         this.tagRelationService.saveBatch(Lists.list(entity));

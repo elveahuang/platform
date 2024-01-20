@@ -1,6 +1,8 @@
 package cn.elvea.platform.system.dict.model.entity;
 
 import cn.elvea.platform.commons.core.data.jpa.domain.BaseEntity;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
@@ -11,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * @author elvea
+ * @since 24.1.0
  */
 @Setter
 @Getter
@@ -18,25 +21,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "sys_tag_relation")
+@Table(name = "sys_dict_relation")
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
 public class DictRelationEntity extends BaseEntity {
     /**
-     * 标签类型id
+     * 类型ID
      */
-    private Long tagTypeId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long typeId;
     /**
-     * 标签id
+     * 关联项ID
      */
-    private Long tagId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long itemId;
     /**
-     * 目标id
-     */
-    private Long targetId;
-    /**
-     * 目标类型
+     * 目标实体类型
      */
     private String targetType;
+    /**
+     * 目标实体ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long targetId;
 }

@@ -5,6 +5,7 @@ import cn.elvea.platform.commons.core.data.domain.IdEntity;
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.system.dict.service.DictTypeService;
 import cn.elvea.platform.system.tag.cache.TagTypeCacheKeyGenerator;
 import cn.elvea.platform.system.tag.model.converter.TagTypeConverter;
 import cn.elvea.platform.system.tag.model.entity.TagTypeEntity;
@@ -32,6 +33,18 @@ public class TagTypeServiceImpl
     @Override
     public CacheKeyGenerator getCacheKeyGenerator() {
         return cacheKeyGenerator;
+    }
+
+    /**
+     * @see DictTypeService#getDictTypeId(String)
+     */
+    @Override
+    public Long getTagTypeId(String code) {
+        TagTypeEntity entity = this.findByCode(code);
+        if (entity != null) {
+            return entity.getId();
+        }
+        return 0L;
     }
 
     /**
