@@ -3,6 +3,7 @@ package cn.elvea.platform.system.tag.api;
 import cn.elvea.platform.BaseTests;
 import cn.elvea.platform.system.commons.constants.SystemTagConstants;
 import cn.elvea.platform.system.tag.model.request.TagRelationSaveRequest;
+import cn.elvea.platform.system.tag.model.request.TagTypeRequest;
 import cn.elvea.platform.system.tag.model.vo.TagTypeVo;
 import cn.elvea.platform.system.tag.model.vo.TagVo;
 import org.junit.jupiter.api.Assertions;
@@ -20,13 +21,14 @@ public class TagApiTests extends BaseTests {
 
     @Test
     public void baseTest() {
-        TagTypeVo vo = this.tagApi.getTagType(SystemTagConstants.SYSTEM);
+        TagTypeRequest request = TagTypeRequest.builder().type(SystemTagConstants.USER).build();
+        TagTypeVo vo = this.tagApi.getTagType(request);
         Assertions.assertNotNull(vo);
     }
 
     @Test
     public void baseRelationTest() {
-        TagTypeVo vo = this.tagApi.getTagType(SystemTagConstants.USER, true);
+        TagTypeVo vo = this.tagApi.getTagType(TagTypeRequest.builder().type(SystemTagConstants.USER).build());
         Assertions.assertNotNull(vo);
 
         Long[] ids = vo.getItems().stream().map(TagVo::getId).toList().toArray(Long[]::new);
