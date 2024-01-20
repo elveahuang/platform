@@ -17,6 +17,6 @@ public class CustomJpaProperties {
 
     private boolean enabled = false;
 
-    private boolean showSql = false;
+    private boolean showSql = true;
 
 }

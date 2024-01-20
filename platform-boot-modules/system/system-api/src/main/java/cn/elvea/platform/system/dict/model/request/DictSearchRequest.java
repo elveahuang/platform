@@ -6,6 +6,7 @@ import lombok.*;
 
 /**
  * @author elvea
+ * @since 24.1.0
  */
 @Data
 @Builder
@@ -14,15 +15,14 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class DictSearchRequest extends PageRequest {
     /**
-     * id
+     * 类型ID
      */
     @Builder.Default
     @Schema(title = "标签类型ID", defaultValue = "0")
-    private Long id = 0L;
-    /**
-     * 类型id
-     */
-    @Builder.Default
-    @Schema(title = "标签ID", defaultValue = "0")
     private Long typeId = 0L;
+    /**
+     * 类型
+     */
+    @Schema(title = "标签类型编号")
+    private String typeCode;
 }

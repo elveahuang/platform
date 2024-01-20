@@ -38,7 +38,8 @@ import java.util.function.Consumer;
 @Transactional
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
-        extends AbstractService implements EntityService<T, K>, EnhancedEntityService<T, K, R> {
+        extends AbstractService
+        implements EntityService<T, K>, EnhancedEntityService<T, K, R> {
 
     @Autowired
     protected R repository;

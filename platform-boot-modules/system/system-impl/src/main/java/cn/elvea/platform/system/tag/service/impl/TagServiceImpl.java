@@ -1,43 +1,41 @@
 package cn.elvea.platform.system.tag.service.impl;
 
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.system.tag.model.entity.TagEntity;
-import cn.elvea.platform.system.tag.model.form.TagForm;
+import cn.elvea.platform.system.tag.model.entity.TagEntity_;
 import cn.elvea.platform.system.tag.repository.TagRepository;
-import cn.elvea.platform.system.tag.service.TagRelationService;
 import cn.elvea.platform.system.tag.service.TagService;
+import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-/**¬ø
+import java.util.List;
+
+/**
  * @author elvea
+ * @since 24.1.0
  */
 @Slf4j
 @Service
 @AllArgsConstructor
-public class TagServiceImpl extends BaseCachingEntityService<TagEntity, Long, TagRepository> implements TagService {
+public class TagServiceImpl
+        extends BaseCachingEntityService<TagEntity, Long, TagRepository>
+        implements TagService {
 
-    private final TagRelationService relationService;
-
+    /**
+     * @see TagService#findByTypeId(Long)
+     */
     @Override
-    public void saveTag(TagForm form) {
-    }
-
-    public void deleteById(Long tagId) {
-        TagEntity tagEntity = this.findById(tagId);
-        if (!ObjectUtils.isEmpty(tagEntity)) {
-            tagEntity.setActive(Boolean.FALSE);
-            this.save(tagEntity);
-            relationService.deleteByTagId(tagEntity.getId(), tagEntity.getTagTypeId());
-
-        }
-    }
-
-
-    @Override
-    public void deleteTagById(Long tagTypeId) {
+    public List<TagEntity> findByTypeId(Long tagTypeId) {
+        Specification<TagEntity> specification = (root, query, builder) -> {
+            List<Predicate> predicates = Lists.newArrayList();
+            predicates.add(builder.equal(root.get(TagEntity_.TYPE_ID), tagTypeId));
+            return builder.and(predicates.toArray(new Predicate[0]));
+        };
+        return this.repository.findAll(specification);
     }
 
 }

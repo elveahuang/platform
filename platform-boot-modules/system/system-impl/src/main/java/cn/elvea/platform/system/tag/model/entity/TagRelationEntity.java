@@ -1,6 +1,8 @@
 package cn.elvea.platform.system.tag.model.entity;
 
-import cn.elvea.platform.commons.core.data.jpa.domain.BaseEntity;
+import cn.elvea.platform.commons.core.data.jpa.domain.SimpleEntity;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
@@ -22,18 +24,21 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class TagRelationEntity extends BaseEntity {
+public class TagRelationEntity extends SimpleEntity {
     /**
-     * 标签类型id
+     * 标签类型ID
      */
-    private Long tagTypeId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long typeId;
     /**
-     * 标签id
+     * 标签ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long tagId;
     /**
      * 目标id
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long targetId;
     /**
      * 目标类型

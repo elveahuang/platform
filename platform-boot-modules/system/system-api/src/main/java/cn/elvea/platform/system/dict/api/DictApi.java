@@ -1,5 +1,6 @@
 package cn.elvea.platform.system.dict.api;
 
+import cn.elvea.platform.system.dict.model.form.DictForm;
 import cn.elvea.platform.system.dict.model.vo.DictTypeVo;
 
 /**
@@ -8,9 +9,8 @@ import cn.elvea.platform.system.dict.model.vo.DictTypeVo;
  */
 public interface DictApi {
 
-    /**
-     * 获取字典类型
-     */
     DictTypeVo getDictType(String code);
+
+    void saveDict(DictForm form);
 
 }

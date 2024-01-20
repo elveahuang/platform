@@ -1,10 +1,40 @@
 package cn.elvea.platform.system.tag.web.admin;
 
+import cn.elvea.platform.commons.core.annotations.Authenticated;
+import cn.elvea.platform.commons.core.annotations.OperationLog;
+import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.system.tag.model.entity.TagTypeEntity;
+import cn.elvea.platform.system.tag.model.request.TagTypeSearchRequest;
+import cn.elvea.platform.system.tag.service.TagTypeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.API_V1_ADMIN__TAG__TYPE_LIST;
+
+/**
+ * @author elvea
+ * @since 24.1.0
+ */
 @RestController
-@Tag(name = "TagTypeAdminController", description = "标签后台管理控制器")
+@AllArgsConstructor
+@Tag(name = "TagTypeAdminController", description = "标签类型后台管理控制器")
 public class TagTypeAdminController extends AbstractController {
+
+    private final TagTypeService tagTypeService;
+
+    @Authenticated
+    @Operation(summary = "获取标签类型列表")
+    @ApiResponse(description = "获取标签类型列表")
+    @OperationLog("获取标签类型列表")
+    @PostMapping(API_V1_ADMIN__TAG__TYPE_LIST)
+    public R<Page<TagTypeEntity>> list(TagTypeSearchRequest request) {
+        return R.success(this.tagTypeService.findByPage(request.getPageable()));
+    }
+
 }

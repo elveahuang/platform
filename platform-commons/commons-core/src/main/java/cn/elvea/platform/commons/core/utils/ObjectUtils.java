@@ -15,6 +15,10 @@ import java.util.Set;
  */
 public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 
+    public static boolean isValidId(Long id) {
+        return id != null && id > 0;
+    }
+
     /**
      * 如果第一个参数为空，则返回第二个参数
      */

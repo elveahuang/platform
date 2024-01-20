@@ -3,6 +3,7 @@ package cn.elvea.platform.commons.core.data.jpa.domain;
 import cn.elvea.platform.commons.core.annotations.DateTimeFormat;
 import cn.elvea.platform.commons.core.annotations.JsonFormat;
 import cn.elvea.platform.commons.core.constants.DateTimeConstants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.MappedSuperclass;
@@ -67,11 +68,13 @@ public abstract class BaseEntity extends AbstractEntity {
     private Long deletedBy;
 
     @Transient
+    @JsonIgnore
     public boolean isActiveEntity() {
         return this.active != null && this.active;
     }
 
     @Transient
+    @JsonIgnore
     public boolean isInactiveEntity() {
         return !this.isActiveEntity();
     }

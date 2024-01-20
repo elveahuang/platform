@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.dict.model.request;
+package cn.elvea.platform.system.tag.model.request;
 
 import cn.elvea.platform.commons.core.web.request.Request;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -14,7 +14,23 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class DictDeleteRequest extends Request {
+public class TagRelationSaveRequest extends Request {
+    /**
+     * 目标实体ID
+     */
     @JsonSerialize(using = ToStringSerializer.class)
+    private Long targetId;
+    /**
+     * 目标实体类型
+     */
+    private String targetType;
+    /**
+     * 标签类型ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long typeId;
+    /**
+     * 字典项ID集合
+     */
     private Long[] ids;
 }

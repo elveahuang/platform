@@ -902,10 +902,10 @@ DROP TABLE IF EXISTS `sys_tag`;
 CREATE TABLE `sys_tag`
 (
     `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
-    `tag_type_id`      BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签类型ID',
+    `type_id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签类型ID',
     `title`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '标题',
     `description`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '备注',
-    `sort_order`       INT UNSIGNED     NOT NULL DEFAULT 999 COMMENT '序号',
+    `idx`              INT UNSIGNED     NOT NULL DEFAULT 999 COMMENT '序号',
     `source`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '数据来源',
     `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
     `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
@@ -915,7 +915,7 @@ CREATE TABLE `sys_tag`
     `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
     `deleted_at`       DATETIME         NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_tag` PRIMARY KEY (`id`),
-    INDEX `ix_sys_tag__tag_type_id` (`tag_type_id`)
+    INDEX `ix_sys_tag__type_id` (`type_id`)
 ) COMMENT '标签表';
 
 --
@@ -926,15 +926,16 @@ DROP TABLE IF EXISTS `sys_tag_relation`;
 
 CREATE TABLE `sys_tag_relation`
 (
-    `id`          BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'ID',
-    `tag_type_id` BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '标签类型ID',
-    `tag_id`      BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '标签ID',
-    `target_type` VARCHAR(50)     NOT NULL DEFAULT '' COMMENT '目标类型',
-    `target_id`   BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '目标实体',
-    `created_by`  BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
-    `created_at`  DATETIME        NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `type_id`     BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签类型ID',
+    `tag_id`      BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '标签ID',
+    `target_type` VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '目标类型',
+    `target_id`   BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '目标实体',
+    `active`      TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`  BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`  DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
     CONSTRAINT `pk_sys_tag_relation` PRIMARY KEY (`id`),
-    INDEX `ix_sys_tag_relation__tag_type_id` (`tag_type_id`),
+    INDEX `ix_sys_tag_relation__type_id` (`type_id`),
     INDEX `ix_sys_tag_relation__tag_id` (`tag_id`),
     INDEX `ix_sys_tag_relation__target_type` (`target_type`),
     INDEX `ix_sys_tag_relation__target_id` (`target_id`)

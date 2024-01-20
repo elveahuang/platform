@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * @author elvea
+ * @since 24.1.0
  */
 @Mapper
 public interface TagTypeConverter {

@@ -1,0 +1,33 @@
+package cn.elvea.platform.system.tag.service;
+
+import cn.elvea.platform.BaseTests;
+import cn.elvea.platform.system.commons.constants.SystemTagConstants;
+import cn.elvea.platform.system.tag.model.entity.TagRelationEntity;
+import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+
+/**
+ * @author elvea
+ * @since 24.1.0
+ */
+public class TagRelationServiceTests extends BaseTests {
+
+    @Autowired
+    TagRelationService tagRelationService;
+
+    @Test
+    @Rollback(false)
+    public void baseTest() {
+        TagRelationEntity entity = TagRelationEntity.builder().build();
+        entity.setTypeId(1L);
+        entity.setTagId(1L);
+        entity.setTargetId(1L);
+        entity.setTargetType(SystemTagConstants.USER);
+        this.tagRelationService.saveBatch(Lists.list(entity));
+        Assertions.assertNotNull(entity.getId());
+    }
+
+}

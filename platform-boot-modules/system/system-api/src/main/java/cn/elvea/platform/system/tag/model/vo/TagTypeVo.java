@@ -39,5 +39,5 @@ public class TagTypeVo implements Serializable {
      * 明细
      */
     @Builder.Default
-    private List<TagItemVo> items = emptyList();
+    private List<TagVo> items = emptyList();
 }

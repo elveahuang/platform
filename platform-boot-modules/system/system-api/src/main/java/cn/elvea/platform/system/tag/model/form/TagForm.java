@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 /**
  * @author elvea
+ * @since 24.1.0
  */
 @Data
 @SuperBuilder
@@ -23,12 +24,11 @@ public class TagForm implements Serializable {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
-
     /**
-     * 字典ID
+     * 类型ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long tagTypeId;
+    private Long typeId;
     /**
      * 文本
      */
@@ -39,12 +39,4 @@ public class TagForm implements Serializable {
      */
     @NotEmpty
     private String description;
-    /**
-     * 序号
-     */
-    private Integer sortOrder;
-    /**
-     * 来源
-     */
-    private Integer source;
 }

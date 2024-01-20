@@ -3,7 +3,6 @@ package cn.elvea.platform.system.tag.service.impl;
 import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.data.jpa.service.EnhancedEntityService;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.tag.cache.TagTypeCacheKeyGenerator;
@@ -26,7 +25,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class TagTypeServiceImpl
         extends BaseCachingEntityService<TagTypeEntity, Long, TagTypeRepository>
-        implements EnhancedEntityService<TagTypeEntity, Long, TagTypeRepository>, TagTypeService {
+        implements TagTypeService {
 
     private final TagTypeCacheKeyGenerator cacheKeyGenerator = new TagTypeCacheKeyGenerator();
 

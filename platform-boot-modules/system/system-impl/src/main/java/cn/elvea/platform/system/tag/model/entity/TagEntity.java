@@ -1,6 +1,8 @@
 package cn.elvea.platform.system.tag.model.entity;
 
 import cn.elvea.platform.commons.core.data.jpa.domain.BaseEntity;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
@@ -11,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * @author elvea
+ * @since 24.1.0
  */
 @Setter
 @Getter
@@ -26,7 +29,8 @@ public class TagEntity extends BaseEntity {
     /**
      * 类型id
      */
-    private Long tagTypeId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long typeId;
     /**
      * 文本
      */
@@ -38,7 +42,7 @@ public class TagEntity extends BaseEntity {
     /**
      * 序号
      */
-    private Integer sortOrder;
+    private Integer idx;
     /**
      * 来源
      */

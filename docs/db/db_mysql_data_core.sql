@@ -245,16 +245,16 @@ values (1, 'APP_TITLE', 'Application', 'label_config_site_title', '站点标题'
        (3, 'LOGIN_CAPTCHA_ENABLED', 'false', 'label_config_login_captcha_enabled', '是否启用登录验证码', 1);
 
 --
--- 系统设置项
+-- 附件类型
 --
 
 truncate `sys_attachment_type`;
 
-insert into `sys_attachment_type` (`id`, `code`, `label`, `title`, `multiple_ind`, `source`)
-values (1000001, 'UNSPECIFIED', '', '未指定', 0, 1),
-       (1000002, 'USER_AVATAR', '', '用户头像', 0, 1),
-       (1000003, 'POSTER_COVER', '', '宣传栏封面', 0, 1),
-       (1000004, 'POSTER_MOBILE_COVER', '', '宣传栏移动端封面', 0, 1);
+INSERT INTO `sys_attachment_type` (`id`, `code`, `label`, `title`, `multiple_ind`, `source`, `ext`, `file_types`, `active`)
+VALUES (1000001, 'UNSPECIFIED', '', '未指定', 0, 1, '', '', 0),
+       (1000002, 'USER_AVATAR', '', '用户头像', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1),
+       (1000003, 'BANNER_COVER', '', '宣传栏封面', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1),
+       (1000004, 'BANNER_MOBILE_COVER', '', '宣传栏移动端封面', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1);
 
 --
 -- 字典类型
@@ -284,18 +284,19 @@ VALUES (1000002001, 'HOME', 1000002, '首页宣传栏', 1, 1, 1),
        (1000007003, 'DEPARTMENT', 1000004, '部门', 2, 1, 1);
 
 --
--- 附件类型
+-- 标签类型
 --
 
-delete
-from `sys_attachment_type`
-where `code` in ('UNSPECIFIED', 'USER_AVATAR', 'BANNER_COVER', 'BANNER_MOBILE_COVER');
+truncate `sys_tag_type`;
 
-INSERT INTO `sys_attachment_type` (`id`, `code`, `label`, `title`, `multiple_ind`, `source`, `ext`, `file_types`, `active`)
-VALUES (1000001, 'UNSPECIFIED', '', '未指定', 0, 1, '', '', 0),
-       (1000002, 'USER_AVATAR', '', '用户头像', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1),
-       (1000003, 'BANNER_COVER', '', '宣传栏封面', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1),
-       (1000004, 'BANNER_MOBILE_COVER', '', '宣传栏移动端封面', 0, 1, 'png~|~jpeg~|~jpg~|~git', 'image/png~|~image/jpeg~|~image/jpg~|~image/git', 1);
+INSERT INTO `sys_tag_type` (`id`, `code`, `title`, `label`, `description`, `source`, `active`)
+VALUES (1000001, 'SYSTEM', '系统标签', 'SYSTEM', '系统标签', 1, 0),
+       (1000002, 'USER', '用户标签', 'USER', '用户标签', 1, 1);
+
+truncate `sys_tag`;
+
+INSERT INTO `sys_tag` (`id`, `type_id`, `title`, `description`, `source`, `active`)
+VALUES (1000002001, 1000002, '普通用户', '普通用户', 1, 1);
 
 -- =====================================================================================================================
 -- 多语言

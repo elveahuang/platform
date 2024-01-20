@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagItemVo implements Serializable {
+public class TagVo implements Serializable {
     /**
      * ID
      */
@@ -28,10 +28,6 @@ public class TagItemVo implements Serializable {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long typeId;
-    /**
-     * 编号
-     */
-    private String code;
     /**
      * 标题
      */

@@ -29,6 +29,11 @@ public class TagRelationVo implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long typeId;
     /**
+     * 标签类型ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long typeCode;
+    /**
      * 标签ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
