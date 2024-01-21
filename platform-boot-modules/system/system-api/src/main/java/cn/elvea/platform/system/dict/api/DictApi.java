@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 public interface DictApi {
 
     /**
-     * 获取字典类型定义
+     * 获取字典类型
      */
     DictTypeVo getDictType(DictTypeRequest request);
 
@@ -29,16 +29,16 @@ public interface DictApi {
     /**
      * 保存字典
      */
-    void saveDict(DictForm form);
+    void save(DictForm form);
 
     /**
-     * 获取目标实体关联的字典
+     * 获取实体关联
      */
-    DictRelationVo getDictRelation(DictRelationRequest request);
+    DictRelationVo getRelation(DictRelationRequest request);
 
     /**
-     * 保存目标实体和标签的关联
+     * 保存实体关联
      */
-    void saveDictRelation(DictRelationSaveRequest request);
+    void saveRelation(DictRelationSaveRequest request);
 
 }

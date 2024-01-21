@@ -26,7 +26,8 @@ import java.util.Collection;
 @NoRepositoryBean
 @Transactional
 public abstract class BaseCachingEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
-        extends BaseEntityService<T, K, R> implements CachingEntityService<T, K> {
+        extends BaseEntityService<T, K, R>
+        implements CachingEntityService<T, K> {
 
     private CacheService cacheService;
 

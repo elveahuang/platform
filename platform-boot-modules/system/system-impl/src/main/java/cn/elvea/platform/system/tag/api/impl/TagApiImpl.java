@@ -73,19 +73,19 @@ public class TagApiImpl implements TagApi {
     }
 
     /**
-     * @see TagApi#saveTag(TagForm)
+     * @see TagApi#save(TagForm)
      */
     @Override
-    public void saveTag(TagForm form) {
+    public void save(TagForm form) {
         TagEntity entity = TagConverter.INSTANCE.form2Entity(form);
         this.tagService.save(entity);
     }
 
     /**
-     * @see TagApi#getTagRelation(TagRelationRequest)
+     * @see TagApi#getRelation(TagRelationRequest)
      */
     @Override
-    public TagRelationVo getTagRelation(TagRelationRequest request) {
+    public TagRelationVo getRelation(TagRelationRequest request) {
         TagRelationVo vo = TagRelationVo.builder().targetType(request.getTargetType()).targetId(request.getTargetId()).build();
 
         List<TagEntity> tagList = this.tagService.findByTarget(request);
@@ -96,10 +96,10 @@ public class TagApiImpl implements TagApi {
     }
 
     /**
-     * @see TagApi#saveTagRelation(TagRelationSaveRequest)
+     * @see TagApi#saveRelation(TagRelationSaveRequest)
      */
     @Override
-    public void saveTagRelation(TagRelationSaveRequest request) {
+    public void saveRelation(TagRelationSaveRequest request) {
         this.tagRelationService.saveRelation(request);
     }
 

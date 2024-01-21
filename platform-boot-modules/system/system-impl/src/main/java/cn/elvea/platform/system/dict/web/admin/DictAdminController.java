@@ -61,7 +61,7 @@ public class DictAdminController extends AbstractController {
     @OperationLog("保存标签")
     @PostMapping(API_V1_ADMIN__DICT__SAVE)
     public R<?> save(DictForm form) {
-        dictApi.saveDict(form);
+        dictApi.save(form);
         return R.success();
     }
 

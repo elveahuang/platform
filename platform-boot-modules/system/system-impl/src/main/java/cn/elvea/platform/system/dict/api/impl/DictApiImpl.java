@@ -71,28 +71,34 @@ public class DictApiImpl implements DictApi {
     }
 
     /**
-     * @see DictApi#saveDict(DictForm)
+     * @see DictApi#save(DictForm)
      */
     @Override
-    public void saveDict(DictForm form) {
+    public void save(DictForm form) {
         DictItemEntity entity = DictItemConverter.INSTANCE.form2Entity(form);
         this.dictItemService.save(entity);
     }
 
     /**
-     * @see DictApi#getDictRelation(DictRelationRequest)
+     * @see DictApi#getRelation(DictRelationRequest)
      */
     @Override
-    public DictRelationVo getDictRelation(DictRelationRequest request) {
-        return null;
+    public DictRelationVo getRelation(DictRelationRequest request) {
+        DictRelationVo vo = DictRelationVo.builder().targetType(request.getTargetType()).targetId(request.getTargetId()).build();
+
+        List<DictItemEntity> tagList = this.dictItemService.findByTarget(request);
+        if (CollectionUtils.isNotEmpty(tagList)) {
+            vo.setItems(tagList.stream().map(DictItemConverter.INSTANCE::entity2Vo).toList());
+        }
+        return vo;
     }
 
     /**
-     * @see DictApi#saveDictRelation(DictRelationSaveRequest)
+     * @see DictApi#saveRelation(DictRelationSaveRequest)
      */
     @Override
-    public void saveDictRelation(DictRelationSaveRequest request) {
-
+    public void saveRelation(DictRelationSaveRequest request) {
+        this.dictRelationService.saveRelation(request);
     }
 
 }

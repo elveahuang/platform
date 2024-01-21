@@ -17,28 +17,28 @@ import org.springframework.data.domain.Page;
 public interface TagApi {
 
     /**
-     * 获取标签类型定义
+     * 获取标签类型
      */
     TagTypeVo getTagType(TagTypeRequest request);
 
     /**
-     * 搜索字典
+     * 搜索标签
      */
     Page<TagVo> search(TagSearchRequest request);
 
     /**
      * 保存标签
      */
-    void saveTag(TagForm form);
+    void save(TagForm form);
 
     /**
-     * 获取目标实体关联的标签
+     * 获取实体关联
      */
-    TagRelationVo getTagRelation(TagRelationRequest request);
+    TagRelationVo getRelation(TagRelationRequest request);
 
     /**
-     * 保存目标实体和标签的关联
+     * 保存实体关联
      */
-    void saveTagRelation(TagRelationSaveRequest request);
+    void saveRelation(TagRelationSaveRequest request);
 
 }

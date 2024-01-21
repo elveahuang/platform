@@ -60,7 +60,7 @@ public class TagAdminController extends AbstractController {
     @OperationLog("保存标签")
     @PostMapping(API_V1_ADMIN__TAG__SAVE)
     public R<Page<TagEntity>> save(TagForm form) {
-        tagApi.saveTag(form);
+        tagApi.save(form);
         return R.success();
     }
 

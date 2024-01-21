@@ -35,7 +35,7 @@ public class TagApiTests extends BaseTests {
         TagRelationSaveRequest request = TagRelationSaveRequest.builder()
                 .targetId(1L).targetType(SystemTagConstants.USER)
                 .typeId(vo.getId()).ids(ids).build();
-        this.tagApi.saveTagRelation(request);
+        this.tagApi.saveRelation(request);
     }
 
 }
