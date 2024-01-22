@@ -17,12 +17,12 @@ import org.hibernate.annotations.GenericGenerator;
 @MappedSuperclass
 public abstract class AbstractEntity implements IdEntity {
 
-    protected Long id;
-
     @Id
     @GeneratedValue(generator = "hibernateIdentifierGenerator")
     @GenericGenerator(name = "hibernateIdentifierGenerator", type = CustomIdentifierGenerator.class)
     @JsonSerialize(using = ToStringSerializer.class)
+    protected Long id;
+
     @Override
     public Long getId() {
         return id;

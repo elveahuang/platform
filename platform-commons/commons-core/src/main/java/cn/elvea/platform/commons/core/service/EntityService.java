@@ -1,12 +1,8 @@
 package cn.elvea.platform.commons.core.service;
 
 import cn.elvea.platform.commons.core.data.domain.IdEntity;
-import cn.elvea.platform.commons.core.data.mybatis.domain.event.PreSuperBuilderCreateEvent;
-import cn.elvea.platform.commons.core.data.mybatis.domain.event.PreSuperBuilderDeleteEvent;
-import cn.elvea.platform.commons.core.data.mybatis.domain.event.PreSuperBuilderModifiedEvent;
 import cn.elvea.platform.commons.core.utils.GenericsUtils;
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
-import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -245,30 +241,6 @@ public interface EntityService<T extends IdEntity, K extends Serializable> exten
             return !isEmpty(entity.getId()) && entity.getId() > 0;
         }
         return false;
-    }
-
-    /**
-     * 创建前
-     */
-    default <E extends PreSuperBuilderCreateEvent> void preCreate(E entity) {
-        entity.setCreatedAt(getCurLocalDateTime());
-        entity.setCreatedBy(SecurityUtils.getUid());
-    }
-
-    /**
-     * 更新前
-     */
-    default <E extends PreSuperBuilderModifiedEvent> void preUpdate(E entity) {
-        entity.setLastModifiedAt(getCurLocalDateTime());
-        entity.setLastModifiedBy(SecurityUtils.getUid());
-    }
-
-    /**
-     * 删除前
-     */
-    default <E extends PreSuperBuilderDeleteEvent> void preDelete(E entity) {
-        entity.setDeletedAt(getCurLocalDateTime());
-        entity.setDeletedBy(SecurityUtils.getUid());
     }
 
 }

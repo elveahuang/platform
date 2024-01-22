@@ -25,4 +25,5 @@ public abstract class AbstractEntity implements IdEntity {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

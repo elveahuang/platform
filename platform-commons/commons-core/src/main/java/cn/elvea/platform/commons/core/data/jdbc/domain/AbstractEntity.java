@@ -12,10 +12,10 @@ import jakarta.persistence.Id;
  */
 public abstract class AbstractEntity implements IdEntity {
 
-    protected Long id;
-
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
+    protected Long id;
+
     @Override
     public Long getId() {
         return id;

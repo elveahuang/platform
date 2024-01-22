@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
  * @author elvea
  * @since 24.1.0
  */
-@Getter
 @Setter
+@Getter
 public abstract class BaseEntity extends AbstractEntity {
     /**
      * 启用状态

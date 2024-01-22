@@ -5,7 +5,6 @@ import cn.elvea.platform.commons.core.annotations.JsonFormat;
 import cn.elvea.platform.commons.core.constants.DateTimeConstants;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +16,6 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@MappedSuperclass
 public abstract class SimpleEntity extends AbstractEntity {
     /**
      * 启用状态

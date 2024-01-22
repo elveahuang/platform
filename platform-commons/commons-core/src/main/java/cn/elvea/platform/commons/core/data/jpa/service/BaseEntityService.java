@@ -8,6 +8,7 @@ import cn.elvea.platform.commons.core.service.AbstractService;
 import cn.elvea.platform.commons.core.service.EntityService;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.commons.core.utils.GenericsUtils;
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -263,6 +264,8 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     public void softDelete(T entity) {
         if (entity instanceof BaseEntity baseEntity) {
             baseEntity.setActive(Boolean.FALSE);
+            baseEntity.setDeletedAt(getCurLocalDateTime());
+            baseEntity.setDeletedBy(SecurityUtils.getUid());
             this.save(entity);
         } else if (entity instanceof SimpleEntity simpleEntity) {
             simpleEntity.setActive(Boolean.FALSE);
@@ -275,14 +278,15 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
      */
     @Override
     public void softDeleteBatch(Collection<T> entityList, int batchSize) {
-        entityList.forEach((entity) -> {
-            if (entity instanceof BaseEntity baseEntity) {
-                baseEntity.setActive(Boolean.FALSE);
-            } else if (entity instanceof SimpleEntity simpleEntity) {
-                simpleEntity.setActive(Boolean.FALSE);
+        this.updateBatchById(entityList.stream().peek(e -> {
+            if (e instanceof BaseEntity entity) {
+                entity.setActive(Boolean.FALSE);
+                entity.setDeletedAt(getCurLocalDateTime());
+                entity.setDeletedBy(SecurityUtils.getUid());
+            } else if (e instanceof SimpleEntity entity) {
+                entity.setActive(Boolean.FALSE);
             }
-        });
-        this.saveBatch(entityList, batchSize);
+        }).toList(), batchSize);
     }
 
     /**
