@@ -6,7 +6,7 @@ import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
 import cn.elvea.platform.commons.core.exception.ServiceException;
 import cn.elvea.platform.commons.core.storage.Storage;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
-import cn.elvea.platform.commons.core.storage.model.AttachmentVo;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentVo;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;

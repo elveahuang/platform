@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.core.storage.model;
+package cn.elvea.platform.system.attachment.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

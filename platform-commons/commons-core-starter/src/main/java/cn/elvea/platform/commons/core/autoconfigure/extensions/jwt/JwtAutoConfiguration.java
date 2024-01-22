@@ -3,7 +3,7 @@ package cn.elvea.platform.commons.core.autoconfigure.extensions.jwt;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.jwt.properties.JwtProperties;
 import cn.elvea.platform.commons.core.extensions.jwt.JwtConfig;
 import cn.elvea.platform.commons.core.extensions.jwt.JwtHelper;
-import cn.elvea.platform.commons.core.extensions.jwt.enums.Strategy;
+import cn.elvea.platform.commons.core.extensions.jwt.JwtStrategy;
 import cn.elvea.platform.commons.core.utils.EncryptUtils;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -64,7 +64,7 @@ public class JwtAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public JWK jwk() {
-        if (Strategy.MANUEL.equals(this.properties.getStrategy())) {
+        if (JwtStrategy.MANUEL.equals(this.properties.getStrategy())) {
             RSAPublicKey publicKey = (RSAPublicKey) EncryptUtils.toPublicKey(this.properties.getPublicKeyValue());
             RSAPrivateKey privateKey = (RSAPrivateKey) EncryptUtils.toPrivateKey(this.properties.getPrivateKeyValue());
             return new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
