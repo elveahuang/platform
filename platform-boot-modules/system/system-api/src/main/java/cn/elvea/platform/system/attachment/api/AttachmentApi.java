@@ -2,6 +2,12 @@ package cn.elvea.platform.system.attachment.api;
 
 import cn.elvea.platform.system.attachment.model.AttachmentFile;
 import cn.elvea.platform.system.attachment.model.AttachmentParameter;
+import cn.elvea.platform.system.attachment.model.request.AttachmentRelationRequest;
+import cn.elvea.platform.system.attachment.model.request.AttachmentRelationSaveRequest;
+import cn.elvea.platform.system.attachment.model.request.AttachmentTypeRequest;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentRelationVo;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentTypeVo;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentVo;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -10,6 +16,29 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface AttachmentApi {
 
+    /**
+     * 获取附件类型
+     */
+    AttachmentTypeVo getAttachmentType(AttachmentTypeRequest request);
+
+    /**
+     * 获取附件
+     */
+    AttachmentVo getAttachment(AttachmentRelationRequest request);
+
+    /**
+     * 上传文件
+     */
     AttachmentFile uploadAttachmentFile(AttachmentParameter parameter, MultipartFile file);
+
+    /**
+     * 获取文件关联
+     */
+    AttachmentRelationVo getAttachmentRelation(AttachmentRelationRequest request);
+
+    /**
+     * 保存文件关联
+     */
+    void saveAttachmentRelation(AttachmentRelationSaveRequest request);
 
 }

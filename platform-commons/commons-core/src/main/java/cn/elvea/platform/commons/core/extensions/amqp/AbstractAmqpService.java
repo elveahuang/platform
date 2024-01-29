@@ -7,12 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author elvea
  * @since 24.1.0
  */
 @Slf4j
+@Transactional
 public abstract class AbstractAmqpService<T> extends AbstractService implements AmqpService<T> {
 
     protected Context context;

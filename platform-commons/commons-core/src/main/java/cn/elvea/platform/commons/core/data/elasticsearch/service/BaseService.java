@@ -11,6 +11,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @since 24.1.0
  */
 @NoRepositoryBean
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseService {
 
     @Autowired

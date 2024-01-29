@@ -6,13 +6,16 @@ import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
 import cn.elvea.platform.commons.core.exception.ServiceException;
 import cn.elvea.platform.commons.core.storage.Storage;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
-import cn.elvea.platform.system.attachment.model.vo.AttachmentVo;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
 import cn.elvea.platform.system.attachment.api.AttachmentApi;
 import cn.elvea.platform.system.attachment.model.AttachmentFile;
 import cn.elvea.platform.system.attachment.model.AttachmentParameter;
+import cn.elvea.platform.system.attachment.model.request.AttachmentRelationRequest;
+import cn.elvea.platform.system.attachment.model.request.AttachmentTypeRequest;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentTypeVo;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentVo;
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,9 +48,24 @@ public class AttachmentController extends AbstractController {
 
     private final AttachmentApi attachmentApi;
 
-    /**
-     * 附件上传
-     */
+    @Authenticated
+    @Operation(summary = "获取附件类型")
+    @ApiResponse(description = "获取附件类型")
+    @OperationLog("获取附件类型")
+    @PostMapping(API_V1__ATTACHMENT__TYPE)
+    public R<AttachmentTypeVo> getAttachmentType(AttachmentTypeRequest request) {
+        return R.success(attachmentApi.getAttachmentType(request));
+    }
+
+    @Authenticated
+    @Operation(summary = "获取附件")
+    @ApiResponse(description = "获取附件")
+    @OperationLog("获取附件")
+    @PostMapping(API_V1__ATTACHMENT__GET)
+    public R<AttachmentVo> getAttachment(AttachmentRelationRequest request) {
+        return R.success(attachmentApi.getAttachment(request));
+    }
+
     @Authenticated
     @OperationLog("附件上传")
     @Operation(summary = "附件上传")
@@ -62,9 +80,6 @@ public class AttachmentController extends AbstractController {
         throw new ServiceException(ResponseCodeEnum.ATTACHMENT_LIMIT_ERROR);
     }
 
-    /**
-     * 附件上传
-     */
     @Authenticated
     @OperationLog("附件上传")
     @Operation(summary = "附件上传")
@@ -94,9 +109,6 @@ public class AttachmentController extends AbstractController {
         return R.success(result);
     }
 
-    /**
-     * 编辑器附件上传
-     */
     @Authenticated
     @OperationLog("编辑器附件上传")
     @Operation(summary = "编辑器附件上传")

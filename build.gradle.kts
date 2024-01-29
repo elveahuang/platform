@@ -57,9 +57,9 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.1")
+            mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.2")
             mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.2")
-            mavenBom("org.springframework.shell:spring-shell-dependencies:3.2.0")
+            mavenBom("org.springframework.shell:spring-shell-dependencies:3.2.1")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
             mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2022.0.0.0")
             mavenBom("com.tencent.cloud:spring-cloud-tencent-dependencies:1.12.4-2022.0.4")
@@ -181,6 +181,8 @@ allprojects {
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-tmt:3.1.922")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-iai:3.1.929")
             dependency("com.larksuite.oapi:oapi-sdk:2.1.1")
+            // tools
+            dependency("com.taobao.arthas:arthas-spring-boot-starter:3.7.2")
             // commons
             dependency("commons-io:commons-io:2.15.1")
             dependency("commons-cli:commons-cli:1.6.0")

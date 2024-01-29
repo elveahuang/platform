@@ -1,20 +1,20 @@
 package cn.elvea.platform.commons.core.extensions.log.aspect;
 
-import cn.elvea.platform.commons.core.extensions.log.LogManager;
+import cn.elvea.platform.commons.core.annotations.OperationLog;
 import cn.elvea.platform.commons.core.extensions.log.dto.OperationLogDto;
+import cn.elvea.platform.commons.core.extensions.log.store.LogStore;
 import cn.elvea.platform.commons.core.utils.AopUtils;
-import cn.elvea.platform.commons.core.utils.DateTimeUtils;
 import cn.elvea.platform.commons.core.utils.ExceptionUtils;
 import cn.elvea.platform.commons.core.utils.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.util.StopWatch;
 
 /**
  * @author elvea
@@ -25,47 +25,59 @@ import org.aspectj.lang.annotation.Pointcut;
 @AllArgsConstructor
 public class OperationLogAspect {
 
-    private final LogManager logManager;
+    private final LogStore logStore;
 
-    @Pointcut("@annotation(cn.elvea.platform.commons.core.annotations.OperationLog)")
-    protected void operationLogAspect() {
+    private static final ThreadLocal<StopWatch> threadLocal = new ThreadLocal<>();
+
+    /**
+     * 执行前
+     */
+    @Before(value = "@annotation(operationLog)")
+    public void boBefore(JoinPoint joinPoint, OperationLog operationLog) {
+        StopWatch stopWatch = new StopWatch();
+        threadLocal.set(stopWatch);
+        stopWatch.start();
     }
 
-    @Around("operationLogAspect()")
-    protected Object doAfter(ProceedingJoinPoint joinPoint) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        Object result = joinPoint.proceed();
-        long endTime = System.currentTimeMillis();
-        output(joinPoint, startTime, endTime);
-        return result;
+    /**
+     * 执行成功并返回
+     */
+    @AfterReturning(pointcut = "@annotation(operationLog)", returning = "result")
+    public void doAfterReturning(JoinPoint joinPoint, OperationLog operationLog, Object result) {
+        outputLog(joinPoint, operationLog, null, result);
     }
 
-    @AfterThrowing(pointcut = "operationLogAspect()", throwing = "e")
-    protected void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        output(joinPoint, e);
+    /**
+     * 执行失败捕捉异常
+     */
+    @AfterThrowing(value = "@annotation(operationLog)", throwing = "e")
+    public void doAfterThrowing(JoinPoint joinPoint, OperationLog operationLog, Exception e) {
+        outputLog(joinPoint, operationLog, e, null);
     }
 
-    private void output(JoinPoint joinPoint, Throwable e) {
+    private void outputLog(JoinPoint joinPoint, OperationLog operationLog, Throwable e, Object result) {
         try {
+            StopWatch stopWatch = threadLocal.get();
+            stopWatch.stop();
+
             HttpServletRequest request = ServletUtils.getRequest();
 
-            OperationLogDto dto = OperationLogDto.builder().className(AopUtils.getJoinPointClass(joinPoint)).methodName(AopUtils.getJoinPointMethod(joinPoint)).requestUri(request.getRequestURI()).httpMethod(request.getMethod()).requestIp(ServletUtils.getHost()).requestUa(ServletUtils.getUserAgent(request)).requestParams(ServletUtils.getParamJson(request)).requestHeaderParams(ServletUtils.getHeaderJson(request)).execTime(0L).exception(e != null ? ExceptionUtils.getStackTraceAsString(e) : "").build();
-
-            logManager.saveLog(dto);
+            OperationLogDto dto = OperationLogDto.builder()
+                    .className(AopUtils.getJoinPointClass(joinPoint))
+                    .methodName(AopUtils.getJoinPointMethod(joinPoint))
+                    .requestUri(request.getRequestURI())
+                    .httpMethod(request.getMethod())
+                    .requestIp(ServletUtils.getHost(request))
+                    .requestUa(ServletUtils.getUserAgent(request))
+                    .requestParams(ServletUtils.getParameterAsJson(request))
+                    .requestHeaderParams(ServletUtils.getHeaderAsJson(request))
+                    .execTime(stopWatch.getTotalTimeMillis())
+                    .exception(e != null ? ExceptionUtils.getStackTraceAsString(e) : "")
+                    .details(operationLog.value())
+                    .build();
+            logStore.saveOperationLog(dto);
         } catch (Exception ex) {
             log.error("Failed to save operation log.", ex);
-        }
-    }
-
-    private void output(JoinPoint joinPoint, Long startTimeMillis, Long endTimeMillis) {
-        try {
-            HttpServletRequest request = ServletUtils.getRequest();
-
-            OperationLogDto dto = OperationLogDto.builder().className(AopUtils.getJoinPointClass(joinPoint)).methodName(AopUtils.getJoinPointMethod(joinPoint)).requestUri(request.getRequestURI()).httpMethod(request.getMethod()).requestIp(ServletUtils.getHost()).requestUa(ServletUtils.getUserAgent(request)).requestParams(ServletUtils.getParamJson(request)).requestHeaderParams(ServletUtils.getHeaderJson(request)).startTime(DateTimeUtils.toLocalDateTime(startTimeMillis)).endTime(DateTimeUtils.toLocalDateTime(endTimeMillis)).execTime((endTimeMillis - startTimeMillis)).build();
-
-            logManager.saveLog(dto);
-        } catch (Exception e) {
-            log.error("Failed to save operation log.", e);
         }
     }
 

@@ -38,7 +38,7 @@ public class CustomJpaAutoConfiguration {
      */
     @Bean("jpaIdentifierGenerator")
     @ConditionalOnMissingBean
-    public IdentifierGenerator identifierGenerator() {
+    public IdentifierGenerator jpaIdentifierGenerator() {
         return new CustomIdentifierGenerator();
     }
 

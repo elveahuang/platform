@@ -4,7 +4,13 @@ import cn.elvea.platform.commons.core.storage.Storage;
 import cn.elvea.platform.commons.core.storage.domain.FileObject;
 import cn.elvea.platform.system.attachment.model.AttachmentFile;
 import cn.elvea.platform.system.attachment.model.AttachmentParameter;
-import cn.elvea.platform.system.attachment.service.AttachmentService;
+import cn.elvea.platform.system.attachment.model.request.AttachmentRelationRequest;
+import cn.elvea.platform.system.attachment.model.request.AttachmentRelationSaveRequest;
+import cn.elvea.platform.system.attachment.model.request.AttachmentTypeRequest;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentRelationVo;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentTypeVo;
+import cn.elvea.platform.system.attachment.model.vo.AttachmentVo;
+import cn.elvea.platform.system.attachment.service.AttachmentFileService;
 import cn.elvea.platform.system.attachment.service.AttachmentTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +28,25 @@ public class AttachmentApiImpl implements AttachmentApi {
 
     private final Storage storage;
 
-    private final AttachmentService attachmentService;
+    private final AttachmentFileService attachmentService;
 
     private final AttachmentTypeService attachmentTypeService;
+
+    /**
+     * @see AttachmentApi#getAttachmentType(AttachmentTypeRequest)
+     */
+    @Override
+    public AttachmentTypeVo getAttachmentType(AttachmentTypeRequest request) {
+        return attachmentTypeService.getAttachmentType(request.getType());
+    }
+
+    /**
+     * @see AttachmentApi#getAttachment(AttachmentRelationRequest)
+     */
+    @Override
+    public AttachmentVo getAttachment(AttachmentRelationRequest request) {
+        return AttachmentVo.builder().build();
+    }
 
     /**
      * @see AttachmentApi#uploadAttachmentFile(AttachmentParameter, MultipartFile)
@@ -38,6 +60,22 @@ public class AttachmentApiImpl implements AttachmentApi {
             log.error("uploadAttachmentFile failed.", e);
         }
         return null;
+    }
+
+    /**
+     * @see AttachmentApi#getAttachmentRelation(AttachmentRelationRequest)
+     */
+    @Override
+    public AttachmentRelationVo getAttachmentRelation(AttachmentRelationRequest request) {
+        return null;
+    }
+
+    /**
+     * @see AttachmentApi#saveAttachmentRelation(AttachmentRelationSaveRequest)
+     */
+    @Override
+    public void saveAttachmentRelation(AttachmentRelationSaveRequest request) {
+
     }
 
 }

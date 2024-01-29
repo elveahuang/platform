@@ -1,9 +1,8 @@
 package cn.elvea.platform.system.log.service.impl;
 
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.extensions.log.dto.OperationLogDto;
 import cn.elvea.platform.commons.core.extensions.amqp.AbstractAmqpService;
-import cn.elvea.platform.system.commons.constants.SystemAmqpConstants;
+import cn.elvea.platform.commons.core.extensions.log.dto.OperationLogDto;
 import cn.elvea.platform.system.log.model.converter.OperationLogConverter;
 import cn.elvea.platform.system.log.model.entity.OperationLogEntity;
 import cn.elvea.platform.system.log.service.OperationLogAmqpService;
@@ -11,6 +10,9 @@ import cn.elvea.platform.system.log.service.OperationLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import static cn.elvea.platform.system.commons.constants.SystemAmqpConstants.OPERATION_LOG_QUEUE;
 
 /**
  * @author elvea
@@ -20,7 +22,8 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-@RabbitListener(queues = SystemAmqpConstants.OPERATION_LOG_QUEUE)
+@Transactional
+@RabbitListener(queues = OPERATION_LOG_QUEUE)
 public class OperationLogAmqpServiceImpl extends AbstractAmqpService<OperationLogDto> implements OperationLogAmqpService {
 
     private final OperationLogService operationLogService;
@@ -37,7 +40,7 @@ public class OperationLogAmqpServiceImpl extends AbstractAmqpService<OperationLo
 
     @Override
     public String getRoutingKey() {
-        return SystemAmqpConstants.OPERATION_LOG_QUEUE;
+        return OPERATION_LOG_QUEUE;
     }
 
 }

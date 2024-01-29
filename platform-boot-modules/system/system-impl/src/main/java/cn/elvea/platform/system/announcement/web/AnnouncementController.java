@@ -30,17 +30,17 @@ public class AnnouncementController extends AbstractController {
 
     @Operation(summary = "获取公告资讯列表")
     @ApiResponse(description = "获取公告资讯列表")
-    @PostMapping(API_V1__ANNOUNCEMENT__LIST)
     @OperationLog("获取公告资讯列表")
-    public R<?> list(AnnouncementSearchRequest sr) {
-        return R.success(announcementService.findByPage(sr.getPageable()));
+    @PostMapping(API_V1__ANNOUNCEMENT__LIST)
+    public R<?> list(AnnouncementSearchRequest request) {
+        return R.success(announcementService.findByPage(request));
     }
 
     @Operation(summary = "获取公告资讯详情")
     @ApiResponse(description = "获取公告资讯详情")
-    @PostMapping(API_V1__ANNOUNCEMENT__DETAILS)
     @OperationLog("获取公告资讯详情")
-    public R<AnnouncementEntity> details(@RequestParam Long id) {
+    @PostMapping(API_V1__ANNOUNCEMENT__DETAILS)
+    public R<AnnouncementEntity> details(@RequestParam("id") Long id) {
         return R.success(announcementService.findById(id));
     }
 

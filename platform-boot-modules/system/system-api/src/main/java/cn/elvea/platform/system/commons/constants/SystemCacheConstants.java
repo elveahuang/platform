@@ -48,6 +48,8 @@ public interface SystemCacheConstants {
 
     String TAG_TYPE = "tag-type";
 
+    String ATTACHMENT_TYPE = "attachment-type";
+
     // ========================================================================
     // System - Message
     // ========================================================================

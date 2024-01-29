@@ -3,8 +3,6 @@ package cn.elvea.platform.commons.core.enums;
 import lombok.Getter;
 
 /**
- * 发布状态类型枚举
- *
  * @author elvea
  * @since 24.1.0
  */
@@ -12,8 +10,6 @@ import lombok.Getter;
 public enum PublishStatusTypeEnum implements BaseEnum<Integer> {
     ON(1, "ON", "已发布"),
     OFF(0, "OFF", "未发布");
-
-    private final static String LABEL_PREFIX = "label_publish_status_type__";
 
     private final Integer value;
     private final String code;
@@ -27,7 +23,7 @@ public enum PublishStatusTypeEnum implements BaseEnum<Integer> {
 
     @Override
     public String getLabel() {
-        return LABEL_PREFIX.concat(this.code.toLowerCase());
+        return "label_publish_status_type__".concat(this.code.toLowerCase());
     }
 
 }

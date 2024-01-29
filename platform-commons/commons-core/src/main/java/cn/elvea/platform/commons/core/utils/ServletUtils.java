@@ -84,6 +84,24 @@ public abstract class ServletUtils {
     }
 
     /**
+     * 获取当前请求地址
+     *
+     * @return String
+     */
+    public static String getRequestURI() {
+        return getRequestURI(getRequest());
+    }
+
+    /**
+     * 获取当前请求地址
+     *
+     * @return String
+     */
+    public static String getRequestURI(HttpServletRequest request) {
+        return request.getRequestURI();
+    }
+
+    /**
      * 获取客户端IP
      *
      * @return String
@@ -128,16 +146,17 @@ public abstract class ServletUtils {
         return ip;
     }
 
-    public static String getParamJson(@NonNull HttpServletRequest request) {
-        try {
-            return JacksonUtils.toJson(request.getParameterMap());
-        } catch (Exception e) {
-            log.error("Failed to get header map as json.", e);
-        }
-        return "{}";
+    /**
+     * 获取当前请求头
+     */
+    public static String getHeaderAsJson() {
+        return getHeaderAsJson(getRequest());
     }
 
-    public static String getHeaderJson(@NonNull HttpServletRequest request) {
+    /**
+     * 获取当前请求头
+     */
+    public static String getHeaderAsJson(@NonNull HttpServletRequest request) {
         try {
             return JacksonUtils.toJson(getHeaderMap(request));
         } catch (Exception e) {
@@ -146,6 +165,9 @@ public abstract class ServletUtils {
         return "{}";
     }
 
+    /**
+     * 获取当前请求头
+     */
     public static Map<String, List<String>> getHeaderMap(@NonNull HttpServletRequest request) {
         Map<String, List<String>> map = new HashMap<>(8);
         Enumeration<String> headerNames = request.getHeaderNames();
@@ -158,6 +180,9 @@ public abstract class ServletUtils {
         return map;
     }
 
+    /**
+     * 获取当前请求头
+     */
     public static Map<String, String> getHeaders(HttpServletRequest request) {
         Map<String, String> map = new LinkedHashMap<>();
         Enumeration<String> enumeration = request.getHeaderNames();
@@ -172,32 +197,46 @@ public abstract class ServletUtils {
     }
 
     /**
-     * 获取参数值
-     *
-     * @param request       {@link HttpServletRequest}
-     * @param parameterName 参数名
-     * @return 参数值
+     * 获取当前请求参数
      */
-    public static String getParameter(HttpServletRequest request, String parameterName) {
-        return getParameter(request, parameterName, "");
+    public static String getParameterAsJson() {
+        return getParameterAsJson(getRequest());
+    }
+
+    /**
+     * 获取当前请求参数
+     */
+    public static String getParameterAsJson(@NonNull HttpServletRequest request) {
+        try {
+            return JacksonUtils.toJson(request.getParameterMap());
+        } catch (Exception e) {
+            log.error("Failed to get header map as json.", e);
+        }
+        return "{}";
     }
 
     /**
      * 获取参数值
      *
-     * @param request               {@link HttpServletRequest}
-     * @param parameterName         参数名
-     * @param defaultParameterValue 默认参数值
+     * @param request   {@link HttpServletRequest}
+     * @param parameter 参数名
      * @return 参数值
      */
-    public static String getParameter(HttpServletRequest request, String parameterName, String defaultParameterValue) {
-        String parameterValue = request.getParameter(parameterName);
-        if (StringUtils.isNotEmpty(parameterValue)) {
-            parameterValue = parameterValue.trim();
-        } else {
-            parameterValue = defaultParameterValue;
-        }
-        return parameterValue;
+    public static String getParameter(HttpServletRequest request, String parameter) {
+        return getParameter(request, parameter, "");
+    }
+
+    /**
+     * 获取参数值
+     *
+     * @param request      {@link HttpServletRequest}
+     * @param parameter    参数名
+     * @param defaultValue 默认参数值
+     * @return 参数值
+     */
+    public static String getParameter(HttpServletRequest request, String parameter, String defaultValue) {
+        String parameterValue = request.getParameter(parameter);
+        return StringUtils.isNotEmpty(parameterValue) ? parameterValue.trim() : defaultValue;
     }
 
     /**

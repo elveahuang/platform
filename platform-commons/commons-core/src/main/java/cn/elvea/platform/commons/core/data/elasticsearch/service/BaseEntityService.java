@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -25,16 +26,19 @@ import java.util.function.Consumer;
  * @param <R> Repository
  * @author elvea
  * @see AbstractService
+ * @see EnhancedEntityService
  * @see EntityService
  * @since 24.1.0
  */
 @Slf4j
+@Transactional
 @NoRepositoryBean
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
-        extends AbstractService implements EntityService<T, K> {
+        extends AbstractService
+        implements EntityService<T, K>, EnhancedEntityService<T, K, R> {
 
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     protected R repository;
 
     protected Class<T> entityClass = currentEntityClass();
@@ -47,30 +51,40 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     // 辅助方法
     // -----------------------------------------------------------------------------------------------------------------
 
-    public Class<R> currentRepositoryClass() {
+    protected Class<R> currentRepositoryClass() {
         return GenericsUtils.getSuperGenericType(getClass(), BaseEntityService.class, 2);
     }
 
+    /**
+     * @see EnhancedEntityService#getRepository()
+     */
+    @Override
     public R getRepository() {
-        return repository;
+        return this.repository;
     }
 
+    /**
+     * @see EnhancedEntityService#getRepositoryClass()
+     */
+    @Override
     public Class<R> getRepositoryClass() {
-        return repositoryClass;
+        return this.repositoryClass;
     }
 
     /**
      * @see EntityService#getEntityClass()
      */
+    @Override
     public Class<T> getEntityClass() {
-        return entityClass;
+        return this.entityClass;
     }
 
     /**
      * @see EntityService#getEntityIdClass()
      */
+    @Override
     public Class<K> getEntityIdClass() {
-        return entityIdClass;
+        return this.entityIdClass;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

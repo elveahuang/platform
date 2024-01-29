@@ -1,5 +1,6 @@
 package cn.elvea.platform.commons.core.data.jpa.auditor;
 
+import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.AuditorAware;
 
@@ -16,7 +17,7 @@ public class UserAuditorAware implements AuditorAware<Long> {
      * @see AuditorAware#getCurrentAuditor()
      */
     public @NotNull Optional<Long> getCurrentAuditor() {
-        return Optional.of(1L);
+        return Optional.of(SecurityUtils.getUid());
     }
 
 }

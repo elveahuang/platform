@@ -35,8 +35,8 @@ import java.util.function.Consumer;
  * @since 24.1.0
  */
 @Slf4j
-@NoRepositoryBean
 @Transactional
+@NoRepositoryBean
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseEntityService<T extends IdEntity, K extends Serializable, R extends BaseEntityRepository<T, K>>
         extends AbstractService
@@ -60,7 +60,7 @@ public abstract class BaseEntityService<T extends IdEntity, K extends Serializab
     }
 
     /**
-     * @see EnhancedEntityService#getRepositoryClass()
+     * @see EnhancedEntityService#getRepository()
      */
     @Override
     public R getRepository() {

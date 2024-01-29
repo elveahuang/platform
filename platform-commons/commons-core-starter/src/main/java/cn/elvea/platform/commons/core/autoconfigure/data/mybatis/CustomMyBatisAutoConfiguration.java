@@ -40,9 +40,9 @@ public class CustomMyBatisAutoConfiguration {
     /**
      * 主键生成采用自定义的雪花算法
      */
-    @Bean("mybatisPlusIdentifierGenerator")
+    @Bean("mpIdentifierGenerator")
     @ConditionalOnMissingBean
-    public IdentifierGenerator identifierGenerator() {
+    public IdentifierGenerator mpIdentifierGenerator() {
         return new CustomIdentifierGenerator();
     }
 

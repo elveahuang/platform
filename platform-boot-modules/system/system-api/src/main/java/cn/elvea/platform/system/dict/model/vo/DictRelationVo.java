@@ -32,6 +32,16 @@ public class DictRelationVo implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long targetId;
     /**
+     * 字典ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long dictId;
+    /**
+     * 字典项ID
+     */
+    @Builder.Default
+    private List<Long> ids = emptyList();
+    /**
      * 字典项
      */
     @Builder.Default

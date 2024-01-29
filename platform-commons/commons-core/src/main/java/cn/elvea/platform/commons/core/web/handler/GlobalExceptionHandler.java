@@ -4,6 +4,7 @@ import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
 import cn.elvea.platform.commons.core.exception.ServiceException;
 import cn.elvea.platform.commons.core.exception.SystemException;
 import cn.elvea.platform.commons.core.utils.JacksonUtils;
+import cn.elvea.platform.commons.core.utils.ServletUtils;
 import cn.elvea.platform.commons.core.web.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -69,14 +70,21 @@ public abstract class GlobalExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public <T> R<T> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-        log.error("handleMissingServletRequestParameterException exception : {}", e.getMessage(), e);
+        try {
+            log.error("handleMissingServletRequestParameterException url : [{}]. parameter : [{}]. header : [{}]",
+                    ServletUtils.getRequestURI(),
+                    ServletUtils.getParameterAsJson(),
+                    ServletUtils.getHeaderAsJson(), e);
+        } catch (Exception ex) {
+            log.error("MissingServletRequestParameterException - {}.", e.getMessage(), ex);
+        }
         return R.fail(ResponseCodeEnum.PARAM_NOT_PRESENT);
     }
 
     @ExceptionHandler(InvalidBearerTokenException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R<?> handleInvalidBearerTokenException(InvalidBearerTokenException e) {
-        log.error("handleInvalidBearerTokenException exception : {}", e.getMessage(), e);
+        log.error("handleInvalidBearerTokenException exception : {}.", e.getMessage(), e);
         return R.fail(ResponseCodeEnum.PARAM_NOT_PRESENT);
     }
 

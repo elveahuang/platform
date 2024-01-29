@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -30,6 +31,7 @@ import static cn.elvea.platform.commons.core.constants.DataSourceConstants.*;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
+@EnableTransactionManagement
 @AutoConfiguration(before = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @ConditionalOnProperty(prefix = CustomDataSourceProperties.PREFIX, name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(CustomDataSourceProperties.class)

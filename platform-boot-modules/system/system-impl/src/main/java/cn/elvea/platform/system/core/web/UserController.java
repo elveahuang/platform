@@ -3,12 +3,14 @@ package cn.elvea.platform.system.core.web;
 import cn.elvea.platform.commons.core.annotations.Anonymous;
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
+import cn.elvea.platform.commons.core.annotations.RateLimiter;
 import cn.elvea.platform.commons.core.utils.SecurityUtils;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserForgotPasswordDto;
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
 import cn.elvea.platform.system.core.model.form.*;
+import cn.elvea.platform.system.core.model.request.UserCheckRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static cn.elvea.platform.commons.core.enums.RateLimitTypeEnum.IP;
 import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.*;
 
 /**
@@ -30,6 +33,36 @@ import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.
 public class UserController {
 
     private final UserApi userApi;
+
+    @Anonymous
+    @OperationLog("检查用户名是否可用")
+    @Operation(summary = "检查用户名是否可用")
+    @ApiResponse(description = "检查用户名是否可用")
+    @GetMapping(API_V1__USER__CHECK_USERNAME)
+    @RateLimiter(type = IP)
+    public R<Boolean> checkUsername(UserCheckRequest request) {
+        return R.success(userApi.check(request));
+    }
+
+    @Anonymous
+    @OperationLog("检查邮箱是否可用")
+    @Operation(summary = "检查邮箱是否可用")
+    @ApiResponse(description = "检查邮箱是否可用")
+    @GetMapping(API_V1__USER__CHECK_EMAIL)
+    @RateLimiter(type = IP)
+    public R<Boolean> checkEmail(UserCheckRequest request) {
+        return R.success(userApi.check(request));
+    }
+
+    @Anonymous
+    @OperationLog("检查手机号码是否可用")
+    @Operation(summary = "检查手机号码是否可用")
+    @ApiResponse(description = "检查手机号码是否可用")
+    @GetMapping(API_V1__USER__CHECK_MOBILE)
+    @RateLimiter(type = IP)
+    public R<Boolean> checkMobile(UserCheckRequest request) {
+        return R.success(userApi.check(request));
+    }
 
     @Authenticated
     @Operation(summary = "获取当前用户信息")

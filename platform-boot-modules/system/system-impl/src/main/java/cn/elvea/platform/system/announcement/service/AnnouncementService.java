@@ -2,7 +2,10 @@ package cn.elvea.platform.system.announcement.service;
 
 import cn.elvea.platform.commons.core.service.CachingEntityService;
 import cn.elvea.platform.system.announcement.model.entity.AnnouncementEntity;
-import cn.elvea.platform.system.announcement.model.form.AnnouncementForm;
+import cn.elvea.platform.system.announcement.model.form.SystemAnnouncementForm;
+import cn.elvea.platform.system.announcement.model.request.SystemAnnouncementSearchRequest;
+import cn.elvea.platform.system.announcement.model.request.AnnouncementSearchRequest;
+import org.springframework.data.domain.Page;
 
 /**
  * @author elvea
@@ -10,6 +13,19 @@ import cn.elvea.platform.system.announcement.model.form.AnnouncementForm;
  */
 public interface AnnouncementService extends CachingEntityService<AnnouncementEntity, Long> {
 
-    void saveAnnouncement(AnnouncementForm form);
+    /**
+     * 前端分页查询
+     */
+    Page<?> findByPage(AnnouncementSearchRequest request);
+
+    /**
+     * 后端分页查询
+     */
+    Page<?> findByPage(SystemAnnouncementSearchRequest request);
+
+    /**
+     * 保存公告
+     */
+    void saveAnnouncement(SystemAnnouncementForm form);
 
 }

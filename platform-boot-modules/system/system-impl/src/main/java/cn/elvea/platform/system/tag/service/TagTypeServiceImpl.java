@@ -1,0 +1,103 @@
+package cn.elvea.platform.system.tag.service;
+
+import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
+import cn.elvea.platform.commons.core.data.domain.IdEntity;
+import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.core.utils.ObjectUtils;
+import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.system.dict.service.DictTypeService;
+import cn.elvea.platform.system.tag.cache.TagTypeCacheKeyGenerator;
+import cn.elvea.platform.system.tag.model.converter.TagTypeConverter;
+import cn.elvea.platform.system.tag.model.entity.TagTypeEntity;
+import cn.elvea.platform.system.tag.model.vo.TagTypeVo;
+import cn.elvea.platform.system.tag.repository.TagTypeRepository;
+import cn.elvea.platform.system.tag.service.TagTypeService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
+/**
+ * @author elvea
+ * @since 24.1.0
+ */
+@Slf4j
+@Service
+@AllArgsConstructor
+public class TagTypeServiceImpl
+        extends BaseCachingEntityService<TagTypeEntity, Long, TagTypeRepository>
+        implements TagTypeService {
+
+    private final TagTypeCacheKeyGenerator cacheKeyGenerator = new TagTypeCacheKeyGenerator();
+
+    @Override
+    public CacheKeyGenerator getCacheKeyGenerator() {
+        return cacheKeyGenerator;
+    }
+
+    /**
+     * @see DictTypeService#getDictTypeId(String)
+     */
+    @Override
+    public Long getTagTypeId(String code) {
+        TagTypeEntity entity = this.findByCode(code);
+        if (entity != null) {
+            return entity.getId();
+        }
+        return 0L;
+    }
+
+    /**
+     * @see TagTypeService#getTagType(String)
+     */
+    @Override
+    public TagTypeVo getTagType(String code) {
+        TagTypeEntity entity = this.findByCode(code);
+        return TagTypeConverter.INSTANCE.entity2Vo(entity);
+    }
+
+    /**
+     * @see TagTypeService#findByCode(String)
+     */
+    @Override
+    public TagTypeEntity findByCode(String code) {
+        return this.findByCacheKey(cacheKeyGenerator.keyByCode(code), key -> {
+            TagTypeEntity condition = TagTypeEntity.builder().code(code).build();
+            Example<TagTypeEntity> example = Example.of(condition);
+            TagTypeEntity entity = this.repository.findOne(example).orElse(null);
+            this.setCache(entity);
+            return entity;
+        });
+    }
+
+    /**
+     * @see BaseCachingEntityService#setCache(IdEntity)
+     */
+    @Override
+    public void setCache(TagTypeEntity model) {
+        if (!ObjectUtils.isEmpty(model)) {
+            if (!ObjectUtils.isEmpty(model.getId())) {
+                getCacheService().set(this.cacheKeyGenerator.keyById(model.getId()), model);
+            }
+            if (StringUtils.isNotEmpty(model.getCode())) {
+                getCacheService().set(this.cacheKeyGenerator.keyByCode(model.getCode()), model);
+            }
+        }
+    }
+
+    /**
+     * @see BaseCachingEntityService#setCache(IdEntity)
+     */
+    @Override
+    public void deleteCache(TagTypeEntity model) {
+        if (!ObjectUtils.isEmpty(model)) {
+            if (!ObjectUtils.isEmpty(model.getId())) {
+                getCacheService().delete(this.cacheKeyGenerator.keyById(model.getId()));
+            }
+            if (StringUtils.isNotEmpty(model.getCode())) {
+                getCacheService().delete(this.cacheKeyGenerator.keyByCode(model.getCode()));
+            }
+        }
+    }
+
+}

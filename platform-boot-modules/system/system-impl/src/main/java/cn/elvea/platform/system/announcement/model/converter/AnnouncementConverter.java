@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.announcement.model.converter;
 
 import cn.elvea.platform.system.announcement.model.entity.AnnouncementEntity;
-import cn.elvea.platform.system.announcement.model.form.AnnouncementForm;
+import cn.elvea.platform.system.announcement.model.form.SystemAnnouncementForm;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -14,6 +14,6 @@ public interface AnnouncementConverter {
 
     AnnouncementConverter INSTANCE = Mappers.getMapper(AnnouncementConverter.class);
 
-    AnnouncementEntity formToEntity(AnnouncementForm form);
+    AnnouncementEntity formToEntity(SystemAnnouncementForm form);
 
 }

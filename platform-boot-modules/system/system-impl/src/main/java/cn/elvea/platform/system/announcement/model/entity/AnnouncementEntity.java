@@ -27,4 +27,5 @@ public class AnnouncementEntity extends BaseEntity {
     private String title;
     private String content;
     private String description;
+    private Integer status;
 }

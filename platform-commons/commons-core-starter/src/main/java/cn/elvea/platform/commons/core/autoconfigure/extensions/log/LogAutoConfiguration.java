@@ -2,13 +2,11 @@ package cn.elvea.platform.commons.core.autoconfigure.extensions.log;
 
 import cn.elvea.platform.commons.core.autoconfigure.core.CoreAutoConfiguration;
 import cn.elvea.platform.commons.core.autoconfigure.extensions.log.properties.LogProperties;
-import cn.elvea.platform.commons.core.extensions.log.LogManager;
-import cn.elvea.platform.commons.core.extensions.log.LogCustomizer;
 import cn.elvea.platform.commons.core.extensions.log.aspect.OperationLogAspect;
+import cn.elvea.platform.commons.core.extensions.log.store.DefaultLogStore;
+import cn.elvea.platform.commons.core.extensions.log.store.LogStore;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -34,18 +32,15 @@ public class LogAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public LogManager logManager(ObjectProvider<LogCustomizer> customizers) {
-        LogManager logManager = new LogManager();
-        customizers.orderedStream().forEach((customizer) -> customizer.customize(logManager));
-        return logManager;
+    public LogStore logStore() {
+        return new DefaultLogStore();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnBean(LogManager.class)
-    public OperationLogAspect optLogAspect(LogManager manager) {
+    public OperationLogAspect optLogAspect(LogStore logStore) {
         log.info("Creating OperationLogAspect...");
-        return new OperationLogAspect(manager);
+        return new OperationLogAspect(logStore);
     }
 
 }
