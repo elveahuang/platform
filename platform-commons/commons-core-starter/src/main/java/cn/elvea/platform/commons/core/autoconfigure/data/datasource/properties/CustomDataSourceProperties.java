@@ -1,6 +1,5 @@
 package cn.elvea.platform.commons.core.autoconfigure.data.datasource.properties;
 
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -26,33 +25,19 @@ public class CustomDataSourceProperties {
     private boolean masterSlaveEnabled = false;
 
     @NestedConfigurationProperty
-    private CustomDataSourceProperties.Master master = CustomDataSourceProperties.Master.builder().build();
+    private CustomDataSourceProperties.Config master = new Config();
 
     @NestedConfigurationProperty
-    private CustomDataSourceProperties.Slave slave = CustomDataSourceProperties.Slave.builder().build();
+    private CustomDataSourceProperties.Config slave = new Config();
 
     @NestedConfigurationProperty
-    private CustomDataSourceProperties.Job job = CustomDataSourceProperties.Job.builder().build();
+    private CustomDataSourceProperties.Config job = new Config();
 
     @Data
-    @Builder
-    public static class Master {
-        @Builder.Default
-        private boolean enabled = true;
-    }
+    public static class Config {
 
-    @Data
-    @Builder
-    public static class Slave {
-        @Builder.Default
-        private boolean enabled = true;
-    }
+        private boolean enabled = false;
 
-    @Data
-    @Builder
-    public static class Job {
-        @Builder.Default
-        private boolean enabled = true;
     }
 
 }

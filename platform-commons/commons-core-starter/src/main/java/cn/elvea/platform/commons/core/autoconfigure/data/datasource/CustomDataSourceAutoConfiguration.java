@@ -10,15 +10,11 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -31,8 +27,7 @@ import static cn.elvea.platform.commons.core.constants.DataSourceConstants.*;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@EnableTransactionManagement
-@AutoConfiguration(before = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@AutoConfiguration(before = {DataSourceAutoConfiguration.class})
 @ConditionalOnProperty(prefix = CustomDataSourceProperties.PREFIX, name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(CustomDataSourceProperties.class)
 public class CustomDataSourceAutoConfiguration {
@@ -60,13 +55,6 @@ public class CustomDataSourceAutoConfiguration {
         return masterDataSource;
     }
 
-    @Bean
-    @Primary
-    public PlatformTransactionManager transactionManager(DataSource dataSource) {
-        log.info("Creating PrimaryTransactionManager...");
-        return new DataSourceTransactionManager(dataSource);
-    }
-
     /**
      * ========================================================================================================================
      * 主库数据源配置
@@ -86,7 +74,7 @@ public class CustomDataSourceAutoConfiguration {
     @Bean(name = MASTER_DATASOURCE)
     @ConfigurationProperties("spring.datasource.master.hikari")
     @ConditionalOnProperty(prefix = MASTER_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
-    public DataSource masterDataSource(@Qualifier(MASTER_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
+    public HikariDataSource masterDataSource(@Qualifier(MASTER_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
         log.info("Creating MasterDataSource...");
         return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
@@ -110,7 +98,7 @@ public class CustomDataSourceAutoConfiguration {
     @Bean(name = SLAVE_DATASOURCE)
     @ConfigurationProperties("spring.datasource.slave.hikari")
     @ConditionalOnProperty(prefix = SLAVE_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
-    public DataSource slaveDataSource(@Qualifier(SLAVE_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
+    public HikariDataSource slaveDataSource(@Qualifier(SLAVE_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
         log.info("Creating SlaveDataSource...");
         return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
@@ -134,19 +122,9 @@ public class CustomDataSourceAutoConfiguration {
     @Bean(name = JOB_DATASOURCE)
     @ConfigurationProperties("spring.datasource.job.hikari")
     @ConditionalOnProperty(prefix = JOB_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
-    public DataSource jobDataSource(@Qualifier(JOB_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
+    public HikariDataSource jobDataSource(@Qualifier(JOB_DATASOURCE_PROPERTIES) DataSourceProperties properties) {
         log.info("Creating JobDataSource...");
         return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
-    }
-
-    @JobTransactionManager
-    @Bean(name = JOB_TRANSACTION_MANAGER)
-    @ConditionalOnProperty(prefix = JOB_DATASOURCE_PREFIX, name = "enabled", havingValue = "true")
-    public PlatformTransactionManager jobTransactionManager(@Qualifier(JOB_DATASOURCE) DataSource dataSource) {
-        log.info("Creating JobTransactionManager...");
-        DataSourceTransactionManager txManager = new DataSourceTransactionManager();
-        txManager.setDataSource(dataSource);
-        return txManager;
     }
 
 }
