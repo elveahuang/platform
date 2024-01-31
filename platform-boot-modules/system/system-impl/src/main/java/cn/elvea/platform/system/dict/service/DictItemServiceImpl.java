@@ -10,8 +10,6 @@ import cn.elvea.platform.system.dict.model.entity.DictRelationEntity;
 import cn.elvea.platform.system.dict.model.request.DictRelationRequest;
 import cn.elvea.platform.system.dict.model.request.DictSearchRequest;
 import cn.elvea.platform.system.dict.repository.DictItemRepository;
-import cn.elvea.platform.system.dict.service.DictItemService;
-import cn.elvea.platform.system.dict.service.DictRelationService;
 import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

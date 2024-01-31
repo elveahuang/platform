@@ -5,9 +5,9 @@ import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityServ
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.system.core.cache.RoleAuthorityCacheKeyGenerator;
 import cn.elvea.platform.system.core.cache.UserRoleCacheKeyGenerator;
+import cn.elvea.platform.system.core.mapper.RoleAuthorityMapper;
 import cn.elvea.platform.system.core.model.dto.RoleAuthoritySaveDto;
 import cn.elvea.platform.system.core.model.entity.RoleAuthorityEntity;
-import cn.elvea.platform.system.core.mapper.RoleAuthorityMapper;
 import cn.elvea.platform.system.core.service.RoleAuthorityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

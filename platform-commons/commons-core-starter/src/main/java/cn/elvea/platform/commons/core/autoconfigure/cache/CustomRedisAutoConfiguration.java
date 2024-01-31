@@ -2,10 +2,10 @@ package cn.elvea.platform.commons.core.autoconfigure.cache;
 
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomCacheProperties;
 import cn.elvea.platform.commons.core.autoconfigure.cache.properties.CustomRedisProperties;
-import cn.elvea.platform.commons.core.cache.utils.RedisUtils;
 import cn.elvea.platform.commons.core.cache.service.CacheService;
 import cn.elvea.platform.commons.core.cache.service.RedisCacheService;
 import cn.elvea.platform.commons.core.cache.service.RedisCacheServiceImpl;
+import cn.elvea.platform.commons.core.cache.utils.RedisUtils;
 import cn.elvea.platform.commons.core.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

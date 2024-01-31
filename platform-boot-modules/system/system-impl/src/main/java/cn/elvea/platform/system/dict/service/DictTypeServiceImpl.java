@@ -10,7 +10,6 @@ import cn.elvea.platform.system.dict.model.converter.DictTypeConverter;
 import cn.elvea.platform.system.dict.model.entity.DictTypeEntity;
 import cn.elvea.platform.system.dict.model.vo.DictTypeVo;
 import cn.elvea.platform.system.dict.repository.DictTypeRepository;
-import cn.elvea.platform.system.dict.service.DictTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;

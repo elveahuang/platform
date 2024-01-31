@@ -10,8 +10,6 @@ import cn.elvea.platform.system.tag.model.entity.TagRelationEntity;
 import cn.elvea.platform.system.tag.model.request.TagRelationRequest;
 import cn.elvea.platform.system.tag.model.request.TagSearchRequest;
 import cn.elvea.platform.system.tag.repository.TagRepository;
-import cn.elvea.platform.system.tag.service.TagRelationService;
-import cn.elvea.platform.system.tag.service.TagService;
 import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -4,8 +4,8 @@ import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityServ
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import cn.elvea.platform.system.core.cache.AuthorityCacheKeyGenerator;
 import cn.elvea.platform.system.core.cache.UserAuthorityCacheKeyGenerator;
-import cn.elvea.platform.system.core.model.entity.AuthorityEntity;
 import cn.elvea.platform.system.core.mapper.AuthorityMapper;
+import cn.elvea.platform.system.core.model.entity.AuthorityEntity;
 import cn.elvea.platform.system.core.service.AuthorityService;
 import cn.elvea.platform.system.core.service.RoleAuthorityService;
 import cn.elvea.platform.system.core.service.UserRoleService;

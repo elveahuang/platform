@@ -1,10 +1,10 @@
 package cn.elvea.platform.commons.core.autoconfigure.core;
 
 import cn.elvea.platform.commons.core.autoconfigure.core.properties.JwtProperties;
+import cn.elvea.platform.commons.core.utils.EncryptUtils;
 import cn.elvea.platform.commons.core.utils.jwt.JwtConfig;
 import cn.elvea.platform.commons.core.utils.jwt.JwtHelper;
 import cn.elvea.platform.commons.core.utils.jwt.JwtStrategy;
-import cn.elvea.platform.commons.core.utils.EncryptUtils;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

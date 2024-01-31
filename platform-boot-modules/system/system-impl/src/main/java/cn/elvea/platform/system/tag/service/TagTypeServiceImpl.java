@@ -11,7 +11,6 @@ import cn.elvea.platform.system.tag.model.converter.TagTypeConverter;
 import cn.elvea.platform.system.tag.model.entity.TagTypeEntity;
 import cn.elvea.platform.system.tag.model.vo.TagTypeVo;
 import cn.elvea.platform.system.tag.repository.TagTypeRepository;
-import cn.elvea.platform.system.tag.service.TagTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;

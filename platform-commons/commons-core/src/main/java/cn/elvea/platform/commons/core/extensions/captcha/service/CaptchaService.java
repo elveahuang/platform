@@ -1,7 +1,7 @@
 package cn.elvea.platform.commons.core.extensions.captcha.service;
 
-import cn.elvea.platform.commons.core.extensions.captcha.provider.CaptchaProvider;
 import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
+import cn.elvea.platform.commons.core.extensions.captcha.provider.CaptchaProvider;
 import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
 import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaRequest;
 

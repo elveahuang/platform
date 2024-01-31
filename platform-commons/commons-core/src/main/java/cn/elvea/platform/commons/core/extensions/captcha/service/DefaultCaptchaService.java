@@ -1,11 +1,11 @@
 package cn.elvea.platform.commons.core.extensions.captcha.service;
 
+import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
+import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
 import cn.elvea.platform.commons.core.extensions.captcha.provider.CaptchaProvider;
 import cn.elvea.platform.commons.core.extensions.captcha.provider.CodeCaptchaProvider;
 import cn.elvea.platform.commons.core.extensions.captcha.provider.MailCaptchaProvider;
 import cn.elvea.platform.commons.core.extensions.captcha.provider.SmsCaptchaProvider;
-import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
-import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
 import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
 import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaRequest;
 import cn.elvea.platform.commons.core.extensions.captcha.store.CaptchaStore;

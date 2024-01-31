@@ -1,6 +1,5 @@
 package cn.elvea.platform.commons.core.autoconfigure.core;
 
-import cn.elvea.platform.commons.core.autoconfigure.core.CoreAutoConfiguration;
 import cn.elvea.platform.commons.core.autoconfigure.core.properties.LogProperties;
 import cn.elvea.platform.commons.core.logging.aspect.OperationLogAspect;
 import cn.elvea.platform.commons.core.logging.store.DefaultLogStore;

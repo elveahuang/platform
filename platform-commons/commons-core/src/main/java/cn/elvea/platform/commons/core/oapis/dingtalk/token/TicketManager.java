@@ -1,9 +1,9 @@
 package cn.elvea.platform.commons.core.oapis.dingtalk.token;
 
 
-import cn.elvea.platform.commons.core.oapis.dingtalk.config.AppConfig;
 import cn.elvea.platform.commons.core.oapis.dingtalk.GlobalTokenManager;
 import cn.elvea.platform.commons.core.oapis.dingtalk.cache.Cache;
+import cn.elvea.platform.commons.core.oapis.dingtalk.config.AppConfig;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.aliyun.dingtalkoauth2_1_0.Client;
 import com.aliyun.dingtalkoauth2_1_0.models.CreateJsapiTicketHeaders;

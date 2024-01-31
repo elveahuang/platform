@@ -5,9 +5,9 @@ import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityServ
 import cn.elvea.platform.commons.core.utils.ObjectUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.system.core.cache.UserCacheKeyGenerator;
+import cn.elvea.platform.system.core.mapper.UserMapper;
 import cn.elvea.platform.system.core.model.dto.*;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
-import cn.elvea.platform.system.core.mapper.UserMapper;
 import cn.elvea.platform.system.core.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
