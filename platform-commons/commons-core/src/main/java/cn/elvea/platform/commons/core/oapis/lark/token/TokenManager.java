@@ -1,6 +1,6 @@
 package cn.elvea.platform.commons.core.oapis.lark.token;
 
-import cn.elvea.platform.commons.core.oapis.dingtalk.service.DingTalkService;
+import cn.elvea.platform.commons.core.dingtalk.service.DingTalkService;
 import cn.elvea.platform.commons.core.oapis.lark.cache.Cache;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.lark.oapi.core.Config;

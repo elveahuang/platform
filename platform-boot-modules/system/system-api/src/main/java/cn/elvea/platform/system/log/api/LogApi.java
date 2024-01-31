@@ -1,13 +1,16 @@
 package cn.elvea.platform.system.log.api;
 
-import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaLogDto;
-import cn.elvea.platform.commons.core.extensions.log.dto.OperationLogDto;
+import cn.elvea.platform.commons.core.captcha.domain.CaptchaLogDto;
+import cn.elvea.platform.commons.core.log.domain.UrlLogDto;
+import cn.elvea.platform.commons.core.log.domain.OperationLogDto;
 
 /**
  * @author elvea
  * @since 24.1.0
  */
 public interface LogApi {
+
+    void saveLogLog(UrlLogDto captchaLog) throws Exception;
 
     void saveCaptchaLog(CaptchaLogDto captchaLog) throws Exception;
 

@@ -1,6 +1,8 @@
 package cn.elvea.platform.commons.core.extensions.mail;
 
 import cn.elvea.platform.BaseTests;
+import cn.elvea.platform.commons.core.mail.MailBody;
+import cn.elvea.platform.commons.core.mail.MailSender;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

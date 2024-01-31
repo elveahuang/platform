@@ -1,0 +1,36 @@
+package cn.elvea.platform.commons.core.autoconfigure.sensitive;
+
+import cn.elvea.platform.commons.core.autoconfigure.sensitive.properties.SensitiveProperties;
+import cn.elvea.platform.commons.core.sensitive.DefaultSensitiveService;
+import cn.elvea.platform.commons.core.sensitive.SensitiveService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author elvea
+ * @since 24.1.0
+ */
+@Slf4j
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnProperty(prefix = SensitiveProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties({SensitiveProperties.class})
+public class SensitiveAutoConfiguration {
+
+    public SensitiveAutoConfiguration() {
+        log.info("SensitiveAutoConfiguration is enabled.");
+    }
+
+    /**
+     * @return {@link SensitiveService}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public SensitiveService sensitiveService() {
+        return new DefaultSensitiveService();
+    }
+
+}

@@ -1,9 +1,9 @@
 package cn.elvea.platform.commons.core.oapis.lark.token;
 
-import cn.elvea.platform.commons.core.oapis.lark.cache.Cache;
 import cn.elvea.platform.commons.core.oapis.lark.config.AppConfig;
 import cn.elvea.platform.commons.core.oapis.lark.request.JsapiTicketReq;
 import cn.elvea.platform.commons.core.oapis.lark.request.JsapiTicketResp;
+import cn.elvea.platform.commons.core.oapis.lark.cache.Cache;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.lark.oapi.core.Transport;
 import com.lark.oapi.core.exception.ObtainAccessTokenException;

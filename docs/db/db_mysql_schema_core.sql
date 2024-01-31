@@ -1022,6 +1022,50 @@ CREATE TABLE `sys_attachment_relation`
 ) COMMENT '附件关联表';
 
 --
+-- 链接日志
+--
+
+DROP TABLE IF EXISTS `sys_url_log`;
+
+CREATE TABLE `sys_url_log`
+(
+    `id`         BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `path`       VARCHAR(250) COMMENT '路径',
+    `start_time` DATETIME         NULL COMMENT '开始时间',
+    `end_time`   DATETIME         NULL COMMENT '结束时间',
+    `exec_time`  LONG COMMENT '执行时长',
+    `active`     TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by` BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    CONSTRAINT `pk_sys_url_log` PRIMARY KEY (`id`),
+    INDEX `ix_sys_url_log__path` (`path`)
+) COMMENT '链接日志';
+
+--
+-- 链接统计日志
+--
+
+DROP TABLE IF EXISTS `sys_url_stat_log`;
+
+CREATE TABLE `sys_url_stat_log`
+(
+    `id`                BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `path`              VARCHAR(250) COMMENT '路径',
+    `avg_time`          LONG COMMENT '平均执行时长',
+    `max_time`          LONG COMMENT '最大执行时长',
+    `min_time`          LONG COMMENT '最小执行时长',
+    `total_time`        LONG COMMENT '总执行时长',
+    `total_num`         LONG COMMENT '总执行次数',
+    `total_success_num` LONG COMMENT '总执行成功次数',
+    `total_error_num`   LONG COMMENT '总执行失败次数',
+    `active`            TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`        BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`        DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    CONSTRAINT `pk_sys_url_stat_log` PRIMARY KEY (`id`),
+    INDEX `ix_sys_url_stat_log__path` (`path`)
+) COMMENT '链接统计日志';
+
+--
 -- 系统操作日志表
 --
 

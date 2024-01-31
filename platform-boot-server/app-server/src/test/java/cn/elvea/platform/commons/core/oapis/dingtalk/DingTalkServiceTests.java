@@ -1,7 +1,7 @@
 package cn.elvea.platform.commons.core.oapis.dingtalk;
 
 import cn.elvea.platform.BaseTests;
-import cn.elvea.platform.commons.core.oapis.dingtalk.service.DingTalkService;
+import cn.elvea.platform.commons.core.dingtalk.service.DingTalkService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package cn.elvea.platform.system.configuration;
 
-import cn.elvea.platform.system.commons.constants.SystemAmqpConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
@@ -11,6 +10,8 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static cn.elvea.platform.system.commons.constants.SystemAmqpConstants.*;
 
 /**
  * @author elvea
@@ -31,22 +32,27 @@ public class SystemAmqpConfiguration {
 
     @Bean
     public Queue userSessionQueue() {
-        return new Queue(SystemAmqpConstants.USER_SESSION);
+        return new Queue(USER_SESSION);
     }
 
     @Bean
     public Queue captchaLogQueue() {
-        return new Queue(SystemAmqpConstants.CAPTCHA_LOG_QUEUE);
+        return new Queue(CAPTCHA_LOG_QUEUE);
+    }
+
+    @Bean
+    public Queue urlLogQueue() {
+        return new Queue(URL_LOG_QUEUE);
     }
 
     @Bean
     public Queue operationLogQueue() {
-        return new Queue(SystemAmqpConstants.OPERATION_LOG_QUEUE);
+        return new Queue(OPERATION_LOG_QUEUE);
     }
 
     @Bean
     public Queue messageQueue() {
-        return new Queue(SystemAmqpConstants.MESSAGE_QUEUE);
+        return new Queue(MESSAGE_QUEUE);
     }
 
     // --------------------------------------------------------------------------------------------------------------------------------
@@ -55,12 +61,12 @@ public class SystemAmqpConfiguration {
 
     @Bean
     public FanoutExchange multipleLoginQueueExchange() {
-        return new FanoutExchange(SystemAmqpConstants.MULTIPLE_LOGIN_QUEUE_EXCHANGE);
+        return new FanoutExchange(MULTIPLE_LOGIN_QUEUE_EXCHANGE);
     }
 
     @Bean
     public Queue multipleLoginQueue() {
-        return new Queue(SystemAmqpConstants.MULTIPLE_LOGIN_QUEUE);
+        return new Queue(MULTIPLE_LOGIN_QUEUE);
     }
 
     @Bean

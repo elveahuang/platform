@@ -50,6 +50,8 @@ public interface SystemCacheConstants {
 
     String ATTACHMENT_TYPE = "attachment-type";
 
+    String URL_STAT = "url-stat-log";
+
     // ========================================================================
     // System - Message
     // ========================================================================

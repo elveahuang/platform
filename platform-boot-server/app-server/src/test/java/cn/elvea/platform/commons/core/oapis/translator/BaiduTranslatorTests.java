@@ -1,7 +1,7 @@
 package cn.elvea.platform.commons.core.oapis.translator;
 
 import cn.elvea.platform.BaseTests;
-import cn.elvea.platform.commons.core.extensions.translator.baidu.BaiduTranslator;
+import cn.elvea.platform.commons.core.oapis.translator.baidu.BaiduTranslator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

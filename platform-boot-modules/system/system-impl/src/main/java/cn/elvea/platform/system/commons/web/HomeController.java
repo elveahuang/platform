@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.commons.web;
 
 import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.extensions.platform.Platform;
-import cn.elvea.platform.commons.core.extensions.platform.PlatformHelper;
+import cn.elvea.platform.commons.core.utils.platform.Platform;
+import cn.elvea.platform.commons.core.utils.platform.PlatformHelper;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
 import io.swagger.v3.oas.annotations.Operation;

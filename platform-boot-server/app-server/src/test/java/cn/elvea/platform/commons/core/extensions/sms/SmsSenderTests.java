@@ -1,6 +1,8 @@
 package cn.elvea.platform.commons.core.extensions.sms;
 
 import cn.elvea.platform.BaseTests;
+import cn.elvea.platform.commons.core.oapis.sms.SmsBody;
+import cn.elvea.platform.commons.core.oapis.sms.SmsSender;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

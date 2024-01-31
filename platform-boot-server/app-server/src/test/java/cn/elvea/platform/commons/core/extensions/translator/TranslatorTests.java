@@ -2,6 +2,8 @@ package cn.elvea.platform.commons.core.extensions.translator;
 
 import cn.elvea.platform.BaseTests;
 import cn.elvea.platform.commons.core.enums.LangTypeEnum;
+import cn.elvea.platform.commons.core.oapis.translator.Translator;
+import cn.elvea.platform.commons.core.oapis.translator.TranslatorManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

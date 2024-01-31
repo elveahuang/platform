@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.commons.api.impl;
 
-import cn.elvea.platform.commons.core.extensions.keyword.KeywordManager;
+import cn.elvea.platform.commons.core.keyword.KeywordManager;
 import cn.elvea.platform.system.commons.api.KeywordApi;
 import cn.elvea.platform.system.keyword.model.entity.KeywordEntity;
 import cn.elvea.platform.system.keyword.service.KeywordService;

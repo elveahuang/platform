@@ -1,6 +1,8 @@
 package cn.elvea.platform.commons.core.extensions.facebody;
 
 import cn.elvea.platform.BaseTests;
+import cn.elvea.platform.commons.core.oapis.facebody.FaceBodyManager;
+import cn.elvea.platform.commons.core.oapis.facebody.FaceBodyResult;
 import cn.hutool.core.codec.Base64;
 import com.google.common.io.ByteStreams;
 import lombok.extern.slf4j.Slf4j;

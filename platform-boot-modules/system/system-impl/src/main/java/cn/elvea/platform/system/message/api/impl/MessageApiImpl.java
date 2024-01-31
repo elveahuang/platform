@@ -2,7 +2,7 @@ package cn.elvea.platform.system.message.api.impl;
 
 import cn.elvea.platform.commons.core.constants.GlobalConstants;
 import cn.elvea.platform.commons.core.enums.BaseEnum;
-import cn.elvea.platform.commons.core.extensions.template.HtmlTemplateService;
+import cn.elvea.platform.commons.core.template.HtmlTemplateService;
 import cn.elvea.platform.commons.core.utils.*;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
 import cn.elvea.platform.system.core.service.UserService;

@@ -1,10 +1,12 @@
 package cn.elvea.platform.system.log.api.impl;
 
-import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaLogDto;
-import cn.elvea.platform.commons.core.extensions.log.dto.OperationLogDto;
+import cn.elvea.platform.commons.core.captcha.domain.CaptchaLogDto;
+import cn.elvea.platform.commons.core.log.domain.UrlLogDto;
+import cn.elvea.platform.commons.core.log.domain.OperationLogDto;
 import cn.elvea.platform.system.log.api.LogApi;
 import cn.elvea.platform.system.log.service.CaptchaLogAmqpService;
 import cn.elvea.platform.system.log.service.OperationLogAmqpService;
+import cn.elvea.platform.system.log.service.UrlLogAmqpService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,13 @@ public class LogApiImpl implements LogApi {
     private final CaptchaLogAmqpService captchaLogAmqpService;
 
     private final OperationLogAmqpService operationLogAmqpService;
+
+    private final UrlLogAmqpService urlLogAmqpService;
+
+    @Override
+    public void saveLogLog(UrlLogDto captchaLog) throws Exception {
+        this.urlLogAmqpService.send(captchaLog);
+    }
 
     @Override
     public void saveCaptchaLog(CaptchaLogDto captchaLog) throws Exception {

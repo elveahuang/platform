@@ -1,15 +1,15 @@
 package cn.elvea.platform.commons.core.autoconfigure.core;
 
 import cn.elvea.platform.commons.core.autoconfigure.core.properties.CoreProperties;
-import cn.elvea.platform.commons.core.autoconfigure.extensions.log.properties.LogProperties;
+import cn.elvea.platform.commons.core.autoconfigure.log.properties.LogProperties;
 import cn.elvea.platform.commons.core.context.Context;
-import cn.elvea.platform.commons.core.extensions.i18n.DefaultLanguageResolver;
-import cn.elvea.platform.commons.core.extensions.i18n.LanguageResolver;
-import cn.elvea.platform.commons.core.extensions.json.jackson.CustomJsonModule;
-import cn.elvea.platform.commons.core.extensions.time.DefaultTimeZoneResolver;
-import cn.elvea.platform.commons.core.extensions.time.LegacyDateTimeAnnotationFormatterFactory;
-import cn.elvea.platform.commons.core.extensions.time.StandardDateTimeAnnotationFormatterFactory;
-import cn.elvea.platform.commons.core.extensions.time.TimeZoneResolver;
+import cn.elvea.platform.commons.core.i18n.DefaultLanguageResolver;
+import cn.elvea.platform.commons.core.i18n.LanguageResolver;
+import cn.elvea.platform.commons.core.json.jackson.CustomJsonModule;
+import cn.elvea.platform.commons.core.time.DefaultTimeZoneResolver;
+import cn.elvea.platform.commons.core.time.LegacyDateTimeAnnotationFormatterFactory;
+import cn.elvea.platform.commons.core.time.StandardDateTimeAnnotationFormatterFactory;
+import cn.elvea.platform.commons.core.time.TimeZoneResolver;
 import cn.elvea.platform.commons.core.utils.SpringUtils;
 import cn.elvea.platform.commons.core.utils.StringUtils;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;

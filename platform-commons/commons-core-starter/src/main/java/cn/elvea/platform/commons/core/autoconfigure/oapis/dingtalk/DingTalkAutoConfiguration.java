@@ -2,11 +2,11 @@ package cn.elvea.platform.commons.core.autoconfigure.oapis.dingtalk;
 
 import cn.elvea.platform.commons.core.autoconfigure.oapis.dingtalk.properties.DingTalkProperties;
 import cn.elvea.platform.commons.core.cache.service.CacheService;
-import cn.elvea.platform.commons.core.oapis.dingtalk.cache.Cache;
-import cn.elvea.platform.commons.core.oapis.dingtalk.cache.DefaultCache;
-import cn.elvea.platform.commons.core.oapis.dingtalk.config.AppConfig;
-import cn.elvea.platform.commons.core.oapis.dingtalk.service.DingTalkService;
-import cn.elvea.platform.commons.core.oapis.dingtalk.service.impl.DingTalkServiceImpl;
+import cn.elvea.platform.commons.core.dingtalk.cache.Cache;
+import cn.elvea.platform.commons.core.dingtalk.cache.DefaultCache;
+import cn.elvea.platform.commons.core.dingtalk.config.AppConfig;
+import cn.elvea.platform.commons.core.dingtalk.service.DingTalkService;
+import cn.elvea.platform.commons.core.dingtalk.service.impl.DingTalkServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

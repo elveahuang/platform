@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.log.service;
 
-import cn.elvea.platform.commons.core.extensions.log.dto.OperationLogDto;
-import cn.elvea.platform.commons.core.extensions.amqp.AmqpService;
+import cn.elvea.platform.commons.core.log.domain.OperationLogDto;
+import cn.elvea.platform.commons.core.message.amqp.AmqpService;
 
 /**
  * @author elvea

@@ -1,10 +1,11 @@
 package cn.elvea.platform.commons.core.extensions.captcha.service;
 
 import cn.elvea.platform.BaseTests;
+import cn.elvea.platform.commons.core.captcha.service.CaptchaService;
 import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
-import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
-import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
-import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaRequest;
+import cn.elvea.platform.commons.core.captcha.Captcha;
+import cn.elvea.platform.commons.core.captcha.request.CaptchaCheckRequest;
+import cn.elvea.platform.commons.core.captcha.request.CaptchaRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

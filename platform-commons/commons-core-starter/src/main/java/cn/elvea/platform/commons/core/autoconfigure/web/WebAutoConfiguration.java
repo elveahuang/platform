@@ -1,8 +1,8 @@
 package cn.elvea.platform.commons.core.autoconfigure.web;
 
 import cn.elvea.platform.commons.core.autoconfigure.web.properties.WebProperties;
-import cn.elvea.platform.commons.core.extensions.time.LegacyDateTimeAnnotationFormatterFactory;
-import cn.elvea.platform.commons.core.extensions.time.StandardDateTimeAnnotationFormatterFactory;
+import cn.elvea.platform.commons.core.time.LegacyDateTimeAnnotationFormatterFactory;
+import cn.elvea.platform.commons.core.time.StandardDateTimeAnnotationFormatterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
