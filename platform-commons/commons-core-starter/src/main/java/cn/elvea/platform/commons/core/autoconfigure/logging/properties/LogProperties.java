@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.core.autoconfigure.core.properties;
+package cn.elvea.platform.commons.core.autoconfigure.logging.properties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

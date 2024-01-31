@@ -1,8 +1,8 @@
 cn.elvea.platform.commons.core.autoconfigure.core.CoreAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.core.JwtAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.core.RateLimitAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.core.LogAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.core.CustomQuartzAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.logging.LogAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.job.CustomQuartzAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.cache.CustomCacheAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.sequence.SequenceAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.storage.StorageAutoConfiguration

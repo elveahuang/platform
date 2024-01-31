@@ -1,7 +1,6 @@
 package cn.elvea.platform.commons.core.autoconfigure.core;
 
 import cn.elvea.platform.commons.core.autoconfigure.core.properties.CoreProperties;
-import cn.elvea.platform.commons.core.autoconfigure.core.properties.LogProperties;
 import cn.elvea.platform.commons.core.context.Context;
 import cn.elvea.platform.commons.core.extensions.i18n.DefaultLanguageResolver;
 import cn.elvea.platform.commons.core.extensions.i18n.LanguageResolver;
@@ -29,10 +28,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties({
-        CoreProperties.class,
-        LogProperties.class,
-})
+@EnableConfigurationProperties({CoreProperties.class})
 public class CoreAutoConfiguration {
 
     public CoreAutoConfiguration() {
@@ -131,6 +127,5 @@ public class CoreAutoConfiguration {
         }
 
     }
-
 
 }

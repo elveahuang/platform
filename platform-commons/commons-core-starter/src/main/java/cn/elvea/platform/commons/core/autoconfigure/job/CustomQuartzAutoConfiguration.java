@@ -1,8 +1,8 @@
-package cn.elvea.platform.commons.core.autoconfigure.core;
+package cn.elvea.platform.commons.core.autoconfigure.job;
 
 import cn.elvea.platform.commons.core.annotations.ds.JobDataSource;
 import cn.elvea.platform.commons.core.annotations.ds.JobTransactionManager;
-import cn.elvea.platform.commons.core.autoconfigure.core.properties.CustomQuartzProperties;
+import cn.elvea.platform.commons.core.autoconfigure.job.properties.CustomQuartzProperties;
 import cn.elvea.platform.commons.core.job.quartz.QuartzJobManager;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Calendar;
