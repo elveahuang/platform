@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.core.autoconfigure.socket.properties;
+package cn.elvea.platform.commons.core.autoconfigure.message.socket.properties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

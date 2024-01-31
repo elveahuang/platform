@@ -1,6 +1,6 @@
-package cn.elvea.platform.commons.core.socket.service;
+package cn.elvea.platform.commons.core.message.socket.service;
 
-import cn.elvea.platform.commons.core.socket.message.SocketMessage;
+import cn.elvea.platform.commons.core.message.socket.message.SocketMessage;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketSession;
 

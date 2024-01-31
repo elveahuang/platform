@@ -1,7 +1,7 @@
 package cn.elvea.platform.commons.core.cache.utils;
 
 import cn.elvea.platform.commons.core.enums.RateLimitTypeEnum;
-import cn.elvea.platform.commons.core.socket.message.SocketMessage;
+import cn.elvea.platform.commons.core.message.socket.message.SocketMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.*;

@@ -1,6 +1,6 @@
-package cn.elvea.platform.commons.core.socket.service;
+package cn.elvea.platform.commons.core.message.socket.service;
 
-import cn.elvea.platform.commons.core.socket.WebSocketUserSession;
+import cn.elvea.platform.commons.core.message.socket.WebSocketUserSession;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.Collection;

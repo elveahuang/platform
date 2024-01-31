@@ -1,6 +1,6 @@
-package cn.elvea.platform.commons.core.socket.handler;
+package cn.elvea.platform.commons.core.message.socket.handler;
 
-import cn.elvea.platform.commons.core.socket.AbstractSessionWebSocketHandler;
+import cn.elvea.platform.commons.core.message.socket.AbstractSessionWebSocketHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.web.socket.TextMessage;

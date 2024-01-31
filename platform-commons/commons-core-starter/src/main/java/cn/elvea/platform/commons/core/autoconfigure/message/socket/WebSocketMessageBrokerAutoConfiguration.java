@@ -1,8 +1,8 @@
-package cn.elvea.platform.commons.core.autoconfigure.socket;
+package cn.elvea.platform.commons.core.autoconfigure.message.socket;
 
-import cn.elvea.platform.commons.core.autoconfigure.socket.properties.WebSocketProperties;
-import cn.elvea.platform.commons.core.socket.WebSocketSessionHandlerDecoratorFactory;
-import cn.elvea.platform.commons.core.socket.server.SessionHandshakeInterceptor;
+import cn.elvea.platform.commons.core.autoconfigure.message.socket.properties.WebSocketProperties;
+import cn.elvea.platform.commons.core.message.socket.WebSocketSessionHandlerDecoratorFactory;
+import cn.elvea.platform.commons.core.message.socket.server.SessionHandshakeInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

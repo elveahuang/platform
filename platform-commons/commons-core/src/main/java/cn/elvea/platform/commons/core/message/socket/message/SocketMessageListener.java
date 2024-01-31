@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.core.socket.message;
+package cn.elvea.platform.commons.core.message.socket.message;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;

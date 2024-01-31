@@ -1,7 +1,7 @@
-package cn.elvea.platform.commons.core.socket.service;
+package cn.elvea.platform.commons.core.message.socket.service;
 
-import cn.elvea.platform.commons.core.socket.WebSocketUserSession;
-import cn.elvea.platform.commons.core.socket.message.SocketMessage;
+import cn.elvea.platform.commons.core.message.socket.WebSocketUserSession;
+import cn.elvea.platform.commons.core.message.socket.message.SocketMessage;
 import cn.elvea.platform.commons.core.utils.CollectionUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +11,8 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.Map;
 
-import static cn.elvea.platform.commons.core.socket.WebSocketConstants.SOCKET_USER_SESSION_KEY;
-import static cn.elvea.platform.commons.core.socket.WebSocketConstants.USER_MESSAGE_ENDPOINT;
+import static cn.elvea.platform.commons.core.message.socket.WebSocketConstants.SOCKET_USER_SESSION_KEY;
+import static cn.elvea.platform.commons.core.message.socket.WebSocketConstants.USER_MESSAGE_ENDPOINT;
 
 /**
  * @author elvea

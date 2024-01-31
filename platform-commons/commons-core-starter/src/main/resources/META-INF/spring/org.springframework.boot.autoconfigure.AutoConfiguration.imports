@@ -27,5 +27,5 @@ cn.elvea.platform.commons.core.autoconfigure.extensions.mail.MailAutoConfigurati
 cn.elvea.platform.commons.core.autoconfigure.extensions.sensitive.SensitiveAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.swagger.SwaggerAutoConfiguration
 cn.elvea.platform.commons.core.autoconfigure.extensions.template.TemplateAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.socket.WebSocketCommonAutoConfiguration
-cn.elvea.platform.commons.core.autoconfigure.socket.WebSocketMessageBrokerAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.message.socket.WebSocketCommonAutoConfiguration
+cn.elvea.platform.commons.core.autoconfigure.message.socket.WebSocketMessageBrokerAutoConfiguration

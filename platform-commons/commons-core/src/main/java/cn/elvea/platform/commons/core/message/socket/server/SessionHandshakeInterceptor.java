@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.core.socket.server;
+package cn.elvea.platform.commons.core.message.socket.server;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;

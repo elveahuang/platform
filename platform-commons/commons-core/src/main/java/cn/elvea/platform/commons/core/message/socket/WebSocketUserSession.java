@@ -1,4 +1,4 @@
-package cn.elvea.platform.commons.core.socket;
+package cn.elvea.platform.commons.core.message.socket;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

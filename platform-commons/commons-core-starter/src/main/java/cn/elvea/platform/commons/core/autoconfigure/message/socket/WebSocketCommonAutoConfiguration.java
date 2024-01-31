@@ -1,15 +1,15 @@
-package cn.elvea.platform.commons.core.autoconfigure.socket;
+package cn.elvea.platform.commons.core.autoconfigure.message.socket;
 
-import cn.elvea.platform.commons.core.autoconfigure.socket.properties.WebSocketProperties;
-import cn.elvea.platform.commons.core.socket.WebSocketSessionHandlerDecoratorFactory;
-import cn.elvea.platform.commons.core.socket.handler.MessageWebSocketHandler;
-import cn.elvea.platform.commons.core.socket.message.SocketMessageDelegate;
-import cn.elvea.platform.commons.core.socket.message.SocketMessageListener;
-import cn.elvea.platform.commons.core.socket.server.SessionHandshakeInterceptor;
-import cn.elvea.platform.commons.core.socket.service.DefaultWebSocketService;
-import cn.elvea.platform.commons.core.socket.service.DefaultWebSocketSessionService;
-import cn.elvea.platform.commons.core.socket.service.WebSocketService;
-import cn.elvea.platform.commons.core.socket.service.WebSocketSessionService;
+import cn.elvea.platform.commons.core.autoconfigure.message.socket.properties.WebSocketProperties;
+import cn.elvea.platform.commons.core.message.socket.WebSocketSessionHandlerDecoratorFactory;
+import cn.elvea.platform.commons.core.message.socket.handler.MessageWebSocketHandler;
+import cn.elvea.platform.commons.core.message.socket.message.SocketMessageDelegate;
+import cn.elvea.platform.commons.core.message.socket.message.SocketMessageListener;
+import cn.elvea.platform.commons.core.message.socket.server.SessionHandshakeInterceptor;
+import cn.elvea.platform.commons.core.message.socket.service.DefaultWebSocketService;
+import cn.elvea.platform.commons.core.message.socket.service.DefaultWebSocketSessionService;
+import cn.elvea.platform.commons.core.message.socket.service.WebSocketService;
+import cn.elvea.platform.commons.core.message.socket.service.WebSocketSessionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
