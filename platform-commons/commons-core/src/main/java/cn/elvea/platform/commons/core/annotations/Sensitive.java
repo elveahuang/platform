@@ -1,7 +1,7 @@
 package cn.elvea.platform.commons.core.annotations;
 
-import cn.elvea.platform.commons.core.sensitive.SensitiveSerializer;
-import cn.elvea.platform.commons.core.sensitive.SensitiveStrategy;
+import cn.elvea.platform.commons.core.extensions.sensitive.SensitiveSerializer;
+import cn.elvea.platform.commons.core.extensions.sensitive.SensitiveStrategy;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

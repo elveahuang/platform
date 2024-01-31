@@ -1,6 +1,6 @@
 package cn.elvea.platform.security.configuration;
 
-import cn.elvea.platform.commons.core.json.jwt.JwtConfig;
+import cn.elvea.platform.commons.core.utils.jwt.JwtConfig;
 import cn.elvea.platform.security.CustomAccountDetailsService;
 import cn.elvea.platform.security.CustomAuthenticationProvider;
 import cn.elvea.platform.security.CustomUserDetailsService;

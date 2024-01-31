@@ -2,7 +2,6 @@ package cn.elvea.platform.commons.core.extensions.sensitive;
 
 import cn.elvea.platform.BaseTests;
 import cn.elvea.platform.commons.core.annotations.Sensitive;
-import cn.elvea.platform.commons.core.sensitive.SensitiveStrategy;
 import cn.elvea.platform.commons.core.utils.JacksonUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

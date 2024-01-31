@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.message.sender;
 
-import cn.elvea.platform.commons.core.dingtalk.service.DingTalkService;
+import cn.elvea.platform.commons.core.oapis.dingtalk.service.DingTalkService;
 import cn.elvea.platform.commons.core.utils.ExceptionUtils;
 import cn.elvea.platform.commons.core.utils.GsonUtils;
 import cn.elvea.platform.system.message.model.dto.SendMessageDto;

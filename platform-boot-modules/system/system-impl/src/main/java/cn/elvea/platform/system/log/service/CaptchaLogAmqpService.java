@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.log.service;
 
-import cn.elvea.platform.commons.core.captcha.domain.CaptchaLogDto;
+import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaLogDto;
 import cn.elvea.platform.commons.core.message.amqp.AmqpService;
 
 /**

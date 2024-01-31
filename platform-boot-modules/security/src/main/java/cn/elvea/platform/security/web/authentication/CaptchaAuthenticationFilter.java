@@ -2,7 +2,7 @@ package cn.elvea.platform.security.web.authentication;
 
 import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
 import cn.elvea.platform.commons.core.exception.InvalidCaptchaException;
-import cn.elvea.platform.commons.core.captcha.request.CaptchaCheckRequest;
+import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
 import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
 import cn.elvea.platform.commons.core.security.CustomParameterNames;
 import cn.elvea.platform.commons.core.utils.StringUtils;

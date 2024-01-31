@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.commons.interceptor;
 
-import cn.elvea.platform.commons.core.log.domain.UrlLogDto;
+import cn.elvea.platform.commons.core.logging.domain.UrlLogDto;
 import cn.elvea.platform.commons.core.utils.ServletUtils;
 import cn.elvea.platform.commons.core.utils.SpringUtils;
 import cn.elvea.platform.system.log.service.UrlLogAmqpService;

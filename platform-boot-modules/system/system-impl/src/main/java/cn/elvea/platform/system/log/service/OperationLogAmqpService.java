@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.log.service;
 
-import cn.elvea.platform.commons.core.log.domain.OperationLogDto;
+import cn.elvea.platform.commons.core.logging.domain.OperationLogDto;
 import cn.elvea.platform.commons.core.message.amqp.AmqpService;
 
 /**

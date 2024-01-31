@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.log.service.impl;
 
 import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.captcha.domain.CaptchaLogDto;
+import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaLogDto;
 import cn.elvea.platform.commons.core.message.amqp.AbstractAmqpService;
 import cn.elvea.platform.system.commons.constants.SystemAmqpConstants;
 import cn.elvea.platform.system.log.model.converter.CaptchaLogConverter;

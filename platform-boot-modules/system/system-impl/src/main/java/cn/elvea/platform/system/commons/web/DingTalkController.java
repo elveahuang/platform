@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.commons.web;
 
 import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.dingtalk.bean.JsapiSignature;
-import cn.elvea.platform.commons.core.dingtalk.service.DingTalkService;
+import cn.elvea.platform.commons.core.oapis.dingtalk.bean.JsapiSignature;
+import cn.elvea.platform.commons.core.oapis.dingtalk.service.DingTalkService;
 import cn.elvea.platform.commons.core.web.R;
 import cn.elvea.platform.commons.core.web.controller.AbstractController;
 import cn.elvea.platform.system.commons.constants.SystemMappingConstants;

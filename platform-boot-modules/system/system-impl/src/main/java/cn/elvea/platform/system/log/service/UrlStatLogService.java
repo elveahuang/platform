@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.log.service;
 
-import cn.elvea.platform.commons.core.log.domain.UrlLogDto;
+import cn.elvea.platform.commons.core.logging.domain.UrlLogDto;
 import cn.elvea.platform.commons.core.service.CachingEntityService;
 import cn.elvea.platform.system.log.model.entity.UrlStatLogEntity;
 
