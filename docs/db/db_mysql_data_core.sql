@@ -379,24 +379,44 @@ values (1001000001, 1001000, 1001001, '', 1, 1),
 -- =====================================================================================================================
 
 --
--- 会员
+-- 会员类型
 --
 
-insert into `sys_vip` (`id`, `code`, `title`, `label`, `source`, `active`)
-values (1000001, 'MEMBER', 'Member', 'label_vip__member', 1, 0),
-       (1000002, 'VIP', 'VIP', 'label_vip__vip', 1, 1);
+truncate `sys_vip_type`;
+
+insert into `sys_vip_type` (`id`, `code`, `title`, `label`, `source`, `active`)
+values (1000001, 'VIP', 'VIP', 'label_vip_type__vip', 1, 1),
+       (1000002, 'SVIP', 'SVIP', 'label_vip_type__svip', 1, 1);
 
 --
 -- 会员套餐
 --
 
-insert into `sys_vip_item` (`id`, `vip_id`, `code`, `title`, `label`, `active`)
-values (1000002001, 1000002, 'MONTH', '月卡', 'label_vip_item__month', 1),
-       (1000002002, 1000002, 'QUARTER', '季卡', 'label_vip_item__quarter', 1),
-       (1000002003, 1000002, 'YEAR', '年卡', 'label_vip_item__year', 1);
+truncate `sys_vip_item`;
+
+insert into `sys_vip_item` (`id`, `vip_type_id`, `code`, `title`, `label`, `list_price`, `price`, `active`)
+values (1000001001, 1000001, 'M1', '1个月', 'label_vip_item__month', 39, 19, 1),
+       (1000001002, 1000001, 'M3', '3个月', 'label_vip_item__quarter', 99, 69, 1),
+       (1000001003, 1000001, 'M6', '6个月', 'label_vip_item__year', 139, 99, 1),
+       (1000001004, 1000001, 'M12', '12个月', 'label_vip_item__year', 199, 139, 1),
+       (1000002001, 1000002, 'M1', '1个月', 'label_vip_item__month', 69, 29, 1),
+       (1000002002, 1000002, 'M3', '3个月', 'label_vip_item__quarter', 159, 69, 1),
+       (1000002003, 1000002, 'M6', '6个月', 'label_vip_item__year', 299, 139, 1),
+       (1000002004, 1000002, 'M12', '12个月', 'label_vip_item__year', 399, 199, 1);
 
 --
--- 订单类型表
+-- 支付类型
+--
+
+truncate `sys_pay_type`;
+
+insert into `sys_pay_type` (`id`, `code`, `title`, `icon`, `status`)
+values (1000001, 'ALIPAY', '支付宝', 'ant-design:alipay-outlined', 1),
+       (1000002, 'WECHAT', '微信支付', 'mdi:wechat', 1),
+       (1000003, 'USDT', 'USDT', 'cryptocurrency-color:usdt', 1);
+
+--
+-- 订单类型
 --
 
 truncate `sys_order_type`;

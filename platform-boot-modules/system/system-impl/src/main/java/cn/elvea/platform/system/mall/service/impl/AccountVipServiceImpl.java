@@ -1,0 +1,37 @@
+package cn.elvea.platform.system.mall.service.impl;
+
+import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.system.commons.enums.ActiveTypeEnum;
+import cn.elvea.platform.system.mall.model.entity.AccountVipEntity;
+import cn.elvea.platform.system.mall.repository.AccountVipRepository;
+import cn.elvea.platform.system.mall.service.AccountVipService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author elvea
+ * @since 24.1.0
+ */
+@Slf4j
+@Service
+@AllArgsConstructor
+public class AccountVipServiceImpl
+        extends BaseCachingEntityService<AccountVipEntity, Long, AccountVipRepository>
+        implements AccountVipService {
+
+    /**
+     * @see AccountVipService#getAccountVip(Long)
+     */
+    @Override
+    public List<AccountVipEntity> getAccountVip(Long accountId) {
+        AccountVipEntity condition = AccountVipEntity.builder().build();
+        condition.setActive(ActiveTypeEnum.ACTIVE.getValue());
+        Example<AccountVipEntity> example = Example.of(condition);
+        return this.repository.findAll(example).stream().toList();
+    }
+
+}

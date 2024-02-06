@@ -39,7 +39,6 @@ public class LogInterceptor implements HandlerInterceptor {
                            @NonNull HttpServletResponse response,
                            @NonNull Object handler,
                            ModelAndView modelAndView) {
-        endTime = System.currentTimeMillis();
     }
 
     @Override
@@ -47,6 +46,8 @@ public class LogInterceptor implements HandlerInterceptor {
                                 @NonNull HttpServletResponse response,
                                 @NonNull Object handler,
                                 Exception ex) {
+        endTime = System.currentTimeMillis();
+
         Long execTime = this.endTime - this.startTime;
 
         log.info("URL - [{}] - [{}] - [{}]", request.getRequestURI(), execTime, ServletUtils.getHost());
