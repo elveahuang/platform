@@ -1422,6 +1422,28 @@ CREATE TABLE `sys_product`
     CONSTRAINT `pk_sys_product` PRIMARY KEY (`id`)
 ) COMMENT '产品表';
 
+--
+-- 友情链接表
+--
+
+DROP TABLE IF EXISTS `sys_link`;
+
+CREATE TABLE `sys_link`
+(
+    `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `title`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '标题',
+    `link`             VARCHAR(1000)    NULL COMMENT '链接',
+    `description`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '备注',
+    `idx`              INT UNSIGNED     NOT NULL DEFAULT 999 COMMENT '序号',
+    `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`       DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `last_modified_by` BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '最后修改人',
+    `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
+    `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
+    `deleted_at`       DATETIME         NULL COMMENT '删除时间',
+    CONSTRAINT `pk_sys_link` PRIMARY KEY (`id`)
+) COMMENT '友情链接表';
 
 -- =====================================================================================================================
 -- View
