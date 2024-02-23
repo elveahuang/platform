@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.tag.web;
+package cn.elvea.platform.system.tag.web.admin;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
@@ -24,7 +24,7 @@ import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.
 @RestController
 @AllArgsConstructor
 @Tag(name = "SystemTagTypeController", description = "标签类型系统控制器")
-public class SystemTagTypeController extends AbstractController {
+public class TagTypeAdminController extends AbstractController {
 
     private final TagTypeService tagTypeService;
 

@@ -5,31 +5,19 @@ package cn.elvea.platform.commons.core.constants;
  * @since 24.1.0
  */
 public interface DataSourceConstants {
-
     /**
      * 主数据源
      */
-
     String MASTER_DATASOURCE = "masterDataSourceConfig";
-
     String MASTER_DATASOURCE_PROPERTIES = "masterDataSourceProperties";
-
     /**
      * 从数据源
      */
-
     String SLAVE_DATASOURCE = "slaveDataSourceConfig";
-
     String SLAVE_DATASOURCE_PROPERTIES = "slaveDataSourceProperties";
-
     /**
      * 定时任务数据源
      */
-
     String JOB_DATASOURCE = "jobDataSourceConfig";
-
     String JOB_DATASOURCE_PROPERTIES = "jobDataSourceProperties";
-
-    String JOB_TRANSACTION_MANAGER = "jobTransactionManager";
-
 }

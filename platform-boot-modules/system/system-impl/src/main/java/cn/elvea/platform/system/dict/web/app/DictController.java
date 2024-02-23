@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.dict.web;
+package cn.elvea.platform.system.dict.web.app;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;

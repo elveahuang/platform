@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.mall.web;
+package cn.elvea.platform.system.mall.web.admin;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
@@ -19,8 +19,8 @@ import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.
  */
 @RestController
 @AllArgsConstructor
-@Tag(name = "SystemOrderController", description = "订单后台控制器")
-public class SystemOrderController extends AbstractController {
+@Tag(name = "OrderAdminController", description = "订单后台控制器")
+public class OrderAdminController extends AbstractController {
 
     @Authenticated
     @Operation(summary = "订单列表")

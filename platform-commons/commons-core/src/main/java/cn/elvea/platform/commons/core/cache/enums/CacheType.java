@@ -7,5 +7,4 @@ package cn.elvea.platform.commons.core.cache.enums;
 public enum CacheType {
     Redisson,
     Redis,
-    Caffeine,
 }

@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.dict.web;
+package cn.elvea.platform.system.dict.web.admin;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
@@ -29,7 +29,7 @@ import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.
 @RestController
 @AllArgsConstructor
 @Tag(name = "DictAdminController", description = "字典后台管理控制器")
-public class SystemDictController extends AbstractController {
+public class DictAdminController extends AbstractController {
 
     private final DictApi dictApi;
 

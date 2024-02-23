@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.tag.web;
+package cn.elvea.platform.system.tag.web.app;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;

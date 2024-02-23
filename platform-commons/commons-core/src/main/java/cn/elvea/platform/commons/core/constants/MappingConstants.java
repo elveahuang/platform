@@ -52,4 +52,10 @@ public interface MappingConstants {
      */
     String API_V2_FEIGN_URL_PREFIX = API_V1_URL_PREFIX + "/feign";
 
+    /**
+     * 回调接口前缀，提供给外部公开调用，比如微信支付等开放接口
+     * Version - 1
+     */
+    String API_V1_CALLBACK_URL_PREFIX = API_V1_URL_PREFIX + "/callback";
+
 }

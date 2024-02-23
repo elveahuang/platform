@@ -411,8 +411,8 @@ values (1000001001, 1000001, 'M1', '1个月', 'label_vip_item__month', 39, 19, 1
 truncate `sys_pay_type`;
 
 insert into `sys_pay_type` (`id`, `code`, `title`, `icon`, `status`)
-values (1000001, 'ALIPAY', '支付宝', 'ant-design:alipay-outlined', 1),
-       (1000002, 'WECHAT', '微信支付', 'mdi:wechat', 1),
+values (1000001, 'ALIPAY', '支付宝', 'ant-design:alipay-outlined', 0),
+       (1000002, 'WECHAT', '微信支付', 'mdi:wechat', 0),
        (1000003, 'USDT', 'USDT', 'cryptocurrency-color:usdt', 1);
 
 --

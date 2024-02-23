@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.mall.web;
+package cn.elvea.platform.system.mall.web.app;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
@@ -18,7 +18,7 @@ import java.util.List;
 import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.API_V1__VIP__TYPE;
 
 /**
- * @author dev
+ * @author elvea
  * @since 24.1.0
  */
 @RestController

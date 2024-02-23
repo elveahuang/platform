@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.mall.web;
+package cn.elvea.platform.system.mall.web.app;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
@@ -9,18 +9,37 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.*;
 
 /**
- * @author dev
+ * @author elvea
  * @since 24.1.0
  */
 @RestController
 @AllArgsConstructor
-@Tag(name = "OrderController", description = "订单后台控制器")
+@Tag(name = "OrderController", description = "订单控制器")
 public class OrderController extends AbstractController {
+
+    @Authenticated
+    @Operation(summary = "确认订单")
+    @ApiResponse(description = "确认订单")
+    @OperationLog("确认订单")
+    @PostMapping(API_V1__ORDER__CONFIRM)
+    public R<?> confirm(@RequestParam("itemId") Long itemId) {
+        return R.success();
+    }
+
+    @Authenticated
+    @Operation(summary = "提交订单")
+    @ApiResponse(description = "提交订单")
+    @OperationLog("提交订单")
+    @PostMapping(API_V1__ORDER__SUBMIT)
+    public R<?> submit() {
+        return R.success();
+    }
 
     @Authenticated
     @Operation(summary = "我的订单")
@@ -28,15 +47,6 @@ public class OrderController extends AbstractController {
     @OperationLog("我的订单")
     @PostMapping(API_V1__ORDER__LIST)
     public R<?> list() {
-        return R.success();
-    }
-
-    @Authenticated
-    @Operation(summary = "确认我的订单")
-    @ApiResponse(description = "确认我的订单")
-    @OperationLog("确认我的订单")
-    @PostMapping(API_V1__ORDER__CONFIRM)
-    public R<?> confirm() {
         return R.success();
     }
 

@@ -9,10 +9,10 @@ plugins {
     id("java-library")
     id("io.spring.dependency-management") version "1.1.4"
     id("com.google.osdetector") version "1.7.3" apply false
-    id("org.hibernate.orm") version "6.4.1.Final" apply false
-    id("org.springframework.boot") version "3.2.2" apply false
+    id("org.hibernate.orm") version "6.4.4.Final" apply false
+    id("org.springframework.boot") version "3.2.3" apply false
     id("org.jetbrains.kotlin.jvm") version "1.9.22" apply false
-    id("org.graalvm.buildtools.native") version "0.9.28" apply false
+    id("org.graalvm.buildtools.native") version "0.10.1" apply false
 }
 
 allprojects {
@@ -25,14 +25,14 @@ allprojects {
 
     repositories {
         maven { url = uri("https://mirrors.cloud.tencent.com/nexus/repository/maven-public") }
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
         maven { url = uri("https://maven.aliyun.com/repository/public") }
         maven { url = uri("https://maven.aliyun.com/repository/spring") }
         maven { url = uri("https://maven.aliyun.com/repository/google") }
         maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
         maven { url = uri("https://maven.aliyun.com/repository/spring-plugin") }
-        mavenLocal()
-        mavenCentral()
-        gradlePluginPortal()
     }
 
     configure<JavaPluginExtension> {
@@ -58,11 +58,11 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.2")
-            mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.2")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.3")
             mavenBom("org.springframework.shell:spring-shell-dependencies:3.2.1")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
             mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2022.0.0.0")
-            mavenBom("com.tencent.cloud:spring-cloud-tencent-dependencies:1.13.0-2022.0.4")
+            mavenBom("com.tencent.cloud:spring-cloud-tencent-dependencies:1.13.1-2022.0.4")
             mavenBom("de.codecentric:spring-boot-admin-dependencies:3.2.2")
             mavenBom("io.grpc:grpc-bom:1.61.1")
             mavenBom("cn.hutool:hutool-bom:5.8.26")
@@ -73,7 +73,7 @@ allprojects {
 
         dependencies {
             // spring authorization server
-            dependency("org.springframework.security:spring-security-oauth2-authorization-server:1.2.1")
+            dependency("org.springframework.security:spring-security-oauth2-authorization-server:1.2.2")
             // mapstruct & lombok
             dependency("org.mapstruct:mapstruct:1.5.5.Final")
             dependency("org.mapstruct:mapstruct-processor:1.5.5.Final")
@@ -100,9 +100,9 @@ allprojects {
             dependency("com.baomidou:mybatis-plus-boot-starter:3.5.5")
             dependency("org.apache.shardingsphere:shardingsphere-jdbc-core:5.4.1")
             dependency("com.github.jsqlparser:jsqlparser:4.6")
-            dependency("org.redisson:redisson:3.26.1")
-            dependency("org.redisson:redisson-spring-data-32:3.26.1")
-            dependency("org.redisson:redisson-spring-boot-starter:3.26.1")
+            dependency("org.redisson:redisson:3.27.0")
+            dependency("org.redisson:redisson-spring-data-32:3.27.0")
+            dependency("org.redisson:redisson-spring-boot-starter:3.27.0")
             // others
             dependency("com.nimbusds:nimbus-jose-jwt:9.37.3")
             dependency("com.nimbusds:oauth2-oidc-sdk:11.9.1")

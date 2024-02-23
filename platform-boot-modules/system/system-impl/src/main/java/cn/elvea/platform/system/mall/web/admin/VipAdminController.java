@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.mall.web;
+package cn.elvea.platform.system.mall.web.admin;
 
 import cn.elvea.platform.commons.core.annotations.Authenticated;
 import cn.elvea.platform.commons.core.annotations.OperationLog;
@@ -19,8 +19,8 @@ import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.
  */
 @RestController
 @AllArgsConstructor
-@Tag(name = "SystemVipController", description = "会员后台控制器")
-public class SystemVipController extends AbstractController {
+@Tag(name = "VipAdminController", description = "会员后台控制器")
+public class VipAdminController extends AbstractController {
 
     @Authenticated
     @Operation(summary = "会员类型列表")

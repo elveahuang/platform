@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.core.web;
+package cn.elvea.platform.system.core.web.app;
 
 import cn.elvea.platform.commons.core.annotations.Anonymous;
 import cn.elvea.platform.commons.core.annotations.Authenticated;

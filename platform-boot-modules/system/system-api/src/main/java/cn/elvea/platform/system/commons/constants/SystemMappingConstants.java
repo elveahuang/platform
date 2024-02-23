@@ -165,6 +165,7 @@ public interface SystemMappingConstants {
 
     String API_V1__ORDER__LIST = API_V1_URL_PREFIX + "/order/list";
     String API_V1__ORDER__CONFIRM = API_V1_URL_PREFIX + "/order/confirm";
+    String API_V1__ORDER__SUBMIT = API_V1_URL_PREFIX + "/order/submit";
     String API_V1__ORDER__CANCEL = API_V1_URL_PREFIX + "/order/cancel";
     String API_V1__ORDER__DETAILS = API_V1_URL_PREFIX + "/order/details";
     String API_V1__ORDER__DELETE = API_V1_URL_PREFIX + "/order/delete";
@@ -172,5 +173,6 @@ public interface SystemMappingConstants {
     String API_V1__PAY__TYPE = API_V1_URL_PREFIX + "/pay/type";
 
     String API_V1__VIP__TYPE = API_V1_URL_PREFIX + "/vip/type";
+    String API_V1__VIP__ORDER__CONFIRM = API_V1_URL_PREFIX + "/vip/order/confirm";
 
 }
