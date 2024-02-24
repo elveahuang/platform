@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.dict.repository;
 
-import cn.elvea.platform.commons.core.data.jpa.repository.BaseEntityRepository;
+import cn.elvea.platform.commons.data.jpa.repository.BaseEntityRepository;
 import cn.elvea.platform.system.dict.model.entity.DictRelationEntity;
 import org.springframework.stereotype.Repository;
 

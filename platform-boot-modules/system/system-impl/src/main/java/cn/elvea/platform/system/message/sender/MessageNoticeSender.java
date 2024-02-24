@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.message.sender;
 
-import cn.elvea.platform.commons.core.utils.ExceptionUtils;
+import cn.elvea.platform.commons.utils.ExceptionUtils;
 import cn.elvea.platform.system.message.model.dto.SendMessageDto;
 import cn.elvea.platform.system.message.model.entity.NoticeEntity;
 import cn.elvea.platform.system.message.service.MessageContentService;

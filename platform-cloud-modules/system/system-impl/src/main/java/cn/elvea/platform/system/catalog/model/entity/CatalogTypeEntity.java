@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.catalog.model.entity;
 
-import cn.elvea.platform.commons.core.data.domain.IdEntity;
+import cn.elvea.platform.commons.data.domain.IdEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

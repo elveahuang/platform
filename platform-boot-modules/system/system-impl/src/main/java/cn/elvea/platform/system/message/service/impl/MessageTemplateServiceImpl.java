@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.message.service.impl;
 
-import cn.elvea.platform.commons.core.data.domain.IdEntity;
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.ObjectUtils;
+import cn.elvea.platform.commons.data.domain.IdEntity;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.ObjectUtils;
 import cn.elvea.platform.system.message.cache.MessageTemplateCacheKeyGenerator;
 import cn.elvea.platform.system.message.model.entity.MessageTemplateEntity;
 import cn.elvea.platform.system.message.model.entity.MessageTemplateEntity_;

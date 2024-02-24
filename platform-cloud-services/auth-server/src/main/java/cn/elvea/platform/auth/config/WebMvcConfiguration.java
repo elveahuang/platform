@@ -1,6 +1,6 @@
 package cn.elvea.platform.auth.config;
 
-import cn.elvea.platform.commons.core.constants.GlobalConstants;
+import cn.elvea.platform.commons.constants.GlobalConstants;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

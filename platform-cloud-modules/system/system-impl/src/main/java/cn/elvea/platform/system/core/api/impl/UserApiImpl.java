@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.core.api.impl;
 
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.utils.CollectionUtils;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.converter.AuthorityConverter;
 import cn.elvea.platform.system.core.model.converter.RoleConverter;

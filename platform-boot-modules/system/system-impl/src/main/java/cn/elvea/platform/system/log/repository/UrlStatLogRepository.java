@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.log.repository;
 
-import cn.elvea.platform.commons.core.data.jpa.repository.BaseEntityRepository;
-import cn.elvea.platform.commons.core.logging.domain.UrlStatLogDto;
+import cn.elvea.platform.commons.data.jpa.repository.BaseEntityRepository;
+import cn.elvea.platform.commons.logging.domain.UrlStatLogDto;
 import cn.elvea.platform.system.log.model.entity.UrlStatLogEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface UrlStatLogRepository extends BaseEntityRepository<UrlStatLogEntity, Long> {
 
     @Query("""
-            SELECT new cn.elvea.platform.commons.core.logging.domain.UrlStatLogDto(t.path, avg(t.execTime), max(t.execTime), min(t.execTime), sum(t.execTime), count(t.id))
+            SELECT new cn.elvea.platform.commons.logging.domain.UrlStatLogDto(t.path, avg(t.execTime), max(t.execTime), min(t.execTime), sum(t.execTime), count(t.id))
             FROM UrlLogEntity t
             where t.path = :path
             """)

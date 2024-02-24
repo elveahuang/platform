@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.model.dto;
 
-import cn.elvea.platform.commons.core.enums.ActionTypeEnum;
+import cn.elvea.platform.commons.enums.ActionTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

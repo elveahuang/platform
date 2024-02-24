@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.tag.web.admin;
 
-import cn.elvea.platform.commons.core.annotations.Authenticated;
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.annotations.Authenticated;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.tag.model.entity.TagTypeEntity;
 import cn.elvea.platform.system.tag.model.request.TagTypeSearchRequest;
 import cn.elvea.platform.system.tag.service.TagTypeService;

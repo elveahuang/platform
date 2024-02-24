@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.core.web.admin;
 
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
 import cn.elvea.platform.system.core.model.form.UserForm;
 import cn.elvea.platform.system.core.model.request.UserDeleteRequest;

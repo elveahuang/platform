@@ -1,6 +1,6 @@
 package cn.elvea.platform.auth.security.web;
 
-import cn.elvea.platform.commons.core.utils.SecurityUtils;
+import cn.elvea.platform.commons.utils.SecurityUtils;
 import cn.elvea.platform.system.core.api.UserSessionApi;
 import cn.elvea.platform.system.core.helper.UserSessionHelper;
 import jakarta.servlet.ServletException;

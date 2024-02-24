@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.core.web.admin;
 
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.commons.constants.SystemMappingConstants;
 import cn.elvea.platform.system.core.service.UserSessionService;
 import io.swagger.v3.oas.annotations.Operation;

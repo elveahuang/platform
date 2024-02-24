@@ -1,10 +1,10 @@
 package cn.elvea.platform.system.tag.service;
 
-import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
-import cn.elvea.platform.commons.core.data.domain.IdEntity;
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.ObjectUtils;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.cache.CacheKeyGenerator;
+import cn.elvea.platform.commons.data.domain.IdEntity;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.ObjectUtils;
+import cn.elvea.platform.commons.utils.StringUtils;
 import cn.elvea.platform.system.dict.service.DictTypeService;
 import cn.elvea.platform.system.tag.cache.TagTypeCacheKeyGenerator;
 import cn.elvea.platform.system.tag.model.converter.TagTypeConverter;

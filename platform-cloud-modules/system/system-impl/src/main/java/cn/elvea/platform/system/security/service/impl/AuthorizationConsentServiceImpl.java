@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.security.service.impl;
 
-import cn.elvea.platform.commons.core.data.domain.IdEntity;
-import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.ObjectUtils;
+import cn.elvea.platform.commons.data.domain.IdEntity;
+import cn.elvea.platform.commons.data.mybatis.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.ObjectUtils;
 import cn.elvea.platform.system.security.cache.AuthorizationConsentCacheKeyGenerator;
 import cn.elvea.platform.system.security.model.entity.AuthorizationConsentEntity;
 import cn.elvea.platform.system.security.repository.AuthorizationConsentMapper;

@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.core.controller;
 
-import cn.elvea.platform.commons.core.constants.DateTimeConstants;
-import cn.elvea.platform.commons.core.utils.DateUtils;
-import cn.elvea.platform.commons.core.utils.JacksonUtils;
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.constants.DateTimeConstants;
+import cn.elvea.platform.commons.utils.DateUtils;
+import cn.elvea.platform.commons.utils.JacksonUtils;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.BaseWebTests;
 import cn.elvea.platform.system.core.model.dto.UserRegisterDto;
 import org.junit.jupiter.api.Assertions;

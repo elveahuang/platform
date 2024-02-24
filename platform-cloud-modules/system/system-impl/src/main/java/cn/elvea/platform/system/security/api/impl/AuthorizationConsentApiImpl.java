@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.security.api.impl;
 
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.security.api.AuthorizationConsentApi;
 import cn.elvea.platform.system.security.model.dto.AuthorizationConsentDto;
 import lombok.AllArgsConstructor;

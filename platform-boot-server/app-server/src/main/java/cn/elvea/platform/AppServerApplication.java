@@ -1,7 +1,7 @@
 package cn.elvea.platform;
 
-import cn.elvea.platform.commons.core.constants.GlobalConstants;
-import cn.elvea.platform.commons.core.data.jpa.repository.BaseEntityRepositoryImpl;
+import cn.elvea.platform.commons.constants.GlobalConstants;
+import cn.elvea.platform.commons.data.jpa.repository.BaseEntityRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import me.ahoo.cosid.spring.boot.starter.actuate.CosIdEndpointAutoConfiguration;
 import org.springframework.boot.SpringApplication;

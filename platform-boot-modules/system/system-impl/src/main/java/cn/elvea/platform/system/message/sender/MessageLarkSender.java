@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.message.sender;
 
-import cn.elvea.platform.commons.core.oapis.lark.message.LarkMessagePayload;
-import cn.elvea.platform.commons.core.oapis.lark.service.LarkService;
-import cn.elvea.platform.commons.core.utils.ExceptionUtils;
-import cn.elvea.platform.commons.core.utils.GsonUtils;
+import cn.elvea.platform.commons.oapis.lark.message.LarkMessagePayload;
+import cn.elvea.platform.commons.oapis.lark.service.LarkService;
+import cn.elvea.platform.commons.utils.ExceptionUtils;
+import cn.elvea.platform.commons.utils.GsonUtils;
 import cn.elvea.platform.system.message.model.dto.SendMessageDto;
 import cn.elvea.platform.system.message.service.MessageContentService;
 import com.lark.oapi.service.im.v1.enums.CreateMessageReceiveIdTypeEnum;

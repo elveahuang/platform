@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.message.service;
 
-import cn.elvea.platform.commons.core.service.EntityService;
+import cn.elvea.platform.commons.service.EntityService;
 import cn.elvea.platform.system.message.model.dto.MessageRecipientDto;
 import cn.elvea.platform.system.message.model.dto.MessageSenderDto;
 import cn.elvea.platform.system.message.model.entity.MessageUserEntity;

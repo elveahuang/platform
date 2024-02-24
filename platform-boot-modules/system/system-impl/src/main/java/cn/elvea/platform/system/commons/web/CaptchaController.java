@@ -1,15 +1,15 @@
 package cn.elvea.platform.system.commons.web;
 
-import cn.elvea.platform.commons.core.annotations.Anonymous;
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.annotations.RateLimiter;
-import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
-import cn.elvea.platform.commons.core.extensions.captcha.Captcha;
-import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaCodeDto;
-import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaDto;
-import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaRequest;
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.annotations.Anonymous;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.annotations.RateLimiter;
+import cn.elvea.platform.commons.enums.CaptchaTypeEnum;
+import cn.elvea.platform.commons.extensions.captcha.Captcha;
+import cn.elvea.platform.commons.extensions.captcha.domain.CaptchaCodeDto;
+import cn.elvea.platform.commons.extensions.captcha.domain.CaptchaDto;
+import cn.elvea.platform.commons.extensions.captcha.request.CaptchaRequest;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.commons.api.CaptchaApi;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

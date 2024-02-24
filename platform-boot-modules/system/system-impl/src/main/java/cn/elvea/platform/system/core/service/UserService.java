@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.core.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
-import cn.elvea.platform.commons.core.service.EntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
+import cn.elvea.platform.commons.service.EntityService;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
 import cn.elvea.platform.system.core.model.form.UserForm;
 import cn.elvea.platform.system.core.model.request.UserCheckRequest;

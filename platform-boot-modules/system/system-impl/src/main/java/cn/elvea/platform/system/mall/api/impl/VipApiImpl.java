@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.mall.api.impl;
 
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.commons.core.utils.SecurityUtils;
+import cn.elvea.platform.commons.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.SecurityUtils;
 import cn.elvea.platform.system.mall.api.VipApi;
 import cn.elvea.platform.system.mall.model.converter.AccountVipConverter;
 import cn.elvea.platform.system.mall.model.converter.VipItemConverter;
@@ -42,7 +42,7 @@ public class VipApiImpl implements VipApi {
         // 获取会员类型
         List<VipTypeEntity> vipTypeEntityList = this.vipTypeService.getTypeList();
         if (CollectionUtils.isNotEmpty(vipTypeEntityList)) {
-            vipTypeList.addAll(VipTypeConverter.INSTANCE.entityList2VoList(vipTypeEntityList));
+            vipTypeList.addAll(vipTypeEntityList.stream().map(VipTypeConverter.INSTANCE::entity2Vo).toList());
         }
 
         // 获取会员类型套餐信息

@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.security.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
-import cn.elvea.platform.commons.core.service.EntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
+import cn.elvea.platform.commons.service.EntityService;
 import cn.elvea.platform.system.security.model.entity.AuthorizationEntity;
 
 /**

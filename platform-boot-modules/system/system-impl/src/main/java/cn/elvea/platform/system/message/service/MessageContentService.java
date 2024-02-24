@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.message.service;
 
-import cn.elvea.platform.commons.core.service.EntityService;
+import cn.elvea.platform.commons.service.EntityService;
 import cn.elvea.platform.system.message.model.entity.MessageContentEntity;
 
 import java.util.List;

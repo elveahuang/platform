@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.api.impl;
 
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.core.api.UserSessionApi;
 import cn.elvea.platform.system.core.model.dto.UserSessionDto;
 import cn.elvea.platform.system.core.service.UserSessionAmqpService;

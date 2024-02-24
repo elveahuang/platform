@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.core.service.impl;
 
-import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
-import cn.elvea.platform.commons.core.cache.SimpleCacheKeyGenerator;
-import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.cache.CacheKeyGenerator;
+import cn.elvea.platform.commons.cache.SimpleCacheKeyGenerator;
+import cn.elvea.platform.commons.data.mybatis.service.BaseCachingEntityService;
 import cn.elvea.platform.system.commons.constants.SystemCacheConstants;
 import cn.elvea.platform.system.core.mapper.UserSessionMapper;
 import cn.elvea.platform.system.core.model.entity.UserSessionEntity;

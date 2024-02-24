@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.dict.api;
 
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.dict.model.converter.DictItemConverter;
 import cn.elvea.platform.system.dict.model.entity.DictItemEntity;
 import cn.elvea.platform.system.dict.model.form.DictForm;

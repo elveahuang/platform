@@ -1,10 +1,10 @@
 package cn.elvea.platform.system.catalog.service.impl;
 
-import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
-import cn.elvea.platform.commons.core.cache.SimpleCacheKeyGenerator;
-import cn.elvea.platform.commons.core.constants.GlobalConstants;
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.cache.CacheKeyGenerator;
+import cn.elvea.platform.commons.cache.SimpleCacheKeyGenerator;
+import cn.elvea.platform.commons.constants.GlobalConstants;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.catalog.model.dto.CatalogRelationSaveDto;
 import cn.elvea.platform.system.catalog.model.entity.CatalogRelationEntity;
 import cn.elvea.platform.system.catalog.model.entity.CatalogRelationEntity_;

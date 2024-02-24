@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.tag.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
 import cn.elvea.platform.system.tag.model.entity.TagEntity;
 import cn.elvea.platform.system.tag.model.request.TagRelationRequest;
 import cn.elvea.platform.system.tag.model.request.TagSearchRequest;

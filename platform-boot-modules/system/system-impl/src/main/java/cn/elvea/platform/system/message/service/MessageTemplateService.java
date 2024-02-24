@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.message.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
 import cn.elvea.platform.system.message.model.entity.MessageTemplateEntity;
 
 /**

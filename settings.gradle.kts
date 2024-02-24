@@ -2,14 +2,15 @@
 pluginManagement {
     repositories {
         maven { url = uri("https://mirrors.cloud.tencent.com/nexus/repository/maven-public") }
-        mavenLocal()
-        mavenCentral()
-        gradlePluginPortal()
+        maven { url = uri("https://repo.spring.io/milestone") }
         maven { url = uri("https://maven.aliyun.com/repository/public") }
         maven { url = uri("https://maven.aliyun.com/repository/spring") }
         maven { url = uri("https://maven.aliyun.com/repository/google") }
         maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
         maven { url = uri("https://maven.aliyun.com/repository/spring-plugin") }
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
     }
 }
 rootProject.name = "platform"

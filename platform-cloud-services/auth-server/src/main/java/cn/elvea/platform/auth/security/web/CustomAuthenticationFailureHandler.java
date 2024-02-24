@@ -1,9 +1,9 @@
 package cn.elvea.platform.auth.security.web;
 
-import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
-import cn.elvea.platform.commons.core.exception.InvalidCaptchaException;
-import cn.elvea.platform.commons.core.utils.ServletUtils;
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.enums.ResponseCodeEnum;
+import cn.elvea.platform.commons.exception.InvalidCaptchaException;
+import cn.elvea.platform.commons.utils.ServletUtils;
+import cn.elvea.platform.commons.web.R;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
 package cn.elvea.platform.auth.security.authentication;
 
 import cn.elvea.platform.auth.security.utils.OAuth2EndpointUtils;
-import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.security.CustomAuthorizationGrantType;
+import cn.elvea.platform.commons.utils.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

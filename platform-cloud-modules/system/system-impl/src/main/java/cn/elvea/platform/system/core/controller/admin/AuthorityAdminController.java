@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.controller.admin;
 
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.web.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.announcement.service.impl;
 
-import cn.elvea.platform.commons.core.data.mybatis.service.BaseEntityService;
+import cn.elvea.platform.commons.data.mybatis.service.BaseEntityService;
 import cn.elvea.platform.system.announcement.domain.entity.AnnouncementEntity;
 import cn.elvea.platform.system.announcement.mapper.AnnouncementMapper;
 import cn.elvea.platform.system.announcement.service.AnnouncementService;

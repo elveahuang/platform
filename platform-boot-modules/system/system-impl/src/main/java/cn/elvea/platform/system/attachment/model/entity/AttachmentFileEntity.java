@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.attachment.model.entity;
 
-import cn.elvea.platform.commons.core.data.jpa.domain.BaseEntity;
+import cn.elvea.platform.commons.data.jpa.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;

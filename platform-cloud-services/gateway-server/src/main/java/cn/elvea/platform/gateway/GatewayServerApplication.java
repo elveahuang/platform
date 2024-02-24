@@ -1,6 +1,6 @@
 package cn.elvea.platform.gateway;
 
-import cn.elvea.platform.commons.core.constants.GlobalConstants;
+import cn.elvea.platform.commons.constants.GlobalConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

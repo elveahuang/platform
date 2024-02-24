@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.message.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseEntityService;
-import cn.elvea.platform.commons.core.utils.SecurityUtils;
+import cn.elvea.platform.commons.data.jpa.service.BaseEntityService;
+import cn.elvea.platform.commons.utils.SecurityUtils;
 import cn.elvea.platform.system.message.model.entity.NoticeEntity;
 import cn.elvea.platform.system.message.model.entity.NoticeEntity_;
 import cn.elvea.platform.system.message.repository.NoticeRepository;

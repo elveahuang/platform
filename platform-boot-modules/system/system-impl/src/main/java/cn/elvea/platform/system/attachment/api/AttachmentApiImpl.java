@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.attachment.api;
 
-import cn.elvea.platform.commons.core.storage.Storage;
-import cn.elvea.platform.commons.core.storage.domain.FileObject;
+import cn.elvea.platform.commons.storage.Storage;
+import cn.elvea.platform.commons.storage.domain.FileObject;
 import cn.elvea.platform.system.attachment.model.AttachmentFile;
 import cn.elvea.platform.system.attachment.model.AttachmentParameter;
 import cn.elvea.platform.system.attachment.model.request.AttachmentRelationRequest;

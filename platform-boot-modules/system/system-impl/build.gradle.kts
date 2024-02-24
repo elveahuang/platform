@@ -4,6 +4,7 @@ dependencies {
     api("org.springframework.amqp:spring-rabbit")
     api("org.springframework.data:spring-data-jpa")
     api("org.springframework.security:spring-security-core")
+    api("org.springframework.ai:spring-ai-openai")
     // modules
     api(project(":platform-commons:commons-core"))
     api(project(":platform-boot-modules:system:system-api"))

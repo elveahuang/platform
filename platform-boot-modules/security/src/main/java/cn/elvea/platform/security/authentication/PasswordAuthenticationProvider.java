@@ -1,7 +1,7 @@
 package cn.elvea.platform.security.authentication;
 
-import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
-import cn.elvea.platform.commons.core.security.CustomParameterNames;
+import cn.elvea.platform.commons.security.CustomAuthorizationGrantType;
+import cn.elvea.platform.commons.security.CustomParameterNames;
 import cn.elvea.platform.security.CustomAuthenticationToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

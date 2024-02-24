@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.mall.api.impl;
 
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.mall.api.PayApi;
 import cn.elvea.platform.system.mall.model.converter.PayTypeConverter;
 import cn.elvea.platform.system.mall.model.entity.PayTypeEntity;

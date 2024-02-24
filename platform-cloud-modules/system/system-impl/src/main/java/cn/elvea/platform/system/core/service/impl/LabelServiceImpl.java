@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.service.impl;
 
-import cn.elvea.platform.commons.core.data.mybatis.service.BaseEntityService;
+import cn.elvea.platform.commons.data.mybatis.service.BaseEntityService;
 import cn.elvea.platform.system.core.mapper.LangLabelMapper;
 import cn.elvea.platform.system.core.model.entity.LabelEntity;
 import cn.elvea.platform.system.core.service.LabelService;

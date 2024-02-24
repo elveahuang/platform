@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.log.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.data.jpa.service.BaseEntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseEntityService;
 import cn.elvea.platform.system.log.model.entity.OperationLogEntity;
 import cn.elvea.platform.system.log.repository.OperationLogRepository;
 import cn.elvea.platform.system.log.service.OperationLogService;

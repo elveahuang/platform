@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.message.sender;
 
-import cn.elvea.platform.commons.core.oapis.sms.SmsBody;
-import cn.elvea.platform.commons.core.oapis.sms.SmsSender;
-import cn.elvea.platform.commons.core.utils.ExceptionUtils;
+import cn.elvea.platform.commons.oapis.sms.SmsBody;
+import cn.elvea.platform.commons.oapis.sms.SmsSender;
+import cn.elvea.platform.commons.utils.ExceptionUtils;
 import cn.elvea.platform.system.message.model.dto.SendMessageDto;
 import cn.elvea.platform.system.message.service.MessageContentService;
 import lombok.extern.slf4j.Slf4j;

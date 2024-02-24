@@ -1,11 +1,11 @@
 package cn.elvea.platform.system.core.web.app;
 
-import cn.elvea.platform.commons.core.annotations.Anonymous;
-import cn.elvea.platform.commons.core.annotations.Authenticated;
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.annotations.RateLimiter;
-import cn.elvea.platform.commons.core.utils.SecurityUtils;
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.annotations.Anonymous;
+import cn.elvea.platform.commons.annotations.Authenticated;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.annotations.RateLimiter;
+import cn.elvea.platform.commons.utils.SecurityUtils;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserForgotPasswordDto;
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static cn.elvea.platform.commons.core.enums.RateLimitTypeEnum.IP;
+import static cn.elvea.platform.commons.enums.RateLimitTypeEnum.IP;
 import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.*;
 
 /**

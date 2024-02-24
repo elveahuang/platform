@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.service;
 
 import cn.elvea.platform.BaseTests;
-import cn.elvea.platform.commons.core.cache.CacheKey;
-import cn.elvea.platform.commons.core.sequence.Sequence;
+import cn.elvea.platform.commons.cache.CacheKey;
+import cn.elvea.platform.commons.sequence.Sequence;
 import cn.elvea.platform.system.core.model.entity.UserEntity;
 import cn.elvea.platform.system.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;

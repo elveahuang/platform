@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.security.model.dto;
 
-import cn.elvea.platform.commons.core.annotations.DateTimeFormat;
-import cn.elvea.platform.commons.core.annotations.JsonFormat;
-import cn.elvea.platform.commons.core.constants.DateTimeConstants;
+import cn.elvea.platform.commons.annotations.DateTimeFormat;
+import cn.elvea.platform.commons.annotations.JsonFormat;
+import cn.elvea.platform.commons.constants.DateTimeConstants;
 import lombok.*;
 import lombok.experimental.Accessors;
 

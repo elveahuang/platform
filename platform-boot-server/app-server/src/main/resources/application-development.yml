@@ -69,6 +69,11 @@ spring:
     quartz:
         scheduler-name: QuartzScheduler
         job-store-type: jdbc
+    jpa:
+        show-sql: true
+    ai:
+        openai:
+            api-key: 123456
 ### --------------------------------------------------------------------------------------------------------------------
 ### Spring Extension Config
 ### --------------------------------------------------------------------------------------------------------------------
@@ -102,6 +107,7 @@ platform:
         main: http://127.0.0.1:8084
     data:
         core:
+            enabled: true
             jdbc:
                 enabled: true
             auditing:

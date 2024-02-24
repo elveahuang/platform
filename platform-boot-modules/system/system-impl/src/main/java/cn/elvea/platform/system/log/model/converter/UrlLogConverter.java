@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.log.model.converter;
 
-import cn.elvea.platform.commons.core.logging.domain.UrlLogDto;
+import cn.elvea.platform.commons.logging.domain.UrlLogDto;
 import cn.elvea.platform.system.log.model.entity.UrlLogEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

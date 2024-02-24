@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.link.web;
 
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.commons.constants.SystemMappingConstants;
 import cn.elvea.platform.system.link.model.dto.LinkDto;
 import cn.elvea.platform.system.link.service.LinkService;

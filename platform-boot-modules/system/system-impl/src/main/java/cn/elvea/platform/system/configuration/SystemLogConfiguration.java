@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.configuration;
 
-import cn.elvea.platform.commons.core.logging.store.LogStore;
+import cn.elvea.platform.commons.logging.store.LogStore;
 import cn.elvea.platform.system.commons.interceptor.LogInterceptor;
 import cn.elvea.platform.system.log.api.LogApi;
 import lombok.extern.slf4j.Slf4j;

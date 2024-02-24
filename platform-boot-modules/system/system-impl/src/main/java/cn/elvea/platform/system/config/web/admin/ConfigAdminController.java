@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.config.web.admin;
 
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RestController;
 

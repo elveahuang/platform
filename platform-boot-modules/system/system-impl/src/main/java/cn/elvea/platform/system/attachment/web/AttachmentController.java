@@ -1,14 +1,14 @@
 package cn.elvea.platform.system.attachment.web;
 
-import cn.elvea.platform.commons.core.annotations.Authenticated;
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.enums.ResponseCodeEnum;
-import cn.elvea.platform.commons.core.exception.ServiceException;
-import cn.elvea.platform.commons.core.storage.Storage;
-import cn.elvea.platform.commons.core.storage.domain.FileObject;
-import cn.elvea.platform.commons.core.utils.StringUtils;
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.annotations.Authenticated;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.enums.ResponseCodeEnum;
+import cn.elvea.platform.commons.exception.ServiceException;
+import cn.elvea.platform.commons.storage.Storage;
+import cn.elvea.platform.commons.storage.domain.FileObject;
+import cn.elvea.platform.commons.utils.StringUtils;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.attachment.api.AttachmentApi;
 import cn.elvea.platform.system.attachment.model.AttachmentFile;
 import cn.elvea.platform.system.attachment.model.AttachmentParameter;
@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
 
-import static cn.elvea.platform.commons.core.constants.AttachmentConstants.DEFAULT_EDITOR_EXT;
+import static cn.elvea.platform.commons.constants.AttachmentConstants.DEFAULT_EDITOR_EXT;
 import static cn.elvea.platform.system.commons.constants.SystemMappingConstants.*;
 
 /**

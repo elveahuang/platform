@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.log.model.entity;
 
-import cn.elvea.platform.commons.core.data.jpa.domain.SimpleEntity;
+import cn.elvea.platform.commons.data.jpa.domain.SimpleEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;

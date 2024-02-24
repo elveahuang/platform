@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.dict.service;
 
-import cn.elvea.platform.commons.core.data.core.utils.JdbcUtils;
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.data.core.utils.JdbcUtils;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.StringUtils;
 import cn.elvea.platform.system.dict.model.entity.DictItemEntity;
 import cn.elvea.platform.system.dict.model.entity.DictItemEntity_;
 import cn.elvea.platform.system.dict.model.entity.DictRelationEntity;

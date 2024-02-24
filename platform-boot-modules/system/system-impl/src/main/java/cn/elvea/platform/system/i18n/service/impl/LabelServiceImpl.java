@@ -1,16 +1,16 @@
 package cn.elvea.platform.system.i18n.service.impl;
 
-import cn.elvea.platform.commons.core.constants.GlobalConstants;
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.enums.LangTypeEnum;
-import cn.elvea.platform.commons.core.oapis.translator.Translator;
-import cn.elvea.platform.commons.core.oapis.translator.TranslatorManager;
-import cn.elvea.platform.commons.core.sequence.Sequence;
-import cn.elvea.platform.commons.core.storage.Storage;
-import cn.elvea.platform.commons.core.storage.StorageService;
-import cn.elvea.platform.commons.core.storage.StorageUtils;
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.constants.GlobalConstants;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.enums.LangTypeEnum;
+import cn.elvea.platform.commons.oapis.translator.Translator;
+import cn.elvea.platform.commons.oapis.translator.TranslatorManager;
+import cn.elvea.platform.commons.sequence.Sequence;
+import cn.elvea.platform.commons.storage.Storage;
+import cn.elvea.platform.commons.storage.StorageService;
+import cn.elvea.platform.commons.storage.StorageUtils;
+import cn.elvea.platform.commons.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.StringUtils;
 import cn.elvea.platform.system.i18n.enums.LabelTypeEnum;
 import cn.elvea.platform.system.i18n.model.entity.LabelEntity;
 import cn.elvea.platform.system.i18n.repository.LabelRepository;

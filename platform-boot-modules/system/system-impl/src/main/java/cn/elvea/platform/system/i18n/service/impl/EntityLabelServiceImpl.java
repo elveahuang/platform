@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.i18n.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.system.i18n.model.entity.EntityLabelEntity;
 import cn.elvea.platform.system.i18n.repository.EntityLabelRepository;
 import cn.elvea.platform.system.i18n.service.EntityLabelService;

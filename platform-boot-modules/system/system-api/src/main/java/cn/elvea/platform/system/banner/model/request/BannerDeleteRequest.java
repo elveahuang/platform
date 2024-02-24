@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.banner.model.request;
 
-import cn.elvea.platform.commons.core.web.request.Request;
+import cn.elvea.platform.commons.web.request.Request;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.*;

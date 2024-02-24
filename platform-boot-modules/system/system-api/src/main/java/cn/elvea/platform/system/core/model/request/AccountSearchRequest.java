@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.model.request;
 
-import cn.elvea.platform.commons.core.web.request.PageRequest;
+import cn.elvea.platform.commons.web.request.PageRequest;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

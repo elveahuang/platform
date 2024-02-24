@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.catalog.service;
 
-import cn.elvea.platform.commons.core.service.EntityService;
+import cn.elvea.platform.commons.service.EntityService;
 import cn.elvea.platform.system.catalog.model.entity.CatalogTypeEntity;
 
 /**

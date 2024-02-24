@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.core.service.impl;
 
-import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.data.mybatis.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.core.cache.UserRoleCacheKeyGenerator;
 import cn.elvea.platform.system.core.mapper.UserRoleMapper;
 import cn.elvea.platform.system.core.model.dto.UserRoleSaveDto;

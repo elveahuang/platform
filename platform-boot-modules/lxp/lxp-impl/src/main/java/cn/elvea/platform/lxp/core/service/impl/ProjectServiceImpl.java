@@ -1,8 +1,8 @@
 package cn.elvea.platform.lxp.core.service.impl;
 
-import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
-import cn.elvea.platform.commons.core.cache.SimpleCacheKeyGenerator;
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.cache.CacheKeyGenerator;
+import cn.elvea.platform.commons.cache.SimpleCacheKeyGenerator;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.lxp.commons.constants.LxpCacheConstants;
 import cn.elvea.platform.lxp.core.model.entity.ProjectEntity;
 import cn.elvea.platform.lxp.core.repository.ProjectRepository;

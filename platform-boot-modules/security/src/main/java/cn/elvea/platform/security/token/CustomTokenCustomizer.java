@@ -1,7 +1,7 @@
 package cn.elvea.platform.security.token;
 
-import cn.elvea.platform.commons.core.constants.SecurityConstants;
-import cn.elvea.platform.commons.core.security.user.User;
+import cn.elvea.platform.commons.constants.SecurityConstants;
+import cn.elvea.platform.commons.security.user.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;

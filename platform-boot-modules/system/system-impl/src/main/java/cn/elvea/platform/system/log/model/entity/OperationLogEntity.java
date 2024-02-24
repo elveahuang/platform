@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.log.model.entity;
 
-import cn.elvea.platform.commons.core.annotations.DateTimeFormat;
-import cn.elvea.platform.commons.core.annotations.JsonFormat;
-import cn.elvea.platform.commons.core.constants.DateTimeConstants;
-import cn.elvea.platform.commons.core.data.jpa.domain.SimpleEntity;
+import cn.elvea.platform.commons.annotations.DateTimeFormat;
+import cn.elvea.platform.commons.annotations.JsonFormat;
+import cn.elvea.platform.commons.constants.DateTimeConstants;
+import cn.elvea.platform.commons.data.jpa.domain.SimpleEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;

@@ -25,14 +25,15 @@ allprojects {
 
     repositories {
         maven { url = uri("https://mirrors.cloud.tencent.com/nexus/repository/maven-public") }
-        mavenLocal()
-        mavenCentral()
-        gradlePluginPortal()
+        maven { url = uri("https://repo.spring.io/milestone") }
         maven { url = uri("https://maven.aliyun.com/repository/public") }
         maven { url = uri("https://maven.aliyun.com/repository/spring") }
         maven { url = uri("https://maven.aliyun.com/repository/google") }
         maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
         maven { url = uri("https://maven.aliyun.com/repository/spring-plugin") }
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
     }
 
     configure<JavaPluginExtension> {
@@ -57,7 +58,8 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.2")
+            mavenBom("org.springframework.ai:spring-ai-bom:0.8.0")
+            mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.3")
             mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.3")
             mavenBom("org.springframework.shell:spring-shell-dependencies:3.2.1")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")

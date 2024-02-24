@@ -1,6 +1,6 @@
 package cn.elvea.platform.auth;
 
-import cn.elvea.platform.commons.core.constants.GlobalConstants;
+import cn.elvea.platform.commons.constants.GlobalConstants;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.api.UserSessionApi;
 import cn.elvea.platform.system.security.api.AuthorizationApi;

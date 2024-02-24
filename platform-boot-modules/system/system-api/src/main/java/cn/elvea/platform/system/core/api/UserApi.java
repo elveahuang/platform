@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.api;
 
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.core.model.dto.UserForgotPasswordDto;
 import cn.elvea.platform.system.core.model.dto.UserInfoDto;
 import cn.elvea.platform.system.core.model.dto.UserLoginInfoDto;

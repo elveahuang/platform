@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.api;
 
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.core.model.dto.UserSessionDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;

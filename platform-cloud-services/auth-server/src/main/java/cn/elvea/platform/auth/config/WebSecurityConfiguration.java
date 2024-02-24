@@ -1,6 +1,6 @@
 package cn.elvea.platform.auth.config;
 
-import cn.elvea.platform.commons.core.context.Context;
+import cn.elvea.platform.commons.context.Context;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static cn.elvea.platform.commons.core.constants.SecurityConstants.*;
+import static cn.elvea.platform.commons.constants.SecurityConstants.*;
 
 /**
  * @author elvea

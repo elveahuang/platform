@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.security.api;
 
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.security.model.dto.AuthorizationConsentDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;

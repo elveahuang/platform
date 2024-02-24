@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.log.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseEntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseEntityService;
 import cn.elvea.platform.system.log.model.entity.UrlLogEntity;
 import cn.elvea.platform.system.log.repository.UrlLogRepository;
 import cn.elvea.platform.system.log.service.UrlLogService;

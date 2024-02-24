@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.tag.api;
 
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.tag.model.converter.TagConverter;
 import cn.elvea.platform.system.tag.model.entity.TagEntity;
 import cn.elvea.platform.system.tag.model.form.TagForm;

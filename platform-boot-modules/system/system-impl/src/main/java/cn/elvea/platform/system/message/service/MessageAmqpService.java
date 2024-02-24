@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.message.service;
 
-import cn.elvea.platform.commons.core.message.amqp.AmqpService;
+import cn.elvea.platform.commons.message.amqp.AmqpService;
 import cn.elvea.platform.system.message.model.dto.SendMessageAmqpDto;
 
 /**

@@ -1,6 +1,6 @@
 package cn.elvea.platform.configuration;
 
-import cn.elvea.platform.commons.core.utils.JacksonUtils;
+import cn.elvea.platform.commons.utils.JacksonUtils;
 import cn.elvea.platform.security.annotations.EnableCustomSecurity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +17,8 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static cn.elvea.platform.commons.core.constants.SecurityConstants.*;
-import static cn.elvea.platform.commons.core.storage.domain.FileParameter.withDefault;
+import static cn.elvea.platform.commons.constants.SecurityConstants.*;
+import static cn.elvea.platform.commons.storage.domain.FileParameter.withDefault;
 
 /**
  * @author elvea

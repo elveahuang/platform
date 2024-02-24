@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.message.model.entity;
 
-import cn.elvea.platform.commons.core.data.jpa.domain.BaseEntity;
+import cn.elvea.platform.commons.data.jpa.domain.BaseEntity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.Entity;

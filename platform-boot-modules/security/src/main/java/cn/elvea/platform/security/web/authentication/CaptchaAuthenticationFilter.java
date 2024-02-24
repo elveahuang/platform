@@ -1,11 +1,11 @@
 package cn.elvea.platform.security.web.authentication;
 
-import cn.elvea.platform.commons.core.enums.CaptchaTypeEnum;
-import cn.elvea.platform.commons.core.exception.InvalidCaptchaException;
-import cn.elvea.platform.commons.core.extensions.captcha.request.CaptchaCheckRequest;
-import cn.elvea.platform.commons.core.security.CustomAuthorizationGrantType;
-import cn.elvea.platform.commons.core.security.CustomParameterNames;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.enums.CaptchaTypeEnum;
+import cn.elvea.platform.commons.exception.InvalidCaptchaException;
+import cn.elvea.platform.commons.extensions.captcha.request.CaptchaCheckRequest;
+import cn.elvea.platform.commons.security.CustomAuthorizationGrantType;
+import cn.elvea.platform.commons.security.CustomParameterNames;
+import cn.elvea.platform.commons.utils.StringUtils;
 import cn.elvea.platform.system.commons.api.CaptchaApi;
 import cn.elvea.platform.system.config.api.ConfigApi;
 import jakarta.servlet.FilterChain;
@@ -23,7 +23,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static cn.elvea.platform.commons.core.constants.SecurityConstants.OAUTH_TOKEN_ENDPOINT;
+import static cn.elvea.platform.commons.constants.SecurityConstants.OAUTH_TOKEN_ENDPOINT;
 import static cn.elvea.platform.system.commons.constants.SystemConfigConstants.LOGIN_CAPTCHA_ENABLED;
 
 /**

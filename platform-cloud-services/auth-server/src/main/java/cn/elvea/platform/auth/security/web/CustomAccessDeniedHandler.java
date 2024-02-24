@@ -1,7 +1,7 @@
 package cn.elvea.platform.auth.security.web;
 
-import cn.elvea.platform.commons.core.utils.ServletUtils;
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.utils.ServletUtils;
+import cn.elvea.platform.commons.web.R;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.AccessDeniedException;

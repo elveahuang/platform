@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.catalog.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.system.catalog.model.entity.CatalogTypeEntity;
 import cn.elvea.platform.system.catalog.repository.CatalogTypeRepository;
 import cn.elvea.platform.system.catalog.service.CatalogTypeService;

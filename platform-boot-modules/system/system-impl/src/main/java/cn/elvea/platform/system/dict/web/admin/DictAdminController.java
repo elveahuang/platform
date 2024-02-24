@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.dict.web.admin;
 
-import cn.elvea.platform.commons.core.annotations.Authenticated;
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.annotations.Authenticated;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.dict.api.DictApi;
 import cn.elvea.platform.system.dict.model.entity.DictItemEntity;
 import cn.elvea.platform.system.dict.model.form.DictForm;

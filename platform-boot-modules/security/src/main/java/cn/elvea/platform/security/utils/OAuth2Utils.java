@@ -1,8 +1,8 @@
 package cn.elvea.platform.security.utils;
 
-import cn.elvea.platform.commons.core.security.jackson.LongMixin;
-import cn.elvea.platform.commons.core.security.jackson.UserMixin;
-import cn.elvea.platform.commons.core.security.user.User;
+import cn.elvea.platform.commons.security.jackson.LongMixin;
+import cn.elvea.platform.commons.security.jackson.UserMixin;
+import cn.elvea.platform.commons.security.user.User;
 import cn.elvea.platform.system.security.model.dto.ClientDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

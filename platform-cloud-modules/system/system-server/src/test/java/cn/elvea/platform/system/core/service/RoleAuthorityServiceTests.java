@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.service;
 
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.BaseTests;
 import cn.elvea.platform.system.core.model.dto.RoleAuthoritySaveDto;
 import cn.elvea.platform.system.core.model.entity.RoleAuthorityEntity;

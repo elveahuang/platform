@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.catalog.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
 import cn.elvea.platform.system.catalog.model.dto.CatalogRelationSaveDto;
 import cn.elvea.platform.system.catalog.model.entity.CatalogRelationEntity;
 

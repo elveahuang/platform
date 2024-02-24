@@ -1,6 +1,6 @@
 package cn.elvea.platform.auth.web.controller;
 
-import cn.elvea.platform.commons.core.annotations.OperationLog;
+import cn.elvea.platform.commons.annotations.OperationLog;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.stereotype.Controller;

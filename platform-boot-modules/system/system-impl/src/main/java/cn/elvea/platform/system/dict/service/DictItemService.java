@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.dict.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
 import cn.elvea.platform.system.dict.model.entity.DictItemEntity;
 import cn.elvea.platform.system.dict.model.request.DictRelationRequest;
 import cn.elvea.platform.system.dict.model.request.DictSearchRequest;

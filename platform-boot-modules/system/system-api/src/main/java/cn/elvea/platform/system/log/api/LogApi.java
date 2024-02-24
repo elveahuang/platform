@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.log.api;
 
-import cn.elvea.platform.commons.core.extensions.captcha.domain.CaptchaLogDto;
-import cn.elvea.platform.commons.core.logging.domain.OperationLogDto;
-import cn.elvea.platform.commons.core.logging.domain.UrlLogDto;
+import cn.elvea.platform.commons.extensions.captcha.domain.CaptchaLogDto;
+import cn.elvea.platform.commons.logging.domain.OperationLogDto;
+import cn.elvea.platform.commons.logging.domain.UrlLogDto;
 
 /**
  * @author elvea

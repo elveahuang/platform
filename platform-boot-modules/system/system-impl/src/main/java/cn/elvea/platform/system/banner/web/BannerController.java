@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.banner.web;
 
-import cn.elvea.platform.commons.core.annotations.Anonymous;
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.annotations.Anonymous;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.banner.model.entity.BannerEntity;
 import cn.elvea.platform.system.banner.model.request.BannerSearchRequest;
 import cn.elvea.platform.system.banner.service.BannerService;

@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.security.api.impl;
 
-import cn.elvea.platform.commons.core.web.R;
+import cn.elvea.platform.commons.web.R;
 import cn.elvea.platform.system.security.api.AuthorizationApi;
 import cn.elvea.platform.system.security.model.converter.AuthorizationConverter;
 import cn.elvea.platform.system.security.model.dto.AuthorizationDto;

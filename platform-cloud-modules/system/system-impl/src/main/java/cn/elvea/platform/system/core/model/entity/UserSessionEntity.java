@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.model.entity;
 
-import cn.elvea.platform.commons.core.data.mybatis.domain.BaseEntity;
+import cn.elvea.platform.commons.data.mybatis.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

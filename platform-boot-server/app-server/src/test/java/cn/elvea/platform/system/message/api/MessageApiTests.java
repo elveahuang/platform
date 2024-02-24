@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.message.api;
 
 import cn.elvea.platform.BaseTests;
-import cn.elvea.platform.commons.core.constants.DateTimeConstants;
-import cn.elvea.platform.commons.core.utils.DateTimeUtils;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.constants.DateTimeConstants;
+import cn.elvea.platform.commons.utils.DateTimeUtils;
+import cn.elvea.platform.commons.utils.StringUtils;
 import cn.elvea.platform.system.commons.constants.SystemMessageConstants;
 import cn.elvea.platform.system.message.enums.MessageTemplateTypeEnum;
 import cn.elvea.platform.system.message.model.dto.CreateMessageDto;

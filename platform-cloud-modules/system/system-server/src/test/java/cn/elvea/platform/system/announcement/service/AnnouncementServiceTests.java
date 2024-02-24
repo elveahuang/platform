@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.announcement.service;
 
-import cn.elvea.platform.commons.core.sequence.Sequence;
-import cn.elvea.platform.commons.core.utils.StopWatchUtils;
+import cn.elvea.platform.commons.sequence.Sequence;
+import cn.elvea.platform.commons.utils.StopWatchUtils;
 import cn.elvea.platform.system.BaseTests;
 import cn.elvea.platform.system.announcement.domain.entity.AnnouncementEntity;
 import lombok.extern.slf4j.Slf4j;

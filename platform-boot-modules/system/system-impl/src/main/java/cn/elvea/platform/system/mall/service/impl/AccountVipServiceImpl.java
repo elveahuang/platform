@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.mall.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.system.commons.enums.ActiveTypeEnum;
 import cn.elvea.platform.system.mall.model.entity.AccountVipEntity;
 import cn.elvea.platform.system.mall.repository.AccountVipRepository;

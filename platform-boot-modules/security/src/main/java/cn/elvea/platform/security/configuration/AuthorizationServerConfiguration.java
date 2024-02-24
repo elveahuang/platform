@@ -34,7 +34,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import static cn.elvea.platform.commons.core.constants.SecurityConstants.*;
+import static cn.elvea.platform.commons.constants.SecurityConstants.*;
 
 /**
  * @author elvea

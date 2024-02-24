@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.message.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseEntityService;
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.data.jpa.service.BaseEntityService;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.message.enums.MessageStatusEnum;
 import cn.elvea.platform.system.message.model.entity.MessageEntity;
 import cn.elvea.platform.system.message.model.entity.MessageEntity_;

@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.model.entity;
 
-import cn.elvea.platform.commons.core.data.domain.IdEntity;
+import cn.elvea.platform.commons.data.domain.IdEntity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.tag.model.request;
 
-import cn.elvea.platform.commons.core.web.request.PageRequest;
+import cn.elvea.platform.commons.web.request.PageRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 

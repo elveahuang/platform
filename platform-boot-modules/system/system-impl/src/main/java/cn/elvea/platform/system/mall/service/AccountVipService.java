@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.mall.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
 import cn.elvea.platform.system.mall.model.entity.AccountVipEntity;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.attachment.repository;
 
-import cn.elvea.platform.commons.core.data.jpa.repository.BaseEntityRepository;
+import cn.elvea.platform.commons.data.jpa.repository.BaseEntityRepository;
 import cn.elvea.platform.system.attachment.model.entity.AttachmentRelationEntity;
 import org.springframework.stereotype.Repository;
 

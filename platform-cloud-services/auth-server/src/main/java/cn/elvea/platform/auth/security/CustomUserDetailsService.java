@@ -1,7 +1,7 @@
 package cn.elvea.platform.auth.security;
 
-import cn.elvea.platform.commons.core.security.user.User;
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
+import cn.elvea.platform.commons.security.user.User;
+import cn.elvea.platform.commons.utils.CollectionUtils;
 import cn.elvea.platform.system.core.api.UserApi;
 import cn.elvea.platform.system.core.model.dto.UserLoginDto;
 import com.google.common.collect.Sets;

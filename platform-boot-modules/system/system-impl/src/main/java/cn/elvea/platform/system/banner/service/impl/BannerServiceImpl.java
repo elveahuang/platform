@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.banner.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.service.EntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.service.EntityService;
 import cn.elvea.platform.system.attachment.api.AttachmentApi;
 import cn.elvea.platform.system.banner.model.entity.BannerEntity;
 import cn.elvea.platform.system.banner.model.form.BannerForm;

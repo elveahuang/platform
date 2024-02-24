@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.core.service.impl;
 
-import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.data.mybatis.service.BaseCachingEntityService;
 import cn.elvea.platform.system.core.mapper.DictionaryItemMapper;
 import cn.elvea.platform.system.core.model.entity.DictionaryItemEntity;
 import cn.elvea.platform.system.core.service.DictionaryItemService;

@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.mall.model.entity;
 
-import cn.elvea.platform.commons.core.annotations.DateTimeFormat;
-import cn.elvea.platform.commons.core.annotations.JsonFormat;
-import cn.elvea.platform.commons.core.constants.DateTimeConstants;
-import cn.elvea.platform.commons.core.data.jpa.domain.BaseEntity;
+import cn.elvea.platform.commons.annotations.DateTimeFormat;
+import cn.elvea.platform.commons.annotations.JsonFormat;
+import cn.elvea.platform.commons.constants.DateTimeConstants;
+import cn.elvea.platform.commons.data.jpa.domain.BaseEntity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.Entity;

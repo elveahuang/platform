@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.banner.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
 import cn.elvea.platform.system.banner.model.entity.BannerEntity;
 import cn.elvea.platform.system.banner.model.form.BannerForm;
 import cn.elvea.platform.system.banner.model.request.BannerSearchRequest;

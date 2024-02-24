@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.config.service;
 
-import cn.elvea.platform.commons.core.service.CachingEntityService;
+import cn.elvea.platform.commons.service.CachingEntityService;
 import cn.elvea.platform.system.config.model.entity.ConfigEntity;
 
 /**

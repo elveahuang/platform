@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.tag.service;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.CollectionUtils;
-import cn.elvea.platform.commons.core.utils.ObjectUtils;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.CollectionUtils;
+import cn.elvea.platform.commons.utils.ObjectUtils;
+import cn.elvea.platform.commons.utils.StringUtils;
 import cn.elvea.platform.system.tag.model.entity.TagRelationEntity;
 import cn.elvea.platform.system.tag.model.entity.TagRelationEntity_;
 import cn.elvea.platform.system.tag.model.request.TagRelationDeleteRequest;

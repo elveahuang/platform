@@ -1,9 +1,9 @@
 package cn.elvea.platform.system.core.service.impl;
 
-import cn.elvea.platform.commons.core.data.domain.IdEntity;
-import cn.elvea.platform.commons.core.data.mybatis.service.BaseCachingEntityService;
-import cn.elvea.platform.commons.core.utils.ObjectUtils;
-import cn.elvea.platform.commons.core.utils.StringUtils;
+import cn.elvea.platform.commons.data.domain.IdEntity;
+import cn.elvea.platform.commons.data.mybatis.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.utils.ObjectUtils;
+import cn.elvea.platform.commons.utils.StringUtils;
 import cn.elvea.platform.system.core.cache.UserCacheKeyGenerator;
 import cn.elvea.platform.system.core.mapper.UserMapper;
 import cn.elvea.platform.system.core.model.dto.*;

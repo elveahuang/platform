@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.link.enums;
 
-import cn.elvea.platform.commons.core.enums.BaseEnum;
+import cn.elvea.platform.commons.enums.BaseEnum;
 import cn.elvea.platform.system.link.provider.UserLinkProvider;
 import lombok.Getter;
 

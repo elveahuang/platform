@@ -21,6 +21,7 @@ dependencies {
     compileOnly("org.springframework.security:spring-security-oauth2-resource-server")
     compileOnly("org.springframework.amqp:spring-rabbit")
     compileOnly("org.springframework.kafka:spring-kafka")
+    compileOnly("org.springframework.ai:spring-ai-openai")
     // commons
     api("commons-io:commons-io")
     api("commons-codec:commons-codec")

@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.attachment.model.request;
 
-import cn.elvea.platform.commons.core.web.request.Request;
+import cn.elvea.platform.commons.web.request.Request;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;

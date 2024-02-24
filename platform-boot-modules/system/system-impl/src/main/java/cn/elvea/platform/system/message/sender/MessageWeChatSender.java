@@ -1,8 +1,8 @@
 package cn.elvea.platform.system.message.sender;
 
-import cn.elvea.platform.commons.core.oapis.weixin.service.WeiXinMpService;
-import cn.elvea.platform.commons.core.utils.ExceptionUtils;
-import cn.elvea.platform.commons.core.utils.GsonUtils;
+import cn.elvea.platform.commons.oapis.weixin.service.WeiXinMpService;
+import cn.elvea.platform.commons.utils.ExceptionUtils;
+import cn.elvea.platform.commons.utils.GsonUtils;
 import cn.elvea.platform.system.message.model.dto.SendMessageDto;
 import cn.elvea.platform.system.message.service.MessageContentService;
 import lombok.extern.slf4j.Slf4j;

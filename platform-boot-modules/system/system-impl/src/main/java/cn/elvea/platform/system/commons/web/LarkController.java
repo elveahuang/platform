@@ -1,10 +1,10 @@
 package cn.elvea.platform.system.commons.web;
 
-import cn.elvea.platform.commons.core.annotations.OperationLog;
-import cn.elvea.platform.commons.core.oapis.lark.bean.JsapiSignature;
-import cn.elvea.platform.commons.core.oapis.lark.service.LarkService;
-import cn.elvea.platform.commons.core.web.R;
-import cn.elvea.platform.commons.core.web.controller.AbstractController;
+import cn.elvea.platform.commons.annotations.OperationLog;
+import cn.elvea.platform.commons.oapis.lark.bean.JsapiSignature;
+import cn.elvea.platform.commons.oapis.lark.service.LarkService;
+import cn.elvea.platform.commons.web.R;
+import cn.elvea.platform.commons.web.controller.AbstractController;
 import cn.elvea.platform.system.commons.constants.SystemMappingConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

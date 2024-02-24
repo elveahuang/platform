@@ -1,6 +1,6 @@
 package cn.elvea.platform.configuration;
 
-import cn.elvea.platform.commons.core.constants.GlobalConstants;
+import cn.elvea.platform.commons.constants.GlobalConstants;
 import cn.elvea.platform.lxp.commons.constants.LxpConstants;
 import cn.elvea.platform.system.commons.constants.SystemConstants;
 import lombok.extern.slf4j.Slf4j;

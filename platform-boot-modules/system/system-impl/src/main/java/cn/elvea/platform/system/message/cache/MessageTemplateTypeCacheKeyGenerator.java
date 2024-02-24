@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.message.cache;
 
-import cn.elvea.platform.commons.core.cache.CacheKey;
-import cn.elvea.platform.commons.core.cache.CacheKeyGenerator;
+import cn.elvea.platform.commons.cache.CacheKey;
+import cn.elvea.platform.commons.cache.CacheKeyGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import static cn.elvea.platform.system.commons.constants.SystemCacheConstants.MESSAGE_TEMPLATE_TYPE;

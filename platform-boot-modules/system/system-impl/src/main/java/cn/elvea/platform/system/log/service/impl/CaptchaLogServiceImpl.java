@@ -1,6 +1,6 @@
 package cn.elvea.platform.system.log.service.impl;
 
-import cn.elvea.platform.commons.core.data.jpa.service.BaseCachingEntityService;
+import cn.elvea.platform.commons.data.jpa.service.BaseCachingEntityService;
 import cn.elvea.platform.system.log.model.entity.CaptchaLogEntity;
 import cn.elvea.platform.system.log.repository.CaptchaLogRepository;
 import cn.elvea.platform.system.log.service.CaptchaLogService;

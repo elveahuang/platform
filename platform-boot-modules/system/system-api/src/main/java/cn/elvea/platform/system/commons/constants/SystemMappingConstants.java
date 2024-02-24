@@ -1,7 +1,7 @@
 package cn.elvea.platform.system.commons.constants;
 
-import static cn.elvea.platform.commons.core.constants.MappingConstants.API_V1_ADMIN_URL_PREFIX;
-import static cn.elvea.platform.commons.core.constants.MappingConstants.API_V1_URL_PREFIX;
+import static cn.elvea.platform.commons.constants.MappingConstants.API_V1_ADMIN_URL_PREFIX;
+import static cn.elvea.platform.commons.constants.MappingConstants.API_V1_URL_PREFIX;
 
 /**
  * @author elvea
