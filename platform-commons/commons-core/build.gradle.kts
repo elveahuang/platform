@@ -21,7 +21,6 @@ dependencies {
     compileOnly("org.springframework.security:spring-security-oauth2-resource-server")
     compileOnly("org.springframework.amqp:spring-rabbit")
     compileOnly("org.springframework.kafka:spring-kafka")
-    compileOnly("org.springframework.ai:spring-ai-openai")
     // commons
     api("commons-io:commons-io")
     api("commons-codec:commons-codec")
@@ -44,6 +43,10 @@ dependencies {
     compileOnly("com.baomidou:mybatis-plus-core")
     compileOnly("com.baomidou:mybatis-plus-extension")
     compileOnly("com.github.jsqlparser:jsqlparser")
+    // ai
+    compileOnly("org.springframework.ai:spring-ai-openai")
+    compileOnly("com.alibaba:dashscope-sdk-java")
+    compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-hunyuan")
     // sdks
     compileOnly("io.minio:minio")
     compileOnly("com.github.binarywang:weixin-java-channel")
