@@ -102,9 +102,9 @@ allprojects {
             dependency("com.baomidou:mybatis-plus-boot-starter:3.5.5")
             dependency("org.apache.shardingsphere:shardingsphere-jdbc-core:5.4.1")
             dependency("com.github.jsqlparser:jsqlparser:4.6")
-            dependency("org.redisson:redisson:3.27.0")
-            dependency("org.redisson:redisson-spring-data-32:3.27.0")
-            dependency("org.redisson:redisson-spring-boot-starter:3.27.0")
+            dependency("org.redisson:redisson:3.27.1")
+            dependency("org.redisson:redisson-spring-data-32:3.27.1")
+            dependency("org.redisson:redisson-spring-boot-starter:3.27.1")
             // others
             dependency("com.nimbusds:nimbus-jose-jwt:9.37.3")
             dependency("com.nimbusds:oauth2-oidc-sdk:11.9.1")
@@ -185,6 +185,7 @@ allprojects {
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-iai:3.1.929")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-hunyuan:3.1.956")
             dependency("com.larksuite.oapi:oapi-sdk:2.1.5")
+            dependency("com.github.goodforgod:java-etherscan-api:2.1.0")
             // commons
             dependency("commons-io:commons-io:2.15.1")
             dependency("commons-cli:commons-cli:1.6.0")

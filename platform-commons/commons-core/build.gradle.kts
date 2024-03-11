@@ -68,6 +68,7 @@ dependencies {
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-tmt")
     compileOnly("com.tencentcloudapi:tencentcloud-sdk-java-iai")
     compileOnly("com.larksuite.oapi:oapi-sdk")
+    compileOnly("com.github.goodforgod:java-etherscan-api")
     // 3rd party
     api("com.github.spotbugs:spotbugs-annotations")
     api("io.swagger.core.v3:swagger-annotations")
