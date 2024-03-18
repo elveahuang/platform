@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.banner.web;
+package cn.elvea.platform.system.banner.web.app;
 
 import cn.elvea.platform.commons.annotations.Anonymous;
 import cn.elvea.platform.commons.annotations.OperationLog;

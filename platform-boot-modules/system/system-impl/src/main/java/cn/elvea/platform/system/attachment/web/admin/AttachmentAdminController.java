@@ -1,4 +1,4 @@
-package cn.elvea.platform.system.attachment.web;
+package cn.elvea.platform.system.attachment.web.admin;
 
 import cn.elvea.platform.commons.web.controller.AbstractController;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,5 +12,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Tag(name = "SystemAttachmentController", description = "附件管理控制器")
-public class SystemAttachmentController extends AbstractController {
+public class AttachmentAdminController extends AbstractController {
 }

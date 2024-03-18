@@ -11,7 +11,7 @@ plugins {
     id("com.google.osdetector") version "1.7.3" apply false
     id("org.hibernate.orm") version "6.4.4.Final" apply false
     id("org.springframework.boot") version "3.2.3" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.9.22" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.9.23" apply false
     id("org.graalvm.buildtools.native") version "0.10.1" apply false
 }
 
@@ -58,7 +58,7 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.ai:spring-ai-bom:0.8.0")
+            mavenBom("org.springframework.ai:spring-ai-bom:0.8.1")
             mavenBom("org.springframework.modulith:spring-modulith-bom:1.1.3")
             mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.3")
             mavenBom("org.springframework.shell:spring-shell-dependencies:3.2.2")
@@ -70,7 +70,7 @@ allprojects {
             mavenBom("cn.hutool:hutool-bom:5.8.26")
             mavenBom("me.ahoo.cosid:cosid-bom:2.6.6")
             mavenBom("org.mockito:mockito-bom:5.10.0")
-            mavenBom("org.jetbrains.kotlin:kotlin-bom:1.9.22")
+            mavenBom("org.jetbrains.kotlin:kotlin-bom:1.9.23")
         }
 
         dependencies {
@@ -102,9 +102,9 @@ allprojects {
             dependency("com.baomidou:mybatis-plus-boot-starter:3.5.5")
             dependency("org.apache.shardingsphere:shardingsphere-jdbc-core:5.4.1")
             dependency("com.github.jsqlparser:jsqlparser:4.6")
-            dependency("org.redisson:redisson:3.27.1")
-            dependency("org.redisson:redisson-spring-data-32:3.27.1")
-            dependency("org.redisson:redisson-spring-boot-starter:3.27.1")
+            dependency("org.redisson:redisson:3.27.2")
+            dependency("org.redisson:redisson-spring-data-32:3.27.2")
+            dependency("org.redisson:redisson-spring-boot-starter:3.27.2")
             // others
             dependency("com.nimbusds:nimbus-jose-jwt:9.37.3")
             dependency("com.nimbusds:oauth2-oidc-sdk:11.9.1")
