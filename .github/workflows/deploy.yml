@@ -29,5 +29,4 @@ jobs:
                     ssh_private_key: ${{ secrets.SERVER_KEY }}
                     local_path: 'platform-boot-server/app-server/build/libs/*'
                     remote_path: '/data/app/temp/app'
-                    delete_remote_files: true
                     args: "-o ConnectTimeout=5"
