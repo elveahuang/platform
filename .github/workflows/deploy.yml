@@ -21,3 +21,13 @@ jobs:
                     gradle -v
             -   name: Build with Gradle
                 run: ./gradlew clean bootJar
+            -   name: Deploy
+                uses: wlixcc/SFTP-Deploy-Action@v1
+                with:
+                    username: ${{ secrets.SERVER_USER }}
+                    server: ${{ secrets.SERVER_HOST }}
+                    ssh_private_key: ${{ secrets.SERVER_KEY }}
+                    local_path: 'platform-boot-server/app-server/build/libs/*'
+                    remote_path: '/data/app/temp/app'
+                    delete_remote_files: true
+                    args: "-o ConnectTimeout=5"
