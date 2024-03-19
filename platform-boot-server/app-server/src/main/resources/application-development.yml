@@ -73,7 +73,7 @@ spring:
         show-sql: true
     ai:
         openai:
-            api-key: 123456
+            api-key: xxx
 ### --------------------------------------------------------------------------------------------------------------------
 ### Spring Extension Config
 ### --------------------------------------------------------------------------------------------------------------------
@@ -105,6 +105,11 @@ platform:
         mobile: http://127.0.0.1:8082
         webapp: http://127.0.0.1:8083
         main: http://127.0.0.1:8084
+    jwt:
+        enabled: true
+        strategy: auto
+        public-key-value:
+        private-key-value:
     data:
         core:
             enabled: true
@@ -217,4 +222,4 @@ platform:
     coin:
         enabled: true
         etherscan:
-            api-key: J2NGKI2B3V3YBSAMA4XZFHFPXHA6B2BFEP
+            api-key:

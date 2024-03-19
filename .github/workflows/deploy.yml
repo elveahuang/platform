@@ -19,9 +19,9 @@ jobs:
                 run: |
                     java -version
                     gradle -v
-                    gradle -v
             -   name: Build with Gradle
-                run: ./gradlew clean bootJar
+                run: |
+                    ./gradlew clean bootJar
             -   name: Deploy
                 uses: wlixcc/SFTP-Deploy-Action@v1.2.4
                 with:
