@@ -31,7 +31,7 @@ jobs:
                     username: ${{ secrets.SERVER_USER }}
                     ssh_private_key: ${{ secrets.SERVER_KEY }}
                     local_path: 'platform-boot-server/app-server/build/libs/app.zip'
-                    remote_path: '/data/app/temp/deploy'
+                    remote_path: '/data/app/deploy'
                     sftpArgs: "-o ConnectTimeout=5"
             -   name: Executing Remote SSH Commands
                 uses: appleboy/ssh-action@v1.0.3
