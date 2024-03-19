@@ -22,12 +22,14 @@ jobs:
             -   name: Build with Gradle
                 run: |
                     ./gradlew clean bootJar
+                    cd ./platform-boot-server/app-server/build/libs
+                    zip -qr app.zip libs-external libs-internal app.jar
             -   name: Deploy
                 uses: wlixcc/SFTP-Deploy-Action@v1.2.4
                 with:
                     username: ${{ secrets.SERVER_USER }}
                     server: ${{ secrets.SERVER_HOST }}
                     ssh_private_key: ${{ secrets.SERVER_KEY }}
-                    local_path: 'platform-boot-server/app-server/build/libs/*'
+                    local_path: 'platform-boot-server/app-server/build/libs/app.zip'
                     remote_path: '/data/app/temp/app'
                     sftpArgs: "-o ConnectTimeout=5"
