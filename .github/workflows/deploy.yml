@@ -27,9 +27,17 @@ jobs:
             -   name: Deploy
                 uses: wlixcc/SFTP-Deploy-Action@v1.2.4
                 with:
-                    username: ${{ secrets.SERVER_USER }}
                     server: ${{ secrets.SERVER_HOST }}
+                    username: ${{ secrets.SERVER_USER }}
                     ssh_private_key: ${{ secrets.SERVER_KEY }}
                     local_path: 'platform-boot-server/app-server/build/libs/app.zip'
-                    remote_path: '/data/app/temp/app'
+                    remote_path: '/data/app/temp/deploy'
                     sftpArgs: "-o ConnectTimeout=5"
+            -   name: Executing Remote SSH Commands
+                uses: appleboy/ssh-action@v1.0.3
+                with:
+                    host: ${{ secrets.SERVER_HOST }}
+                    username: ${{ secrets.SERVER_USER }}
+                    key: ${{ secrets.SERVER_KEY }}
+                    script: |
+                        sh /data/app/tools/deploy-app.sh
