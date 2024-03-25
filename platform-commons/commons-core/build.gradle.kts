@@ -96,6 +96,8 @@ dependencies {
     compileOnly("org.apache.poi:poi-ooxml")
     compileOnly("org.apache.poi:poi-ooxml-lite")
     compileOnly("org.dom4j:dom4j")
+    compileOnly("org.apache.pdfbox:pdfbox")
+    compileOnly("org.dromara.x-easypdf:x-easypdf")
     // jakarta
     api("jakarta.annotation:jakarta.annotation-api")
     api("jakarta.validation:jakarta.validation-api")
