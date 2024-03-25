@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS `sys_account`;
 CREATE TABLE `sys_account`
 (
     `id`                   BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `uuid`                 VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '用户标识',
     `username`             VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '用户名',
     `name`                 VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '姓名',
     `display_name`         VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '昵称',
@@ -30,6 +31,8 @@ CREATE TABLE `sys_account`
     `password_error_at`    VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '最后一次输入错误密码的时间',
     `password_error_count` INT UNSIGNED     NOT NULL DEFAULT 0 COMMENT '输入错误密码的次数',
     `registration`         DATETIME         NOT NULL DEFAULT NOW() COMMENT '注册时间',
+    `invite_code`          VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '邀请码',
+    `invite_by`            BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '邀请人',
     `status`               TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态',
     `source`               TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '来源',
     `active`               TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
@@ -40,10 +43,13 @@ CREATE TABLE `sys_account`
     `deleted_by`           BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
     `deleted_at`           DATETIME         NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_account` PRIMARY KEY (`id`),
-    INDEX `ix_sys_account__active` (`active`),
+    INDEX `ix_sys_account__uuid` (`uuid`),
     INDEX `ix_sys_account__username` (`username`),
     INDEX `ix_sys_account__email` (`email`),
-    INDEX `ix_sys_account__mobile` (`mobile_country_code`, `mobile_number`)
+    INDEX `ix_sys_account__mobile` (`mobile_country_code`, `mobile_number`),
+    INDEX `ix_sys_account__invite_code` (`invite_code`),
+    INDEX `ix_sys_account__invite_by` (`invite_by`),
+    INDEX `ix_sys_account__active` (`active`)
 ) COMMENT '账号表';
 
 --
@@ -55,9 +61,10 @@ DROP TABLE IF EXISTS `sys_vip_type`;
 CREATE TABLE `sys_vip_type`
 (
     `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
-    `code`             VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '编号',
+    `code`             VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '唯一编号',
     `title`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '标题',
     `label`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '文本',
+    `privilege`        VARCHAR(1000)    NOT NULL DEFAULT '' COMMENT '特权',
     `description`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '备注',
     `default_ind`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否默认',
     `trial_ind`        TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否允许试用',
@@ -83,23 +90,25 @@ DROP TABLE IF EXISTS `sys_vip_item`;
 
 CREATE TABLE `sys_vip_item`
 (
-    `id`                    BIGINT UNSIGNED        NOT NULL DEFAULT 0 COMMENT 'ID',
-    `vip_type_id`           BIGINT UNSIGNED        NOT NULL DEFAULT 0 COMMENT '会员类型ID',
-    `code`                  VARCHAR(150)           NOT NULL DEFAULT '' COMMENT '编号',
-    `title`                 VARCHAR(150)           NOT NULL DEFAULT '' COMMENT '标题',
-    `label`                 VARCHAR(150)           NOT NULL DEFAULT '' COMMENT '文本',
-    `description`           VARCHAR(255)           NOT NULL DEFAULT '' COMMENT '备注',
-    `automatic_renewal_ind` TINYINT UNSIGNED       NOT NULL DEFAULT 0 COMMENT '是否自动续费',
-    `list_price`            NUMERIC(6, 2) UNSIGNED NOT NULL DEFAULT 0 COMMENT '划线价格',
-    `price`                 NUMERIC(6, 2) UNSIGNED NOT NULL DEFAULT 0 COMMENT '价格',
-    `status`                TINYINT UNSIGNED       NOT NULL DEFAULT 1 COMMENT '发布状态',
-    `active`                TINYINT UNSIGNED       NOT NULL DEFAULT 1 COMMENT '启用状态',
-    `created_by`            BIGINT UNSIGNED        NOT NULL DEFAULT 0 COMMENT '创建人',
-    `created_at`            DATETIME               NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    `last_modified_by`      BIGINT UNSIGNED        NOT NULL DEFAULT 0 COMMENT '最后修改人',
-    `last_modified_at`      DATETIME               NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
-    `deleted_by`            BIGINT UNSIGNED        NOT NULL DEFAULT 0 COMMENT '删除人',
-    `deleted_at`            DATETIME               NULL COMMENT '删除时间',
+    `id`                    BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT 'ID',
+    `vip_type_id`           BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '会员类型ID',
+    `code`                  VARCHAR(150)            NOT NULL DEFAULT '' COMMENT '编号',
+    `title`                 VARCHAR(150)            NOT NULL DEFAULT '' COMMENT '标题',
+    `label`                 VARCHAR(150)            NOT NULL DEFAULT '' COMMENT '文本',
+    `description`           VARCHAR(255)            NOT NULL DEFAULT '' COMMENT '备注',
+    `automatic_renewal_ind` TINYINT UNSIGNED        NOT NULL DEFAULT 0 COMMENT '是否自动续费',
+    `list_price`            NUMERIC(10, 6) UNSIGNED NOT NULL DEFAULT 0 COMMENT '划线价格',
+    `price`                 NUMERIC(10, 6) UNSIGNED NOT NULL DEFAULT 0 COMMENT '价格',
+    `date_unit`             INT UNSIGNED            NOT NULL DEFAULT 0 COMMENT '单位',
+    `date_value`            INT UNSIGNED            NOT NULL DEFAULT 0 COMMENT '单位',
+    `status`                TINYINT UNSIGNED        NOT NULL DEFAULT 1 COMMENT '发布状态',
+    `active`                TINYINT UNSIGNED        NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`            BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`            DATETIME                NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `last_modified_by`      BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '最后修改人',
+    `last_modified_at`      DATETIME                NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
+    `deleted_by`            BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '删除人',
+    `deleted_at`            DATETIME                NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_vip_item` PRIMARY KEY (`id`),
     INDEX `ix_sys_vip_item__code` (`code`)
 ) COMMENT '会员套餐表';
@@ -169,7 +178,10 @@ CREATE TABLE `sys_pay_type`
     `code`             VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '编号',
     `title`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '名称',
     `label`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '文本',
-    `icon`             VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '图标',
+    `icon_name`        VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '图标',
+    `icon_color`       VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '图标颜色',
+    `coin_ind`         TINYINT          NOT NULL DEFAULT 0 COMMENT '是否是加密货币支付',
+    `wallet`           VARCHAR(1000)    NOT NULL DEFAULT '' COMMENT '钱包地址，仅对数字货币支付有效',
     `callback`         VARCHAR(1000)    NOT NULL DEFAULT '' COMMENT '回调服务类',
     `idx`              INT UNSIGNED     NOT NULL DEFAULT 999 COMMENT '序号',
     `description`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '备注',
@@ -204,6 +216,8 @@ CREATE TABLE `sys_order_type`
     `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
     `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
     `last_modified_by` BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '最后修改人',
+    `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
+    `deleted_at`       DATETIME         NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_order_type` PRIMARY KEY (`id`),
     INDEX `ix_sys_order_type__code` (`code`)
 ) COMMENT '订单类型表';
@@ -216,26 +230,25 @@ DROP TABLE IF EXISTS `sys_order`;
 
 CREATE TABLE `sys_order`
 (
-    `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
-    `user_id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '用户ID',
-    `order_type_id`    VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '订单类型ID',
-    `order_sn`         VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '订单编号',
-    `amount`           DECIMAL(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '订单金额',
-    `pay_amount`       DECIMAL(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '支付金额',
-    `discount`         DECIMAL(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '折扣金额',
-    `use_point`        INT              NOT NULL DEFAULT 0 COMMENT '积分数量',
-    `point_amount`     DECIMAL(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '积分金额',
-    `pay_type`         VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '支付方式',
-    `pay_time`         DATETIME                  DEFAULT NULL COMMENT '支付时间',
-    `pay_status`       VARCHAR(50)      NOT NULL DEFAULT '' COMMENT '支付状态',
-    `status`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态',
-    `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
-    `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
-    `created_at`       DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    `last_modified_by` BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '最后修改人',
-    `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
-    `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
-    `deleted_at`       DATETIME         NULL COMMENT '删除时间',
+    `id`               BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT 'ID',
+    `user_id`          BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '用户ID',
+    `order_type_id`    BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '订单类型ID',
+    `pay_type_id`      BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '支付类型ID',
+    `order_sn`         VARCHAR(50)             NOT NULL DEFAULT '' COMMENT '订单编号',
+    `total_amount`     NUMERIC(10, 6) UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单总金额',
+    `pay_amount`       NUMERIC(10, 6) UNSIGNED NOT NULL DEFAULT 0 COMMENT '支付金额',
+    `pay_type`         VARCHAR(50)             NOT NULL DEFAULT '' COMMENT '支付方式',
+    `pay_time`         DATETIME                         DEFAULT NULL COMMENT '支付时间',
+    `pay_status`       VARCHAR(50)             NOT NULL DEFAULT '' COMMENT '支付状态',
+    `status`           TINYINT UNSIGNED        NOT NULL DEFAULT 1 COMMENT '状态',
+    `source`           TINYINT UNSIGNED        NOT NULL DEFAULT 1 COMMENT '订单来源',
+    `active`           TINYINT UNSIGNED        NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`       BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`       DATETIME                NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `last_modified_by` BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '最后修改人',
+    `last_modified_at` DATETIME                NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
+    `deleted_by`       BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '删除人',
+    `deleted_at`       DATETIME                NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_order` PRIMARY KEY (`id`),
     INDEX `ix_sys_order__user_id` (`user_id`)
 ) COMMENT '订单表';
@@ -248,22 +261,23 @@ DROP TABLE IF EXISTS `sys_order_item`;
 
 CREATE TABLE `sys_order_item`
 (
-    `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
-    `user_id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '用户ID',
-    `order_id`         BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '订单ID',
-    `item_id`          BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '商品ID',
-    `price`            DECIMAL(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '总价格',
-    `quantity`         INT UNSIGNED     NOT NULL DEFAULT 0 COMMENT '数量',
-    `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
-    `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
-    `created_at`       DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    `last_modified_by` BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '最后修改人',
-    `last_modified_at` DATETIME         NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
-    `deleted_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
-    `deleted_at`       DATETIME         NULL COMMENT '删除时间',
+    `id`               BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT 'ID',
+    `user_id`          BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '用户ID',
+    `order_id`         BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '订单ID',
+    `item_id`          BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '商品ID',
+    `quantity`         INT UNSIGNED            NOT NULL DEFAULT 0 COMMENT '商品数量',
+    `price`            NUMERIC(10, 6) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品单价',
+    `total_amount`     NUMERIC(10, 6) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品总金额',
+    `active`           TINYINT UNSIGNED        NOT NULL DEFAULT 1 COMMENT '启用状态',
+    `created_by`       BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at`       DATETIME                NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    `last_modified_by` BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '最后修改人',
+    `last_modified_at` DATETIME                NOT NULL DEFAULT NOW() COMMENT '最后修改时间',
+    `deleted_by`       BIGINT UNSIGNED         NOT NULL DEFAULT 0 COMMENT '删除人',
+    `deleted_at`       DATETIME                NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_order_item` PRIMARY KEY (`id`),
-    INDEX `ix_sys_user_vip_order__order_id` (`order_id`),
-    INDEX `ix_sys_user_vip_order__user_id` (`user_id`)
+    INDEX `ix_sys_order_item__order_id` (`order_id`),
+    INDEX `ix_sys_order_item__user_id` (`user_id`)
 ) COMMENT '订单明细表';
 
 --
@@ -276,15 +290,17 @@ CREATE TABLE `sys_order_pay`
 (
     `id`               BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
     `order_id`         BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '订单ID',
-    `pay_sn`           VARCHAR(128)     NOT NULL DEFAULT '' COMMENT '支付流水号',
-    `pay_amount`       DECIMAL(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '应付总额(分)',
-    `pay_type`         TINYINT          NOT NULL DEFAULT 0 COMMENT '支付方式',
-    `pay_status`       TINYINT          NOT NULL DEFAULT 0 COMMENT '支付状态',
+    `pay_type_id`      BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '支付类型ID',
+    `pay_type`         VARCHAR(200)     NOT NULL DEFAULT '' COMMENT '支付方式',
+    `pay_sn`           VARCHAR(128)     NOT NULL DEFAULT '' COMMENT '支付流水号，加密货币支付时对应交易哈希',
+    `pay_address`      VARCHAR(200)     NOT NULL DEFAULT '' COMMENT '钱包地址，仅对加密货币支付有效',
+    `pay_amount`       DECIMAL(10, 6)   NOT NULL DEFAULT 0.00 COMMENT '应付总额',
+    `pay_status`       VARCHAR(100)     NOT NULL DEFAULT '' COMMENT '支付状态',
     `pay_time`         DATETIME         NULL     DEFAULT NULL COMMENT '支付时间',
-    `pay_subject`      varchar(200)     NOT NULL DEFAULT '' COMMENT '交易内容',
+    `pay_subject`      VARCHAR(200)     NOT NULL DEFAULT '' COMMENT '交易内容',
     `confirm_time`     DATETIME         NULL     DEFAULT NULL COMMENT '确认时间',
     `callback_time`    DATETIME         NULL     DEFAULT NULL COMMENT '回调时间',
-    `callback_content` varchar(500)     NOT NULL DEFAULT '' COMMENT '回调内容',
+    `callback_content` VARCHAR(500)     NOT NULL DEFAULT '' COMMENT '回调内容',
     `active`           TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
     `created_by`       BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建人',
     `created_at`       DATETIME         NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -294,8 +310,10 @@ CREATE TABLE `sys_order_pay`
     `deleted_at`       DATETIME         NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_order_pay` PRIMARY KEY (`id`),
     INDEX `ix_sys_order_pay__order_id` (`order_id`),
+    INDEX `ix_sys_order_pay__pay_type_id` (`pay_type_id`),
+    INDEX `ix_sys_order_pay__pay_type` (`pay_type`),
     INDEX `ix_sys_order_pay__pay_sn` (`pay_sn`)
-) COMMENT '订单日志表';
+) COMMENT '订单支付表';
 
 --
 -- 订单日志表
@@ -447,6 +465,7 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`
 (
     `id`                   BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT 'ID',
+    `uuid`                 VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '用户标识',
     `username`             VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '用户名',
     `name`                 VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '姓名',
     `display_name`         VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '昵称',
@@ -466,6 +485,8 @@ CREATE TABLE `sys_user`
     `password_error_at`    VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '最后一次输入错误密码的时间',
     `password_error_count` INT UNSIGNED     NOT NULL DEFAULT 0 COMMENT '输入错误密码的次数',
     `registration`         DATETIME         NOT NULL DEFAULT NOW() COMMENT '注册时间',
+    `invite_code`          VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '邀请码',
+    `invite_by`            BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '邀请人',
     `status`               TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态',
     `source`               TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '来源',
     `active`               TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '启用状态',
@@ -476,10 +497,13 @@ CREATE TABLE `sys_user`
     `deleted_by`           BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '删除人',
     `deleted_at`           DATETIME         NULL COMMENT '删除时间',
     CONSTRAINT `pk_sys_user` PRIMARY KEY (`id`),
-    INDEX `ix_sys_user__active` (`active`),
+    INDEX `ix_sys_user__uuid` (`uuid`),
     INDEX `ix_sys_user__username` (`username`),
     INDEX `ix_sys_user__email` (`email`),
-    INDEX `ix_sys_user__mobile` (`mobile_country_code`, `mobile_number`)
+    INDEX `ix_sys_user__mobile` (`mobile_country_code`, `mobile_number`),
+    INDEX `ix_sys_user__invite_code` (`invite_code`),
+    INDEX `ix_sys_user__invite_by` (`invite_by`),
+    INDEX `ix_sys_user__active` (`active`)
 ) COMMENT '用户表';
 
 --
@@ -580,7 +604,7 @@ CREATE TABLE `sys_user_session`
     `session_id`           VARCHAR(50)      NOT NULL DEFAULT '' COMMENT 'Session ID',
     `username`             VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '用户名',
     `host`                 VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '用户登录主机',
-    `ua`                   VARCHAR(255)     NOT NULL DEFAULT '' COMMENT 'User Agent',
+    `ua`                   VARCHAR(2000)    NOT NULL DEFAULT '' COMMENT 'User Agent',
     `client_id`            VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '客户端编号',
     `client_name`          VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '客户端名称',
     `client_version`       VARCHAR(150)     NOT NULL DEFAULT '' COMMENT '客户端版本',
@@ -1095,7 +1119,7 @@ CREATE TABLE `sys_operation_log`
     `class_name`            VARCHAR(250) COMMENT '类名',
     `method_name`           VARCHAR(250) COMMENT '方法名',
     `request_ip`            VARCHAR(250) COMMENT '请求IP',
-    `request_ua`            VARCHAR(250) COMMENT '请求UA',
+    `request_ua`            TEXT COMMENT '请求UA',
     `request_uri`           TEXT COMMENT '请求地址',
     `http_method`           VARCHAR(250) COMMENT '请求类型',
     `request_params`        TEXT COMMENT '请求参数',
@@ -1131,6 +1155,23 @@ CREATE TABLE `sys_captcha_log`
     `created_at`          DATETIME        NOT NULL DEFAULT NOW() COMMENT '创建时间',
     CONSTRAINT `pk_sys_captcha_log` PRIMARY KEY (`id`)
 ) COMMENT '验证码发送日志表';
+
+--
+-- 用户搜索日志表
+--
+
+DROP TABLE IF EXISTS `sys_search_log`;
+
+CREATE TABLE `sys_search_log`
+(
+    `id`         BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'ID',
+    `user_id`    BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+    `search_key` VARCHAR(150)    NOT NULL DEFAULT '' COMMENT '搜索关键字',
+    `created_by` BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
+    `created_at` DATETIME        NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    CONSTRAINT `pk_sys_search_log` PRIMARY KEY (`id`),
+    INDEX `ix_sys_search_log__user_id` (`user_id`)
+) COMMENT '用户搜索日志表';
 
 --
 -- 消息类型表
