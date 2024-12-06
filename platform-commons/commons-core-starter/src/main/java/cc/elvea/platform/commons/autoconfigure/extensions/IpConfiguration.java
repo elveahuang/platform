@@ -34,8 +34,9 @@ public class IpConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public GeoLite geoLite(IpProperties properties) {
-        log.info("Create geoLite...");
-
+        log.info("Create geoLite [{}]...", properties.getGeoLite().getPath());
+        System.out.println("Create geoLite.");
+        System.out.println(properties.getGeoLite().getPath());
         GeoLite geoLite = new GeoLite();
         if (StringUtils.isNotEmpty(properties.getGeoLite().getPath())) {
             Resource resource;

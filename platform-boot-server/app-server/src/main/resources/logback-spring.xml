@@ -126,7 +126,7 @@
     </springProfile>
 
     <!-- 生产环境 -->
-    <springProfile name="production">
+    <springProfile name="production | native">
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="DEBUG"/>
