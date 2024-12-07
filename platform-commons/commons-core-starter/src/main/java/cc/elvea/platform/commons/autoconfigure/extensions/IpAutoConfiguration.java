@@ -23,10 +23,10 @@ import org.springframework.core.io.Resource;
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({IpProperties.class})
 @ConditionalOnProperty(prefix = IpProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
-public class IpConfiguration {
+public class IpAutoConfiguration {
 
-    public IpConfiguration(IpProperties properties) {
-        log.info("IpConfiguration is enabled.");
+    public IpAutoConfiguration(IpProperties properties) {
+        log.info("IpAutoConfiguration is enabled.");
         log.info("GeoLite location - {}.", properties.getGeoLite().getLocation());
         log.info("GeoLite path - {}.", properties.getGeoLite().getPath());
     }

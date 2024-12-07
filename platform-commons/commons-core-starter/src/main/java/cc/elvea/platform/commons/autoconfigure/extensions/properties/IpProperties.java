@@ -1,8 +1,7 @@
 package cc.elvea.platform.commons.autoconfigure.extensions.properties;
 
-import cc.elvea.platform.commons.extensions.ip.LocationEnum;
+import cc.elvea.platform.commons.extensions.ip.GeoLiteConfig;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -23,17 +22,6 @@ public class IpProperties {
     private boolean enabled = false;
 
     @NestedConfigurationProperty
-    private GeoLite geoLite = GeoLite.builder().build();
-
-    @Data
-    @Builder
-    public static class GeoLite {
-        @Builder.Default
-        private boolean enabled = false;
-        @Builder.Default
-        private LocationEnum location = LocationEnum.CLASSPATH;
-        @Builder.Default
-        private String path = "";
-    }
+    private GeoLiteConfig geoLite = GeoLiteConfig.builder().build();
 
 }
