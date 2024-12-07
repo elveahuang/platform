@@ -100,10 +100,9 @@ allprojects {
             dependency("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
             dependency("org.mybatis.generator:mybatis-generator-core:1.4.2")
             dependency("com.github.jsqlparser:jsqlparser:5.0")
-            dependency("org.redisson:redisson:3.40.1")
-            dependency("org.redisson:redisson-spring-data-33:3.40.1")
-            dependency("org.redisson:redisson-spring-data-34:3.40.1")
-            dependency("org.redisson:redisson-spring-boot-starter:3.40.1")
+            dependency("org.redisson:redisson:3.40.0")
+            dependency("org.redisson:redisson-spring-data-33:3.40.0")
+            dependency("org.redisson:redisson-spring-boot-starter:3.40.0")
             dependency("org.apache.shardingsphere:shardingsphere-jdbc:5.5.1")
             // others
             dependency("com.nimbusds:nimbus-jose-jwt:9.47")

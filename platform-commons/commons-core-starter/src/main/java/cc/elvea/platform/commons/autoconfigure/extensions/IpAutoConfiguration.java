@@ -2,18 +2,26 @@ package cc.elvea.platform.commons.autoconfigure.extensions;
 
 import cc.elvea.platform.commons.autoconfigure.extensions.properties.IpProperties;
 import cc.elvea.platform.commons.extensions.ip.GeoLite;
+import cc.elvea.platform.commons.extensions.ip.GeoLiteConfig;
 import cc.elvea.platform.commons.extensions.ip.GlobalIpManager;
 import cc.elvea.platform.commons.extensions.ip.LocationEnum;
 import cc.elvea.platform.commons.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.aot.hint.MemberCategory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.aot.hint.TypeHint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+
+import java.util.function.Consumer;
 
 /**
  * @author elvea
@@ -23,6 +31,7 @@ import org.springframework.core.io.Resource;
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({IpProperties.class})
 @ConditionalOnProperty(prefix = IpProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ImportRuntimeHints({IpAutoConfiguration.IpRuntimeHints.class})
 public class IpAutoConfiguration {
 
     public IpAutoConfiguration(IpProperties properties) {
@@ -50,6 +59,17 @@ public class IpAutoConfiguration {
 
         GlobalIpManager.setGeoLite(geoLite);
         return geoLite;
+    }
+
+    static class IpRuntimeHints implements RuntimeHintsRegistrar {
+
+        private static final Consumer<TypeHint.Builder> INVOKE_DECLARED_CONSTRUCTORS = TypeHint.builtWith(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS);
+
+        @Override
+        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+            hints.reflection().registerType(GeoLiteConfig.class, INVOKE_DECLARED_CONSTRUCTORS);
+        }
+
     }
 
 }

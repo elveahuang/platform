@@ -13,7 +13,7 @@ public class GeoLiteConfig {
     @Builder.Default
     private boolean enabled = false;
     @Builder.Default
-    private LocationEnum location = LocationEnum.CLASSPATH;
+    private LocationEnum location = LocationEnum.FILE_SYSTEM;
     @Builder.Default
-    private String path = "";
+    private String path = "ip/GeoLite2-City.mmdb";
 }

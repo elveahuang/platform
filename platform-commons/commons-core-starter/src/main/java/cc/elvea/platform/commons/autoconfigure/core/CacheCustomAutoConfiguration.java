@@ -1,6 +1,7 @@
 package cc.elvea.platform.commons.autoconfigure.core;
 
 import cc.elvea.platform.commons.autoconfigure.core.properties.CacheCustomProperties;
+import cc.elvea.platform.commons.core.cache.NullValue;
 import cc.elvea.platform.commons.core.cache.aspect.RateLimitAspect;
 import cc.elvea.platform.commons.core.cache.service.CacheService;
 import cc.elvea.platform.commons.core.cache.service.RedissonCacheService;
@@ -12,6 +13,10 @@ import org.redisson.client.codec.Codec;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.spring.cache.RedissonSpringCacheManager;
 import org.redisson.spring.starter.RedissonAutoConfigurationCustomizer;
+import org.springframework.aot.hint.MemberCategory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.aot.hint.TypeHint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,7 +25,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.context.annotation.Primary;
+
+import java.util.function.Consumer;
 
 /**
  * @author elvea
@@ -31,6 +39,7 @@ import org.springframework.context.annotation.Primary;
 @ConditionalOnClass({RedissonClient.class})
 @EnableConfigurationProperties({CacheCustomProperties.class})
 @ConditionalOnProperty(prefix = CacheCustomProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ImportRuntimeHints(CacheCustomAutoConfiguration.CacheRuntimeHints.class)
 public class CacheCustomAutoConfiguration {
 
     public CacheCustomAutoConfiguration() {
@@ -85,6 +94,17 @@ public class CacheCustomAutoConfiguration {
     public RateLimitAspect rateLimitAspect(CacheService cacheService) {
         log.info("Creating RateLimitAspect...");
         return new RateLimitAspect(cacheService);
+    }
+
+    static class CacheRuntimeHints implements RuntimeHintsRegistrar {
+
+        private static final Consumer<TypeHint.Builder> INVOKE_DECLARED_CONSTRUCTORS = TypeHint.builtWith(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS);
+
+        @Override
+        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+            hints.reflection().registerType(NullValue.class, INVOKE_DECLARED_CONSTRUCTORS);
+        }
+
     }
 
 }
