@@ -3,6 +3,7 @@ package cc.elvea.platform.commons.autoconfigure.extensions.properties;
 import cc.elvea.platform.commons.extensions.ip.GeoLiteConfig;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
  * @author elvea
@@ -16,6 +17,7 @@ public class IpProperties {
 
     private boolean enabled = false;
 
+    @NestedConfigurationProperty
     private GeoLiteConfig geoLite = GeoLiteConfig.builder().build();
 
 }

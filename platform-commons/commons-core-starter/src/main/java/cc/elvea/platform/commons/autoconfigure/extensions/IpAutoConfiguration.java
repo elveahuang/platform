@@ -6,6 +6,10 @@ import cc.elvea.platform.commons.extensions.ip.GeoLiteConfig;
 import cc.elvea.platform.commons.extensions.ip.GlobalIpManager;
 import cc.elvea.platform.commons.extensions.ip.LocationEnum;
 import cc.elvea.platform.commons.utils.StringUtils;
+import com.maxmind.db.Metadata;
+import com.maxmind.db.Network;
+import com.maxmind.db.Networks;
+import com.maxmind.db.Reader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
@@ -68,6 +72,14 @@ public class IpAutoConfiguration {
         @Override
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
             hints.reflection().registerType(GeoLiteConfig.class, INVOKE_DECLARED_CONSTRUCTORS);
+
+            hints.reflection().registerType(Metadata.class, INVOKE_DECLARED_CONSTRUCTORS);
+            hints.reflection().registerType(Network.class, INVOKE_DECLARED_CONSTRUCTORS);
+            hints.reflection().registerType(Networks.class, INVOKE_DECLARED_CONSTRUCTORS);
+            hints.reflection().registerType(Reader.class, INVOKE_DECLARED_CONSTRUCTORS);
+
+            hints.resources().registerPattern("ip/GeoLite2-City.mmdb");
+            hints.resources().registerPattern("ip/GeoLite2-Country.mmdb");
         }
 
     }
