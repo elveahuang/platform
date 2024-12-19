@@ -73,11 +73,11 @@ dependencies {
     // jakarta
     api("jakarta.annotation:jakarta.annotation-api")
     api("jakarta.validation:jakarta.validation-api")
+    compileOnly("jakarta.mail:jakarta.mail-api")
+    compileOnly("jakarta.servlet:jakarta.servlet-api")
+    compileOnly("jakarta.websocket:jakarta.websocket-api")
     compileOnly("jakarta.persistence:jakarta.persistence-api")
     compileOnly("jakarta.transaction:jakarta.transaction-api")
-    compileOnly("jakarta.mail:jakarta.mail-api")
-    compileOnly("jakarta.websocket:jakarta.websocket-api")
-    compileOnly("jakarta.servlet:jakarta.servlet-api")
 }
 
 tasks.named<Jar>("jar") {

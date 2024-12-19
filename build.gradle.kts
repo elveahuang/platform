@@ -8,9 +8,9 @@ plugins {
     id("java")
     id("application")
     id("java-library")
-    id("io.spring.dependency-management") version "1.1.6"
+    id("io.spring.dependency-management") version "1.1.7"
     id("com.github.spotbugs") version "6.0.26" apply false
-    id("org.springframework.boot") version "3.3.6" apply false
+    id("org.springframework.boot") version "3.4.1" apply false
     id("org.jetbrains.kotlin.jvm") version "2.1.0" apply false
     id("org.graalvm.buildtools.native") version "0.10.4" apply false
 }
@@ -66,13 +66,13 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("de.codecentric:spring-boot-admin-dependencies:3.3.6")
+            mavenBom("de.codecentric:spring-boot-admin-dependencies:3.4.1")
             mavenBom("org.springframework.ai:spring-ai-bom:1.0.0-M4")
-            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.4")
-            mavenBom("org.springframework.boot:spring-boot-dependencies:3.3.6")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.0")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.1")
             mavenBom("cn.hutool:hutool-bom:5.8.34")
-            mavenBom("me.ahoo.cosid:cosid-bom:2.9.9")
-            mavenBom("org.mockito:mockito-bom:5.11.0")
+            mavenBom("me.ahoo.cosid:cosid-bom:2.10.1")
+            mavenBom("org.mockito:mockito-bom:5.14.2")
             mavenBom("io.netty:netty-bom:4.1.115.Final")
             mavenBom("org.apache.groovy:groovy-bom:4.0.24")
             mavenBom("com.baomidou:mybatis-plus-bom:3.5.9")
@@ -80,29 +80,29 @@ allprojects {
         }
         dependencies {
             // spring authorization server
-            dependency("org.springframework.security:spring-security-oauth2-authorization-server:1.4.0")
+            dependency("org.springframework.security:spring-security-oauth2-authorization-server:1.4.1")
             // mapstruct & lombok
             dependency("org.mapstruct:mapstruct:1.6.3")
             dependency("org.mapstruct:mapstruct-processor:1.6.3")
             dependency("org.projectlombok:lombok-mapstruct-binding:0.2.0")
             // openapi & swagger & springdoc
-            dependency("io.swagger.core.v3:swagger-core-jakarta:2.2.26")
-            dependency("io.swagger.core.v3:swagger-annotations:2.2.26")
-            dependency("io.swagger.core.v3:swagger-annotations-jakarta:2.2.26")
-            dependency("io.swagger.core.v3:swagger-models:2.2.26")
-            dependency("io.swagger.core.v3:swagger-models-jakarta:2.2.26")
-            dependency("org.springdoc:springdoc-openapi-starter-common:2.6.0")
-            dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
-            dependency("org.springdoc:springdoc-openapi-starter-webflux-ui:2.6.0")
+            dependency("io.swagger.core.v3:swagger-core-jakarta:2.2.27")
+            dependency("io.swagger.core.v3:swagger-annotations:2.2.27")
+            dependency("io.swagger.core.v3:swagger-annotations-jakarta:2.2.27")
+            dependency("io.swagger.core.v3:swagger-models:2.2.27")
+            dependency("io.swagger.core.v3:swagger-models-jakarta:2.2.27")
+            dependency("org.springdoc:springdoc-openapi-starter-common:2.7.0")
+            dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
+            dependency("org.springdoc:springdoc-openapi-starter-webflux-ui:2.7.0")
             // database & nosql
             dependency("org.mybatis:mybatis:3.5.17")
             dependency("org.mybatis:mybatis-spring:3.0.4")
             dependency("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
             dependency("org.mybatis.generator:mybatis-generator-core:1.4.2")
             dependency("com.github.jsqlparser:jsqlparser:5.0")
-            dependency("org.redisson:redisson:3.40.0")
-            dependency("org.redisson:redisson-spring-data-33:3.40.0")
-            dependency("org.redisson:redisson-spring-boot-starter:3.40.0")
+            dependency("org.redisson:redisson:3.40.2")
+            dependency("org.redisson:redisson-spring-data-34:3.40.2")
+            dependency("org.redisson:redisson-spring-boot-starter:3.40.2")
             dependency("org.apache.shardingsphere:shardingsphere-jdbc:5.5.1")
             // others
             dependency("com.nimbusds:nimbus-jose-jwt:9.47")
@@ -115,15 +115,14 @@ allprojects {
             dependency("com.maxmind.geoip2:geoip2:4.2.1")
             dependency("com.squareup.okio:okio:3.9.1")
             dependency("com.squareup.okhttp3:okhttp:4.12.0")
-            dependency("com.squareup.retrofit2:retrofit:2.11.0")
-            dependency("com.google.guava:guava:33.3.1-jre")
+            dependency("com.google.guava:guava:33.4.0-jre")
             dependency("com.github.oshi:oshi-core-java11:6.6.5")
             dependency("net.java.dev.jna:jna-platform:5.15.0")
             dependency("net.logstash.logback:logstash-logback-encoder:8.0")
-            dependency("com.google.protobuf:protobuf-java:4.29.0")
+            dependency("com.google.protobuf:protobuf-java:4.29.1")
             dependency("com.xuxueli:xxl-job-core:2.4.2")
-            dependency("net.bytebuddy:byte-buddy:1.15.10")
-            dependency("net.bytebuddy:byte-buddy-agent:1.15.10")
+            dependency("net.bytebuddy:byte-buddy:1.15.11")
+            dependency("net.bytebuddy:byte-buddy-agent:1.15.11")
             dependency("io.github.classgraph:classgraph:4.8.179")
             dependency("org.bouncycastle:bcpkix-jdk18on:1.79")
             dependency("org.bouncycastle:bcprov-jdk18on:1.79")
@@ -160,7 +159,7 @@ allprojects {
             dependency("org.jsoup:jsoup:1.18.3")
             // sdk
             dependency("io.minio:minio:8.5.14")
-            dependency("com.larksuite.oapi:oapi-sdk:2.4.0")
+            dependency("com.larksuite.oapi:oapi-sdk:2.4.4")
             dependency("com.github.binarywang:weixin-java-channel:4.6.0")
             dependency("com.github.binarywang:weixin-java-cp:4.6.0")
             dependency("com.github.binarywang:weixin-java-miniapp:4.6.0")
@@ -168,23 +167,23 @@ allprojects {
             dependency("com.github.binarywang:weixin-java-open:4.6.0")
             dependency("com.github.binarywang:weixin-java-pay:4.6.0")
             // sdk - aliyun
-            dependency("com.aliyun:dingtalk:2.1.72")
+            dependency("com.aliyun:dingtalk:2.1.78")
             dependency("com.aliyun:tea-openapi:0.3.6")
             dependency("com.aliyun:alimt20181012:1.3.1")
             dependency("com.aliyun:facebody20191230:5.1.2")
             dependency("com.aliyun:dysmsapi20170525:3.1.0")
             dependency("com.aliyun.oss:aliyun-sdk-oss:3.18.1")
-            dependency("com.alibaba:dashscope-sdk-java:2.16.9")
-            dependency("com.aliyun:aliyun-java-sdk-core:4.7.2")
-            dependency("com.alipay.sdk:alipay-sdk-java:4.39.282.ALL")
+            dependency("com.alibaba:dashscope-sdk-java:2.16.10")
+            dependency("com.aliyun:aliyun-java-sdk-core:4.7.3")
+            dependency("com.alipay.sdk:alipay-sdk-java:4.40.13.ALL")
             // sdk - tencent
-            dependency("com.qcloud:cos_api:5.6.238")
-            dependency("com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.1153")
+            dependency("com.qcloud:cos_api:5.6.238.2")
+            dependency("com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.1162")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.1138")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-sms:3.1.1135")
-            dependency("com.tencentcloudapi:tencentcloud-sdk-java-tmt:3.1.1104")
+            dependency("com.tencentcloudapi:tencentcloud-sdk-java-tmt:3.1.1156")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-iai:3.1.1147")
-            dependency("com.tencentcloudapi:tencentcloud-sdk-java-hunyuan:3.1.1152")
+            dependency("com.tencentcloudapi:tencentcloud-sdk-java-hunyuan:3.1.1162")
             // commons
             dependency("commons-io:commons-io:2.18.0")
             dependency("commons-cli:commons-cli:1.9.0")
@@ -194,7 +193,7 @@ allprojects {
             dependency("org.apache.commons:commons-pool2:2.12.0")
             dependency("org.apache.commons:commons-email:1.6.0")
             dependency("org.apache.commons:commons-csv:1.12.0")
-            dependency("org.apache.commons:commons-text:1.12.0")
+            dependency("org.apache.commons:commons-text:1.13.0")
             dependency("org.apache.commons:commons-lang3:3.17.0")
             dependency("org.apache.commons:commons-compress:1.27.1")
             dependency("org.apache.commons:commons-collections4:4.4")
@@ -237,7 +236,6 @@ allprojects {
         exclude(module = "bcpkix-jdk15on")
         exclude(module = "bcprov-jdk15on")
         exclude(module = "bcutil-jdk15on")
-        exclude(module = "redisson-spring-data-34")
         // shardingsphere
         exclude(module = "shardingsphere-test-util")
         exclude(module = "shardingsphere-infra-expr-groovy")
