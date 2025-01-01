@@ -35,26 +35,31 @@ public class LabelEntity extends BaseEntity {
     /**
      * 简体中文
      */
-    private String zhLabel;
-    private Boolean zhLabelStaticInd;
+    private String zhCnLabel;
+    private Boolean zhCnStaticInd;
     /**
      * 繁体中文
      */
     private String zhTwLabel;
-    private Boolean zhTwLabelStaticInd;
+    private Boolean zhTwStaticInd;
     /**
      * 英语
      */
     private String enLabel;
-    private Boolean enLabelStaticInd;
-    /**
-     * 法语
-     */
-    private String frLabel;
-    private Boolean frLabelStaticInd;
+    private Boolean enStaticInd;
     /**
      * 日语
      */
     private String jaLabel;
-    private Boolean jaLabelStaticInd;
+    private Boolean jaStaticInd;
+    /**
+     * 韩语
+     */
+    private String krLabel;
+    private Boolean krStaticInd;
+    /**
+     * 法语
+     */
+    private String frLabel;
+    private Boolean frStaticInd;
 }
