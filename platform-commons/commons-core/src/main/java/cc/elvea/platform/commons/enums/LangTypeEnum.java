@@ -18,8 +18,9 @@ public enum LangTypeEnum implements BaseEnum<String> {
     ZH_CN("zh_CN", "简体中文", Locale.CHINA, Lists.asList("zh_cn", new String[]{"zh"})),
     ZH_TW("zh_TW", "繁体中文", Locale.TAIWAN, Lists.asList("zh_tw", new String[]{"zh_mo", "zh_hk"})),
     EN("en", "美式英文", Locale.US, Lists.asList("en", new String[]{"en_us", "en_uk"})),
-    FR("fr", "法语", Locale.FRANCE, Lists.asList("fr", new String[]{"fr"})),
-    JA("ja", "日语", Locale.JAPAN, Lists.asList("ja", new String[]{"jp"}));
+    JA("ja", "日语", Locale.JAPAN, Lists.asList("ja", new String[]{"jp"})),
+    KR("kr", "韩语", Locale.KOREA, Lists.asList("kr", new String[]{"kr"})),
+    FR("fr", "法语", Locale.FRANCE, Lists.asList("fr", new String[]{"fr"}));
 
     private final String code;
     private final String description;

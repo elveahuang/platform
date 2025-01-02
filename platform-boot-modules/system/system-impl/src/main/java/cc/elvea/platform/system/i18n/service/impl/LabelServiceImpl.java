@@ -56,16 +56,19 @@ public class LabelServiceImpl extends BaseCachingEntityService<LabelEntity, Long
         List<LabelEntity> labelList = this.findAll();
         if (CollectionUtils.isNotEmpty(labelList)) {
             labelList.forEach((label) -> {
-                if (label.getZhTwLabelStaticInd() != null && !label.getZhTwLabelStaticInd()) {
-                    label.setZhTwLabel(translator.translate(LangTypeEnum.ZH_CN, LangTypeEnum.ZH_TW, label.getZhLabel()));
+                if (label.getZhTwStaticInd() != null && !label.getZhTwStaticInd()) {
+                    label.setZhTwLabel(translator.translate(LangTypeEnum.ZH_CN, LangTypeEnum.ZH_TW, label.getZhTwLabel()));
                 }
                 if (StringUtils.isEmpty(label.getEnLabel())) {
-                    label.setEnLabel(translator.translate(LangTypeEnum.ZH_CN, LangTypeEnum.EN, label.getZhLabel()));
+                    label.setEnLabel(translator.translate(LangTypeEnum.ZH_CN, LangTypeEnum.EN, label.getZhCnLabel()));
                 }
-                if (label.getFrLabelStaticInd() != null && !label.getFrLabelStaticInd()) {
+                if (label.getFrStaticInd() != null && !label.getFrStaticInd()) {
                     label.setFrLabel(translator.translate(LangTypeEnum.EN, LangTypeEnum.FR, label.getEnLabel()));
                 }
-                if (label.getJaLabelStaticInd() != null && !label.getJaLabelStaticInd()) {
+                if (label.getJaStaticInd() != null && !label.getJaStaticInd()) {
+                    label.setJaLabel(translator.translate(LangTypeEnum.EN, LangTypeEnum.JA, label.getEnLabel()));
+                }
+                if (label.getKrStaticInd() != null && !label.getKrStaticInd()) {
                     label.setJaLabel(translator.translate(LangTypeEnum.EN, LangTypeEnum.JA, label.getEnLabel()));
                 }
             });
@@ -85,10 +88,11 @@ public class LabelServiceImpl extends BaseCachingEntityService<LabelEntity, Long
         Arrays.stream(LangTypeEnum.values()).toList().forEach(langTypeEnum -> labelEntityList.forEach(labelEntity -> {
             labelMap.put(langTypeEnum, Maps.newHashMap());
             switch (langTypeEnum) {
-                case ZH_CN -> labelMap.get(langTypeEnum).put(labelEntity.getCode(), labelEntity.getZhLabel());
+                case ZH_CN -> labelMap.get(langTypeEnum).put(labelEntity.getCode(), labelEntity.getZhCnLabel());
                 case ZH_TW -> labelMap.get(langTypeEnum).put(labelEntity.getCode(), labelEntity.getZhTwLabel());
                 case EN -> labelMap.get(langTypeEnum).put(labelEntity.getCode(), labelEntity.getEnLabel());
                 case FR -> labelMap.get(langTypeEnum).put(labelEntity.getCode(), labelEntity.getFrLabel());
+                case KR -> labelMap.get(langTypeEnum).put(labelEntity.getCode(), labelEntity.getKrLabel());
                 case JA -> labelMap.get(langTypeEnum).put(labelEntity.getCode(), labelEntity.getJaLabel());
             }
         }));
@@ -124,7 +128,6 @@ public class LabelServiceImpl extends BaseCachingEntityService<LabelEntity, Long
                 storageService.uploadFile(tempFile);
             }
         }
-
     }
 
 }

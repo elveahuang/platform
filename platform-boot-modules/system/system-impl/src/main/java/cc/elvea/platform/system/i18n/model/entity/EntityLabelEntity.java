@@ -1,6 +1,8 @@
 package cc.elvea.platform.system.i18n.model.entity;
 
 import cc.elvea.platform.commons.data.jpa.domain.BaseEntity;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
@@ -25,17 +27,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class EntityLabelEntity extends BaseEntity {
     /**
+     * 语言ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long langId;
+    /**
+     * 语言编号
+     */
+    private String langCode;
+    /**
+     * 实体ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long entityId;
+    /**
      * 实体类名
      */
-    private String className;
+    private String entityClass;
     /**
      * 实体属性名
      */
-    private String propertyName;
+    private String entityProperty;
     /**
      * 简体中文
      */
-    private String zhLabel;
+    private String zhCnLabel;
     /**
      * 繁体中文
      */
@@ -45,11 +61,15 @@ public class EntityLabelEntity extends BaseEntity {
      */
     private String enLabel;
     /**
-     * 法语
-     */
-    private String frLabel;
-    /**
      * 日语
      */
     private String jaLabel;
+    /**
+     * 韩语
+     */
+    private String krLabel;
+    /**
+     * 法语
+     */
+    private String frLabel;
 }
