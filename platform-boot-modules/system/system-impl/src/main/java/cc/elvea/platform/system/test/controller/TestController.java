@@ -1,4 +1,4 @@
-package cc.elvea.platform.system.development.controller;
+package cc.elvea.platform.system.test.controller;
 
 import cc.elvea.platform.commons.annotations.Anonymous;
 import cc.elvea.platform.commons.annotations.DateTimeFormat;
@@ -8,7 +8,7 @@ import cc.elvea.platform.commons.base.R;
 import cc.elvea.platform.commons.constants.DateTimeConstants;
 import cc.elvea.platform.commons.message.broadcast.manager.BroadcastManager;
 import cc.elvea.platform.commons.web.controller.AbstractController;
-import cc.elvea.platform.system.development.broadcast.TestBroadcastMessage;
+import cc.elvea.platform.system.test.broadcast.TestBroadcastMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

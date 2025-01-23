@@ -1,4 +1,4 @@
-package cc.elvea.platform.system.development.broadcast;
+package cc.elvea.platform.system.test.broadcast;
 
 import cc.elvea.platform.commons.message.broadcast.BroadcastMessage;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package cc.elvea.platform.system.development.broadcast;
+package cc.elvea.platform.system.test.broadcast;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;

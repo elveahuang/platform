@@ -4,7 +4,7 @@ plugins {
     id("application")
     id("java-library")
     id("io.spring.dependency-management") version "1.1.7"
-    id("com.github.spotbugs") version "6.0.26" apply false
+    id("com.github.spotbugs") version "6.1.1" apply false
     id("org.springframework.boot") version "3.4.1" apply false
     id("org.jetbrains.kotlin.jvm") version "2.1.0" apply false
     id("org.graalvm.buildtools.native") version "0.10.4" apply false
@@ -70,11 +70,11 @@ allprojects {
             dependency("org.mapstruct:mapstruct-processor:1.6.3")
             dependency("org.projectlombok:lombok-mapstruct-binding:0.2.0")
             // openapi & swagger & springdoc
-            dependency("io.swagger.core.v3:swagger-core-jakarta:2.2.27")
-            dependency("io.swagger.core.v3:swagger-annotations:2.2.27")
-            dependency("io.swagger.core.v3:swagger-annotations-jakarta:2.2.27")
-            dependency("io.swagger.core.v3:swagger-models:2.2.27")
-            dependency("io.swagger.core.v3:swagger-models-jakarta:2.2.27")
+            dependency("io.swagger.core.v3:swagger-core-jakarta:2.2.28")
+            dependency("io.swagger.core.v3:swagger-annotations:2.2.28")
+            dependency("io.swagger.core.v3:swagger-annotations-jakarta:2.2.28")
+            dependency("io.swagger.core.v3:swagger-models:2.2.28")
+            dependency("io.swagger.core.v3:swagger-models-jakarta:2.2.28")
             dependency("org.springdoc:springdoc-openapi-starter-common:2.8.3")
             dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3")
             dependency("org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.3")
@@ -92,7 +92,7 @@ allprojects {
             dependency("com.nimbusds:nimbus-jose-jwt:10.0.1")
             dependency("com.nimbusds:oauth2-oidc-sdk:11.21")
             dependency("org.jetbrains:annotations:26.0.1")
-            dependency("com.github.spotbugs:spotbugs-annotations:4.8.6")
+            dependency("com.github.spotbugs:spotbugs-annotations:4.9.0")
             dependency("ognl:ognl:3.4.5")
             dependency("org.ow2.asm:asm:9.7.1")
             dependency("joda-time:joda-time:2.13.0")
@@ -107,9 +107,9 @@ allprojects {
             dependency("net.bytebuddy:byte-buddy:1.15.11")
             dependency("net.bytebuddy:byte-buddy-agent:1.15.11")
             dependency("io.github.classgraph:classgraph:4.8.179")
-            dependency("org.bouncycastle:bcpkix-jdk18on:1.79")
-            dependency("org.bouncycastle:bcprov-jdk18on:1.79")
-            dependency("org.bouncycastle:bcutil-jdk18on:1.79")
+            dependency("org.bouncycastle:bcpkix-jdk18on:1.80")
+            dependency("org.bouncycastle:bcprov-jdk18on:1.80")
+            dependency("org.bouncycastle:bcutil-jdk18on:1.80")
             // json & protobuf
             dependency("org.json:json:20250107")
             dependency("com.alibaba:fastjson:2.0.54")
@@ -142,7 +142,7 @@ allprojects {
             dependency("org.dromara.x-easypdf:x-easypdf-pdfbox:3.2.1")
             dependency("org.jsoup:jsoup:1.18.3")
             // sdk
-            dependency("io.minio:minio:8.5.16")
+            dependency("io.minio:minio:8.5.17")
             dependency("com.larksuite.oapi:oapi-sdk:2.4.8")
             dependency("com.github.binarywang:weixin-java-channel:4.6.0")
             dependency("com.github.binarywang:weixin-java-cp:4.7.0")
@@ -161,7 +161,7 @@ allprojects {
             dependency("com.alipay.sdk:alipay-sdk-java:4.40.44.ALL")
             // sdk - tencent
             dependency("com.qcloud:cos_api:5.6.240")
-            dependency("com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.1184")
+            dependency("com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.1185")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.1138")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-sms:3.1.1179")
             dependency("com.tencentcloudapi:tencentcloud-sdk-java-tmt:3.1.1156")
