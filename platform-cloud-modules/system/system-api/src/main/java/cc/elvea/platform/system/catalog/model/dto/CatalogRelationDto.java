@@ -9,7 +9,6 @@ import java.io.Serializable;
  * CatalogRelationDto
  *
  * @author elvea
- *
  */
 @Data
 @NoArgsConstructor
